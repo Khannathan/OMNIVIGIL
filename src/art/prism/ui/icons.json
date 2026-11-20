@@ -1,0 +1,50 @@
+{
+ "dock": [
+  "inspector",
+  "construct",
+  "forces",
+  "missions",
+  "research",
+  "ascendancy",
+  "symbiotes",
+  "diplomacy",
+  "doctrine",
+  "feed",
+  "abyss",
+  "processes",
+  "worlds",
+  "packs",
+  "system",
+  "ledger"
+ ],
+ "res": [
+  "alloys",
+  "silicon",
+  "data",
+  "capital",
+  "isotopes",
+  "helium3",
+  "neutronium",
+  "antimatter",
+  "darkmatter",
+  "voidcrystal",
+  "stellarplasma",
+  "xenobiomass",
+  "quantumfoam",
+  "exoticmatter",
+  "chronoflux",
+  "crypto"
+ ],
+ "note": "12x12 icons: row 0 dock windows (by data-id), row 1 resources drawn in magenta team shades, recoloured to each resource colour by tools/prism-icons.py. Pixelwright spr_a126f6b1. icons2.png (spr_8280249a) holds dock2, one row.",
+ "dock2": [
+  "population",
+  "faith",
+  "conflicts",
+  "arsenal",
+  "guild",
+  "gear",
+  "source",
+  "wilds",
+  "codex"
+ ]
+}
