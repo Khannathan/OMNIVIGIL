@@ -18,7 +18,7 @@
     const list = types.map((u) => {
       const owned = Object.values(st.units).filter((x) => x.type === u.id).length;
       const locked = u.requires && !st.techs[u.requires];
-      return `<button class="unit-row ${sel.id === u.id ? 'on' : ''} ${locked ? 'locked' : ''}" data-act="selUnit" data-id="${u.id}">
+      return `<button class="unit-row ${sel.id === u.id ? 'on' : ''} ${locked ? 'locked' : ''}" data-act="selDesign" data-id="${u.id}">
         <span class="uicon">${u.sprite ? OV.spriteImg(u.sprite, 2, { palette: u.spritePalette }) : (u.icon || '■')}</span><span><b>${esc(u.name)}</b><small>${esc(u.role || '')} ${locked ? '· 🔒 ' + esc((db.techs[u.requires] || {}).name || u.requires) : ''}</small></span><em>${owned || ''}</em></button>`;
     }).join('');
     return `<div class="split"><div class="col-list scroll"><h3>Unit designs <small>${types.length}</small></h3>${chips}${list || '<p class="muted small">No designs match.</p>'}</div><div class="col-main scroll">${unitDetail(st, db, sel)}</div></div>`;
@@ -118,7 +118,7 @@
   }
 
   Object.assign(UI.actions, {
-    selUnit(id) { F.unit = id; UI.refresh(); },
+    selDesign(id) { F.unit = id; UI.refresh(); },
     uRole(r) { F.uRole = r; UI.refresh(); },
     uAvail() { F.uAvail = !F.uAvail; UI.refresh(); },
     uOwned() { F.uOwned = !F.uOwned; UI.refresh(); },
