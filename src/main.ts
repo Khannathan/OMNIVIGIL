@@ -9,3 +9,4 @@ import '../css/mind.css';
 const art = import.meta.glob(['../js/render/landart.js', './art/*.ts', '!./art/*.worker.ts'], { eager: true });
 void art;
 import '../js/main.js';
+import '../css/prism-ui.css';

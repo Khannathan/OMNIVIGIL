@@ -1,0 +1,128 @@
+/* OMNIVIGIL v6 - Prism UI skin.
+   House style from the Pixelwright "Prism" set: deep ink panels, bone-white type, teal hardlight for
+   power and friendly things, ember for weapons and danger. Panels get hardlight corner brackets and a
+   faint scanline; the player's livery colour (--pri) still tints identity bits. Loaded last, so it
+   only re-skins: layout stays as in style.css. Turn off with body.no-prism. */
+:root {
+  --ink0: #0e111c; --ink1: #161c2d; --ink2: #1d2539; --ink3: #25304d; --ink4: #364670; --ink5: #52679a;
+  --bone: #efede4; --bone2: #c3c4cb; --bone3: #8b8d9e;
+  --core: #7cf4da; --core-d: #1fb5ad; --core-dd: #0d6670; --core-w: #e9fff8;
+  --ember: #ffb35c; --ember-d: #e2622c; --ember-dd: #8a2c1e;
+  --body: 'IBM Plex Sans', system-ui, sans-serif; --mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+body:not(.no-prism) {
+  --bg: var(--ink0); --panel: var(--ink1); --panel2: var(--ink2); --line: var(--ink3); --text: var(--bone); --muted: #9aa3bd;
+  --good: var(--core); --warn: var(--ember); --danger: #ff5f4a;
+  --frame: var(--ink4); --frame-hi: rgba(239,237,228,.08); --frame-lo: rgba(0,0,0,.6);
+  --panel-a: var(--ink2); --panel-b: var(--ink1); --glass: rgba(14,17,28,.9);
+  --hd: 'Silkscreen', 'Pixelify Sans', ui-monospace, monospace;
+  --scan: repeating-linear-gradient(180deg, rgba(255,255,255,.018) 0 1px, transparent 1px 3px);
+  /* hardlight corner brackets, drawn as background layers so nothing is clipped */
+  --brk: linear-gradient(var(--core), var(--core)) left top / 12px 2px no-repeat, linear-gradient(var(--core), var(--core)) left top / 2px 12px no-repeat,
+         linear-gradient(var(--core), var(--core)) right top / 12px 2px no-repeat, linear-gradient(var(--core), var(--core)) right top / 2px 12px no-repeat,
+         linear-gradient(var(--core-d), var(--core-d)) left bottom / 12px 2px no-repeat, linear-gradient(var(--core-d), var(--core-d)) left bottom / 2px 12px no-repeat,
+         linear-gradient(var(--core-d), var(--core-d)) right bottom / 12px 2px no-repeat, linear-gradient(var(--core-d), var(--core-d)) right bottom / 2px 12px no-repeat;
+}
+body:not(.no-prism) { background: var(--ink0); }
+
+/* ---------------------------------------------------------------- HUD */
+body:not(.no-prism) #hud {
+  background: var(--scan), linear-gradient(180deg, #1a2236 0%, var(--ink1) 55%, var(--ink0) 100%);
+  border-bottom: 2px solid var(--ink4);
+  box-shadow: 0 2px 0 #000, 0 3px 0 color-mix(in srgb, var(--core) 35%, transparent), 0 12px 24px rgba(0,0,0,.5);
+}
+body:not(.no-prism) .hud-name { color: var(--bone); text-shadow: 1px 1px 0 #000, 0 0 10px color-mix(in srgb, var(--core) 40%, transparent); }
+body:not(.no-prism) .hud-sub { color: var(--muted); }
+body:not(.no-prism) .res, body:not(.no-prism) .pill {
+  background: linear-gradient(180deg, var(--ink2), var(--ink0)); border: 2px solid var(--ink3);
+  box-shadow: inset 0 1px 0 rgba(239,237,228,.07), inset 0 -2px 0 rgba(0,0,0,.4), 0 2px 0 #000;
+  position: relative;
+}
+body:not(.no-prism) .res::before { content: ''; position: absolute; left: -2px; top: -2px; width: 6px; height: 2px; background: var(--core-d); }
+body:not(.no-prism) .res b { color: var(--bone); font-family: var(--px); }
+body:not(.no-prism) .res small { color: var(--core); }
+body:not(.no-prism) .meter { background: var(--ink0); border-color: var(--ink4); }
+body:not(.no-prism) .meter i { background: repeating-linear-gradient(90deg, var(--core-d) 0 6px, var(--core-dd) 6px 7px, transparent 7px 8px); box-shadow: 0 0 8px color-mix(in srgb, var(--core) 45%, transparent); }
+
+/* ---------------------------------------------------------------- buttons */
+body:not(.no-prism) .btn, body:not(.no-prism) .chip, body:not(.no-prism) .choice, body:not(.no-prism) .pick, body:not(.no-prism) .build,
+body:not(.no-prism) .list-btn, body:not(.no-prism) .unit-row, body:not(.no-prism) .win-btn {
+  background: linear-gradient(180deg, var(--ink3) 0%, var(--ink2) 45%, var(--ink1) 100%); border-color: var(--ink4); color: var(--bone);
+  box-shadow: inset 0 1px 0 rgba(239,237,228,.12), inset 0 -2px 0 rgba(0,0,0,.45), 0 2px 0 #000;
+}
+body:not(.no-prism) .btn:hover:not(:disabled), body:not(.no-prism) .chip:hover, body:not(.no-prism) .pick:hover, body:not(.no-prism) .build:hover:not(:disabled),
+body:not(.no-prism) .list-btn:hover, body:not(.no-prism) .unit-row:hover, body:not(.no-prism) .choice:hover:not(:disabled) {
+  border-color: var(--core-d); box-shadow: inset 0 1px 0 rgba(124,244,218,.25), inset 0 -2px 0 rgba(0,0,0,.45), 0 2px 0 #000, 0 0 10px rgba(31,181,173,.35);
+}
+body:not(.no-prism) .btn.primary, body:not(.no-prism) .chip.on, body:not(.no-prism) .pick.on, body:not(.no-prism) .unit-row.on {
+  background: linear-gradient(180deg, #1c6f73 0%, var(--core-dd) 50%, #083c45 100%); border-color: var(--core); color: var(--core-w);
+  box-shadow: inset 0 1px 0 rgba(233,255,248,.35), inset 0 -2px 0 rgba(0,0,0,.4), 0 2px 0 #000, 0 0 12px rgba(124,244,218,.35);
+}
+body:not(.no-prism) .btn span { color: var(--bone3); }
+body:not(.no-prism) .btn.primary span { color: color-mix(in srgb, var(--core-w) 75%, transparent); }
+/* the one big call to action: ember, because ending the cycle commits everything */
+body:not(.no-prism) .end-turn {
+  background: linear-gradient(180deg, #ffcf8a 0%, var(--ember) 18%, var(--ember-d) 70%, var(--ember-dd) 100%); border: 2px solid #ffe2b8; color: #1a0d06;
+  text-shadow: 0 1px 0 rgba(255,255,255,.35); font-family: var(--hd); letter-spacing: 2px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 -3px 0 rgba(0,0,0,.3), 0 2px 0 #000, 0 0 18px rgba(255,179,92,.35);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  animation: prismpulse 2.6s ease-in-out infinite;
+}
+body:not(.no-prism) .end-turn:hover { background: linear-gradient(180deg, #fff1d6 0%, #ffc47a 25%, var(--ember) 80%, var(--ember-d) 100%); color: #1a0d06; }
+@keyframes prismpulse { 50% { filter: brightness(1.12); } }
+body:not(.no-prism) input, body:not(.no-prism) select, body:not(.no-prism) textarea { background: var(--ink0); border-color: var(--ink4); color: var(--bone); }
+body:not(.no-prism) input:focus, body:not(.no-prism) select:focus { border-color: var(--core); box-shadow: 0 0 0 1px var(--core-dd), 0 0 10px rgba(124,244,218,.3); }
+body:not(.no-prism) .tag { border-color: var(--ink4); color: var(--bone3); }
+
+/* ---------------------------------------------------------------- floating windows */
+body:not(.no-prism) .win {
+  background: var(--brk), var(--scan), linear-gradient(180deg, var(--ink2) 0%, var(--ink1) 40%, #121726 100%);
+  border: 2px solid var(--ink4);
+  box-shadow: 0 0 0 2px #000, 0 0 0 3px rgba(31,181,173,.18), 0 18px 40px rgba(0,0,0,.6);
+}
+body:not(.no-prism) .win.front { border-color: var(--ink5); box-shadow: 0 0 0 2px #000, 0 0 0 3px rgba(124,244,218,.35), 0 0 24px rgba(31,181,173,.18), 0 18px 40px rgba(0,0,0,.6); }
+body:not(.no-prism) .win-h { background: linear-gradient(180deg, var(--ink3), var(--ink2)); border-bottom: 2px solid var(--ink4); box-shadow: inset 0 1px 0 rgba(239,237,228,.1); }
+body:not(.no-prism) .win.front .win-h { background: linear-gradient(180deg, #23405a 0%, var(--ink3) 55%, var(--ink2) 100%); border-bottom-color: var(--core-dd); }
+body:not(.no-prism) .win-ic { color: var(--core); filter: drop-shadow(0 0 4px rgba(124,244,218,.6)); }
+body:not(.no-prism) .win-t { color: var(--bone); }
+body:not(.no-prism) .win-btn[data-wm=close]:hover { background: var(--ember-dd); border-color: var(--ember-d); color: #fff; }
+
+/* ---------------------------------------------------------------- dock */
+body:not(.no-prism) #dock { background: var(--scan), linear-gradient(90deg, var(--ink1), rgba(22,28,45,.92)); border: 2px solid var(--ink4); box-shadow: 0 0 0 2px #000, 0 10px 24px rgba(0,0,0,.5); }
+body:not(.no-prism) .dock-btn small { color: var(--bone3); }
+body:not(.no-prism) .dock-btn:hover { background: rgba(124,244,218,.06); border-color: var(--ink4); }
+body:not(.no-prism) .dock-btn.on { background: linear-gradient(90deg, rgba(31,181,173,.38), transparent); border-color: var(--core-dd); box-shadow: inset 3px 0 0 var(--core); }
+body:not(.no-prism) .dock-btn.on span { color: var(--core-w); filter: drop-shadow(0 0 6px var(--core)); }
+body:not(.no-prism) .dock-btn.on small { color: var(--core); }
+body:not(.no-prism) .dock-btn em { background: var(--core); color: var(--ink0); }
+body:not(.no-prism) .dock-btn.alert em { background: var(--ember-d); color: #fff; }
+
+/* ---------------------------------------------------------------- modal, toasts, tips, ticker */
+body:not(.no-prism) #modal { background: radial-gradient(circle at 50% 40%, rgba(14,17,28,.55), rgba(5,6,12,.9)); }
+body:not(.no-prism) .modal-card {
+  background: var(--brk), var(--scan), linear-gradient(180deg, var(--ink2) 0%, var(--ink1) 50%, #121726 100%);
+  border: 2px solid var(--ink5);
+  box-shadow: 0 0 0 2px #000, 0 0 0 4px rgba(124,244,218,.25), 0 0 34px rgba(31,181,173,.25), 0 24px 60px #000;
+}
+body:not(.no-prism) .modal-card h2 { color: var(--core); text-shadow: 1px 1px 0 #000, 0 0 12px rgba(124,244,218,.35); }
+body:not(.no-prism) h2 { color: var(--core); }
+body:not(.no-prism) h3 { color: var(--bone); }
+body:not(.no-prism) .toast { background: var(--scan), var(--ink1); border: 2px solid var(--core-d); box-shadow: 0 0 0 2px #000, 0 0 14px rgba(31,181,173,.3); }
+body:not(.no-prism) .toast.good { border-color: var(--core); }
+body:not(.no-prism) .toast.bad { border-color: var(--ember-d); box-shadow: 0 0 0 2px #000, 0 0 14px rgba(226,98,44,.35); }
+body:not(.no-prism) .map-legend, body:not(.no-prism) .map-tip, body:not(.no-prism) .map-banner {
+  background: var(--brk), rgba(14,17,28,.9); border: 2px solid var(--ink4); box-shadow: 0 0 0 2px #000, 0 8px 18px rgba(0,0,0,.5);
+}
+body:not(.no-prism) #ticker > * { border-color: var(--ink4); }
+body:not(.no-prism) .bar { background: var(--ink0); border-color: var(--ink4); }
+body:not(.no-prism) .bar i { background: linear-gradient(90deg, var(--core-d), var(--core)); }
+body:not(.no-prism) .danger { color: #ff7a5c; }
+body:not(.no-prism) .warn { color: var(--ember); }
+body:not(.no-prism) .good { color: var(--core); }
+
+/* ---------------------------------------------------------------- menu */
+body:not(.no-prism) .menu { background: radial-gradient(ellipse at 50% 30%, #1d2b48 0%, var(--ink1) 45%, var(--ink0) 75%); }
+body:not(.no-prism) .menu h1 { color: var(--bone); text-shadow: 3px 3px 0 var(--core-dd), 0 0 24px rgba(124,244,218,.35); letter-spacing: 4px; }
+
+/* scrollbars */
+body:not(.no-prism) * { scrollbar-color: var(--ink4) var(--ink0); }

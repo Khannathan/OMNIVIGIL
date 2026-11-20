@@ -85,6 +85,9 @@
   function drawActor(DX, spr, p, sc, pose, t, opts) {
     const { ctx, blit, px } = DX; opts = opts || {};
     if (!spr) return;
+    // Prism art (src/art/prism.ts): animated frames for the pose; its own frames carry the motion, so less bob
+    const pf = spr.prism && OV.prism && OV.prism.frame ? OV.prism.frame(spr.prism, pose === 'hit' ? 'idle' : pose, t + (opts && opts.phase || 0) * 0.37, spr) : null;
+    if (pf) spr = pf;
     let bob = 0, alpha = opts.alpha === undefined ? 1 : opts.alpha;
     if (pose === 'idle') bob = Math.round(Math.sin(t * 2.2 + (opts.phase || 0)) * 0.6) * sc;
     if (pose === 'move') bob = -Math.abs(Math.sin(t * 14 + (opts.phase || 0))) * 1.5 * sc;
