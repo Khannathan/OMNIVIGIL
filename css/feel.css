@@ -1,5 +1,5 @@
 /* OMNIVIGIL v6 feel layer: goals panel and reward reveals (keeps the v5 pixel UI vibe) */
-#ovGoals { position: absolute; left: 84px; top: 48px; z-index: 5; width: 330px; max-width: calc(100% - 100px);
+#ovGoals { position: absolute; left: 84px; top: 48px; z-index: 14; width: 330px; max-width: calc(100% - 100px);
   background: rgba(8,12,18,.88); border: 2px solid var(--line); box-shadow: 0 2px 0 rgba(0,0,0,.5); font-size: 16px; }
 #ovGoals .gh { display: flex; justify-content: space-between; font-family: var(--hd); font-size: 10px; letter-spacing: .5px; color: var(--muted); padding: 4px 8px; cursor: pointer; border-bottom: 2px solid var(--line); }
 #ovGoals .gr { display: grid; grid-template-columns: 74px 1fr; gap: 6px; padding: 5px 8px; cursor: pointer; border-bottom: 1px solid rgba(36,54,74,.6); line-height: 1.05; }
@@ -44,3 +44,6 @@
 @keyframes rvpop { 0% { transform: scale(1); } 40% { transform: scale(1.14); } 100% { transform: scale(1); } }
 @keyframes rvburst { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(14); } }
 @keyframes rvglow { to { filter: brightness(1.25); } }
+/* Directives sit above floating windows, with a hardlight edge so they read as part of the HUD */
+#ovGoals { box-shadow: 0 0 0 2px #000, 0 0 0 3px rgba(124,244,218,.45), 0 0 18px rgba(31,181,173,.3), 0 8px 18px rgba(0,0,0,.5); }
+#ovGoals .gh { color: var(--core, #7cf4da); font-size: 11px; }
