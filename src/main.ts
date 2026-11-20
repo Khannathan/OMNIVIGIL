@@ -4,6 +4,7 @@ import './legacy';
 import './gl/globe';
 import './feel/index';
 import './mind/mind';
+import './loop/econ';
 import '../css/mind.css';
 // optional art layers (the art thread's land/city art); either path may exist
 const art = import.meta.glob(['../js/render/landart.js', './art/*.ts', '!./art/*.worker.ts'], { eager: true });
