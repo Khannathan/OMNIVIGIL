@@ -12,6 +12,8 @@
 //    owner's colour in three shades. One canvas is cached per (unit, team, frame).
 //  - Sheets face right and are anchored bottom-centre (feet on the last row; flyers carry the
 //    space below them so their fall in the death animation stays in frame).
+//  - Creatures and Abyssians (batch 3): cr:<id> map to one of seven creature designs, ab_* ids to
+//    their own art; their manifest keys keep the creatures/ prefix.
 //  - Static map art (batch 2): structures by generated style (24 styles), the 11 strategic sites,
 //    the core and rifts; same team recolour, sized by OV.prism.staticScale against the old art.
 //  - OV.prism.enabled = false turns it off (call OV.clearSpriteCache after).
@@ -36,6 +38,15 @@ const BY_UNIT: [RegExp, string][] = [
   [/_sub$|lamprey|leviathan/, 'sub'],
   [/wraith_daemon|lattice_worm|puppeteer|echo_shell/, 'cyber']
 ];
+// frontier creatures (cr:<id>) -> Prism creature design; anything new falls back by style
+const CREATURE: Record<string, string> = {
+  skreel: 'crawler', drift_grazer: 'crawler', rime_strider: 'crawler', gravid_stalker: 'crawler',
+  echo_mimic: 'floater', sentinel_squid: 'floater', spore_choir: 'floater',
+  cog_walker: 'strider', hunter_killer: 'strider', glasswing: 'flyer', pyre_drake: 'flyer',
+  tide_lurker: 'serpent', magma_eel: 'serpent', thresher: 'serpent', deepsand_wyrm: 'serpent', leech_serpent: 'serpent',
+  necroform: 'husk', breach_kaiju: 'kaiju', devourer_lord: 'kaiju'
+};
+const CREATURE_STYLE: Record<string, string> = { beast: 'crawler', orb: 'floater', walker: 'strider', jet: 'flyer', serpent: 'serpent', infantry: 'husk' };
 // v20 legacy sprite ids
 const BY_ID: Record<string, string> = {
   u_drone: 'drone', u_ghost: 'trooper', u_mech: 'mech', u_naval: 'ship', u_air: 'jet', u_hunter: 'mech',
@@ -47,7 +58,7 @@ let loaded = 0, total = 0;
 function load() {
   if (typeof document === 'undefined') return;
   for (const [path, url] of Object.entries(SHEETS)) {
-    const unit = path.startsWith('units/') ? path.slice(6) : null;
+    const unit = path.startsWith('units/') ? path.slice(6) : M.units[path] ? path : null; // creatures/* keep their path
     if (unit ? !M.units[unit] : !M.statics[path]) continue;
     total++;
     const img = new Image();
@@ -59,8 +70,10 @@ function load() {
 export function prismFor(id: string): string | null {
   if (!id) return null;
   if (BY_ID[id]) return BY_ID[id];
+  if (M.units['creatures/' + id]) return 'creatures/' + id; // Abyssians (ab_*) by sprite id
   const def = OV.db && OV.db.sprites && OV.db.sprites[id];
   if (!def || def.gen !== 'unit') return null;
+  if (id.startsWith('cr:')) return 'creatures/' + (CREATURE[id.slice(3)] || CREATURE_STYLE[def.style] || 'crawler');
   const uid = id.startsWith('gen:u:') ? id.slice(6) : id;
   for (const [re, p] of BY_UNIT) if (re.test(uid)) return p;
   return BY_STYLE[def.style] || null;
