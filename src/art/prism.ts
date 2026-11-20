@@ -1,0 +1,115 @@
+// OMNIVIGIL Prism art: hand-drawn Pixelwright unit sprites with idle, move, attack and death
+// animations, swapped in for the generated unit art. Studio project: see prism/manifest.json.
+//
+// How it plugs in:
+//  - OV.sprite(id, opts) is wrapped. For a unit sprite we have Prism art for (by unit id, by the
+//    v20 u_* ids, or by the generated sprite's style) it returns the idle frame, a canvas with
+//    .hd (Prism pixels per native pixel, which blit and the GPU layer divide out so on-screen size
+//    stays close to the old art) and .prism (the key OV.prism.frame takes).
+//  - OV.prism.frame(key, pose, t) returns the frame for a pose at time t (seconds). drawActor in
+//    js/ui/field.js calls it. Missing poses fall back to idle; "hit" is handled by drawActor.
+//  - Team colour: the sheets paint faction parts in magenta (team.0/1/2), recoloured here to the
+//    owner's colour in three shades. One canvas is cached per (unit, team, frame).
+//  - Sheets face right and are anchored bottom-centre (feet on the last row; flyers carry the
+//    space below them so their fall in the death animation stays in frame).
+//  - OV.prism.enabled = false turns it off (call OV.clearSpriteCache after).
+import manifest from './prism/manifest.json';
+import SHEETS from './prism/sheets';
+
+const OV: any = (globalThis as any).OV || ((globalThis as any).OV = {});
+
+type Anim = [number, number, number, number]; // first frame, count, ms per frame, loops
+const M: any = manifest;
+const ANIMS: Record<string, Anim> = M.anims;
+const TEAM = (M.team as string[]).map((h) => parseInt(h.slice(1), 16));
+
+// generated-sprite style -> Prism unit (v20 spritegen styles)
+const BY_STYLE: Record<string, string> = {
+  mech: 'mech', titan: 'titan', tank: 'tank', hover: 'tank', artillery: 'tank', drone: 'drone', jet: 'jet',
+  ship: 'ship', carrier: 'ship', infantry: 'trooper', beast: 'beast', walker: 'beast', orb: 'cyber'
+};
+// unit ids that read better as another Prism unit than their style suggests
+const BY_UNIT: [RegExp, string][] = [
+  [/bomber|gunship|lifter|dropship(?!_lander)/, 'bomber'],
+  [/_sub$|lamprey|leviathan/, 'sub'],
+  [/wraith_daemon|lattice_worm|puppeteer|echo_shell/, 'cyber']
+];
+// v20 legacy sprite ids
+const BY_ID: Record<string, string> = {
+  u_drone: 'drone', u_ghost: 'trooper', u_mech: 'mech', u_naval: 'ship', u_air: 'jet', u_hunter: 'mech',
+  u_nanite: 'beast', u_titan: 'titan', u_chimera: 'beast'
+};
+
+const sheets: Record<string, HTMLImageElement> = {};
+let loaded = 0, total = 0;
+function load() {
+  if (typeof document === 'undefined') return;
+  for (const [path, url] of Object.entries(SHEETS)) {
+    const name = path.replace(/^units\//, '');
+    if (!M.units[name]) continue;
+    total++;
+    const img = new Image();
+    img.onload = () => { loaded++; if (loaded === total && OV.clearSpriteCache) OV.clearSpriteCache(); };
+    img.src = url; sheets[name] = img;
+  }
+}
+
+export function prismFor(id: string): string | null {
+  if (!id) return null;
+  if (BY_ID[id]) return BY_ID[id];
+  const def = OV.db && OV.db.sprites && OV.db.sprites[id];
+  if (!def || def.gen !== 'unit') return null;
+  const uid = id.startsWith('gen:u:') ? id.slice(6) : id;
+  for (const [re, p] of BY_UNIT) if (re.test(uid)) return p;
+  return BY_STYLE[def.style] || null;
+}
+
+const rgbOf = (hex: string) => { const m = /^#?([0-9a-f]{6})$/i.exec(hex || ''); return m ? parseInt(m[1], 16) : 0x1fb5ad; };
+const shadeOf = (v: number, f: number) => { const c = (x: number) => Math.max(0, Math.min(255, Math.round(x * f))); return [c((v >> 16) & 255), c((v >> 8) & 255), c(v & 255)]; };
+
+const frames = new Map<string, any>(); // `${unit}|${team}|${frame}` -> canvas
+const keys = new Map<string, { unit: string; team: string; hd: number }>();
+function frameCanvas(unit: string, team: string, i: number, hd: number, key: string) {
+  const k = unit + '|' + team + '|' + i; const hit = frames.get(k); if (hit) return hit;
+  const u = M.units[unit], img = sheets[unit]; if (!u || !img || !img.complete || !img.naturalWidth) return null;
+  const c: any = document.createElement('canvas'); c.width = u.w; c.height = u.h;
+  const g = c.getContext('2d'); g.drawImage(img, i * u.w, 0, u.w, u.h, 0, 0, u.w, u.h);
+  const tv = rgbOf(team), ramp = [shadeOf(tv, 0.5), shadeOf(tv, 0.78), shadeOf(tv, 1.12)];
+  const d = g.getImageData(0, 0, u.w, u.h), p = d.data;
+  for (let j = 0; j < p.length; j += 4) {
+    if (!p[j + 3]) continue;
+    const t = TEAM.indexOf((p[j] << 16) | (p[j + 1] << 8) | p[j + 2]); if (t < 0) continue;
+    p[j] = ramp[t][0]; p[j + 1] = ramp[t][1]; p[j + 2] = ramp[t][2];
+  }
+  g.putImageData(d, 0, 0);
+  c.hd = hd; c.prism = key; frames.set(k, c); return c;
+}
+
+export function frame(key: string, pose: string, t: number) {
+  const K = keys.get(key); if (!K) return null;
+  const a = ANIMS[pose] || ANIMS.idle, n = a[1], step = Math.floor((t * 1000) / a[2]);
+  const f = a[0] + (a[3] ? step % n : Math.min(n - 1, step % (n + 2))); // one-shots hold their last frame briefly
+  return frameCanvas(K.unit, K.team, f, K.hd, key);
+}
+
+function install() {
+  if (!OV.sprite || OV.sprite.__prism) return !!OV.sprite;
+  const base = OV.sprite;
+  const wrapped: any = function (id: string, opts?: any) {
+    const P = OV.prism;
+    const unit = P && P.enabled !== false ? prismFor(id) : null;
+    if (!unit || !sheets[unit] || !sheets[unit].complete) return base(id, opts);
+    const native = base(id, opts), u = M.units[unit];
+    const nh = native && native.height ? native.height / (native.hd || 1) : 20, nw = native && native.width ? native.width / (native.hd || 1) : 20;
+    const hd = Math.max(1, Math.max(u.bodyH / nh, (u.bodyW * 0.75) / nw) / (P.scale || 1));
+    const team = (opts && opts.team) || '#1fb5ad', key = unit + '|' + team + '|' + hd.toFixed(3);
+    if (!keys.has(key)) keys.set(key, { unit, team, hd });
+    return frameCanvas(unit, team, 0, hd, key) || native;
+  };
+  wrapped.__prism = true; wrapped.__hd = base.__hd; OV.sprite = wrapped;
+  return true;
+}
+
+OV.prism = Object.assign(OV.prism || {}, { enabled: true, scale: 1, frame, prismFor, manifest: M });
+load();
+if (typeof document !== 'undefined' && !install()) { let n = 0; const t = setInterval(() => { if (install() || ++n > 100) clearInterval(t); }, 100); }
