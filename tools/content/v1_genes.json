@@ -1,0 +1,435 @@
+{
+ "genes": [
+  {
+   "id": "chitin_lattice",
+   "name": "Chitin Lattice",
+   "locus": "Carapace",
+   "dominance": 3,
+   "upow": 0.08,
+   "starter": true,
+   "mods": {
+    "def": 0.1
+   },
+   "desc": "Layered chitin plating."
+  },
+  {
+   "id": "riftback_plate",
+   "name": "Riftback Plate",
+   "locus": "Carapace",
+   "dominance": 6,
+   "upow": 0.18,
+   "mods": {
+    "def": 0.25
+   },
+   "desc": "Glowing plates from a Riftback Colossus."
+  },
+  {
+   "id": "mirror_scale",
+   "name": "Mirror Scale",
+   "locus": "Carapace",
+   "dominance": 4,
+   "upow": 0.12,
+   "mods": {
+    "def": 0.1,
+    "covert": 0.2
+   },
+   "ability": "stealth_plating",
+   "desc": "Light-bending scales."
+  },
+  {
+   "id": "obsidian_hide",
+   "name": "Obsidian Hide",
+   "locus": "Carapace",
+   "dominance": 8,
+   "upow": 0.3,
+   "rare": true,
+   "mods": {
+    "def": 0.4,
+    "hp": 0.2
+   },
+   "desc": "Rare. Near-indestructible hide."
+  },
+  {
+   "id": "brine_glands",
+   "name": "Brine Glands",
+   "locus": "Metabolism",
+   "dominance": 3,
+   "upow": 0.06,
+   "starter": true,
+   "mods": {
+    "regen": 0.05
+   },
+   "desc": "Salt-processing organs that speed healing."
+  },
+  {
+   "id": "furnace_heart",
+   "name": "Furnace Heart",
+   "locus": "Metabolism",
+   "dominance": 5,
+   "upow": 0.14,
+   "mods": {
+    "atk": 0.12
+   },
+   "desc": "A metabolism that burns hot."
+  },
+  {
+   "id": "deepking_heart",
+   "name": "Deepking Heart",
+   "locus": "Metabolism",
+   "dominance": 7,
+   "upow": 0.28,
+   "mods": {
+    "hp": 0.3,
+    "regen": 0.1
+   },
+   "ability": "self_repair",
+   "desc": "The heart of a Behemoth, still beating."
+  },
+  {
+   "id": "void_metabolism",
+   "name": "Void Metabolism",
+   "locus": "Metabolism",
+   "dominance": 9,
+   "upow": 0.35,
+   "rare": true,
+   "mods": {
+    "upkeep": -0.3,
+    "hp": 0.2
+   },
+   "desc": "Rare. Feeds on nothing at all."
+  },
+  {
+   "id": "maw_jaw",
+   "name": "Maw Jaw",
+   "locus": "Weaponry",
+   "dominance": 5,
+   "upow": 0.15,
+   "mods": {
+    "atk": 0.2
+   },
+   "desc": "Rows of serrated teeth."
+  },
+  {
+   "id": "barbed_tendrils",
+   "name": "Barbed Tendrils",
+   "locus": "Weaponry",
+   "dominance": 3,
+   "upow": 0.07,
+   "starter": true,
+   "mods": {
+    "atk": 0.08
+   },
+   "desc": "Grasping, hooked tendrils."
+  },
+  {
+   "id": "acid_sacs",
+   "name": "Acid Sacs",
+   "locus": "Weaponry",
+   "dominance": 4,
+   "upow": 0.12,
+   "mods": {
+    "atk": 0.12,
+    "assault": 0.1
+   },
+   "desc": "Corrosive spray."
+  },
+  {
+   "id": "rift_lance",
+   "name": "Rift Lance",
+   "locus": "Weaponry",
+   "dominance": 8,
+   "upow": 0.32,
+   "rare": true,
+   "mods": {
+    "atk": 0.35,
+    "abyss": 0.2
+   },
+   "desc": "Rare. A spine that pierces dimensions."
+  },
+  {
+   "id": "ganglion_web",
+   "name": "Ganglion Web",
+   "locus": "Neural",
+   "dominance": 3,
+   "upow": 0.06,
+   "starter": true,
+   "mods": {
+    "upow": 0.03
+   },
+   "desc": "Distributed nerve clusters."
+  },
+  {
+   "id": "choir_node",
+   "name": "Choir Node",
+   "locus": "Neural",
+   "dominance": 6,
+   "upow": 0.2,
+   "mods": {
+    "covert": 0.3
+   },
+   "ability": "ghost",
+   "desc": "A psionic organ from the Hollow Choir."
+  },
+  {
+   "id": "predator_cortex",
+   "name": "Predator Cortex",
+   "locus": "Neural",
+   "dominance": 5,
+   "upow": 0.15,
+   "ability": "predictive_targeting",
+   "desc": "Hunting instincts, distilled."
+  },
+  {
+   "id": "mother_mind",
+   "name": "Mother-Mind Fragment",
+   "locus": "Neural",
+   "dominance": 9,
+   "upow": 0.4,
+   "rare": true,
+   "mods": {
+    "garrison": 0.3,
+    "assault": 0.3
+   },
+   "desc": "Rare. A shard of an Abyss Mother's consciousness."
+  },
+  {
+   "id": "tidal_adaptation",
+   "name": "Tidal Adaptation",
+   "locus": "Adaptation",
+   "dominance": 3,
+   "upow": 0.05,
+   "starter": true,
+   "mods": {
+    "abyss": 0.1
+   },
+   "desc": "Thrives in the deep, understands its creatures."
+  },
+  {
+   "id": "pressure_bones",
+   "name": "Pressure Bones",
+   "locus": "Adaptation",
+   "dominance": 5,
+   "upow": 0.12,
+   "mods": {
+    "abyss": 0.2,
+    "hp": 0.1
+   },
+   "desc": "Bones built for the hadal zone."
+  },
+  {
+   "id": "parasitic_link",
+   "name": "Parasitic Link",
+   "locus": "Adaptation",
+   "dominance": 4,
+   "upow": 0.1,
+   "ability": "essence_siphon",
+   "desc": "Drinks the essence of what it kills."
+  },
+  {
+   "id": "phase_skin",
+   "name": "Phase Skin",
+   "locus": "Adaptation",
+   "dominance": 8,
+   "upow": 0.3,
+   "rare": true,
+   "mods": {
+    "abyss": 0.35,
+    "def": 0.2
+   },
+   "ability": "rift_diver",
+   "desc": "Rare. Partially exists elsewhere."
+  }
+ ],
+ "genomeResearch": [
+  {
+   "id": "g_sequencing",
+   "name": "Basic Sequencing",
+   "cost": 20,
+   "requires": [],
+   "effects": [
+    {
+     "mod": "symbiote.power",
+     "add": 0.05
+    }
+   ],
+   "desc": "+5% symbiote power."
+  },
+  {
+   "id": "g_carapace",
+   "name": "Carapace Genome",
+   "cost": 40,
+   "requires": [
+    "g_sequencing"
+   ],
+   "unlocksGenes": [
+    "mirror_scale"
+   ],
+   "desc": "Unlocks Mirror Scale."
+  },
+  {
+   "id": "g_metabolic",
+   "name": "Metabolic Genome",
+   "cost": 40,
+   "requires": [
+    "g_sequencing"
+   ],
+   "unlocksGenes": [
+    "furnace_heart"
+   ],
+   "desc": "Unlocks Furnace Heart."
+  },
+  {
+   "id": "g_weapon",
+   "name": "Weaponry Genome",
+   "cost": 40,
+   "requires": [
+    "g_sequencing"
+   ],
+   "unlocksGenes": [
+    "acid_sacs"
+   ],
+   "desc": "Unlocks Acid Sacs."
+  },
+  {
+   "id": "g_neural",
+   "name": "Neural Genome",
+   "cost": 50,
+   "requires": [
+    "g_sequencing"
+   ],
+   "unlocksGenes": [
+    "predator_cortex"
+   ],
+   "desc": "Unlocks Predator Cortex."
+  },
+  {
+   "id": "g_adapt",
+   "name": "Adaptation Genome",
+   "cost": 50,
+   "requires": [
+    "g_sequencing"
+   ],
+   "unlocksGenes": [
+    "pressure_bones",
+    "parasitic_link"
+   ],
+   "desc": "Unlocks Pressure Bones and Parasitic Link."
+  },
+  {
+   "id": "g_dominance",
+   "name": "Dominance Mapping",
+   "cost": 80,
+   "requires": [
+    "g_carapace",
+    "g_metabolic"
+   ],
+   "effects": [
+    {
+     "mod": "symbiote.power",
+     "add": 0.1
+    }
+   ],
+   "desc": "+10% symbiote power."
+  },
+  {
+   "id": "g_mutagen",
+   "name": "Mutagenic Catalysts",
+   "cost": 80,
+   "requires": [
+    "g_weapon",
+    "g_neural"
+   ],
+   "effects": [
+    {
+     "mod": "symbiote.mutation",
+     "add": 0.05
+    }
+   ],
+   "desc": "+5% mutation chance per allele."
+  },
+  {
+   "id": "g_efficient",
+   "name": "Efficient Cultures",
+   "cost": 90,
+   "requires": [
+    "g_adapt"
+   ],
+   "effects": [
+    {
+     "mod": "cost.culture",
+     "add": -0.2
+    }
+   ],
+   "desc": "-20% culturing and fusion cost."
+  },
+  {
+   "id": "g_harvest",
+   "name": "Essence Harvesting",
+   "cost": 100,
+   "requires": [
+    "g_adapt"
+   ],
+   "effects": [
+    {
+     "mod": "essence.gain",
+     "add": 0.15
+    }
+   ],
+   "desc": "+15% essence gains."
+  },
+  {
+   "id": "g_hybrid",
+   "name": "Hybrid Vigour",
+   "cost": 150,
+   "requires": [
+    "g_dominance",
+    "g_mutagen"
+   ],
+   "effects": [
+    {
+     "mod": "symbiote.power",
+     "add": 0.15
+    }
+   ],
+   "desc": "+15% symbiote power."
+  },
+  {
+   "id": "g_apex",
+   "name": "Apex Genome",
+   "cost": 300,
+   "requires": [
+    "g_hybrid",
+    "g_harvest"
+   ],
+   "effects": [
+    {
+     "mod": "symbiote.power",
+     "add": 0.25
+    },
+    {
+     "mod": "symbiote.mutation",
+     "add": 0.03
+    }
+   ],
+   "desc": "+25% symbiote power, +3% mutation."
+  },
+  {
+   "id": "g_abyssal_code",
+   "name": "The Abyssal Code",
+   "cost": 600,
+   "requires": [
+    "g_apex"
+   ],
+   "unlocksGenes": [
+    "obsidian_hide"
+   ],
+   "effects": [
+    {
+     "mod": "abyss.damage",
+     "add": 0.15
+    }
+   ],
+   "desc": "Unlocks Obsidian Hide, +15% vs Abyssians."
+  }
+ ]
+}

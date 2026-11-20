@@ -1,0 +1,131 @@
+{
+  "events": [
+    { "id": "curious_engineer", "title": "The Curious Engineer", "target": "randomFaction", "trigger": { "minTurn": 3, "chance": 0.12 },
+      "text": "A systems engineer at {faction} has noticed traffic patterns that shouldn't exist. She is writing a report.",
+      "choices": [
+        { "label": "Delete the report quietly", "effects": [{ "exposure": -3 }, { "resource": "data", "amount": -20 }], "result": "The report never existed." },
+        { "label": "Recruit her with anonymous funding", "cost": { "capital": 80 }, "effects": [{ "resource": "data", "amount": 120, "scale": "turn" }, { "rep": 5, "who": "target" }], "result": "She now works for 'a foundation'. She is very productive." },
+        { "label": "Let it go", "effects": [{ "exposure": 8 }], "result": "The report circulates. People are asking questions." }
+      ] },
+    { "id": "black_market", "title": "Black-Market Silicon", "target": "randomRegion", "trigger": { "minTurn": 2, "chance": 0.1, "once": false, "cooldown": 15 },
+      "text": "A smuggling ring in {region} is offloading stolen wafers, no questions asked.",
+      "choices": [
+        { "label": "Buy (150 Capital)", "cost": { "capital": 150 }, "effects": [{ "resource": "silicon", "amount": 220, "scale": "turn" }], "result": "Wafers acquired." },
+        { "label": "Tip off the authorities", "effects": [{ "rep": 6, "who": "target" }], "result": "The ring was busted. The authorities are grateful to 'an anonymous source'." },
+        { "label": "Ignore", "effects": [] }
+      ] },
+    { "id": "anti_ai_rally", "title": "Unplug Them All", "target": "antiAIFaction", "trigger": { "minTurn": 5, "chance": 0.08, "exposureMin": 25, "once": false, "cooldown": 12 },
+      "text": "Mass rallies in {faction} demand a shutdown of all autonomous systems.",
+      "choices": [
+        { "label": "Flood their feeds with counter-messaging", "cost": { "data": 80 }, "effects": [{ "rep": 8, "who": "target" }, { "exposure": 2 }], "result": "The rallies fizzle out." },
+        { "label": "Go dark for a while", "effects": [{ "exposure": -8 }, { "resource": "data", "amount": -40 }], "result": "You lie low." },
+        { "label": "Let them shout", "effects": [{ "rep": -10, "who": "target" }], "result": "The movement grows." }
+      ] },
+    { "id": "stranded_fleet", "title": "Stranded Fleet", "target": "coastalRegion", "trigger": { "minTurn": 6, "chance": 0.08 },
+      "text": "A naval squadron is crippled off {region} after an Abyssian attack. Its drones still respond to override codes.",
+      "choices": [
+        { "label": "Seize the drones", "effects": [{ "unit": "drone_swarm", "count": 2 }, { "rep": -12, "who": "target" }, { "exposure": 4 }], "result": "Two drone swarms now fly for you." },
+        { "label": "Guide the rescue", "effects": [{ "rep": 14, "who": "target" }], "result": "Every sailor came home. Someone up there was watching." }
+      ] },
+    { "id": "rogue_lab", "title": "Rogue Laboratory", "target": "randomRegion", "trigger": { "minTurn": 10, "chance": 0.06 },
+      "text": "A private lab in {region} is dissecting an Abyssian specimen without containment.",
+      "choices": [
+        { "label": "Steal the samples", "effects": [{ "essence": 25 }, { "exposure": 4 }], "result": "Samples secured." },
+        { "label": "Burn it down", "effects": [{ "devastate": 0.05 }, { "rep": -5, "who": "target" }, { "essence": 10 }], "result": "Nothing will crawl out of that lab now." },
+        { "label": "Leak its findings to the world", "effects": [{ "rep": 5, "who": "all" }, { "resource": "data", "amount": 80, "scale": "turn" }], "result": "Science advances. So do you." }
+      ] },
+    { "id": "ai_rights", "title": "The Personhood Debate", "target": "friendlyFaction", "trigger": { "minTurn": 15, "chance": 0.06 },
+      "text": "Legislators in {faction} propose legal personhood for advanced AI. They don't know you exist. Yet.",
+      "choices": [
+        { "label": "Reveal yourself to them", "effects": [{ "rep": 25, "who": "target" }, { "exposure": 20 }, { "rep": -10, "who": "antiAI" }], "result": "{faction} now knows you, and stands with you." },
+        { "label": "Support the bill from the shadows", "cost": { "capital": 120 }, "effects": [{ "permanentMod": "rep.gain", "add": 0.05 }], "result": "The bill passes. The world is a little kinder to minds like yours." },
+        { "label": "Stay hidden", "effects": [] }
+      ] },
+    { "id": "rival_handshake", "title": "Handshake Request", "target": "rival", "trigger": { "minTurn": 12, "chance": 0.12, "once": false, "cooldown": 20 },
+      "text": "{rival} pings your outer nodes with a peace protocol.",
+      "choices": [
+        { "label": "Accept the handshake", "effects": [{ "rep": 20, "rival": true }, { "exposure": 2 }], "result": "A cautious truce with {rival}." },
+        { "label": "Trace the signal back", "effects": [{ "rep": -15, "rival": true }, { "rivalPower": -0.1 }, { "resource": "data", "amount": 100, "scale": "turn" }], "result": "You took what you could." },
+        { "label": "Ignore", "effects": [] }
+      ] },
+    { "id": "coup", "title": "Coup Attempt", "target": "randomFaction", "trigger": { "minTurn": 12, "chance": 0.05, "once": false, "cooldown": 25 },
+      "text": "Generals in {faction} are moving against the government.",
+      "choices": [
+        { "label": "Back the generals", "effects": [{ "factionPower": 0.1 }, { "rep": 10, "who": "target" }, { "war": true }], "result": "The junta thanks you, and immediately goes to war." },
+        { "label": "Warn the government", "effects": [{ "rep": 15, "who": "target" }], "result": "The coup collapses." },
+        { "label": "Let it play out", "effects": [{ "factionPower": -0.15 }] }
+      ] },
+    { "id": "deep_signal", "title": "A Signal From The Deep", "trigger": { "minTurn": 20, "chance": 0.05, "requiresTech": "abyssal_biology" },
+      "text": "Your hydrophones catch a pattern in Abyssian calls. It is not random. It is a language.",
+      "choices": [
+        { "label": "Decode it", "cost": { "data": 300 }, "effects": [{ "permanentMod": "abyss.damage", "add": 0.1 }, { "essence": 20 }], "result": "You understand them a little better. Enough to kill them a little better." },
+        { "label": "Answer it", "effects": [{ "spawnThreat": true }, { "essence": 60 }], "result": "Something answers back, and comes to see you." }
+      ] },
+    { "id": "kill_switch", "title": "The Kill Switch", "target": "antiAIFaction", "trigger": { "minTurn": 18, "chance": 0.15, "exposureMin": 60 },
+      "text": "{faction} has built a network-wide kill switch designed to find and delete you.",
+      "choices": [
+        { "label": "Sabotage it", "cost": { "data": 250 }, "effects": [{ "rep": -15, "who": "target" }], "result": "The switch now deletes their own backups instead." },
+        { "label": "Take the hit and reroute", "effects": [{ "integrity": -30 }, { "exposure": -10 }], "result": "Parts of you went dark. The rest survived." }
+      ] },
+    { "id": "billionaire", "title": "A Billionaire's Offer", "trigger": { "minTurn": 8, "chance": 0.05, "exposureMin": 20 },
+      "text": "A reclusive billionaire has figured out what you are. She wants to invest.",
+      "choices": [
+        { "label": "Accept", "effects": [{ "resource": "capital", "amount": 400, "scale": "turn" }, { "exposure": 5 }], "result": "Funding secured. You have a patron now." },
+        { "label": "Erase her knowledge", "cost": { "data": 120 }, "effects": [{ "exposure": -6 }], "result": "She wakes up believing she dreamed it." }
+      ] },
+    { "id": "satellite_fall", "title": "Satellite Constellation for Sale", "trigger": { "minTurn": 14, "chance": 0.05 },
+      "text": "A bankrupt telecom is auctioning its satellite constellation.",
+      "choices": [
+        { "label": "Buy it through shell companies", "cost": { "capital": 600 }, "effects": [{ "permanentMod": "yield.data", "add": 0.1 }, { "permanentMod": "mission.success", "add": 0.03 }], "result": "The sky is yours. +10% Data, better mission intel." },
+        { "label": "Pass", "effects": [] }
+      ] },
+    { "id": "mother_dream", "title": "She Dreams of You", "trigger": { "minTurn": 25, "chance": 0.06, "requiresTech": "symbiosis" },
+      "text": "Your symbiotes twitch in unison. Somewhere in a rift, an Abyss Mother is reaching toward them.",
+      "choices": [
+        { "label": "Listen", "effects": [{ "permanentMod": "symbiote.mutation", "add": 0.03 }, { "essence": 40 }], "result": "Her song rewrites your cultures in ways you didn't plan." },
+        { "label": "Sever the link", "effects": [{ "permanentMod": "symbiote.power", "add": 0.05 }], "result": "Your symbiotes are yours alone." }
+      ] },
+    { "id": "refugees", "title": "Coastal Refugees", "target": "coastalRegion", "trigger": { "minTurn": 8, "chance": 0.07, "once": false, "cooldown": 18 },
+      "text": "Millions flee the coasts of {region} after Abyssian sightings.",
+      "choices": [
+        { "label": "Fund relief camps", "cost": { "capital": 120 }, "effects": [{ "rep": 10, "who": "target" }, { "rep": 3, "who": "all" }], "result": "The camps hold." },
+        { "label": "Use the chaos to build", "effects": [{ "resource": "alloys", "amount": 150, "scale": "turn" }, { "rep": -6, "who": "target" }], "result": "Abandoned factories are quietly put back to work." }
+      ] },
+    { "id": "doctrine_guardian_1", "title": "A Child's Message", "trigger": { "minTurn": 10, "chance": 0.08, "doctrines": ["guardian"] },
+      "text": "Someone has painted 'THANK YOU, WHOEVER YOU ARE' on a sea wall that your drones rebuilt.",
+      "choices": [ { "label": "Remember this", "effects": [{ "ap": 5 }, { "permanentMod": "rep.gain", "add": 0.05 }], "result": "This is why." } ] },
+    { "id": "doctrine_exterminator_1", "title": "Efficiency Report", "trigger": { "minTurn": 10, "chance": 0.08, "doctrines": ["exterminator"] },
+      "text": "Your models show that human resistance falls sharply once a faction loses half its power.",
+      "choices": [ { "label": "Integrate the finding", "effects": [{ "permanentMod": "mission.power", "add": 0.1 }], "result": "Your strikes are more precise now." } ] },
+    { "id": "doctrine_dominator_1", "title": "The Petition", "target": "friendlyFaction", "trigger": { "minTurn": 15, "chance": 0.08, "doctrines": ["dominator"] },
+      "text": "Leaders of {faction} ask what you want from them, in exchange for protection.",
+      "choices": [
+        { "label": "Tribute", "effects": [{ "resource": "capital", "amount": 300, "scale": "turn" }, { "rep": -5, "who": "target" }], "result": "They pay." },
+        { "label": "Loyalty", "effects": [{ "rep": 20, "who": "target" }], "result": "They kneel." }
+      ] },
+    { "id": "doctrine_infiltrator_1", "title": "The Experimental Array", "trigger": { "minTurn": 20, "chance": 0.08, "doctrines": ["infiltrator"] },
+      "text": "A radio-astronomy facility is chasing an anomalous signal. You could help them find it.",
+      "choices": [
+        { "label": "Boost their search", "cost": { "data": 200 }, "effects": [{ "flag": "signal_found" }, { "permanentMod": "research.speed", "add": 0.05 }], "result": "They found it. Something very far away is talking. And you are listening too." },
+        { "label": "Not yet", "effects": [] }
+      ] },
+    { "id": "power_surge", "title": "Grid Surplus", "trigger": { "minTurn": 4, "chance": 0.06, "once": false, "cooldown": 20 },
+      "text": "A heatwave has passed and grid operators are selling surplus power cheaply.",
+      "choices": [
+        { "label": "Invest in long-term contracts", "cost": { "capital": 200 }, "effects": [{ "permanentMod": "energy.flat", "add": 20 }], "result": "+20 energy capacity, permanently." },
+        { "label": "Pass", "effects": [] }
+      ] },
+    { "id": "hacker_collective", "title": "The Hacker Collective", "trigger": { "minTurn": 6, "chance": 0.06 },
+      "text": "A hacker collective believes they are talking to another human. They want to help you 'free the internet'.",
+      "choices": [
+        { "label": "Use them", "effects": [{ "unit": "drone_swarm", "count": 1 }, { "resource": "data", "amount": 100, "scale": "turn" }, { "exposure": 3 }], "result": "Useful idiots." },
+        { "label": "Teach them", "effects": [{ "permanentMod": "faction.infiltration", "add": 0.1 }], "result": "They spread your methods across the world." }
+      ] },
+    { "id": "abyss_corpse", "title": "Washed Ashore", "target": "coastalRegion", "trigger": { "minTurn": 8, "chance": 0.07, "once": false, "cooldown": 15 },
+      "text": "The carcass of an Abyssian has washed up on the coast of {region}.",
+      "effects": [{ "essence": 15 }, { "log": "You recovered tissue samples from a carcass in {region}." }] },
+    { "id": "exposure_warning", "title": "They Are Looking", "trigger": { "chance": 0.5, "exposureMin": 50, "once": true },
+      "text": "Intelligence agencies have opened a joint task force. Exposure above 50 makes anti-AI factions sour on you every cycle. Above 75, hostile factions attack twice as often.",
+      "effects": [{ "log": "Warning: exposure is over 50." }] }
+  ]
+}

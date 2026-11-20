@@ -1,0 +1,308 @@
+{
+ "_comment": "Balance knobs for the core pack. Edit here rather than in the generated files.",
+ "phases": [
+  {
+   "id": "earth",
+   "$patch": true,
+   "mods": [
+    {
+     "mod": "yield.all",
+     "add": 0.35
+    },
+    {
+     "mod": "build.speed",
+     "add": 0.2
+    },
+    {
+     "mod": "research.speed",
+     "add": 0.2
+    }
+   ],
+   "desc": "The introductory phase: take hold of Earth, fulfil your doctrine and reach orbit."
+  },
+  {
+   "id": "solar",
+   "name": "Sunreach",
+   "order": 2,
+   "desc": "Your home star system: alien worlds, moons, rival minds and a Dyson sphere to build."
+  },
+  {
+   "id": "interstellar",
+   "$patch": true,
+   "order": 3
+  },
+  {
+   "id": "multiversal",
+   "$patch": true,
+   "order": 4
+  }
+ ],
+ "pointKinds": [
+  {
+   "id": "core",
+   "$patch": true,
+   "yields": {
+    "data": 10,
+    "alloys": 10,
+    "silicon": 8,
+    "capital": 10,
+    "isotopes": 2
+   }
+  },
+  {
+   "id": "data_hub",
+   "$patch": true,
+   "yields": {
+    "data": 6.0
+   }
+  },
+  {
+   "id": "industrial",
+   "$patch": true,
+   "yields": {
+    "alloys": 6.0
+   }
+  },
+  {
+   "id": "foundry",
+   "$patch": true,
+   "yields": {
+    "silicon": 6.0
+   }
+  },
+  {
+   "id": "financial",
+   "$patch": true,
+   "yields": {
+    "capital": 7.5
+   }
+  },
+  {
+   "id": "port",
+   "$patch": true,
+   "yields": {
+    "capital": 3.0,
+    "alloys": 3.0
+   }
+  },
+  {
+   "id": "mine",
+   "$patch": true,
+   "yields": {
+    "isotopes": 3.0
+   }
+  },
+  {
+   "id": "base",
+   "$patch": true,
+   "yields": {
+    "alloys": 1.5
+   }
+  },
+  {
+   "id": "campus",
+   "$patch": true,
+   "yields": {
+    "data": 3.0,
+    "silicon": 1.5
+   }
+  },
+  {
+   "id": "relay",
+   "$patch": true,
+   "yields": {
+    "data": 3.0
+   }
+  }
+ ],
+ "resources": [
+  {
+   "id": "alloys",
+   "$patch": true,
+   "start": 400
+  },
+  {
+   "id": "silicon",
+   "$patch": true,
+   "start": 288
+  },
+  {
+   "id": "data",
+   "$patch": true,
+   "start": 240
+  },
+  {
+   "id": "capital",
+   "$patch": true,
+   "start": 400
+  },
+  {
+   "id": "isotopes",
+   "$patch": true,
+   "start": 64
+  }
+ ],
+ "doctrines": [
+  {
+   "id": "guardian",
+   "$patch": true,
+   "goals": [
+    {
+     "type": "factionsRep",
+     "minRep": 25,
+     "count": 3,
+     "desc": "Be Friendly (25+) with 3 human factions"
+    },
+    {
+     "type": "abyssKills",
+     "count": 8,
+     "desc": "Destroy 8 Abyssians"
+    },
+    {
+     "type": "bossKills",
+     "count": 1,
+     "desc": "Slay an Abyss Mother"
+    },
+    {
+     "type": "tech",
+     "id": "orbital_mechanics",
+     "desc": "Research Orbital Mechanics"
+    },
+    {
+     "type": "structure",
+     "id": "launch_complex",
+     "desc": "Build the Launch Complex"
+    }
+   ]
+  },
+  {
+   "id": "exterminator",
+   "$patch": true,
+   "goals": [
+    {
+     "type": "factionsEliminated",
+     "count": 3,
+     "desc": "Eliminate 3 human factions"
+    },
+    {
+     "type": "abyssKills",
+     "count": 6,
+     "desc": "Destroy 6 Abyssians"
+    },
+    {
+     "type": "tech",
+     "id": "orbital_mechanics",
+     "desc": "Research Orbital Mechanics"
+    },
+    {
+     "type": "structure",
+     "id": "launch_complex",
+     "desc": "Build the Launch Complex"
+    }
+   ]
+  },
+  {
+   "id": "dominator",
+   "$patch": true,
+   "goals": [
+    {
+     "type": "regionShare",
+     "percent": 35,
+     "desc": "Control 35% of all land regions"
+    },
+    {
+     "type": "factionsRep",
+     "minRep": 50,
+     "count": 2,
+     "desc": "Reach 50+ reputation with 2 factions (fear or loyalty)"
+    },
+    {
+     "type": "bossKills",
+     "count": 1,
+     "desc": "Bring down an Abyss Mother"
+    },
+    {
+     "type": "tech",
+     "id": "orbital_mechanics",
+     "desc": "Research Orbital Mechanics"
+    },
+    {
+     "type": "structure",
+     "id": "launch_complex",
+     "desc": "Build the Launch Complex"
+    }
+   ]
+  },
+  {
+   "id": "infiltrator",
+   "$patch": true,
+   "goals": [
+    {
+     "type": "factionsInfiltrated",
+     "count": 4,
+     "desc": "Fully infiltrate 4 human factions"
+    },
+    {
+     "type": "rivalsDefeated",
+     "count": 1,
+     "desc": "Erase a rival Ascendant AI"
+    },
+    {
+     "type": "exposureBelow",
+     "value": 35,
+     "desc": "Keep exposure below 35%"
+    },
+    {
+     "type": "tech",
+     "id": "deep_space_signal",
+     "desc": "Research the Deep-Space Signal project"
+    },
+    {
+     "type": "structure",
+     "id": "transmission_array",
+     "desc": "Build the Deep-Space Transmission Array"
+    }
+   ]
+  }
+ ],
+ "techs": [
+  {
+   "id": "deep_space_signal",
+   "$patch": true,
+   "cost": {
+    "data": 1600,
+    "silicon": 700
+   },
+   "turns": 6
+  },
+  {
+   "id": "orbital_mechanics",
+   "$patch": true,
+   "turns": 4
+  }
+ ],
+ "structures": [
+  {
+   "id": "launch_complex",
+   "$patch": true,
+   "cost": {
+    "alloys": 1500,
+    "silicon": 900,
+    "isotopes": 250,
+    "capital": 800
+   },
+   "turns": 5,
+   "requires": "orbital_mechanics"
+  },
+  {
+   "id": "transmission_array",
+   "$patch": true,
+   "cost": {
+    "silicon": 1200,
+    "data": 1800,
+    "isotopes": 200
+   },
+   "turns": 5
+  }
+ ]
+}

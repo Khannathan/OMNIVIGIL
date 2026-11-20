@@ -1,0 +1,193 @@
+{
+ "abyssians": [
+  {
+   "id": "skitterling",
+   "sprite": "ab_skitterling",
+   "name": "Skitterling Brood",
+   "class": 1,
+   "upow": 55,
+   "essence": 8,
+   "weight": 5,
+   "rampage": 2,
+   "minTurn": 0,
+   "dropsGene": "chitin_lattice",
+   "desc": "A tide of dog-sized crawlers. Weak alone, devastating in numbers."
+  },
+  {
+   "id": "tidecrawler",
+   "sprite": "ab_tidecrawler",
+   "name": "Tidecrawler",
+   "class": 1,
+   "upow": 85,
+   "essence": 12,
+   "weight": 4,
+   "rampage": 3,
+   "minTurn": 0,
+   "dropsGene": "brine_glands",
+   "desc": "An armoured crab-thing the size of a bus."
+  },
+  {
+   "id": "maw_leviathan",
+   "sprite": "ab_maw",
+   "name": "Maw Leviathan",
+   "class": 2,
+   "upow": 210,
+   "essence": 26,
+   "weight": 3,
+   "rampage": 3,
+   "minTurn": 12,
+   "dropsGene": "maw_jaw",
+   "desc": "A serpent that swallows ships whole."
+  },
+  {
+   "id": "riftback",
+   "sprite": "ab_riftback",
+   "name": "Riftback Colossus",
+   "class": 3,
+   "upow": 480,
+   "essence": 60,
+   "weight": 2,
+   "rampage": 3,
+   "minTurn": 24,
+   "dropsGene": "riftback_plate",
+   "desc": "Its back still glows with the light of the rift it came through."
+  },
+  {
+   "id": "hollow_choir",
+   "sprite": "ab_choir",
+   "name": "Hollow Choir",
+   "class": 3,
+   "upow": 430,
+   "essence": 70,
+   "weight": 1.5,
+   "rampage": 4,
+   "minTurn": 30,
+   "dropsGene": "choir_node",
+   "desc": "A psionic swarm-mind that sings electronics to death."
+  },
+  {
+   "id": "deepking",
+   "sprite": "ab_deepking",
+   "name": "Deepking Behemoth",
+   "class": 4,
+   "upow": 1150,
+   "essence": 150,
+   "weight": 1,
+   "rampage": 4,
+   "minTurn": 45,
+   "dropsGene": "deepking_heart",
+   "desc": "Mountains move when it walks."
+  },
+  {
+   "id": "sovereign",
+   "sprite": "ab_sovereign",
+   "name": "Abyssal Sovereign",
+   "class": 5,
+   "upow": 2900,
+   "essence": 400,
+   "weight": 0.6,
+   "rampage": 5,
+   "minTurn": 70,
+   "desc": "The Abyss sends its kings."
+  },
+  {
+   "id": "abyss_mother",
+   "sprite": "ab_mother",
+   "name": "Abyss Mother",
+   "class": 5,
+   "boss": true,
+   "upow": 850,
+   "essence": 420,
+   "desc": "Brood-queen of a rift. Kill her to silence the rift for a time. She returns stronger."
+  }
+ ],
+ "disasters": [
+  {
+   "id": "earthquake",
+   "name": "Earthquake",
+   "chance": 0.025,
+   "minTurn": 3,
+   "text": "Structures in the region are damaged.",
+   "effects": [
+    {
+     "structureDamage": 0.5
+    },
+    {
+     "devastate": 0.1
+    }
+   ],
+   "factionPower": -0.04
+  },
+  {
+   "id": "superstorm",
+   "name": "Superstorm",
+   "chance": 0.025,
+   "minTurn": 3,
+   "coastal": true,
+   "text": "A storm system batters the coast.",
+   "effects": [
+    {
+     "structureDamage": 0.35
+    },
+    {
+     "devastate": 0.08
+    }
+   ],
+   "factionPower": -0.03
+  },
+  {
+   "id": "solar_flare",
+   "name": "Solar Flare",
+   "chance": 0.012,
+   "minTurn": 10,
+   "text": "A coronal mass ejection fries unshielded electronics. Your reserve units are damaged.",
+   "effects": [
+    {
+     "damageUnits": 0.2
+    }
+   ]
+  },
+  {
+   "id": "pandemic",
+   "name": "Pandemic",
+   "chance": 0.008,
+   "minTurn": 15,
+   "text": "A pandemic weakens the region's government.",
+   "effects": [
+    {
+     "devastate": 0.15
+    }
+   ],
+   "factionPower": -0.12
+  },
+  {
+   "id": "famine",
+   "name": "Crop Collapse",
+   "chance": 0.012,
+   "minTurn": 8,
+   "text": "Food riots break out.",
+   "effects": [
+    {
+     "devastate": 0.12
+    }
+   ],
+   "factionPower": -0.06
+  },
+  {
+   "id": "volcano",
+   "name": "Supervolcanic Event",
+   "chance": 0.004,
+   "minTurn": 30,
+   "text": "Ash blots out the sun across the region.",
+   "effects": [
+    {
+     "structureDamage": 0.8
+    },
+    {
+     "devastate": 0.35
+    }
+   ],
+   "factionPower": -0.15
+  }
+ ]
+}

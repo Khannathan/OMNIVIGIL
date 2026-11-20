@@ -1,0 +1,13 @@
+{
+  "id": "forge",
+  "name": "Genesis Forge",
+  "version": "1.0.0",
+  "author": "OMNIVIGIL",
+  "description": "Content for the Genesis Forge creator: lifepaths, protocols, Core parts, attributes, Fate Engines, the Awakening Interview and new traits.",
+  "requires": [
+    "core"
+  ],
+  "include": [
+    "forge.json"
+  ]
+}

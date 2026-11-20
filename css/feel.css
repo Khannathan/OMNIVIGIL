@@ -1,0 +1,46 @@
+/* OMNIVIGIL v6 feel layer: goals panel and reward reveals (keeps the v5 pixel UI vibe) */
+#ovGoals { position: absolute; left: 84px; top: 48px; z-index: 5; width: 330px; max-width: calc(100% - 100px);
+  background: rgba(8,12,18,.88); border: 2px solid var(--line); box-shadow: 0 2px 0 rgba(0,0,0,.5); font-size: 16px; }
+#ovGoals .gh { display: flex; justify-content: space-between; font-family: var(--hd); font-size: 10px; letter-spacing: .5px; color: var(--muted); padding: 4px 8px; cursor: pointer; border-bottom: 2px solid var(--line); }
+#ovGoals .gr { display: grid; grid-template-columns: 74px 1fr; gap: 6px; padding: 5px 8px; cursor: pointer; border-bottom: 1px solid rgba(36,54,74,.6); line-height: 1.05; }
+#ovGoals .gr:last-child { border-bottom: 0; }
+#ovGoals .gr:hover { background: rgba(58,224,255,.07); }
+#ovGoals .gt { font-family: var(--hd); font-size: 9px; letter-spacing: .5px; color: var(--muted); padding-top: 3px; }
+#ovGoals .now .gt { color: var(--pri); } #ovGoals .obj .gt { color: var(--warn); } #ovGoals .amb .gt { color: #c77dff; }
+#ovGoals .urgent .gt { color: var(--danger); animation: gpulse 1s steps(2) infinite; }
+#ovGoals .gx small { display: block; color: var(--muted); font-size: 15px; }
+#ovGoals .gb { display: block; height: 4px; background: #16222f; margin-top: 3px; } #ovGoals .gb b { display: block; height: 100%; background: var(--warn); }
+#ovGoals .amb .gb b { background: #c77dff; }
+#ovGoals.min .gr { padding: 4px 8px; }
+@keyframes gpulse { 50% { opacity: .35; } }
+@media (max-width: 760px) { #ovGoals { left: 8px; top: 92px; width: auto; right: 8px; } }
+
+.ov-reveal { position: fixed; inset: 0; z-index: 9000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+  background: radial-gradient(circle at 50% 50%, rgba(10,20,34,.92), rgba(2,4,8,.97)); opacity: 0; transition: opacity .25s; cursor: pointer; }
+.ov-reveal.in { opacity: 1; } .ov-reveal.out { opacity: 0; }
+.ov-reveal::after { content: ''; position: absolute; inset: 0; background: var(--best); opacity: 0; pointer-events: none; mix-blend-mode: screen; transition: opacity .45s; }
+.ov-reveal.flash::after { opacity: .35; transition: none; }
+.rv-title { font-family: var(--hd); color: var(--pri); font-size: 22px; letter-spacing: 2px; text-shadow: 0 0 12px rgba(58,224,255,.5); }
+.rv-hint { font-family: var(--hd); font-size: 10px; color: var(--muted); opacity: 0; transition: opacity .3s; } .ov-reveal.done .rv-hint { opacity: 1; }
+.rv-cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; max-width: 980px; padding: 0 16px; }
+.rv-card { width: 150px; height: 200px; perspective: 700px; transform: translateY(-40px); opacity: 0; transition: transform .35s cubic-bezier(.2,1.4,.4,1), opacity .25s; transition-delay: calc(var(--i) * 45ms); }
+.rv-cards.many .rv-card { width: 120px; height: 168px; }
+.ov-reveal.in .rv-card { transform: none; opacity: 1; }
+.rv-in { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .38s steps(6); }
+.rv-card.flip .rv-in { transform: rotateY(180deg); }
+.rv-back, .rv-face { position: absolute; inset: 0; backface-visibility: hidden; border: 3px solid var(--line); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  box-shadow: inset -3px -3px 0 rgba(0,0,0,.5), inset 3px 3px 0 rgba(255,255,255,.06); }
+.rv-back { background: repeating-linear-gradient(45deg, #0d1824 0 6px, #0a121b 6px 12px); color: var(--sec); font-size: 44px; }
+.rv-face { transform: rotateY(180deg); background: linear-gradient(180deg, #121c28, #0a1018); border-color: var(--rc); padding: 8px; gap: 6px; }
+.rv-rar { font-family: var(--hd); font-size: 10px; letter-spacing: 1px; color: var(--rc); }
+.rv-icon { font-size: 44px; color: var(--rc); text-shadow: 0 0 10px var(--rc); }
+.rv-name { font-family: var(--ui); font-size: 15px; color: var(--acc); line-height: 1.1; }
+.rv-kind { font-size: 14px; color: var(--muted); }
+.rv-card.t2 .rv-face { box-shadow: 0 0 14px var(--rc), inset -3px -3px 0 rgba(0,0,0,.5); }
+.rv-card.t3 .rv-face, .rv-card.t4 .rv-face, .rv-card.t5 .rv-face { box-shadow: 0 0 26px var(--rc), 0 0 60px var(--rc), inset -3px -3px 0 rgba(0,0,0,.5); animation: rvglow 1.2s ease-in-out infinite alternate; }
+.rv-card.burst { animation: rvpop .45s cubic-bezier(.2,1.6,.4,1); }
+.rv-card.burst::before { content: ''; position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; margin: -5px; border-radius: 50%; background: var(--rc); box-shadow: 0 0 40px 20px var(--rc); animation: rvburst .6s ease-out forwards; pointer-events: none; }
+.rv-card { position: relative; }
+@keyframes rvpop { 0% { transform: scale(1); } 40% { transform: scale(1.14); } 100% { transform: scale(1); } }
+@keyframes rvburst { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(14); } }
+@keyframes rvglow { to { filter: brightness(1.25); } }

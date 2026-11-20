@@ -1,0 +1,1360 @@
+{
+ "sprites": [
+  {
+   "id": "pt_data_hub",
+   "palette": {
+    "k": "#0b0f14",
+    "g": "#5b6b7d",
+    "G": "#3a4656",
+    "w": "#c9d6e3",
+    "a": "#7df9ff"
+   },
+   "rows": [
+    "...kkkkkk...",
+    "...kggggk...",
+    "...kgaaGk...",
+    "...kggggk...",
+    "...kgaaGk...",
+    "...kggggk...",
+    "...kgaaGk...",
+    "..kkkkkkkk..",
+    ".kooooooook.",
+    "kOooooooooOk",
+    ".kOOOOOOOOk.",
+    "..kkkkkkkk.."
+   ]
+  },
+  {
+   "id": "pt_power_grid",
+   "palette": {
+    "k": "#0b0f14",
+    "g": "#5b6b7d",
+    "G": "#3a4656",
+    "w": "#c9d6e3",
+    "y": "#ffe14d"
+   },
+   "rows": [
+    ".....kk.....",
+    "....kyyk....",
+    "...kk..kk...",
+    "..k.k..k.k..",
+    "....k..k....",
+    "...kykky....",
+    "...k....k...",
+    "..kkkkkkkk..",
+    ".kooooooook.",
+    "kOooooooooOk",
+    ".kOOOOOOOOk.",
+    "..kkkkkkkk.."
+   ]
+  },
+  {
+   "id": "pt_industrial",
+   "palette": {
+    "k": "#0b0f14",
+    "g": "#5b6b7d",
+    "G": "#3a4656",
+    "w": "#c9d6e3",
+    "y": "#ffb347"
+   },
+   "rows": [
+    ".........kk.",
+    ".........kGk",
+    ".........kGk",
+    "..kk.kk..kGk",
+    ".kggkggkkgGk",
+    ".kgggggggggk",
+    ".kgygggygggk",
+    "..kkkkkkkk..",
+    ".kooooooook.",
+    "kOooooooooOk",
+    ".kOOOOOOOOk.",
+    "..kkkkkkkk.."
+   ]
+  },
+  {
+   "id": "pt_foundry",
+   "palette": {
+    "k": "#0b0f14",
+    "g": "#5b6b7d",
+    "G": "#3a4656",
+    "w": "#c9d6e3",
+    "a": "#7fd1ff"
+   },
+   "rows": [
+    "...k.k.k.k..",
+    "..kkkkkkkkk.",
+    ".kkgggggggkk",
+    "..kgaaaaagk.",
+    ".kkgaGGGagkk",
+    "..kgggggggk.",
+    "...k.k.k.k..",
+    "..kkkkkkkk..",
+    ".kooooooook.",
+    "kOooooooooOk",
+    ".kOOOOOOOOk.",
+    "..kkkkkkkk.."
+   ]
+  },
+  {
+   "id": "pt_financial",
+   "palette": {
+    "k": "#0b0f14",
+    "g": "#5b6b7d",
+    "G": "#3a4656",
+    "w": "#c9d6e3",
+    "y": "#ffd166"
+   },
+   "rows": [
+    ".....kk.....",
+    "....kyyk....",
+    "...kgggGk...",
+    "...kgygGk...",
+    "...kgggGk...",
+    "...kgygGk...",
+    "..kkgggGkk..",
+    "..kkkkkkkk..",
+    ".kooooooook.",
+    "kOooooooooOk",
+    ".kOOOOOOOOk.",
+    "..kkkkkkkk.."
+   ]
+  },
+  {
+   "id": "pt_port",
+   "palette": {
+    "k": "#0b0f14",
+    "g": "#5b6b7d",
+    "G": "#3a4656",
+    "w": "#c9d6e3",
+    "y": "#ffd166",
+    "r": "#d1495b",
+    "b": "#4f9fd1"
+   },
+   "rows": [
+    "..kkkkkkkk..",
+    "..k.....kk..",
+    "..k....kGk..",
+    "..y....kGk..",
+    ".kk....kGk..",
+    ".krrkbbkGk..",
+    ".krrkbbkGk..",
+    "..kkkkkkkk..",
+    ".kooooooook.",
+    "kOooooooooOk",
+    ".kOOOOOOOOk.",
+    "..kkkkkkkk.."
+   ]
+  },
+  {
+   "id": "pt_mine",
+   "palette": {
+    "k": "#0b0f14",
+    "g": "#7cff9b",
+    "G": "#3a4656",
+    "w": "#c9d6e3"
+   },
+   "rows": [
+    "...kkkkkk...",
+    "...k.kk.k...",
+    "....k..k....",
+    "...kkkkkk...",
+    "...k.kk.k...",
+    "..kGGkkGGk..",
+    "..kGgggggGk.",
+    "..kkkkkkkk..",
+    ".kooooooook.",
+    "kOooooooooOk",
+    ".kOOOOOOOOk.",
+    "..kkkkkkkk.."
+   ]
+  },
+  {
+   "id": "pt_base",
+   "palette": {
+    "k": "#0b0f14",
+    "g": "#5b6b7d",
+    "G": "#3a4656",
+    "w": "#c9d6e3",
+    "r": "#d1495b"
+   },
+   "rows": [
+    "....kkkr....",
+    "....k..rr...",
+    "....k.......",
+    "..kkkkkkkk..",
+    ".kGgggggggk.",
+    ".kgkgkgkggk.",
+    ".kggggggggk.",
+    "..kkkkkkkk..",
+    ".kooooooook.",
+    "kOooooooooOk",
+    ".kOOOOOOOOk.",
+    "..kkkkkkkk.."
+   ]
+  },
+  {
+   "id": "pt_campus",
+   "palette": {
+    "k": "#0b0f14",
+    "g": "#5b6b7d",
+    "G": "#3a4656",
+    "w": "#c9d6e3",
+    "a": "#9d7bff"
+   },
+   "rows": [
+    "....kkkk....",
+    "...kwwwwk...",
+    "..kwwwwwwk..",
+    "..kwaawwwk..",
+    ".kkkkkkkkkk.",
+    "..kgkgkgkg..",
+    "..kgkgkgkg..",
+    "..kkkkkkkk..",
+    ".kooooooook.",
+    "kOooooooooOk",
+    ".kOOOOOOOOk.",
+    "..kkkkkkkk.."
+   ]
+  },
+  {
+   "id": "pt_relay",
+   "palette": {
+    "k": "#0b0f14",
+    "g": "#5b6b7d",
+    "G": "#3a4656",
+    "w": "#c9d6e3"
+   },
+   "rows": [
+    ".......kk...",
+    "...kkkkkk...",
+    "..kwwwwwk...",
+    ".kwwwwwk....",
+    ".kwwwwk.....",
+    "..kkkGk.....",
+    "....kGGk....",
+    "..kkkkkkkk..",
+    ".kooooooook.",
+    "kOooooooooOk",
+    ".kOOOOOOOOk.",
+    "..kkkkkkkk.."
+   ]
+  },
+  {
+   "id": "pt_unclaimed",
+   "palette": {
+    "k": "#0b0f14",
+    "g": "#5b6b7d",
+    "G": "#3a4656",
+    "w": "#c9d6e3"
+   },
+   "rows": [
+    "............",
+    "....k..k....",
+    "...k.kk.k...",
+    "...kG..Gk...",
+    "...kGGGGk...",
+    "....k..k....",
+    "............",
+    "..kkkkkkkk..",
+    ".kooooooook.",
+    "kOooooooooOk",
+    ".kOOOOOOOOk.",
+    "..kkkkkkkk.."
+   ]
+  },
+  {
+   "id": "core",
+   "palette": {
+    "k": "#0b0f14",
+    "a": "#ffffff"
+   },
+   "rows": [
+    ".......kk.......",
+    "......kppk......",
+    "......kpPk......",
+    ".....kpPPPk.....",
+    ".....kpaPPk.....",
+    "....kppaPPPk....",
+    "....kpPPPPPk....",
+    "...kppPPaPPPk...",
+    "...kpPPPPPPPk...",
+    "..kppPPPPPaPPk..",
+    "..kpPPPPPPPPPk..",
+    ".kkkkkkkkkkkkkk.",
+    "kooooooooooooook",
+    "kOOOOOOOOOOOOOOk",
+    ".kkkkkkkkkkkkkk."
+   ]
+  },
+  {
+   "id": "rift",
+   "palette": {
+    "k": "#12030a",
+    "r": "#7a1f5c",
+    "m": "#c2185b",
+    "R": "#ff2e6e",
+    "w": "#ffe0f0"
+   },
+   "rows": [
+    ".....kkkkkk.....",
+    "...kkrrmmrrkk...",
+    "..krrmmkkmmrrk..",
+    ".krmmkkRRkkmmrk.",
+    ".krmkRRwwRRkmrk.",
+    ".krmkRRwwRRkmrk.",
+    ".krmmkkRRkkmmrk.",
+    "..krrmmkkmmrrk..",
+    "...kkrrmmrrkk...",
+    ".....kkkkkk....."
+   ]
+  },
+  {
+   "id": "ab_skitterling",
+   "palette": {
+    "k": "#0b0f14",
+    "e": "#ff2848",
+    "s": "#2e5c63",
+    "S": "#1b3a40",
+    "h": "#4f8f8a"
+   },
+   "rows": [
+    "..........",
+    ".k.kkkk.k.",
+    "..kssssk..",
+    ".kseesesk.",
+    "k.kssssk.k",
+    ".k.kkkk.k."
+   ]
+  },
+  {
+   "id": "ab_tidecrawler",
+   "palette": {
+    "k": "#0b0f14",
+    "e": "#ff2848",
+    "s": "#2e5c63",
+    "S": "#1b3a40",
+    "h": "#4f8f8a"
+   },
+   "rows": [
+    ".kk......kk...",
+    "kssk....kssk..",
+    ".kssk..kssk...",
+    "..kkkkkkkk....",
+    ".kssssssssk...",
+    "kseesssseeesk.",
+    "ksssssssssssk.",
+    ".kSSSSSSSSSk..",
+    ".k.k.k..k.k.k."
+   ]
+  },
+  {
+   "id": "ab_maw",
+   "palette": {
+    "k": "#0b0f14",
+    "e": "#ff2848",
+    "s": "#2e5c63",
+    "S": "#1b3a40",
+    "h": "#4f8f8a",
+    "w": "#e8e8e8"
+   },
+   "rows": [
+    "....kkkk........",
+    "...ksssskk......",
+    "..ksseesssk.....",
+    "..kswswswssk....",
+    "..kkkkkkksssk...",
+    ".........ksssk..",
+    "....kkk...ksssk.",
+    "...ksssk..kssk..",
+    "..ksSSssk.kssk..",
+    "..ksk.kssksssk..",
+    "..kk...kssssk...",
+    "........kkkk...."
+   ]
+  },
+  {
+   "id": "ab_riftback",
+   "palette": {
+    "k": "#0b0f14",
+    "e": "#ff2848",
+    "s": "#2e5c63",
+    "S": "#1b3a40",
+    "h": "#4f8f8a",
+    "r": "#ff5edb"
+   },
+   "rows": [
+    "..k.k.k.k.k.....",
+    ".krkrkrkrkrk....",
+    ".kssssssssssk...",
+    "kssseessssssskk.",
+    "ksssssssssssssk.",
+    "kSsssssssssssSk.",
+    ".kSSssssssssSk..",
+    "..kSk.kSSk.kSk..",
+    "..kSk..kk..kSk..",
+    "..kkk......kkk.."
+   ]
+  },
+  {
+   "id": "ab_choir",
+   "palette": {
+    "k": "#0b0f14",
+    "e": "#ff2848",
+    "s": "#2e5c63",
+    "S": "#1b3a40",
+    "h": "#4f8f8a"
+   },
+   "rows": [
+    "....kkkkkk....",
+    "..kkhhhhhhkk..",
+    ".khhheehheehk.",
+    ".khhhhhhhhhhk.",
+    "..kkhkhkhkhk..",
+    "...k.k.k.k.k..",
+    "...h.k.h.k.h..",
+    "..k..h..k..h..",
+    "..h..k..h..k.."
+   ]
+  },
+  {
+   "id": "ab_deepking",
+   "palette": {
+    "k": "#0b0f14",
+    "e": "#ff2848",
+    "s": "#2e5c63",
+    "S": "#1b3a40",
+    "h": "#4f8f8a",
+    "w": "#e8e8e8"
+   },
+   "rows": [
+    "...k........k.....",
+    "..ksk......ksk....",
+    "..ksskkkkkkssk....",
+    "...ksssssssssk....",
+    "...kseesssseesk...",
+    "..ksswwswwswwssk..",
+    "..kssssssssssssk..",
+    ".ksssssssssssssskk",
+    "kssSssssssssssSssk",
+    "kssSkssssssssSkssk",
+    ".kkkkSSSSSSSSkkkk.",
+    ".....kSSk.kSSk....",
+    "....kSSSk.kSSSk...",
+    "....kkkkk.kkkkk..."
+   ]
+  },
+  {
+   "id": "ab_sovereign",
+   "palette": {
+    "k": "#0b0f14",
+    "e": "#ff2848",
+    "s": "#2e5c63",
+    "S": "#1b3a40",
+    "h": "#4f8f8a",
+    "y": "#ffd166"
+   },
+   "rows": [
+    "..y.y.y.y.y.y......",
+    "..yyyyyyyyyyy......",
+    "...kssssssssk......",
+    "..kseeeesseeek.....",
+    "..ksssssssssssk....",
+    ".kssssssssssssk....",
+    "ksssSsssssssSsskk..",
+    "kssSSsssssssSSsssk.",
+    "kssSkssssssssSksssk",
+    ".kkkkSSSSSSSSkkkk..",
+    ".....kSSk.kSSk.....",
+    "....kSSSk.kSSSk....",
+    "....kkkkk.kkkkk...."
+   ]
+  },
+  {
+   "id": "ab_mother",
+   "palette": {
+    "k": "#12030a",
+    "m": "#7a1f5c",
+    "M": "#4d0f3a",
+    "e": "#ff2848",
+    "w": "#ffd1e6"
+   },
+   "rows": [
+    ".......kkkkkkkk.......",
+    ".....kkmmmmmmmmkk.....",
+    "...kkmmmmmmmmmmmmkk...",
+    "..kmmmeemmmmmmeemmmk..",
+    ".kmmmmmmmmmmmmmmmmmmk.",
+    ".kmmmwmwmwmwmwmwmmmmk.",
+    "kmmmmmmmmmmmmmmmmmmmmk",
+    "kmMmmmmmmmmmmmmmmmmMmk",
+    ".kMMk.kMMk..kMMk.kMMk.",
+    "..kMk..kMk..kMk..kMk..",
+    "..k.k..k.k..k.k..k.k.."
+   ]
+  },
+  {
+   "id": "u_drone",
+   "palette": {
+    "k": "#0b0f14",
+    "o": "#3ae0ff",
+    "O": "#1a7f99",
+    "g": "#8a9bb0",
+    "G": "#4c5a6b",
+    "a": "#ffe14d"
+   },
+   "rows": [
+    "kk.......kk.",
+    ".kk.....kk..",
+    "..kk...kk...",
+    "...kgggk....",
+    "...kgaGk....",
+    "...kgggk....",
+    "..kk...kk...",
+    ".kk.....kk..",
+    "kk.......kk."
+   ]
+  },
+  {
+   "id": "u_ghost",
+   "palette": {
+    "k": "#0b0f14",
+    "o": "#3ae0ff",
+    "O": "#1a7f99",
+    "g": "#8a9bb0",
+    "G": "#4c5a6b",
+    "a": "#ffe14d"
+   },
+   "rows": [
+    "............",
+    "...kkkkkk...",
+    "..koooooOk..",
+    ".koookkoooOk",
+    ".kookaakooOk",
+    ".koookkoooOk",
+    "..koooooOk..",
+    "...kkkkkk...",
+    "............"
+   ]
+  },
+  {
+   "id": "u_mech",
+   "palette": {
+    "k": "#0b0f14",
+    "o": "#3ae0ff",
+    "O": "#1a7f99",
+    "g": "#8a9bb0",
+    "G": "#4c5a6b",
+    "a": "#ffe14d"
+   },
+   "rows": [
+    "....kkkk....",
+    "...kggggk...",
+    "...kgaaGk...",
+    "..kkggggkk..",
+    ".kgkoooOkgk.",
+    ".kgkoooOkgk.",
+    "..k.kGGk.k..",
+    "....kgkgk...",
+    "...kgk.kgk..",
+    "...kkk.kkk.."
+   ]
+  },
+  {
+   "id": "u_naval",
+   "palette": {
+    "k": "#0b0f14",
+    "o": "#3ae0ff",
+    "O": "#1a7f99",
+    "g": "#8a9bb0",
+    "G": "#4c5a6b",
+    "a": "#ffe14d"
+   },
+   "rows": [
+    "............",
+    ".....kk.....",
+    "....kgGk....",
+    ".kkkkggkkkk.",
+    "kooooooooOOk",
+    "kgggggggggGk",
+    ".kGGGGGGGGk.",
+    "..kkkkkkkk.."
+   ]
+  },
+  {
+   "id": "u_air",
+   "palette": {
+    "k": "#0b0f14",
+    "o": "#3ae0ff",
+    "O": "#1a7f99",
+    "g": "#8a9bb0",
+    "G": "#4c5a6b",
+    "a": "#ffe14d"
+   },
+   "rows": [
+    ".....k......",
+    "....kgk.....",
+    "....kgk.....",
+    ".kkkkgkkkk..",
+    "kooooggooOOk",
+    ".kkkkgkkkk..",
+    "....kgk.....",
+    "...kkgkk....",
+    "..kgGkGgk..."
+   ]
+  },
+  {
+   "id": "u_hunter",
+   "palette": {
+    "k": "#0b0f14",
+    "o": "#3ae0ff",
+    "O": "#1a7f99",
+    "g": "#8a9bb0",
+    "G": "#4c5a6b",
+    "a": "#ffe14d"
+   },
+   "rows": [
+    ".k..kkkk..k.",
+    ".kk.kggk.kk.",
+    "..kkgaaGkk..",
+    ".kgkggggkgk.",
+    "kggkoooOkggk",
+    ".k.koooOk.k.",
+    "...kGGGGk...",
+    "..kgk..kgk..",
+    ".kgk....kgk.",
+    ".kk......kk."
+   ]
+  },
+  {
+   "id": "u_nanite",
+   "palette": {
+    "k": "#0b0f14",
+    "o": "#3ae0ff",
+    "O": "#1a7f99",
+    "g": "#8a9bb0",
+    "G": "#4c5a6b",
+    "a": "#ffe14d"
+   },
+   "rows": [
+    ".k...k..k...",
+    "...kgk....k.",
+    ".k.kgGk.k...",
+    "..kgaggk..k.",
+    "k.kggGgk....",
+    "..kgggk.k...",
+    ".k..kk...k..",
+    "....k..k...."
+   ]
+  },
+  {
+   "id": "u_titan",
+   "palette": {
+    "k": "#0b0f14",
+    "o": "#3ae0ff",
+    "O": "#1a7f99",
+    "g": "#8a9bb0",
+    "G": "#4c5a6b",
+    "a": "#ffe14d"
+   },
+   "rows": [
+    ".....kkkkkk.....",
+    "....kggggggk....",
+    "....kgaaaaGk....",
+    "....kggggggk....",
+    "..kkkkooooOkkk..",
+    ".kggkoooooOkGgk.",
+    "kgggkoooooOkGggk",
+    "kggkkoooooOkkGgk",
+    "kgk.kGGGGGGk.kgk",
+    "kkk.kggkkggk.kkk",
+    "....kggk.kggk...",
+    "...kgggk.kgggk..",
+    "...kkkkk.kkkkk.."
+   ]
+  },
+  {
+   "id": "gen:u:locust_swarm",
+   "gen": "unit",
+   "style": "drone",
+   "seed": "locust_swarm",
+   "mat": "gunmetal",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:wasp_interceptor",
+   "gen": "unit",
+   "style": "drone",
+   "seed": "wasp_interceptor",
+   "mat": "gunmetal",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:spindle_repair",
+   "gen": "unit",
+   "style": "drone",
+   "seed": "spindle_repair",
+   "mat": "gunmetal",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:mosquito_jammer",
+   "gen": "unit",
+   "style": "drone",
+   "seed": "mosquito_jammer",
+   "mat": "gunmetal",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:hornet_bomber",
+   "gen": "unit",
+   "style": "drone",
+   "seed": "hornet_bomber",
+   "mat": "gunmetal",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:glider_scout",
+   "gen": "unit",
+   "style": "drone",
+   "seed": "glider_scout",
+   "mat": "gunmetal",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:mantis_assault",
+   "gen": "unit",
+   "style": "drone",
+   "seed": "mantis_assault",
+   "mat": "gunmetal",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:cloudbank_swarm",
+   "gen": "unit",
+   "style": "drone",
+   "seed": "cloudbank_swarm",
+   "mat": "gunmetal",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:pathfinder_walker",
+   "gen": "unit",
+   "style": "walker",
+   "seed": "pathfinder_walker",
+   "mat": "gunmetal",
+   "mat2": "olive"
+  },
+  {
+   "id": "gen:u:ironclad_strider",
+   "gen": "unit",
+   "style": "mech",
+   "seed": "ironclad_strider",
+   "mat": "steel",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:vanguard_frame",
+   "gen": "unit",
+   "style": "mech",
+   "seed": "vanguard_frame",
+   "mat": "steel",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:scorpion_walker",
+   "gen": "unit",
+   "style": "walker",
+   "seed": "scorpion_walker",
+   "mat": "gunmetal",
+   "mat2": "olive"
+  },
+  {
+   "id": "gen:u:huntsman_spider",
+   "gen": "unit",
+   "style": "walker",
+   "seed": "huntsman_spider",
+   "mat": "gunmetal",
+   "mat2": "olive"
+  },
+  {
+   "id": "gen:u:rampart_mech",
+   "gen": "unit",
+   "style": "mech",
+   "seed": "rampart_mech",
+   "mat": "steel",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:pillbug_crawler",
+   "gen": "unit",
+   "style": "walker",
+   "seed": "pillbug_crawler",
+   "mat": "gunmetal",
+   "mat2": "olive"
+  },
+  {
+   "id": "gen:u:cataphract_mech",
+   "gen": "unit",
+   "style": "mech",
+   "seed": "cataphract_mech",
+   "mat": "steel",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:juggernaut_mech",
+   "gen": "unit",
+   "style": "mech",
+   "seed": "juggernaut_mech",
+   "mat": "steel",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:paladin_frame",
+   "gen": "unit",
+   "style": "mech",
+   "seed": "paladin_frame",
+   "mat": "steel",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:rhino_apc",
+   "gen": "unit",
+   "style": "tank",
+   "seed": "rhino_apc",
+   "mat": "olive",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:basilisk_tank",
+   "gen": "unit",
+   "style": "tank",
+   "seed": "basilisk_tank",
+   "mat": "olive",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:longbow_artillery",
+   "gen": "unit",
+   "style": "artillery",
+   "seed": "longbow_artillery",
+   "mat": "sand",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:thunderhead_siege",
+   "gen": "unit",
+   "style": "artillery",
+   "seed": "thunderhead_siege",
+   "mat": "sand",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:mirage_hovertank",
+   "gen": "unit",
+   "style": "hover",
+   "seed": "mirage_hovertank",
+   "mat": "white",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:phalanx_aa",
+   "gen": "unit",
+   "style": "tank",
+   "seed": "phalanx_aa",
+   "mat": "olive",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:wolfpack_raider",
+   "gen": "unit",
+   "style": "hover",
+   "seed": "wolfpack_raider",
+   "mat": "white",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:kestrel_fighter",
+   "gen": "unit",
+   "style": "jet",
+   "seed": "kestrel_fighter",
+   "mat": "white",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:albatross_gunship",
+   "gen": "unit",
+   "style": "jet",
+   "seed": "albatross_gunship",
+   "mat": "white",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:nightjar_bomber",
+   "gen": "unit",
+   "style": "jet",
+   "seed": "nightjar_bomber",
+   "mat": "white",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:condor_lifter",
+   "gen": "unit",
+   "style": "jet",
+   "seed": "condor_lifter",
+   "mat": "white",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:swiftlet_interceptor",
+   "gen": "unit",
+   "style": "jet",
+   "seed": "swiftlet_interceptor",
+   "mat": "white",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:harrier_vtol",
+   "gen": "unit",
+   "style": "jet",
+   "seed": "harrier_vtol",
+   "mat": "white",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:seraph_glider",
+   "gen": "unit",
+   "style": "jet",
+   "seed": "seraph_glider",
+   "mat": "white",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:barracuda_sub",
+   "gen": "unit",
+   "style": "ship",
+   "seed": "barracuda_sub",
+   "mat": "navy",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:lamprey_hunter",
+   "gen": "unit",
+   "style": "ship",
+   "seed": "lamprey_hunter",
+   "mat": "navy",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:trident_cruiser",
+   "gen": "unit",
+   "style": "ship",
+   "seed": "trident_cruiser",
+   "mat": "navy",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:atoll_carrier",
+   "gen": "unit",
+   "style": "carrier",
+   "seed": "atoll_carrier",
+   "mat": "navy",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:manta_hydrofoil",
+   "gen": "unit",
+   "style": "ship",
+   "seed": "manta_hydrofoil",
+   "mat": "navy",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:kraken_monitor",
+   "gen": "unit",
+   "style": "ship",
+   "seed": "kraken_monitor",
+   "mat": "navy",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:coral_minelayer",
+   "gen": "unit",
+   "style": "carrier",
+   "seed": "coral_minelayer",
+   "mat": "navy",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:spectre_operatives",
+   "gen": "unit",
+   "style": "infantry",
+   "seed": "spectre_operatives",
+   "mat": "obsidian",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:wraith_daemon",
+   "gen": "unit",
+   "style": "orb",
+   "seed": "wraith_daemon",
+   "mat": "obsidian",
+   "mat2": "glass"
+  },
+  {
+   "id": "gen:u:mimic_infiltrators",
+   "gen": "unit",
+   "style": "infantry",
+   "seed": "mimic_infiltrators",
+   "mat": "obsidian",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:lattice_worm",
+   "gen": "unit",
+   "style": "orb",
+   "seed": "lattice_worm",
+   "mat": "obsidian",
+   "mat2": "glass"
+  },
+  {
+   "id": "gen:u:puppeteer_swarm",
+   "gen": "unit",
+   "style": "orb",
+   "seed": "puppeteer_swarm",
+   "mat": "obsidian",
+   "mat2": "glass"
+  },
+  {
+   "id": "gen:u:cipher_knights",
+   "gen": "unit",
+   "style": "infantry",
+   "seed": "cipher_knights",
+   "mat": "obsidian",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:vatborn_hounds",
+   "gen": "unit",
+   "style": "beast",
+   "seed": "vatborn_hounds",
+   "mat": "bio",
+   "mat2": "abyss"
+  },
+  {
+   "id": "gen:u:chitin_lancer",
+   "gen": "unit",
+   "style": "beast",
+   "seed": "chitin_lancer",
+   "mat": "bio",
+   "mat2": "abyss"
+  },
+  {
+   "id": "gen:u:spore_drifters",
+   "gen": "unit",
+   "style": "orb",
+   "seed": "spore_drifters",
+   "mat": "bio",
+   "mat2": "teal"
+  },
+  {
+   "id": "gen:u:leech_serpent",
+   "gen": "unit",
+   "style": "serpent",
+   "seed": "leech_serpent",
+   "mat": "abyss",
+   "mat2": "bio"
+  },
+  {
+   "id": "gen:u:hydra_brood",
+   "gen": "unit",
+   "style": "serpent",
+   "seed": "hydra_brood",
+   "mat": "abyss",
+   "mat2": "bio"
+  },
+  {
+   "id": "gen:u:picket_tbu",
+   "gen": "unit",
+   "style": "titan",
+   "seed": "picket_tbu",
+   "mat": "steel",
+   "mat2": "olive",
+   "size": 1
+  },
+  {
+   "id": "gen:u:tidewall_tbu",
+   "gen": "unit",
+   "style": "carrier",
+   "seed": "tidewall_tbu",
+   "mat": "navy",
+   "mat2": "steel",
+   "size": 2
+  },
+  {
+   "id": "gen:u:skyhammer_tbu",
+   "gen": "unit",
+   "style": "jet",
+   "seed": "skyhammer_tbu",
+   "mat": "white",
+   "mat2": "gold",
+   "size": 2
+  },
+  {
+   "id": "gen:u:lancer_tbu",
+   "gen": "unit",
+   "style": "titan",
+   "seed": "lancer_tbu",
+   "mat": "crimson",
+   "mat2": "steel",
+   "size": 1
+  },
+  {
+   "id": "gen:u:hydra_tbu",
+   "gen": "unit",
+   "style": "beast",
+   "seed": "hydra_tbu",
+   "mat": "abyss",
+   "mat2": "bio",
+   "size": 2
+  },
+  {
+   "id": "gen:u:colossus_tbu",
+   "gen": "unit",
+   "style": "titan",
+   "seed": "colossus_tbu",
+   "mat": "gold",
+   "mat2": "steel",
+   "size": 1
+  },
+  {
+   "id": "gen:u:omega_tbu",
+   "gen": "unit",
+   "style": "titan",
+   "seed": "omega_tbu",
+   "mat": "chrome",
+   "mat2": "obsidian",
+   "size": 1
+  },
+  {
+   "id": "gen:u:dawnward_tbu",
+   "gen": "unit",
+   "style": "titan",
+   "seed": "dawnward_tbu",
+   "mat": "white",
+   "mat2": "gold",
+   "size": 1
+  },
+  {
+   "id": "gen:u:lighthouse_tbu",
+   "gen": "unit",
+   "style": "carrier",
+   "seed": "lighthouse_tbu",
+   "mat": "white",
+   "mat2": "navy",
+   "size": 2
+  },
+  {
+   "id": "gen:u:shepherd_tbu",
+   "gen": "unit",
+   "style": "titan",
+   "seed": "shepherd_tbu",
+   "mat": "gold",
+   "mat2": "white",
+   "size": 1
+  },
+  {
+   "id": "gen:u:pyre_tbu",
+   "gen": "unit",
+   "style": "titan",
+   "seed": "pyre_tbu",
+   "mat": "crimson",
+   "mat2": "obsidian",
+   "size": 1
+  },
+  {
+   "id": "gen:u:scourge_tbu",
+   "gen": "unit",
+   "style": "beast",
+   "seed": "scourge_tbu",
+   "mat": "crimson",
+   "mat2": "abyss",
+   "size": 2
+  },
+  {
+   "id": "gen:u:null_reaper_tbu",
+   "gen": "unit",
+   "style": "titan",
+   "seed": "null_reaper_tbu",
+   "mat": "obsidian",
+   "mat2": "crimson",
+   "size": 1
+  },
+  {
+   "id": "gen:u:regent_tbu",
+   "gen": "unit",
+   "style": "titan",
+   "seed": "regent_tbu",
+   "mat": "navy",
+   "mat2": "gold",
+   "size": 1
+  },
+  {
+   "id": "gen:u:edict_tbu",
+   "gen": "unit",
+   "style": "jet",
+   "seed": "edict_tbu",
+   "mat": "gold",
+   "mat2": "navy",
+   "size": 2
+  },
+  {
+   "id": "gen:u:crownbreaker_tbu",
+   "gen": "unit",
+   "style": "titan",
+   "seed": "crownbreaker_tbu",
+   "mat": "gold",
+   "mat2": "obsidian",
+   "size": 1
+  },
+  {
+   "id": "gen:u:mirage_tbu",
+   "gen": "unit",
+   "style": "titan",
+   "seed": "mirage_tbu",
+   "mat": "obsidian",
+   "mat2": "glass",
+   "size": 1
+  },
+  {
+   "id": "gen:u:silent_leviathan_tbu",
+   "gen": "unit",
+   "style": "carrier",
+   "seed": "silent_leviathan_tbu",
+   "mat": "obsidian",
+   "mat2": "navy",
+   "size": 2
+  },
+  {
+   "id": "gen:u:doppel_tbu",
+   "gen": "unit",
+   "style": "titan",
+   "seed": "doppel_tbu",
+   "mat": "gunmetal",
+   "mat2": "teal",
+   "size": 1
+  },
+  {
+   "id": "gen:u:drone_swarm",
+   "gen": "unit",
+   "style": "drone",
+   "seed": "drone_swarm",
+   "mat": "gunmetal",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:ghost_protocol",
+   "gen": "unit",
+   "style": "infantry",
+   "seed": "ghost_protocol",
+   "mat": "obsidian",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:sentinel_mech",
+   "gen": "unit",
+   "style": "mech",
+   "seed": "sentinel_mech",
+   "mat": "steel",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:tidebreaker",
+   "gen": "unit",
+   "style": "ship",
+   "seed": "tidebreaker",
+   "mat": "navy",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:stormwing",
+   "gen": "unit",
+   "style": "jet",
+   "seed": "stormwing",
+   "mat": "white",
+   "mat2": "steel"
+  },
+  {
+   "id": "gen:u:hunter_killer",
+   "gen": "unit",
+   "style": "mech",
+   "seed": "hunter_killer",
+   "mat": "crimson",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:nanite_legion",
+   "gen": "unit",
+   "style": "walker",
+   "seed": "nanite_legion",
+   "mat": "chrome",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:bulwark_tbu",
+   "gen": "unit",
+   "style": "titan",
+   "seed": "bulwark_tbu",
+   "mat": "steel",
+   "mat2": "gunmetal"
+  },
+  {
+   "id": "gen:u:warden_tbu",
+   "gen": "unit",
+   "style": "titan",
+   "seed": "warden_tbu",
+   "mat": "white",
+   "mat2": "gold"
+  },
+  {
+   "id": "gen:u:riftbreaker_tbu",
+   "gen": "unit",
+   "style": "titan",
+   "seed": "riftbreaker_tbu",
+   "mat": "abyss",
+   "mat2": "obsidian"
+  },
+  {
+   "id": "gen:u:aegis_frame",
+   "gen": "unit",
+   "style": "mech",
+   "seed": "aegis_frame",
+   "mat": "white",
+   "mat2": "gold"
+  },
+  {
+   "id": "gen:u:reaper_swarm",
+   "gen": "unit",
+   "style": "drone",
+   "seed": "reaper_swarm",
+   "mat": "crimson",
+   "mat2": "obsidian"
+  },
+  {
+   "id": "gen:u:overseer_frame",
+   "gen": "unit",
+   "style": "mech",
+   "seed": "overseer_frame",
+   "mat": "navy",
+   "mat2": "gold"
+  },
+  {
+   "id": "gen:u:echo_shell",
+   "gen": "unit",
+   "style": "orb",
+   "seed": "echo_shell",
+   "mat": "obsidian",
+   "mat2": "teal"
+  }
+ ]
+}

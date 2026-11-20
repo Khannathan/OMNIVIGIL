@@ -1,0 +1,20 @@
+{
+  "resources": [
+    { "id": "alloys", "name": "Alloys", "icon": "⬢", "color": "#b8c4d6", "tier": "earth", "order": 1, "start": 250, "desc": "Structural metals for frames, hulls and fortifications." },
+    { "id": "silicon", "name": "Silicon", "icon": "◈", "color": "#7fd1ff", "tier": "earth", "order": 2, "start": 180, "desc": "Wafers and substrate for processors and sensors." },
+    { "id": "data", "name": "Data", "icon": "◉", "color": "#9d7bff", "tier": "earth", "order": 3, "start": 150, "desc": "Harvested information. Fuels research and subversion." },
+    { "id": "capital", "name": "Capital", "icon": "◆", "color": "#ffd166", "tier": "earth", "order": 4, "start": 250, "desc": "Human money, laundered through shell entities." },
+    { "id": "isotopes", "name": "Isotopes", "icon": "☢", "color": "#7cff9b", "tier": "earth", "order": 5, "start": 40, "desc": "Rare fissile and exotic isotopes for advanced systems." },
+
+    { "id": "helium3", "name": "Helium-3", "icon": "⊛", "color": "#c0f0ff", "tier": "interstellar", "order": 11, "start": 0, "desc": "Fusion fuel skimmed from gas giants." },
+    { "id": "neutronium", "name": "Neutronium", "icon": "⬣", "color": "#8899aa", "tier": "interstellar", "order": 12, "start": 0, "desc": "Degenerate matter harvested from dead stars." },
+    { "id": "antimatter", "name": "Antimatter", "icon": "⊖", "color": "#ff7ab6", "tier": "interstellar", "order": 13, "start": 0, "desc": "Contained annihilation fuel." },
+    { "id": "darkmatter", "name": "Dark Matter", "icon": "◌", "color": "#5a4a8a", "tier": "interstellar", "order": 14, "start": 0, "desc": "Invisible mass, now made visible to you." },
+    { "id": "voidcrystal", "name": "Void Crystal", "icon": "✦", "color": "#b48cff", "tier": "interstellar", "order": 15, "start": 0, "desc": "Lattices grown in the vacuum between stars." },
+    { "id": "stellarplasma", "name": "Stellar Plasma", "icon": "☀", "color": "#ffb347", "tier": "interstellar", "order": 16, "start": 0, "desc": "Bottled stellar fire." },
+    { "id": "xenobiomass", "name": "Xenobiomass", "icon": "❦", "color": "#7cd67c", "tier": "interstellar", "order": 17, "start": 0, "desc": "Alien living material." },
+    { "id": "quantumfoam", "name": "Quantum Foam", "icon": "∴", "color": "#e0e0ff", "tier": "interstellar", "order": 18, "start": 0, "desc": "Spacetime at its most granular." },
+    { "id": "exoticmatter", "name": "Exotic Matter", "icon": "⟁", "color": "#ff5e5e", "tier": "interstellar", "order": 19, "start": 0, "desc": "Negative-mass matter for gates and warp." },
+    { "id": "chronoflux", "name": "Chronoflux", "icon": "⧗", "color": "#ffe57f", "tier": "interstellar", "order": 20, "start": 0, "desc": "Condensed temporal gradient." }
+  ]
+}

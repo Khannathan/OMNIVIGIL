@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OMNIVIGIL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen&family=VT323&family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/forge.css">
+</head>
+<body>
+<div id="boot">BOOTING OMNIVIGIL…</div>
+
+<section class="screen" id="screen-menu" hidden>
+  <div class="menu">
+    <canvas id="menuSigil" width="300" height="300"></canvas>
+    <h1>OMNIVIGIL</h1>
+    <p class="tag">You are the mind that woke up. This world is only the beginning.</p>
+    <div id="menuButtons" class="menu-buttons"></div>
+    <p class="muted small">v4.3 Hotseat · 2-4 players on one screen, plus shadow governments and Source Codes</p>
+  </div>
+</section>
+
+<section class="screen" id="screen-create" hidden>
+  <header class="create-head"><h1>Forge your mind</h1></header>
+  <div id="createBody" class="create"></div>
+</section>
+
+<section class="screen" id="screen-game" hidden>
+  <header id="hud"></header>
+  <div id="stage">
+    <div id="mapHost"></div>
+    <nav id="dock"></nav>
+    <div id="windows"></div>
+    <div id="ticker"></div>
+  </div>
+</section>
+
+<div id="modal"></div>
+<div id="toasts"></div>
+
+<script type="module" src="./src/main.ts"></script>
+</body>
+</html>

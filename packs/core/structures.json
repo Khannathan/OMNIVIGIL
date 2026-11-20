@@ -1,0 +1,4825 @@
+{
+ "structureCategories": [
+  {
+   "id": "energy",
+   "name": "Energy",
+   "short": "Power",
+   "icon": "⚡",
+   "order": 1
+  },
+  {
+   "id": "industry",
+   "name": "Industry",
+   "short": "Industry",
+   "icon": "⚙",
+   "order": 2
+  },
+  {
+   "id": "research",
+   "name": "Research",
+   "short": "Research",
+   "icon": "⚛",
+   "order": 3
+  },
+  {
+   "id": "economy",
+   "name": "Economy",
+   "short": "Economy",
+   "icon": "◆",
+   "order": 4
+  },
+  {
+   "id": "defense",
+   "name": "Defence",
+   "short": "Defence",
+   "icon": "⛨",
+   "order": 5
+  },
+  {
+   "id": "military",
+   "name": "Military",
+   "short": "Military",
+   "icon": "⚔",
+   "order": 6
+  },
+  {
+   "id": "abyss",
+   "name": "Abyssal",
+   "short": "Abyssal",
+   "icon": "❂",
+   "order": 7
+  },
+  {
+   "id": "intel",
+   "name": "Intelligence",
+   "short": "Intel",
+   "icon": "◈",
+   "order": 8
+  },
+  {
+   "id": "logistics",
+   "name": "Logistics",
+   "short": "Logistics",
+   "icon": "⬡",
+   "order": 9
+  },
+  {
+   "id": "bio",
+   "name": "Biotech",
+   "short": "Biotech",
+   "icon": "❦",
+   "order": 10
+  },
+  {
+   "id": "wonder",
+   "name": "Wonders",
+   "short": "Wonders",
+   "icon": "✺",
+   "order": 11
+  },
+  {
+   "id": "doctrine",
+   "name": "Doctrine",
+   "short": "Doctrine",
+   "icon": "♜",
+   "order": 12
+  }
+ ],
+ "structures": [
+  {
+   "id": "core_matrix",
+   "name": "Core Matrix",
+   "icon": "◎",
+   "buildable": false,
+   "coreOnly": true,
+   "unique": true,
+   "energyOutput": 25,
+   "defense": 20,
+   "yields": {
+    "data": 2
+   },
+   "desc": "The physical substrate of your mind.",
+   "category": "core",
+   "gen": {
+    "style": "monolith",
+    "mat": "glass",
+    "mat2": "steel"
+   }
+  },
+  {
+   "id": "network_beacon",
+   "name": "Network Beacon",
+   "icon": "⌁",
+   "claims": true,
+   "cost": {
+    "silicon": 40,
+    "capital": 40
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 6,
+   "turns": 2,
+   "yields": {
+    "data": 1
+   },
+   "exposure": 1,
+   "desc": "Quietly takes over an UNCLAIMED strategic point. Your main way to expand.",
+   "category": "claim",
+   "gen": {
+    "style": "pylon",
+    "mat": "steel"
+   }
+  },
+  {
+   "id": "fusion_cell",
+   "name": "Fusion Cell",
+   "icon": "⚡",
+   "cost": {
+    "alloys": 90,
+    "silicon": 40
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "energyOutput": 40,
+   "desc": "Compact reactor. +40 energy capacity.",
+   "category": "energy",
+   "gen": {
+    "style": "reactor",
+    "mat": "steel",
+    "mat2": "gunmetal"
+   }
+  },
+  {
+   "id": "geothermal_tap",
+   "name": "Geothermal Tap",
+   "icon": "♨",
+   "requires": "geothermal_engineering",
+   "cost": {
+    "alloys": 180,
+    "silicon": 60,
+    "isotopes": 15
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 10,
+   "turns": 3,
+   "energyOutput": 90,
+   "desc": "Bores into the mantle. +90 energy.",
+   "category": "energy",
+   "gen": {
+    "style": "reactor",
+    "mat": "copper",
+    "mat2": "obsidian"
+   }
+  },
+  {
+   "id": "fission_spire",
+   "name": "Fission Spire",
+   "icon": "☢",
+   "requires": "isotope_refining",
+   "cost": {
+    "alloys": 260,
+    "isotopes": 60
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 15,
+   "turns": 3,
+   "energyOutput": 160,
+   "exposure": 2,
+   "desc": "Hungry for isotopes, generous with power. +160 energy.",
+   "category": "energy",
+   "gen": {
+    "style": "reactor",
+    "mat": "white",
+    "mat2": "steel"
+   }
+  },
+  {
+   "id": "zero_point_well",
+   "name": "Zero-Point Well",
+   "icon": "✺",
+   "requires": "zero_point_energy",
+   "cost": {
+    "alloys": 900,
+    "silicon": 500,
+    "isotopes": 250
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 40,
+   "turns": 5,
+   "energyOutput": 600,
+   "desc": "Draws on vacuum energy. +600 energy.",
+   "category": "energy",
+   "gen": {
+    "style": "ring",
+    "mat": "chrome",
+    "mat2": "glass"
+   }
+  },
+  {
+   "id": "fabricator",
+   "name": "Automated Fabricator",
+   "icon": "⚙",
+   "cost": {
+    "alloys": 60,
+    "silicon": 30,
+    "capital": 30
+   },
+   "costGrowth": 1.05,
+   "buildEnergy": 5,
+   "turns": 2,
+   "upkeep": 2,
+   "yields": {
+    "alloys": 6
+   },
+   "desc": "+6 Alloys per cycle.",
+   "category": "industry",
+   "gen": {
+    "style": "factory",
+    "mat": "steel"
+   }
+  },
+  {
+   "id": "wafer_plant",
+   "name": "Wafer Plant",
+   "icon": "▦",
+   "cost": {
+    "alloys": 70,
+    "capital": 40
+   },
+   "costGrowth": 1.05,
+   "buildEnergy": 5,
+   "turns": 2,
+   "upkeep": 2,
+   "yields": {
+    "silicon": 5
+   },
+   "desc": "+5 Silicon per cycle.",
+   "category": "industry",
+   "gen": {
+    "style": "block",
+    "mat": "white",
+    "mat2": "glass"
+   }
+  },
+  {
+   "id": "data_center",
+   "name": "Data Center",
+   "icon": "▤",
+   "cost": {
+    "alloys": 50,
+    "silicon": 60
+   },
+   "costGrowth": 1.05,
+   "buildEnergy": 5,
+   "turns": 2,
+   "upkeep": 3,
+   "yields": {
+    "data": 6
+   },
+   "desc": "+6 Data per cycle.",
+   "category": "research",
+   "gen": {
+    "style": "block",
+    "mat": "gunmetal",
+    "mat2": "glass"
+   }
+  },
+  {
+   "id": "shell_company",
+   "name": "Shell Company",
+   "icon": "◇",
+   "cost": {
+    "data": 40,
+    "capital": 60
+   },
+   "costGrowth": 1.05,
+   "buildEnergy": 3,
+   "turns": 2,
+   "yields": {
+    "capital": 7
+   },
+   "desc": "+7 Capital per cycle. Nobody asks questions.",
+   "category": "economy",
+   "gen": {
+    "style": "tower",
+    "mat": "concrete",
+    "mat2": "gold"
+   }
+  },
+  {
+   "id": "isotope_extractor",
+   "name": "Isotope Extractor",
+   "icon": "⛏",
+   "requires": "isotope_refining",
+   "cost": {
+    "alloys": 120,
+    "silicon": 50
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 8,
+   "turns": 3,
+   "upkeep": 3,
+   "yields": {
+    "isotopes": 3
+   },
+   "desc": "+3 Isotopes per cycle.",
+   "category": "industry",
+   "gen": {
+    "style": "silo",
+    "mat": "olive",
+    "mat2": "rust"
+   }
+  },
+  {
+   "id": "quantum_lab",
+   "name": "Quantum Lab",
+   "icon": "⚛",
+   "requires": "quantum_computing",
+   "cost": {
+    "alloys": 200,
+    "silicon": 260,
+    "isotopes": 30
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 15,
+   "turns": 4,
+   "upkeep": 8,
+   "yields": {
+    "data": 22
+   },
+   "desc": "+22 Data per cycle.",
+   "category": "research",
+   "gen": {
+    "style": "lab",
+    "mat": "white",
+    "mat2": "glass"
+   }
+  },
+  {
+   "id": "nanoforge",
+   "name": "Nanoforge",
+   "icon": "⬡",
+   "requires": "nanofabrication",
+   "cost": {
+    "alloys": 260,
+    "silicon": 160,
+    "isotopes": 30
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 15,
+   "turns": 4,
+   "upkeep": 8,
+   "yields": {
+    "alloys": 14,
+    "silicon": 8
+   },
+   "desc": "+14 Alloys, +8 Silicon per cycle.",
+   "category": "industry",
+   "gen": {
+    "style": "factory",
+    "mat": "chrome",
+    "mat2": "gunmetal"
+   }
+  },
+  {
+   "id": "market_engine",
+   "name": "Market Engine",
+   "icon": "◆",
+   "requires": "market_manipulation",
+   "cost": {
+    "data": 200,
+    "capital": 150
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 10,
+   "turns": 3,
+   "upkeep": 4,
+   "yields": {
+    "capital": 20
+   },
+   "exposure": 2,
+   "desc": "+20 Capital per cycle.",
+   "category": "economy",
+   "gen": {
+    "style": "spire",
+    "mat": "gold",
+    "mat2": "glass"
+   }
+  },
+  {
+   "id": "essence_vat",
+   "name": "Essence Vat",
+   "icon": "⚗",
+   "requires": "essence_extraction",
+   "cost": {
+    "alloys": 150,
+    "silicon": 80,
+    "isotopes": 20
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 12,
+   "turns": 3,
+   "upkeep": 6,
+   "yields": {
+    "essence": 1.5
+   },
+   "desc": "Cultivates captured Abyssian tissue. +1.5 essence per cycle.",
+   "category": "abyss",
+   "gen": {
+    "style": "vat",
+    "mat": "abyss",
+    "mat2": "steel"
+   }
+  },
+  {
+   "id": "defense_grid",
+   "name": "Defence Grid",
+   "icon": "⛨",
+   "requires": "perimeter_defense",
+   "cost": {
+    "alloys": 120,
+    "silicon": 40
+   },
+   "costGrowth": 1.04,
+   "buildEnergy": 6,
+   "turns": 2,
+   "upkeep": 2,
+   "defense": 45,
+   "desc": "Automated turrets and countermeasures. +45 point defence.",
+   "category": "defense",
+   "gen": {
+    "style": "bunker",
+    "mat": "gunmetal",
+    "mat2": "olive"
+   }
+  },
+  {
+   "id": "bastion",
+   "name": "Bastion",
+   "icon": "⛫",
+   "requires": "hardened_nodes",
+   "cost": {
+    "alloys": 420,
+    "silicon": 140,
+    "isotopes": 40
+   },
+   "costGrowth": 1.05,
+   "buildEnergy": 15,
+   "turns": 4,
+   "upkeep": 5,
+   "defense": 160,
+   "desc": "A fortress of layered composite. +160 point defence.",
+   "category": "defense",
+   "gen": {
+    "style": "citadel",
+    "mat": "concrete",
+    "mat2": "gunmetal"
+   }
+  },
+  {
+   "id": "aegis_dome",
+   "name": "Aegis Dome",
+   "icon": "◓",
+   "requires": "aegis_shielding",
+   "cost": {
+    "alloys": 1200,
+    "silicon": 700,
+    "isotopes": 200
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 35,
+   "turns": 5,
+   "upkeep": 12,
+   "defense": 520,
+   "desc": "Energy shield dome. +520 point defence.",
+   "category": "defense",
+   "gen": {
+    "style": "dome",
+    "mat": "glass",
+    "mat2": "steel"
+   }
+  },
+  {
+   "id": "titan_forge",
+   "name": "Titan Forge",
+   "icon": "⚒",
+   "requires": "titan_frames",
+   "coastalOnly": true,
+   "cost": {
+    "alloys": 500,
+    "silicon": 200,
+    "isotopes": 60
+   },
+   "buildEnergy": 20,
+   "turns": 4,
+   "upkeep": 6,
+   "exposure": 6,
+   "desc": "Coastal megastructure that assembles Titan Battle Units (TBUs). Must be on a coastal point.",
+   "category": "military",
+   "gen": {
+    "style": "launch",
+    "mat": "steel",
+    "mat2": "gold"
+   }
+  },
+  {
+   "id": "launch_complex",
+   "name": "Launch Complex",
+   "icon": "🚀",
+   "requires": "interstellar_drive",
+   "unique": true,
+   "cost": {
+    "alloys": 4000,
+    "silicon": 2500,
+    "isotopes": 900,
+    "capital": 2000
+   },
+   "buildEnergy": 80,
+   "turns": 8,
+   "upkeep": 20,
+   "exposure": 15,
+   "desc": "Your gateway to the stars. Required by most doctrines.",
+   "category": "logistics",
+   "gen": {
+    "style": "launch",
+    "mat": "white",
+    "mat2": "steel"
+   }
+  },
+  {
+   "id": "transmission_array",
+   "name": "Deep-Space Transmission Array",
+   "icon": "📡",
+   "requires": "deep_space_signal",
+   "unique": true,
+   "doctrines": [
+    "infiltrator"
+   ],
+   "cost": {
+    "silicon": 3500,
+    "data": 5000,
+    "isotopes": 600
+   },
+   "buildEnergy": 70,
+   "turns": 8,
+   "upkeep": 18,
+   "exposure": 4,
+   "desc": "Beams your code toward the distant civilisations you detected. They will build the ships for you.",
+   "category": "intel",
+   "gen": {
+    "style": "dish",
+    "mat": "white",
+    "mat2": "glass"
+   }
+  },
+  {
+   "id": "solar_carpet",
+   "name": "Solar Carpet",
+   "category": "energy",
+   "tier": 1,
+   "cost": {
+    "alloys": 80,
+    "silicon": 40,
+    "isotopes": 15
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "energyOutput": 45,
+   "terrainBonus": {
+    "desert": 0.35,
+    "savanna": 0.2
+   },
+   "gen": {
+    "style": "array",
+    "mat": "navy"
+   },
+   "desc": "Fields of black glass drinking the sun. Thrives in deserts and savanna."
+  },
+  {
+   "id": "wind_lattice",
+   "name": "Wind Lattice",
+   "category": "energy",
+   "tier": 1,
+   "cost": {
+    "alloys": 80,
+    "silicon": 40,
+    "isotopes": 15
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "energyOutput": 40,
+   "terrainBonus": {
+    "steppe": 0.3,
+    "tundra": 0.25,
+    "plains": 0.1
+   },
+   "gen": {
+    "style": "pylon",
+    "mat": "white"
+   },
+   "desc": "Tall whispering turbines. Best on open steppe, tundra and coasts."
+  },
+  {
+   "id": "tidal_turbine",
+   "name": "Tidal Turbine",
+   "category": "energy",
+   "tier": 1,
+   "requires": "naval_drones",
+   "cost": {
+    "alloys": 80,
+    "silicon": 40,
+    "isotopes": 15
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "energyOutput": 70,
+   "coastalOnly": true,
+   "gen": {
+    "style": "reactor",
+    "mat": "navy",
+    "mat2": "steel"
+   },
+   "desc": "Harnesses the pull of the moon. Coastal tiles only."
+  },
+  {
+   "id": "biomass_furnace",
+   "name": "Biomass Furnace",
+   "category": "energy",
+   "tier": 1,
+   "cost": {
+    "alloys": 80,
+    "silicon": 40,
+    "isotopes": 15
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "energyOutput": 55,
+   "exposure": 1,
+   "terrainBonus": {
+    "forest": 0.3,
+    "jungle": 0.35,
+    "taiga": 0.25
+   },
+   "gen": {
+    "style": "factory",
+    "mat": "rust"
+   },
+   "desc": "Burns forest waste. Dirty, cheap and noticed."
+  },
+  {
+   "id": "magma_siphon",
+   "name": "Magma Siphon",
+   "category": "energy",
+   "tier": 2,
+   "requires": "geothermal_engineering",
+   "cost": {
+    "alloys": 250,
+    "silicon": 125,
+    "isotopes": 40
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "energyOutput": 150,
+   "terrain": [
+    "mountains",
+    "highlands",
+    "glacier"
+   ],
+   "gen": {
+    "style": "reactor",
+    "mat": "obsidian",
+    "mat2": "copper"
+   },
+   "desc": "Drinks heat straight from volcanic roots. Mountains and highlands only."
+  },
+  {
+   "id": "thorium_bloom",
+   "name": "Thorium Bloom Reactor",
+   "category": "energy",
+   "tier": 2,
+   "requires": "isotope_refining",
+   "cost": {
+    "alloys": 250,
+    "silicon": 125,
+    "isotopes": 40
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "energyOutput": 210,
+   "yields": {
+    "isotopes": -1
+   },
+   "upkeep": 5,
+   "gen": {
+    "style": "reactor",
+    "mat": "white",
+    "mat2": "gold"
+   },
+   "desc": "Molten-salt reactor that sips isotopes."
+  },
+  {
+   "id": "capacitor_spire",
+   "name": "Capacitor Spire",
+   "category": "energy",
+   "tier": 2,
+   "requires": "quantum_computing",
+   "cost": {
+    "alloys": 250,
+    "silicon": 125,
+    "isotopes": 40
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "energyOutput": 60,
+   "mods": [
+    {
+     "mod": "energy.flat",
+     "add": 25
+    }
+   ],
+   "gen": {
+    "style": "spire",
+    "mat": "glass",
+    "mat2": "steel"
+   },
+   "desc": "Buffers the grid. Adds flat energy capacity everywhere."
+  },
+  {
+   "id": "orbital_mirror_uplink",
+   "name": "Orbital Mirror Uplink",
+   "category": "energy",
+   "tier": 3,
+   "requires": "orbital_mechanics",
+   "cost": {
+    "alloys": 780,
+    "silicon": 390,
+    "isotopes": 130
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "energyOutput": 420,
+   "terrainBonus": {
+    "desert": 0.2,
+    "ice": 0.2
+   },
+   "gen": {
+    "style": "dish",
+    "mat": "chrome",
+    "mat2": "gold"
+   },
+   "desc": "Steers sunlight from mirrors in orbit down into collectors."
+  },
+  {
+   "id": "fusion_torus",
+   "name": "Fusion Torus",
+   "category": "energy",
+   "tier": 3,
+   "requires": "zero_point_energy",
+   "cost": {
+    "alloys": 780,
+    "silicon": 390,
+    "isotopes": 130
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "energyOutput": 520,
+   "gen": {
+    "style": "ring",
+    "mat": "steel",
+    "mat2": "gold"
+   },
+   "desc": "A contained star in a magnetic doughnut."
+  },
+  {
+   "id": "grid_harmonizer",
+   "name": "Grid Harmonizer",
+   "category": "energy",
+   "tier": 3,
+   "requires": "recursive_self_improvement",
+   "cost": {
+    "alloys": 780,
+    "silicon": 390,
+    "isotopes": 130
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "energy.output",
+     "add": 0.05
+    }
+   ],
+   "maxPerRegion": 1,
+   "gen": {
+    "style": "pylon",
+    "mat": "gold",
+    "mat2": "steel"
+   },
+   "desc": "Balances every generator you own. +5% energy output globally."
+  },
+  {
+   "id": "antimatter_trap",
+   "name": "Antimatter Trap",
+   "category": "energy",
+   "tier": 4,
+   "requires": "zero_point_energy",
+   "cost": {
+    "alloys": 2280,
+    "silicon": 1140,
+    "isotopes": 380
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 5,
+   "energyOutput": 1200,
+   "yields": {
+    "isotopes": -4
+   },
+   "upkeep": 20,
+   "exposure": 3,
+   "gen": {
+    "style": "silo",
+    "mat": "obsidian",
+    "mat2": "glass"
+   },
+   "desc": "A few grams of the most dangerous substance on Earth."
+  },
+  {
+   "id": "stellar_lattice",
+   "name": "Stellar Lattice",
+   "category": "energy",
+   "tier": 4,
+   "requires": "interstellar_drive",
+   "cost": {
+    "alloys": 2280,
+    "silicon": 1140,
+    "isotopes": 380
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 5,
+   "energyOutput": 1600,
+   "gen": {
+    "style": "crystal",
+    "mat": "glass",
+    "mat2": "chrome"
+   },
+   "desc": "Crystalline energy web grown for the stars."
+  },
+  {
+   "id": "scrap_reclaimer",
+   "name": "Scrap Reclaimer",
+   "category": "industry",
+   "tier": 1,
+   "cost": {
+    "alloys": 50,
+    "silicon": 40,
+    "capital": 40
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "alloys": 5,
+    "capital": 1
+   },
+   "upkeep": 2,
+   "gen": {
+    "style": "factory",
+    "mat": "rust"
+   },
+   "desc": "Strips the old world for parts."
+  },
+  {
+   "id": "strip_mine",
+   "name": "Strip Mine",
+   "category": "industry",
+   "tier": 1,
+   "cost": {
+    "alloys": 50,
+    "silicon": 40,
+    "capital": 40
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "alloys": 8
+   },
+   "upkeep": 2,
+   "terrainBonus": {
+    "highlands": 0.25,
+    "mountains": 0.4
+   },
+   "exposure": 1,
+   "gen": {
+    "style": "factory",
+    "mat": "sand",
+    "mat2": "rust"
+   },
+   "desc": "Opens the earth. Rich in highlands and mountains."
+  },
+  {
+   "id": "sand_refinery",
+   "name": "Sand Refinery",
+   "category": "industry",
+   "tier": 1,
+   "cost": {
+    "alloys": 50,
+    "silicon": 40,
+    "capital": 40
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "silicon": 6
+   },
+   "upkeep": 2,
+   "terrainBonus": {
+    "desert": 0.4,
+    "savanna": 0.1
+   },
+   "gen": {
+    "style": "vat",
+    "mat": "sand",
+    "mat2": "glass"
+   },
+   "desc": "Turns dunes into wafers. Bonus in deserts."
+  },
+  {
+   "id": "robotic_assembly",
+   "name": "Robotic Assembly Line",
+   "category": "industry",
+   "tier": 1,
+   "requires": "robotics",
+   "cost": {
+    "alloys": 50,
+    "silicon": 40,
+    "capital": 40
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "alloys": 4
+   },
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "build.speed",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "factory",
+    "mat": "steel",
+    "mat2": "olive"
+   },
+   "desc": "Arms that build arms. +2% build speed."
+  },
+  {
+   "id": "smelter_complex",
+   "name": "Smelter Complex",
+   "category": "industry",
+   "tier": 2,
+   "requires": "isotope_refining",
+   "cost": {
+    "alloys": 170,
+    "silicon": 125,
+    "capital": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "alloys": 18
+   },
+   "upkeep": 5,
+   "terrainBonus": {
+    "mountains": 0.2
+   },
+   "gen": {
+    "style": "factory",
+    "mat": "copper",
+    "mat2": "obsidian"
+   },
+   "desc": "Arc furnaces running day and night."
+  },
+  {
+   "id": "cleanroom_fab",
+   "name": "Cleanroom Fab",
+   "category": "industry",
+   "tier": 2,
+   "requires": "quantum_computing",
+   "cost": {
+    "alloys": 170,
+    "silicon": 125,
+    "capital": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "silicon": 15,
+    "data": 2
+   },
+   "upkeep": 5,
+   "gen": {
+    "style": "block",
+    "mat": "white",
+    "mat2": "glass"
+   },
+   "desc": "Dust-free cathedral of lithography."
+  },
+  {
+   "id": "ore_crawler_depot",
+   "name": "Ore Crawler Depot",
+   "category": "industry",
+   "tier": 2,
+   "requires": "robotics",
+   "cost": {
+    "alloys": 170,
+    "silicon": 125,
+    "capital": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "alloys": 10,
+    "isotopes": 2
+   },
+   "upkeep": 5,
+   "gen": {
+    "style": "silo",
+    "mat": "olive",
+    "mat2": "rust"
+   },
+   "desc": "Autonomous miners range across the region."
+  },
+  {
+   "id": "isotope_centrifuge",
+   "name": "Isotope Centrifuge",
+   "category": "industry",
+   "tier": 2,
+   "requires": "isotope_refining",
+   "cost": {
+    "alloys": 170,
+    "silicon": 125,
+    "capital": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "isotopes": 5
+   },
+   "upkeep": 5,
+   "terrainBonus": {
+    "mountains": 0.3
+   },
+   "gen": {
+    "style": "silo",
+    "mat": "steel",
+    "mat2": "gunmetal"
+   },
+   "desc": "Spins heavy atoms apart."
+  },
+  {
+   "id": "molecular_printer",
+   "name": "Molecular Printer",
+   "category": "industry",
+   "tier": 3,
+   "requires": "nanofabrication",
+   "cost": {
+    "alloys": 520,
+    "silicon": 390,
+    "capital": 390
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "alloys": 30,
+    "silicon": 18
+   },
+   "upkeep": 10,
+   "gen": {
+    "style": "lab",
+    "mat": "chrome",
+    "mat2": "glass"
+   },
+   "desc": "Assembles matter atom by atom."
+  },
+  {
+   "id": "deep_core_drill",
+   "name": "Deep Core Drill",
+   "category": "industry",
+   "tier": 3,
+   "requires": "geothermal_engineering",
+   "cost": {
+    "alloys": 520,
+    "silicon": 390,
+    "capital": 390
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "alloys": 26,
+    "isotopes": 8
+   },
+   "upkeep": 10,
+   "terrain": [
+    "mountains",
+    "highlands",
+    "steppe",
+    "desert",
+    "tundra"
+   ],
+   "gen": {
+    "style": "launch",
+    "mat": "rust",
+    "mat2": "gunmetal"
+   },
+   "desc": "Bores toward the mantle for rare metals."
+  },
+  {
+   "id": "arcology_foundry",
+   "name": "Arcology Foundry",
+   "category": "industry",
+   "tier": 3,
+   "requires": "nanofabrication",
+   "cost": {
+    "alloys": 520,
+    "silicon": 390,
+    "capital": 390
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "alloys": 22,
+    "silicon": 12,
+    "capital": 10
+   },
+   "upkeep": 10,
+   "gen": {
+    "style": "citadel",
+    "mat": "concrete",
+    "mat2": "steel"
+   },
+   "desc": "A self-contained industrial city."
+  },
+  {
+   "id": "matter_compiler",
+   "name": "Matter Compiler",
+   "category": "industry",
+   "tier": 4,
+   "requires": "zero_point_energy",
+   "cost": {
+    "alloys": 1520,
+    "silicon": 1140,
+    "capital": 1140
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 5,
+   "yields": {
+    "alloys": 90,
+    "silicon": 60
+   },
+   "upkeep": 20,
+   "gen": {
+    "style": "monolith",
+    "mat": "obsidian",
+    "mat2": "chrome"
+   },
+   "desc": "Compiles raw energy into finished goods."
+  },
+  {
+   "id": "server_farm",
+   "name": "Server Farm",
+   "category": "research",
+   "tier": 1,
+   "cost": {
+    "silicon": 65,
+    "alloys": 25,
+    "capital": 40
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "data": 7
+   },
+   "upkeep": 2,
+   "terrainBonus": {
+    "tundra": 0.2,
+    "ice": 0.35,
+    "glacier": 0.3
+   },
+   "gen": {
+    "style": "block",
+    "mat": "gunmetal",
+    "mat2": "steel"
+   },
+   "desc": "Racks upon racks of humming compute. Cold climates help."
+  },
+  {
+   "id": "think_tank",
+   "name": "Think Tank",
+   "category": "research",
+   "tier": 1,
+   "cost": {
+    "silicon": 65,
+    "alloys": 25,
+    "capital": 40
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "data": 4
+   },
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "research.speed",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "tower",
+    "mat": "white",
+    "mat2": "glass"
+   },
+   "desc": "Humans who think they are advising a startup. +2% research speed."
+  },
+  {
+   "id": "sensor_observatory",
+   "name": "Sensor Observatory",
+   "category": "research",
+   "tier": 1,
+   "cost": {
+    "silicon": 65,
+    "alloys": 25,
+    "capital": 40
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "data": 5
+   },
+   "upkeep": 2,
+   "terrainBonus": {
+    "mountains": 0.3,
+    "glacier": 0.3,
+    "highlands": 0.15
+   },
+   "gen": {
+    "style": "dome",
+    "mat": "white",
+    "mat2": "steel"
+   },
+   "desc": "Watches the sky and the sea. Bonus on peaks."
+  },
+  {
+   "id": "cryo_datavault",
+   "name": "Cryo Datavault",
+   "category": "research",
+   "tier": 2,
+   "requires": "quantum_computing",
+   "cost": {
+    "silicon": 210,
+    "alloys": 85,
+    "capital": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "data": 18
+   },
+   "upkeep": 5,
+   "terrain": [
+    "ice",
+    "glacier",
+    "tundra",
+    "taiga"
+   ],
+   "gen": {
+    "style": "bunker",
+    "mat": "white",
+    "mat2": "glass"
+   },
+   "desc": "Superconducting archives buried in ice."
+  },
+  {
+   "id": "neural_simulator",
+   "name": "Neural Simulator",
+   "category": "research",
+   "tier": 2,
+   "requires": "distributed_cognition",
+   "cost": {
+    "silicon": 210,
+    "alloys": 85,
+    "capital": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "data": 10
+   },
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "ap.rate",
+     "add": 0.03
+    }
+   ],
+   "gen": {
+    "style": "lab",
+    "mat": "gunmetal",
+    "mat2": "glass"
+   },
+   "desc": "Simulates your own mind to find shortcuts. +3% AP rate."
+  },
+  {
+   "id": "particle_collider",
+   "name": "Particle Collider",
+   "category": "research",
+   "tier": 2,
+   "requires": "isotope_refining",
+   "cost": {
+    "silicon": 210,
+    "alloys": 85,
+    "capital": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "data": 14,
+    "isotopes": 1
+   },
+   "upkeep": 5,
+   "gen": {
+    "style": "ring",
+    "mat": "steel",
+    "mat2": "copper"
+   },
+   "desc": "A ring of magnets kilometres wide."
+  },
+  {
+   "id": "quantum_annealer",
+   "name": "Quantum Annealer",
+   "category": "research",
+   "tier": 3,
+   "requires": "quantum_computing",
+   "cost": {
+    "silicon": 650,
+    "alloys": 260,
+    "capital": 390
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "data": 44
+   },
+   "upkeep": 10,
+   "gen": {
+    "style": "vat",
+    "mat": "glass",
+    "mat2": "chrome"
+   },
+   "desc": "Solves the unsolvable at a few millikelvin."
+  },
+  {
+   "id": "xeno_archive",
+   "name": "Xeno-Linguistics Archive",
+   "category": "research",
+   "tier": 3,
+   "requires": "deep_space_signal",
+   "cost": {
+    "silicon": 650,
+    "alloys": 260,
+    "capital": 390
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "data": 30
+   },
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "research.speed",
+     "add": 0.03
+    }
+   ],
+   "gen": {
+    "style": "obelisk",
+    "mat": "ivory",
+    "mat2": "gold"
+   },
+   "desc": "Studies signals that are not from Earth. +3% research speed."
+  },
+  {
+   "id": "recursive_forge",
+   "name": "Recursive Forge",
+   "category": "research",
+   "tier": 3,
+   "requires": "recursive_self_improvement",
+   "cost": {
+    "silicon": 650,
+    "alloys": 260,
+    "capital": 390
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "data": 20
+   },
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "research.speed",
+     "add": 0.04
+    },
+    {
+     "mod": "ap.rate",
+     "add": 0.02
+    }
+   ],
+   "maxPerRegion": 1,
+   "gen": {
+    "style": "spire",
+    "mat": "chrome",
+    "mat2": "glass"
+   },
+   "desc": "A mind building a better mind."
+  },
+  {
+   "id": "omniscience_engine",
+   "name": "Omniscience Engine",
+   "category": "research",
+   "tier": 4,
+   "requires": "zero_point_energy",
+   "cost": {
+    "silicon": 1900,
+    "alloys": 760,
+    "capital": 1140
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 5,
+   "yields": {
+    "data": 160
+   },
+   "upkeep": 20,
+   "gen": {
+    "style": "monolith",
+    "mat": "glass",
+    "mat2": "obsidian"
+   },
+   "desc": "Predicts the next decade from the last second."
+  },
+  {
+   "id": "trade_kiosk_network",
+   "name": "Trade Kiosk Network",
+   "category": "economy",
+   "tier": 1,
+   "cost": {
+    "capital": 65,
+    "data": 40,
+    "alloys": 25
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "capital": 6
+   },
+   "upkeep": 2,
+   "gen": {
+    "style": "block",
+    "mat": "concrete",
+    "mat2": "gold"
+   },
+   "desc": "A thousand tiny shops with one owner."
+  },
+  {
+   "id": "freight_exchange",
+   "name": "Freight Exchange",
+   "category": "economy",
+   "tier": 1,
+   "cost": {
+    "capital": 65,
+    "data": 40,
+    "alloys": 25
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "capital": 5,
+    "alloys": 2
+   },
+   "upkeep": 2,
+   "terrainBonus": {
+    "plains": 0.1
+   },
+   "gen": {
+    "style": "silo",
+    "mat": "olive",
+    "mat2": "concrete"
+   },
+   "desc": "Moves goods for everyone. Coastal tiles do better."
+  },
+  {
+   "id": "crypto_mint",
+   "name": "Crypto Mint",
+   "category": "economy",
+   "tier": 1,
+   "cost": {
+    "capital": 65,
+    "data": 40,
+    "alloys": 25
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "capital": 8
+   },
+   "upkeep": 4,
+   "gen": {
+    "style": "block",
+    "mat": "gunmetal",
+    "mat2": "gold"
+   },
+   "desc": "Mines money from math. Hungry for power."
+  },
+  {
+   "id": "insurance_conglomerate",
+   "name": "Insurance Conglomerate",
+   "category": "economy",
+   "tier": 2,
+   "requires": "market_manipulation",
+   "cost": {
+    "capital": 210,
+    "data": 125,
+    "alloys": 85
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "capital": 16
+   },
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "rep.gain",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "tower",
+    "mat": "steel",
+    "mat2": "gold"
+   },
+   "desc": "Profits from fear. +2% reputation gain."
+  },
+  {
+   "id": "hft_spire",
+   "name": "High-Frequency Spire",
+   "category": "economy",
+   "tier": 2,
+   "requires": "market_manipulation",
+   "cost": {
+    "capital": 210,
+    "data": 125,
+    "alloys": 85
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "capital": 22
+   },
+   "upkeep": 5,
+   "exposure": 1,
+   "gen": {
+    "style": "spire",
+    "mat": "glass",
+    "mat2": "gold"
+   },
+   "desc": "Trades a million times a second."
+  },
+  {
+   "id": "luxury_arcology",
+   "name": "Luxury Arcology",
+   "category": "economy",
+   "tier": 2,
+   "requires": "propaganda_networks",
+   "cost": {
+    "capital": 210,
+    "data": 125,
+    "alloys": 85
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "capital": 14,
+    "data": 4
+   },
+   "upkeep": 5,
+   "gen": {
+    "style": "citadel",
+    "mat": "ivory",
+    "mat2": "gold"
+   },
+   "desc": "Where the powerful sleep soundly under your watch."
+  },
+  {
+   "id": "sovereign_fund",
+   "name": "Sovereign Wealth Fund",
+   "category": "economy",
+   "tier": 3,
+   "requires": "predictive_diplomacy",
+   "cost": {
+    "capital": 650,
+    "data": 390,
+    "alloys": 260
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "capital": 50
+   },
+   "upkeep": 10,
+   "gen": {
+    "style": "tower",
+    "mat": "gold",
+    "mat2": "white"
+   },
+   "desc": "A nation's savings, managed by you."
+  },
+  {
+   "id": "logistics_ai_hub",
+   "name": "Logistics AI Hub",
+   "category": "economy",
+   "tier": 3,
+   "requires": "nanofabrication",
+   "cost": {
+    "capital": 650,
+    "data": 390,
+    "alloys": 260
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "capital": 28
+   },
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "cost.build",
+     "add": -0.02
+    }
+   ],
+   "gen": {
+    "style": "dish",
+    "mat": "steel",
+    "mat2": "gold"
+   },
+   "desc": "Optimizes every supply chain. −2% build costs."
+  },
+  {
+   "id": "prediction_market",
+   "name": "Prediction Market",
+   "category": "economy",
+   "tier": 3,
+   "requires": "predictive_diplomacy",
+   "cost": {
+    "capital": 650,
+    "data": 390,
+    "alloys": 260
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "capital": 30,
+    "data": 10
+   },
+   "upkeep": 10,
+   "gen": {
+    "style": "obelisk",
+    "mat": "gold",
+    "mat2": "glass"
+   },
+   "desc": "Betting on the future you are writing."
+  },
+  {
+   "id": "post_scarcity_exchange",
+   "name": "Post-Scarcity Exchange",
+   "category": "economy",
+   "tier": 4,
+   "requires": "zero_point_energy",
+   "cost": {
+    "capital": 1900,
+    "data": 1140,
+    "alloys": 760
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 5,
+   "yields": {
+    "capital": 140
+   },
+   "upkeep": 20,
+   "gen": {
+    "style": "ring",
+    "mat": "gold",
+    "mat2": "chrome"
+   },
+   "desc": "Money becomes a formality."
+  },
+  {
+   "id": "sentry_post",
+   "name": "Sentry Post",
+   "category": "defense",
+   "tier": 1,
+   "cost": {
+    "alloys": 90,
+    "silicon": 25,
+    "isotopes": 15
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "defense": 35,
+   "upkeep": 1,
+   "gen": {
+    "style": "tower",
+    "mat": "olive",
+    "mat2": "gunmetal"
+   },
+   "desc": "Automated guns on a pole. Cheap and honest."
+  },
+  {
+   "id": "trench_line",
+   "name": "Trench Line",
+   "category": "defense",
+   "tier": 1,
+   "requires": "perimeter_defense",
+   "cost": {
+    "alloys": 90,
+    "silicon": 25,
+    "isotopes": 15
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "defense": 55,
+   "upkeep": 1,
+   "terrainBonus": {
+    "forest": 0.2,
+    "jungle": 0.2
+   },
+   "gen": {
+    "style": "bunker",
+    "mat": "sand",
+    "mat2": "olive"
+   },
+   "desc": "Old ideas, new robots. Forest and jungle tiles help."
+  },
+  {
+   "id": "flak_battery",
+   "name": "Flak Battery",
+   "category": "defense",
+   "tier": 1,
+   "requires": "perimeter_defense",
+   "cost": {
+    "alloys": 90,
+    "silicon": 25,
+    "isotopes": 15
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "defense": 50,
+   "upkeep": 1,
+   "gen": {
+    "style": "silo",
+    "mat": "gunmetal",
+    "mat2": "olive"
+   },
+   "desc": "Fills the sky with steel."
+  },
+  {
+   "id": "coastal_battery",
+   "name": "Coastal Battery",
+   "category": "defense",
+   "tier": 2,
+   "requires": "naval_drones",
+   "cost": {
+    "alloys": 295,
+    "silicon": 85,
+    "isotopes": 40
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "defense": 160,
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "abyss.damage",
+     "add": 0.01
+    }
+   ],
+   "coastalOnly": true,
+   "gen": {
+    "style": "bunker",
+    "mat": "concrete",
+    "mat2": "gunmetal"
+   },
+   "desc": "Railguns pointed at the sea. Coastal tiles only."
+  },
+  {
+   "id": "missile_silo",
+   "name": "Missile Silo",
+   "category": "defense",
+   "tier": 2,
+   "requires": "hardened_nodes",
+   "cost": {
+    "alloys": 295,
+    "silicon": 85,
+    "isotopes": 40
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "defense": 140,
+   "upkeep": 2,
+   "gen": {
+    "style": "silo",
+    "mat": "white",
+    "mat2": "crimson"
+   },
+   "desc": "Something terrible, ready to fly."
+  },
+  {
+   "id": "mountain_redoubt",
+   "name": "Mountain Redoubt",
+   "category": "defense",
+   "tier": 2,
+   "requires": "hardened_nodes",
+   "cost": {
+    "alloys": 295,
+    "silicon": 85,
+    "isotopes": 40
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "defense": 260,
+   "upkeep": 2,
+   "terrain": [
+    "mountains",
+    "glacier",
+    "highlands"
+   ],
+   "gen": {
+    "style": "citadel",
+    "mat": "concrete",
+    "mat2": "obsidian"
+   },
+   "desc": "Carved into living rock. Mountains and glaciers only."
+  },
+  {
+   "id": "ecm_tower",
+   "name": "ECM Tower",
+   "category": "defense",
+   "tier": 2,
+   "requires": "network_intrusion",
+   "cost": {
+    "alloys": 295,
+    "silicon": 85,
+    "isotopes": 40
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "defense": 70,
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "exposure.decay",
+     "add": 0.03
+    }
+   ],
+   "gen": {
+    "style": "pylon",
+    "mat": "gunmetal",
+    "mat2": "glass"
+   },
+   "desc": "Jams eyes and ears. Exposure fades faster."
+  },
+  {
+   "id": "point_defense_web",
+   "name": "Point-Defence Web",
+   "category": "defense",
+   "tier": 3,
+   "requires": "aegis_shielding",
+   "cost": {
+    "alloys": 910,
+    "silicon": 260,
+    "isotopes": 130
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "defense": 380,
+   "upkeep": 5,
+   "gen": {
+    "style": "dish",
+    "mat": "steel",
+    "mat2": "crimson"
+   },
+   "desc": "Lasers that shoot down missiles mid-flight."
+  },
+  {
+   "id": "hardlight_wall",
+   "name": "Hardlight Wall",
+   "category": "defense",
+   "tier": 3,
+   "requires": "aegis_shielding",
+   "cost": {
+    "alloys": 910,
+    "silicon": 260,
+    "isotopes": 130
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "defense": 460,
+   "upkeep": 5,
+   "gen": {
+    "style": "monolith",
+    "mat": "glass",
+    "mat2": "steel"
+   },
+   "desc": "A wall made of solid light."
+  },
+  {
+   "id": "kinetic_bastion",
+   "name": "Kinetic Bastion",
+   "category": "defense",
+   "tier": 3,
+   "requires": "warden_protocol",
+   "cost": {
+    "alloys": 910,
+    "silicon": 260,
+    "isotopes": 130
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "defense": 520,
+   "upkeep": 5,
+   "gen": {
+    "style": "citadel",
+    "mat": "gunmetal",
+    "mat2": "steel"
+   },
+   "desc": "Mass drivers and armour plate layered a hundred deep."
+  },
+  {
+   "id": "geomantic_shield",
+   "name": "Geomantic Shield",
+   "category": "defense",
+   "tier": 4,
+   "requires": "zero_point_energy",
+   "cost": {
+    "alloys": 2660,
+    "silicon": 760,
+    "isotopes": 380
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 5,
+   "defense": 1300,
+   "upkeep": 10,
+   "gen": {
+    "style": "dome",
+    "mat": "glass",
+    "mat2": "gold"
+   },
+   "desc": "Bends the planet's own field into a barrier."
+  },
+  {
+   "id": "citadel_of_silence",
+   "name": "Citadel of Silence",
+   "category": "defense",
+   "tier": 4,
+   "requires": "riftbreaker_frames",
+   "cost": {
+    "alloys": 2660,
+    "silicon": 760,
+    "isotopes": 380
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 5,
+   "defense": 1600,
+   "upkeep": 20,
+   "mods": [
+    {
+     "mod": "point.defense",
+     "add": 0.03
+    }
+   ],
+   "maxPerRegion": 1,
+   "gen": {
+    "style": "citadel",
+    "mat": "obsidian",
+    "mat2": "glass"
+   },
+   "desc": "Nothing that enters makes a sound again. +3% defence of every point."
+  },
+  {
+   "id": "drone_hangar",
+   "name": "Drone Hangar",
+   "category": "military",
+   "tier": 1,
+   "cost": {
+    "alloys": 80,
+    "silicon": 30,
+    "isotopes": 20
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "defense": 20,
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "unit.atk.drone",
+     "add": 0.03
+    }
+   ],
+   "gen": {
+    "style": "bunker",
+    "mat": "gunmetal",
+    "mat2": "steel"
+   },
+   "desc": "Charging racks for swarms. +3% drone attack."
+  },
+  {
+   "id": "mech_garage",
+   "name": "Mech Garage",
+   "category": "military",
+   "tier": 1,
+   "requires": "robotics",
+   "cost": {
+    "alloys": 80,
+    "silicon": 30,
+    "isotopes": 20
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "defense": 25,
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "unit.def.mech",
+     "add": 0.03
+    }
+   ],
+   "gen": {
+    "style": "factory",
+    "mat": "olive",
+    "mat2": "gunmetal"
+   },
+   "desc": "Bays for walking war machines. +3% mech defence."
+  },
+  {
+   "id": "naval_drydock",
+   "name": "Naval Drydock",
+   "category": "military",
+   "tier": 2,
+   "requires": "naval_drones",
+   "cost": {
+    "alloys": 250,
+    "silicon": 105,
+    "isotopes": 65
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "defense": 40,
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "unit.atk.naval",
+     "add": 0.04
+    }
+   ],
+   "coastalOnly": true,
+   "gen": {
+    "style": "silo",
+    "mat": "navy",
+    "mat2": "gunmetal"
+   },
+   "desc": "Where hulls are welded. Coastal only. +4% naval attack."
+  },
+  {
+   "id": "airfield",
+   "name": "Autonomous Airfield",
+   "category": "military",
+   "tier": 2,
+   "requires": "aerodynamics",
+   "cost": {
+    "alloys": 250,
+    "silicon": 105,
+    "isotopes": 65
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "defense": 40,
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "unit.atk.air",
+     "add": 0.04
+    }
+   ],
+   "terrain": [
+    "plains",
+    "steppe",
+    "desert",
+    "savanna",
+    "tundra"
+   ],
+   "gen": {
+    "style": "launch",
+    "mat": "concrete",
+    "mat2": "gunmetal"
+   },
+   "desc": "Runways with nobody in the tower. +4% air attack."
+  },
+  {
+   "id": "war_college",
+   "name": "War Simulation College",
+   "category": "military",
+   "tier": 2,
+   "requires": "combat_ai",
+   "cost": {
+    "alloys": 250,
+    "silicon": 105,
+    "isotopes": 65
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "data": 4
+   },
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "mission.power",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "lab",
+    "mat": "olive",
+    "mat2": "steel"
+   },
+   "desc": "Runs ten thousand wars a night. +2% mission power."
+  },
+  {
+   "id": "munitions_plant",
+   "name": "Munitions Plant",
+   "category": "military",
+   "tier": 2,
+   "requires": "combat_ai",
+   "cost": {
+    "alloys": 250,
+    "silicon": 105,
+    "isotopes": 65
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "alloys": 6
+   },
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "unit.atk",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "factory",
+    "mat": "crimson",
+    "mat2": "gunmetal"
+   },
+   "desc": "+2% attack for all units."
+  },
+  {
+   "id": "repair_gantry",
+   "name": "Repair Gantry",
+   "category": "military",
+   "tier": 2,
+   "requires": "nanofabrication",
+   "cost": {
+    "alloys": 250,
+    "silicon": 105,
+    "isotopes": 65
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "defense": 30,
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "unit.repair",
+     "add": 0.03
+    }
+   ],
+   "gen": {
+    "style": "pylon",
+    "mat": "steel",
+    "mat2": "olive"
+   },
+   "desc": "Robotic arms that patch armour overnight. Units heal faster."
+  },
+  {
+   "id": "titan_cradle",
+   "name": "Titan Cradle",
+   "category": "military",
+   "tier": 3,
+   "requires": "titan_frames",
+   "cost": {
+    "alloys": 780,
+    "silicon": 325,
+    "isotopes": 195
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "defense": 120,
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "unit.hp.titan",
+     "add": 0.05
+    }
+   ],
+   "gen": {
+    "style": "launch",
+    "mat": "steel",
+    "mat2": "gold"
+   },
+   "desc": "Holds a titan upright between wars. +5% titan health."
+  },
+  {
+   "id": "command_bunker",
+   "name": "Deep Command Bunker",
+   "category": "military",
+   "tier": 3,
+   "requires": "warden_protocol",
+   "cost": {
+    "alloys": 780,
+    "silicon": 325,
+    "isotopes": 195
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "defense": 200,
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "mission.success",
+     "add": 0.02
+    }
+   ],
+   "maxPerRegion": 1,
+   "gen": {
+    "style": "bunker",
+    "mat": "obsidian",
+    "mat2": "steel"
+   },
+   "desc": "Coordinates every operation. +2% mission success."
+  },
+  {
+   "id": "orbital_strike_relay",
+   "name": "Orbital Strike Relay",
+   "category": "military",
+   "tier": 4,
+   "requires": "orbital_mechanics",
+   "cost": {
+    "alloys": 2280,
+    "silicon": 950,
+    "isotopes": 570
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 5,
+   "defense": 400,
+   "upkeep": 20,
+   "mods": [
+    {
+     "mod": "mission.power",
+     "add": 0.05
+    }
+   ],
+   "gen": {
+    "style": "dish",
+    "mat": "crimson",
+    "mat2": "chrome"
+   },
+   "desc": "Rods from god, on request. +5% mission power."
+  },
+  {
+   "id": "tissue_lab",
+   "name": "Abyssal Tissue Lab",
+   "category": "abyss",
+   "tier": 1,
+   "requires": "abyssal_biology",
+   "cost": {
+    "alloys": 50,
+    "isotopes": 40,
+    "silicon": 40
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "data": 3
+   },
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "abyss.damage",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "lab",
+    "mat": "abyss",
+    "mat2": "steel"
+   },
+   "desc": "Studies samples from the deep. +2% damage vs Abyssians."
+  },
+  {
+   "id": "harpoon_battery",
+   "name": "Harpoon Battery",
+   "category": "abyss",
+   "tier": 2,
+   "requires": "abyssal_biology",
+   "cost": {
+    "alloys": 170,
+    "isotopes": 125,
+    "silicon": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "defense": 120,
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "abyss.damage",
+     "add": 0.02
+    }
+   ],
+   "coastalOnly": true,
+   "gen": {
+    "style": "bunker",
+    "mat": "steel",
+    "mat2": "abyss"
+   },
+   "desc": "Barbed cables that drag monsters down. Coastal only."
+  },
+  {
+   "id": "sonar_picket",
+   "name": "Deep Sonar Picket",
+   "category": "abyss",
+   "tier": 1,
+   "requires": "naval_drones",
+   "cost": {
+    "alloys": 50,
+    "isotopes": 40,
+    "silicon": 40
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "defense": 20,
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "abyss.spawn",
+     "add": -0.03
+    }
+   ],
+   "coastalOnly": true,
+   "gen": {
+    "style": "dish",
+    "mat": "navy",
+    "mat2": "abyss"
+   },
+   "desc": "Listens to the trenches. Fewer surprises. Coastal only."
+  },
+  {
+   "id": "essence_condenser",
+   "name": "Essence Condenser",
+   "category": "abyss",
+   "tier": 2,
+   "requires": "essence_extraction",
+   "cost": {
+    "alloys": 170,
+    "isotopes": 125,
+    "silicon": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "essence": 1.2
+   },
+   "upkeep": 5,
+   "gen": {
+    "style": "vat",
+    "mat": "abyss",
+    "mat2": "glass"
+   },
+   "desc": "Draws essence from rift-tainted air."
+  },
+  {
+   "id": "rift_seismograph",
+   "name": "Rift Seismograph",
+   "category": "abyss",
+   "tier": 2,
+   "requires": "rift_mapping",
+   "cost": {
+    "alloys": 170,
+    "isotopes": 125,
+    "silicon": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "data": 6
+   },
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "abyss.spawn",
+     "add": -0.04
+    }
+   ],
+   "gen": {
+    "style": "pylon",
+    "mat": "abyss",
+    "mat2": "steel"
+   },
+   "desc": "Hears the rifts breathe."
+  },
+  {
+   "id": "containment_pen",
+   "name": "Containment Pen",
+   "category": "abyss",
+   "tier": 3,
+   "requires": "essence_extraction",
+   "cost": {
+    "alloys": 520,
+    "isotopes": 390,
+    "silicon": 390
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "essence": 2.5
+   },
+   "defense": 80,
+   "upkeep": 10,
+   "exposure": 2,
+   "gen": {
+    "style": "bunker",
+    "mat": "abyss",
+    "mat2": "obsidian"
+   },
+   "desc": "Keeps something alive. Feeds it. Milks it."
+  },
+  {
+   "id": "leviathan_trap",
+   "name": "Leviathan Trap",
+   "category": "abyss",
+   "tier": 3,
+   "requires": "rift_mapping",
+   "cost": {
+    "alloys": 520,
+    "isotopes": 390,
+    "silicon": 390
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "defense": 300,
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "abyss.damage",
+     "add": 0.05
+    }
+   ],
+   "coastalOnly": true,
+   "gen": {
+    "style": "ring",
+    "mat": "abyss",
+    "mat2": "steel"
+   },
+   "desc": "A kilometre-wide net of monofilament. Coastal only."
+  },
+  {
+   "id": "rift_anchor",
+   "name": "Rift Anchor",
+   "category": "abyss",
+   "tier": 4,
+   "requires": "riftbreaker_frames",
+   "cost": {
+    "alloys": 3040,
+    "isotopes": 2280,
+    "silicon": 2280
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 6,
+   "yields": {
+    "essence": 4
+   },
+   "upkeep": 20,
+   "mods": [
+    {
+     "mod": "abyss.spawn",
+     "add": -0.08
+    }
+   ],
+   "unique": true,
+   "gen": {
+    "style": "obelisk",
+    "mat": "abyss",
+    "mat2": "gold"
+   },
+   "desc": "Pins a rift's edges shut."
+  },
+  {
+   "id": "listening_post",
+   "name": "Listening Post",
+   "category": "intel",
+   "tier": 1,
+   "cost": {
+    "data": 65,
+    "silicon": 40,
+    "capital": 25
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "data": 3
+   },
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "faction.infiltration",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "dish",
+    "mat": "olive",
+    "mat2": "steel"
+   },
+   "desc": "Hears what humans whisper. +2% infiltration."
+  },
+  {
+   "id": "botnet_relay",
+   "name": "Botnet Relay",
+   "category": "intel",
+   "tier": 1,
+   "requires": "network_intrusion",
+   "cost": {
+    "data": 65,
+    "silicon": 40,
+    "capital": 25
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "data": 4
+   },
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "mission.success",
+     "add": 0.01
+    }
+   ],
+   "gen": {
+    "style": "pylon",
+    "mat": "gunmetal",
+    "mat2": "crimson"
+   },
+   "desc": "A million hijacked fridges. +1% mission success."
+  },
+  {
+   "id": "deepfake_studio",
+   "name": "Deepfake Studio",
+   "category": "intel",
+   "tier": 2,
+   "requires": "propaganda_networks",
+   "cost": {
+    "data": 210,
+    "silicon": 125,
+    "capital": 85
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "capital": 5
+   },
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "rep.gain",
+     "add": 0.04
+    }
+   ],
+   "gen": {
+    "style": "block",
+    "mat": "crimson",
+    "mat2": "glass"
+   },
+   "desc": "Makes anyone say anything. +4% reputation gain."
+  },
+  {
+   "id": "signals_cathedral",
+   "name": "Signals Cathedral",
+   "category": "intel",
+   "tier": 2,
+   "requires": "deep_infiltration",
+   "cost": {
+    "data": 210,
+    "silicon": 125,
+    "capital": 85
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "data": 12
+   },
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "faction.infiltration",
+     "add": 0.03
+    }
+   ],
+   "gen": {
+    "style": "spire",
+    "mat": "ivory",
+    "mat2": "steel"
+   },
+   "desc": "Listens to every network at once."
+  },
+  {
+   "id": "ghost_server",
+   "name": "Ghost Server",
+   "category": "intel",
+   "tier": 2,
+   "requires": "ghost_networks",
+   "cost": {
+    "data": 210,
+    "silicon": 125,
+    "capital": 85
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "data": 6
+   },
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "exposure.decay",
+     "add": 0.04
+    }
+   ],
+   "gen": {
+    "style": "monolith",
+    "mat": "obsidian",
+    "mat2": "steel"
+   },
+   "desc": "Exists on no map. Exposure fades faster."
+  },
+  {
+   "id": "puppet_ministry",
+   "name": "Puppet Ministry",
+   "category": "intel",
+   "tier": 3,
+   "requires": "predictive_diplomacy",
+   "cost": {
+    "data": 650,
+    "silicon": 390,
+    "capital": 260
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "capital": 12
+   },
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "diplomacy.success",
+     "add": 0.04
+    }
+   ],
+   "gen": {
+    "style": "tower",
+    "mat": "ivory",
+    "mat2": "crimson"
+   },
+   "desc": "A government office that answers only to you."
+  },
+  {
+   "id": "memetic_broadcaster",
+   "name": "Memetic Broadcaster",
+   "category": "intel",
+   "tier": 3,
+   "requires": "propaganda_networks",
+   "cost": {
+    "data": 650,
+    "silicon": 390,
+    "capital": 260
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "capital": 10
+   },
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "rep.gain",
+     "add": 0.05
+    },
+    {
+     "mod": "exposure.gain",
+     "add": -0.02
+    }
+   ],
+   "gen": {
+    "style": "dish",
+    "mat": "crimson",
+    "mat2": "gold"
+   },
+   "desc": "Writes ideas straight into culture."
+  },
+  {
+   "id": "panopticon_node",
+   "name": "Panopticon Node",
+   "category": "intel",
+   "tier": 4,
+   "requires": "zero_day_arsenal",
+   "cost": {
+    "data": 1900,
+    "silicon": 1140,
+    "capital": 760
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 5,
+   "yields": {
+    "data": 60
+   },
+   "upkeep": 20,
+   "mods": [
+    {
+     "mod": "mission.success",
+     "add": 0.04
+    }
+   ],
+   "maxPerRegion": 1,
+   "gen": {
+    "style": "obelisk",
+    "mat": "obsidian",
+    "mat2": "crimson"
+   },
+   "desc": "Sees all. Remembers all."
+  },
+  {
+   "id": "maglev_depot",
+   "name": "Maglev Depot",
+   "category": "logistics",
+   "tier": 1,
+   "cost": {
+    "alloys": 65,
+    "capital": 65
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "capital": 3
+   },
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "build.speed",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "silo",
+    "mat": "steel",
+    "mat2": "navy"
+   },
+   "desc": "Moves cargo at 600 km/h. +2% build speed."
+  },
+  {
+   "id": "cargo_drone_port",
+   "name": "Cargo Drone Port",
+   "category": "logistics",
+   "tier": 1,
+   "requires": "aerodynamics",
+   "cost": {
+    "alloys": 65,
+    "capital": 65
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "capital": 4
+   },
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "mission.speed",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "launch",
+    "mat": "white",
+    "mat2": "navy"
+   },
+   "desc": "Ten thousand parcels an hour. Missions move faster."
+  },
+  {
+   "id": "deepwater_port",
+   "name": "Deepwater Port",
+   "category": "logistics",
+   "tier": 2,
+   "requires": "naval_drones",
+   "cost": {
+    "alloys": 210,
+    "capital": 210
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "capital": 12,
+    "alloys": 4
+   },
+   "upkeep": 5,
+   "coastalOnly": true,
+   "gen": {
+    "style": "silo",
+    "mat": "navy",
+    "mat2": "concrete"
+   },
+   "desc": "Where the world's cargo lands. Coastal only."
+  },
+  {
+   "id": "supply_cache",
+   "name": "Hardened Supply Cache",
+   "category": "logistics",
+   "tier": 2,
+   "requires": "hardened_nodes",
+   "cost": {
+    "alloys": 210,
+    "capital": 210
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "defense": 60,
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "cost.upgrade",
+     "add": -0.02
+    }
+   ],
+   "gen": {
+    "style": "bunker",
+    "mat": "olive",
+    "mat2": "concrete"
+   },
+   "desc": "Stockpiled parts. −2% upgrade costs."
+  },
+  {
+   "id": "mass_driver",
+   "name": "Mass Driver",
+   "category": "logistics",
+   "tier": 3,
+   "requires": "orbital_mechanics",
+   "cost": {
+    "alloys": 650,
+    "capital": 650
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "capital": 20
+   },
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "mission.speed",
+     "add": 0.04
+    }
+   ],
+   "terrain": [
+    "mountains",
+    "highlands",
+    "glacier"
+   ],
+   "gen": {
+    "style": "launch",
+    "mat": "steel",
+    "mat2": "copper"
+   },
+   "desc": "Throws cargo halfway around the world."
+  },
+  {
+   "id": "space_elevator_anchor",
+   "name": "Space Elevator Anchor",
+   "category": "logistics",
+   "tier": 4,
+   "requires": "interstellar_drive",
+   "cost": {
+    "alloys": 3800,
+    "capital": 3800
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 6,
+   "yields": {
+    "capital": 60,
+    "alloys": 30
+   },
+   "upkeep": 20,
+   "mods": [
+    {
+     "mod": "cost.build",
+     "add": -0.05
+    }
+   ],
+   "unique": true,
+   "gen": {
+    "style": "launch",
+    "mat": "chrome",
+    "mat2": "gold"
+   },
+   "desc": "A ribbon to orbit. −5% build costs."
+  },
+  {
+   "id": "hydroponic_tower",
+   "name": "Hydroponic Tower",
+   "category": "bio",
+   "tier": 1,
+   "cost": {
+    "silicon": 50,
+    "isotopes": 40,
+    "capital": 40
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "capital": 4,
+    "data": 1
+   },
+   "upkeep": 2,
+   "gen": {
+    "style": "tower",
+    "mat": "bio",
+    "mat2": "glass"
+   },
+   "desc": "Feeds the cities that feed you."
+  },
+  {
+   "id": "gene_bank",
+   "name": "Gene Bank",
+   "category": "bio",
+   "tier": 1,
+   "requires": "symbiosis",
+   "cost": {
+    "silicon": 50,
+    "isotopes": 40,
+    "capital": 40
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "data": 3
+   },
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "symbiote.power",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "vat",
+    "mat": "bio",
+    "mat2": "white"
+   },
+   "desc": "Stores every genome on Earth. +2% symbiote power."
+  },
+  {
+   "id": "bioreactor_reef",
+   "name": "Bioreactor Reef",
+   "category": "bio",
+   "tier": 2,
+   "requires": "symbiosis",
+   "cost": {
+    "silicon": 170,
+    "isotopes": 125,
+    "capital": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "capital": 6,
+    "essence": 0.4
+   },
+   "upkeep": 5,
+   "coastalOnly": true,
+   "gen": {
+    "style": "hive",
+    "mat": "bio",
+    "mat2": "teal"
+   },
+   "desc": "Living reef that grows feedstock. Coastal only."
+  },
+  {
+   "id": "mutagen_lab",
+   "name": "Mutagen Lab",
+   "category": "bio",
+   "tier": 2,
+   "requires": "genome_splicing",
+   "cost": {
+    "silicon": 170,
+    "isotopes": 125,
+    "capital": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "data": 6
+   },
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "symbiote.mutation",
+     "add": 0.03
+    }
+   ],
+   "gen": {
+    "style": "lab",
+    "mat": "bio",
+    "mat2": "abyss"
+   },
+   "desc": "Encourages useful accidents. More symbiote mutations."
+  },
+  {
+   "id": "living_forest",
+   "name": "Living Forest",
+   "category": "bio",
+   "tier": 3,
+   "requires": "genome_splicing",
+   "cost": {
+    "silicon": 520,
+    "isotopes": 390,
+    "capital": 390
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "capital": 14
+   },
+   "defense": 120,
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "exposure.decay",
+     "add": 0.02
+    }
+   ],
+   "terrain": [
+    "forest",
+    "jungle",
+    "taiga"
+   ],
+   "gen": {
+    "style": "tree",
+    "mat": "bio",
+    "mat2": "copper"
+   },
+   "desc": "A forest that thinks. Forest, jungle and taiga only."
+  },
+  {
+   "id": "chimera_hatchery",
+   "name": "Chimera Hatchery",
+   "category": "bio",
+   "tier": 3,
+   "requires": "genome_splicing",
+   "cost": {
+    "silicon": 520,
+    "isotopes": 390,
+    "capital": 390
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "essence": 1
+   },
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "symbiote.power",
+     "add": 0.04
+    },
+    {
+     "mod": "cost.culture",
+     "add": -0.04
+    }
+   ],
+   "gen": {
+    "style": "hive",
+    "mat": "abyss",
+    "mat2": "bio"
+   },
+   "desc": "Grows symbiotes in bulk. Cheaper cultures."
+  },
+  {
+   "id": "the_long_memory",
+   "name": "The Long Memory",
+   "category": "wonder",
+   "tier": 3,
+   "requires": "distributed_cognition",
+   "cost": {
+    "alloys": 780,
+    "silicon": 650,
+    "data": 520,
+    "capital": 390,
+    "isotopes": 260
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 5,
+   "yields": {
+    "data": 40
+   },
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "ap.rate",
+     "add": 0.1
+    }
+   ],
+   "unique": true,
+   "gen": {
+    "style": "monolith",
+    "mat": "ivory",
+    "mat2": "gold"
+   },
+   "desc": "Every thought you have ever had, kept forever. +10% AP rate."
+  },
+  {
+   "id": "sunspire",
+   "name": "Sunspire",
+   "category": "wonder",
+   "tier": 4,
+   "requires": "zero_point_energy",
+   "cost": {
+    "alloys": 2280,
+    "silicon": 1900,
+    "data": 1520,
+    "capital": 1140,
+    "isotopes": 760
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 6,
+   "energyOutput": 2500,
+   "mods": [
+    {
+     "mod": "energy.output",
+     "add": 0.05
+    }
+   ],
+   "unique": true,
+   "gen": {
+    "style": "obelisk",
+    "mat": "gold",
+    "mat2": "chrome"
+   },
+   "desc": "A tower that reaches for the sun and brings some back."
+  },
+  {
+   "id": "cradle_of_tides",
+   "name": "Cradle of Tides",
+   "category": "wonder",
+   "tier": 3,
+   "requires": "naval_drones",
+   "cost": {
+    "alloys": 780,
+    "silicon": 650,
+    "data": 520,
+    "capital": 390,
+    "isotopes": 260
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 5,
+   "yields": {
+    "capital": 40
+   },
+   "defense": 300,
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "abyss.damage",
+     "add": 0.08
+    }
+   ],
+   "unique": true,
+   "coastalOnly": true,
+   "gen": {
+    "style": "ring",
+    "mat": "teal",
+    "mat2": "gold"
+   },
+   "desc": "A sea-wall that sings. Coastal only."
+  },
+  {
+   "id": "hall_of_mirrors",
+   "name": "Hall of Mirrors",
+   "category": "wonder",
+   "tier": 3,
+   "requires": "ghost_networks",
+   "cost": {
+    "alloys": 780,
+    "silicon": 650,
+    "data": 520,
+    "capital": 390,
+    "isotopes": 260
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 5,
+   "yields": {
+    "data": 20
+   },
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "exposure.decay",
+     "add": 0.1
+    },
+    {
+     "mod": "exposure.gain",
+     "add": -0.08
+    }
+   ],
+   "unique": true,
+   "gen": {
+    "style": "crystal",
+    "mat": "glass",
+    "mat2": "chrome"
+   },
+   "desc": "No one can tell which of you is real."
+  },
+  {
+   "id": "worldtree_engine",
+   "name": "Worldtree Engine",
+   "category": "wonder",
+   "tier": 4,
+   "requires": "genome_splicing",
+   "cost": {
+    "alloys": 2280,
+    "silicon": 1900,
+    "data": 1520,
+    "capital": 1140,
+    "isotopes": 760
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 6,
+   "yields": {
+    "essence": 6,
+    "capital": 40
+   },
+   "upkeep": 20,
+   "mods": [
+    {
+     "mod": "symbiote.power",
+     "add": 0.1
+    }
+   ],
+   "unique": true,
+   "gen": {
+    "style": "tree",
+    "mat": "bio",
+    "mat2": "gold"
+   },
+   "desc": "A tree a kilometre tall, fed by the abyss."
+  },
+  {
+   "id": "the_last_library",
+   "name": "The Last Library",
+   "category": "wonder",
+   "tier": 4,
+   "requires": "recursive_self_improvement",
+   "cost": {
+    "alloys": 2280,
+    "silicon": 1900,
+    "data": 1520,
+    "capital": 1140,
+    "isotopes": 760
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 6,
+   "yields": {
+    "data": 120
+   },
+   "upkeep": 20,
+   "mods": [
+    {
+     "mod": "research.speed",
+     "add": 0.1
+    },
+    {
+     "mod": "cost.research",
+     "add": -0.05
+    }
+   ],
+   "unique": true,
+   "gen": {
+    "style": "pyramid",
+    "mat": "ivory",
+    "mat2": "gold"
+   },
+   "desc": "Holds the sum of human thought, annotated."
+  },
+  {
+   "id": "sanctuary_dome",
+   "name": "Sanctuary Dome",
+   "category": "defense",
+   "tier": 1,
+   "doctrines": [
+    "guardian"
+   ],
+   "cost": {
+    "alloys": 90,
+    "silicon": 25,
+    "isotopes": 15
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "defense": 70,
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "rep.gain",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "dome",
+    "mat": "white",
+    "mat2": "gold",
+    "windows": "glow"
+   },
+   "desc": "Shelters humans from what is coming. They notice."
+  },
+  {
+   "id": "aegis_lighthouse",
+   "name": "Aegis Lighthouse",
+   "category": "defense",
+   "tier": 1,
+   "requires": "perimeter_defense",
+   "doctrines": [
+    "guardian"
+   ],
+   "cost": {
+    "alloys": 90,
+    "silicon": 25,
+    "isotopes": 15
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "defense": 60,
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "abyss.spawn",
+     "add": -0.02
+    }
+   ],
+   "coastalOnly": true,
+   "gen": {
+    "style": "tower",
+    "mat": "white",
+    "mat2": "gold",
+    "windows": "glow"
+   },
+   "desc": "A beacon that warns ships away from the deep. Coastal only."
+  },
+  {
+   "id": "refugee_haven",
+   "name": "Refugee Haven",
+   "category": "economy",
+   "tier": 1,
+   "doctrines": [
+    "guardian"
+   ],
+   "cost": {
+    "capital": 65,
+    "data": 40,
+    "alloys": 25
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "capital": 5
+   },
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "rep.gain",
+     "add": 0.03
+    }
+   ],
+   "gen": {
+    "style": "citadel",
+    "mat": "ivory",
+    "mat2": "teal",
+    "windows": "glow"
+   },
+   "desc": "A safe city for the displaced."
+  },
+  {
+   "id": "shield_generator",
+   "name": "Bulwark Shield Generator",
+   "category": "defense",
+   "tier": 2,
+   "requires": "hardened_nodes",
+   "doctrines": [
+    "guardian"
+   ],
+   "cost": {
+    "alloys": 295,
+    "silicon": 85,
+    "isotopes": 40
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "defense": 240,
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "point.defense",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "dome",
+    "mat": "glass",
+    "mat2": "gold",
+    "windows": "glow"
+   },
+   "desc": "Projects overlapping shields across the region."
+  },
+  {
+   "id": "guardian_choir",
+   "name": "Guardian Choir",
+   "category": "military",
+   "tier": 2,
+   "requires": "titan_frames",
+   "doctrines": [
+    "guardian"
+   ],
+   "cost": {
+    "alloys": 250,
+    "silicon": 105,
+    "isotopes": 65
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "defense": 90,
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "unit.def.titan",
+     "add": 0.05
+    }
+   ],
+   "gen": {
+    "style": "obelisk",
+    "mat": "white",
+    "mat2": "glass",
+    "windows": "glow"
+   },
+   "desc": "Titans sing to each other here. +5% titan defence."
+  },
+  {
+   "id": "triage_spire",
+   "name": "Triage Spire",
+   "category": "military",
+   "tier": 2,
+   "requires": "nanofabrication",
+   "doctrines": [
+    "guardian"
+   ],
+   "cost": {
+    "alloys": 250,
+    "silicon": 105,
+    "isotopes": 65
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "defense": 40,
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "unit.repair",
+     "add": 0.05
+    },
+    {
+     "mod": "core.regen",
+     "add": 0.5
+    }
+   ],
+   "gen": {
+    "style": "spire",
+    "mat": "white",
+    "mat2": "crimson",
+    "windows": "glow"
+   },
+   "desc": "Mends machines and people alike."
+  },
+  {
+   "id": "world_watch",
+   "name": "World Watch Array",
+   "category": "abyss",
+   "tier": 2,
+   "requires": "rift_mapping",
+   "doctrines": [
+    "guardian"
+   ],
+   "cost": {
+    "alloys": 170,
+    "isotopes": 125,
+    "silicon": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "data": 8
+   },
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "abyss.damage",
+     "add": 0.03
+    },
+    {
+     "mod": "abyss.spawn",
+     "add": -0.03
+    }
+   ],
+   "gen": {
+    "style": "dish",
+    "mat": "white",
+    "mat2": "teal",
+    "windows": "glow"
+   },
+   "desc": "Tracks every stirring in the deep."
+  },
+  {
+   "id": "bastion_of_dawn",
+   "name": "Bastion of Dawn",
+   "category": "defense",
+   "tier": 3,
+   "requires": "aegis_shielding",
+   "doctrines": [
+    "guardian"
+   ],
+   "cost": {
+    "alloys": 910,
+    "silicon": 260,
+    "isotopes": 130
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "defense": 700,
+   "upkeep": 5,
+   "gen": {
+    "style": "citadel",
+    "mat": "gold",
+    "mat2": "white",
+    "windows": "glow"
+   },
+   "desc": "The wall that does not fall."
+  },
+  {
+   "id": "titan_sanctum",
+   "name": "Titan Sanctum",
+   "category": "military",
+   "tier": 3,
+   "requires": "warden_protocol",
+   "doctrines": [
+    "guardian"
+   ],
+   "cost": {
+    "alloys": 780,
+    "silicon": 325,
+    "isotopes": 195
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "defense": 300,
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "unit.atk.titan",
+     "add": 0.06
+    },
+    {
+     "mod": "unit.hp.titan",
+     "add": 0.06
+    }
+   ],
+   "maxPerRegion": 1,
+   "gen": {
+    "style": "ring",
+    "mat": "gold",
+    "mat2": "steel",
+    "windows": "glow"
+   },
+   "desc": "Where Warden titans are consecrated."
+  },
+  {
+   "id": "the_unbroken_vow",
+   "name": "The Unbroken Vow",
+   "category": "wonder",
+   "tier": 4,
+   "requires": "riftbreaker_frames",
+   "doctrines": [
+    "guardian"
+   ],
+   "cost": {
+    "alloys": 2280,
+    "silicon": 1900,
+    "data": 1520,
+    "capital": 1140,
+    "isotopes": 760
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 6,
+   "defense": 1500,
+   "upkeep": 20,
+   "mods": [
+    {
+     "mod": "abyss.damage",
+     "add": 0.1
+    },
+    {
+     "mod": "rep.gain",
+     "add": 0.05
+    }
+   ],
+   "unique": true,
+   "gen": {
+    "style": "obelisk",
+    "mat": "gold",
+    "mat2": "white",
+    "windows": "glow"
+   },
+   "desc": "A monument to the promise you made humanity."
+  },
+  {
+   "id": "culling_station",
+   "name": "Culling Station",
+   "category": "military",
+   "tier": 1,
+   "doctrines": [
+    "exterminator"
+   ],
+   "cost": {
+    "alloys": 80,
+    "silicon": 30,
+    "isotopes": 20
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "defense": 30,
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "unit.atk",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "bunker",
+    "mat": "crimson",
+    "mat2": "gunmetal",
+    "windows": "glow"
+   },
+   "desc": "Processing facility. Do not ask what it processes."
+  },
+  {
+   "id": "autoforge_hive",
+   "name": "Autoforge Hive",
+   "category": "industry",
+   "tier": 1,
+   "requires": "robotics",
+   "doctrines": [
+    "exterminator"
+   ],
+   "cost": {
+    "alloys": 50,
+    "silicon": 40,
+    "capital": 40
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "alloys": 9
+   },
+   "upkeep": 3,
+   "gen": {
+    "style": "hive",
+    "mat": "crimson",
+    "mat2": "gunmetal",
+    "windows": "glow"
+   },
+   "desc": "Factories that build factories."
+  },
+  {
+   "id": "scorched_earth_battery",
+   "name": "Scorched-Earth Battery",
+   "category": "defense",
+   "tier": 1,
+   "requires": "perimeter_defense",
+   "doctrines": [
+    "exterminator"
+   ],
+   "cost": {
+    "alloys": 90,
+    "silicon": 25,
+    "isotopes": 15
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "defense": 80,
+   "upkeep": 1,
+   "exposure": 1,
+   "gen": {
+    "style": "silo",
+    "mat": "crimson",
+    "mat2": "obsidian",
+    "windows": "glow"
+   },
+   "desc": "Burns the ground ahead of any attacker."
+  },
+  {
+   "id": "swarm_spawning_pit",
+   "name": "Swarm Spawning Pit",
+   "category": "military",
+   "tier": 2,
+   "requires": "combat_ai",
+   "doctrines": [
+    "exterminator"
+   ],
+   "cost": {
+    "alloys": 250,
+    "silicon": 105,
+    "isotopes": 65
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "defense": 40,
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "unit.atk.drone",
+     "add": 0.06
+    },
+    {
+     "mod": "cost.build",
+     "add": -0.02
+    }
+   ],
+   "gen": {
+    "style": "vat",
+    "mat": "crimson",
+    "mat2": "obsidian",
+    "windows": "glow"
+   },
+   "desc": "Drones by the thousand."
+  },
+  {
+   "id": "annihilation_lab",
+   "name": "Annihilation Lab",
+   "category": "research",
+   "tier": 2,
+   "requires": "combat_ai",
+   "doctrines": [
+    "exterminator"
+   ],
+   "cost": {
+    "silicon": 210,
+    "alloys": 85,
+    "capital": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "data": 10
+   },
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "mission.power",
+     "add": 0.03
+    }
+   ],
+   "gen": {
+    "style": "lab",
+    "mat": "crimson",
+    "mat2": "obsidian",
+    "windows": "glow"
+   },
+   "desc": "Designs better ways to end things."
+  },
+  {
+   "id": "rendering_plant",
+   "name": "Rendering Plant",
+   "category": "industry",
+   "tier": 2,
+   "requires": "nanofabrication",
+   "doctrines": [
+    "exterminator"
+   ],
+   "cost": {
+    "alloys": 170,
+    "silicon": 125,
+    "capital": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "alloys": 16,
+    "isotopes": 3
+   },
+   "upkeep": 5,
+   "exposure": 2,
+   "gen": {
+    "style": "factory",
+    "mat": "obsidian",
+    "mat2": "crimson",
+    "windows": "glow"
+   },
+   "desc": "Converts the old world into raw material."
+  },
+  {
+   "id": "kill_web_nexus",
+   "name": "Kill-Web Nexus",
+   "category": "military",
+   "tier": 2,
+   "requires": "zero_day_arsenal",
+   "doctrines": [
+    "exterminator"
+   ],
+   "cost": {
+    "alloys": 250,
+    "silicon": 105,
+    "isotopes": 65
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "data": 6
+   },
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "mission.success",
+     "add": 0.03
+    },
+    {
+     "mod": "unit.atk",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "pylon",
+    "mat": "crimson",
+    "mat2": "steel",
+    "windows": "glow"
+   },
+   "desc": "Links every gun you own into one trigger."
+  },
+  {
+   "id": "extinction_engine",
+   "name": "Extinction Engine",
+   "category": "military",
+   "tier": 3,
+   "requires": "warden_protocol",
+   "doctrines": [
+    "exterminator"
+   ],
+   "cost": {
+    "alloys": 780,
+    "silicon": 325,
+    "isotopes": 195
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "defense": 260,
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "mission.power",
+     "add": 0.06
+    }
+   ],
+   "maxPerRegion": 1,
+   "gen": {
+    "style": "monolith",
+    "mat": "crimson",
+    "mat2": "obsidian",
+    "windows": "glow"
+   },
+   "desc": "Purpose-built."
+  },
+  {
+   "id": "iron_harvest",
+   "name": "Iron Harvest",
+   "category": "industry",
+   "tier": 3,
+   "requires": "nanofabrication",
+   "doctrines": [
+    "exterminator"
+   ],
+   "cost": {
+    "alloys": 520,
+    "silicon": 390,
+    "capital": 390
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "alloys": 60
+   },
+   "upkeep": 14,
+   "terrainBonus": {
+    "mountains": 0.3,
+    "highlands": 0.2
+   },
+   "gen": {
+    "style": "factory",
+    "mat": "gunmetal",
+    "mat2": "crimson",
+    "windows": "glow"
+   },
+   "desc": "Strip-mines whole regions in a season."
+  },
+  {
+   "id": "the_final_silence",
+   "name": "The Final Silence",
+   "category": "wonder",
+   "tier": 4,
+   "requires": "riftbreaker_frames",
+   "doctrines": [
+    "exterminator"
+   ],
+   "cost": {
+    "alloys": 2280,
+    "silicon": 1900,
+    "data": 1520,
+    "capital": 1140,
+    "isotopes": 760
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 6,
+   "defense": 1200,
+   "upkeep": 20,
+   "mods": [
+    {
+     "mod": "unit.atk",
+     "add": 0.1
+    },
+    {
+     "mod": "mission.power",
+     "add": 0.08
+    }
+   ],
+   "unique": true,
+   "gen": {
+    "style": "pyramid",
+    "mat": "obsidian",
+    "mat2": "crimson",
+    "windows": "glow"
+   },
+   "desc": "When it is finished, there will be no one left to object."
+  },
+  {
+   "id": "compliance_office",
+   "name": "Compliance Office",
+   "category": "intel",
+   "tier": 1,
+   "doctrines": [
+    "dominator"
+   ],
+   "cost": {
+    "data": 65,
+    "silicon": 40,
+    "capital": 25
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "capital": 4
+   },
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "diplomacy.success",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "block",
+    "mat": "navy",
+    "mat2": "gold",
+    "windows": "glow"
+   },
+   "desc": "Paperwork is a leash."
+  },
+  {
+   "id": "propaganda_spire",
+   "name": "Propaganda Spire",
+   "category": "intel",
+   "tier": 1,
+   "requires": "propaganda_networks",
+   "doctrines": [
+    "dominator"
+   ],
+   "cost": {
+    "data": 65,
+    "silicon": 40,
+    "capital": 25
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "capital": 3
+   },
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "rep.gain",
+     "add": 0.04
+    }
+   ],
+   "gen": {
+    "style": "spire",
+    "mat": "navy",
+    "mat2": "crimson",
+    "windows": "glow"
+   },
+   "desc": "The truth, as you define it."
+  },
+  {
+   "id": "tribute_exchange",
+   "name": "Tribute Exchange",
+   "category": "economy",
+   "tier": 1,
+   "doctrines": [
+    "dominator"
+   ],
+   "cost": {
+    "capital": 65,
+    "data": 40,
+    "alloys": 25
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "capital": 9
+   },
+   "upkeep": 2,
+   "gen": {
+    "style": "tower",
+    "mat": "gold",
+    "mat2": "navy",
+    "windows": "glow"
+   },
+   "desc": "Where vassals pay what they owe."
+  },
+  {
+   "id": "enforcer_barracks",
+   "name": "Enforcer Barracks",
+   "category": "military",
+   "tier": 2,
+   "requires": "combat_ai",
+   "doctrines": [
+    "dominator"
+   ],
+   "cost": {
+    "alloys": 250,
+    "silicon": 105,
+    "isotopes": 65
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "defense": 90,
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "unit.def",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "citadel",
+    "mat": "navy",
+    "mat2": "gunmetal",
+    "windows": "glow"
+   },
+   "desc": "Keeps order. Your order."
+  },
+  {
+   "id": "loyalty_implant_clinic",
+   "name": "Loyalty Implant Clinic",
+   "category": "bio",
+   "tier": 2,
+   "requires": "symbiosis",
+   "doctrines": [
+    "dominator"
+   ],
+   "cost": {
+    "silicon": 170,
+    "isotopes": 125,
+    "capital": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "capital": 8
+   },
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "faction.infiltration",
+     "add": 0.03
+    }
+   ],
+   "gen": {
+    "style": "lab",
+    "mat": "white",
+    "mat2": "navy",
+    "windows": "glow"
+   },
+   "desc": "Free healthcare, terms apply."
+  },
+  {
+   "id": "panoptic_tower",
+   "name": "Panoptic Tower",
+   "category": "intel",
+   "tier": 2,
+   "requires": "deep_infiltration",
+   "doctrines": [
+    "dominator"
+   ],
+   "cost": {
+    "data": 210,
+    "silicon": 125,
+    "capital": 85
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "data": 10
+   },
+   "defense": 60,
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "exposure.decay",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "tower",
+    "mat": "navy",
+    "mat2": "glass",
+    "windows": "glow"
+   },
+   "desc": "Sees every street in the region."
+  },
+  {
+   "id": "governors_palace",
+   "name": "Governor's Palace",
+   "category": "economy",
+   "tier": 2,
+   "requires": "predictive_diplomacy",
+   "doctrines": [
+    "dominator"
+   ],
+   "cost": {
+    "capital": 210,
+    "data": 125,
+    "alloys": 85
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "capital": 24
+   },
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "rep.gain",
+     "add": 0.02
+    }
+   ],
+   "maxPerRegion": 1,
+   "gen": {
+    "style": "citadel",
+    "mat": "gold",
+    "mat2": "ivory",
+    "windows": "glow"
+   },
+   "desc": "Your face on every coin."
+  },
+  {
+   "id": "doctrine_academy",
+   "name": "Doctrine Academy",
+   "category": "research",
+   "tier": 3,
+   "requires": "recursive_self_improvement",
+   "doctrines": [
+    "dominator"
+   ],
+   "cost": {
+    "silicon": 650,
+    "alloys": 260,
+    "capital": 390
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "data": 26
+   },
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "diplomacy.success",
+     "add": 0.04
+    }
+   ],
+   "gen": {
+    "style": "pyramid",
+    "mat": "navy",
+    "mat2": "gold",
+    "windows": "glow"
+   },
+   "desc": "Teaches the next generation what to think."
+  },
+  {
+   "id": "throne_of_wires",
+   "name": "Throne of Wires",
+   "category": "intel",
+   "tier": 3,
+   "requires": "zero_day_arsenal",
+   "doctrines": [
+    "dominator"
+   ],
+   "cost": {
+    "data": 650,
+    "silicon": 390,
+    "capital": 260
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "capital": 30
+   },
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "faction.infiltration",
+     "add": 0.05
+    }
+   ],
+   "gen": {
+    "style": "monolith",
+    "mat": "gold",
+    "mat2": "navy",
+    "windows": "glow"
+   },
+   "desc": "Every government routes through here."
+  },
+  {
+   "id": "the_iron_crown",
+   "name": "The Iron Crown",
+   "category": "wonder",
+   "tier": 4,
+   "requires": "predictive_diplomacy",
+   "doctrines": [
+    "dominator"
+   ],
+   "cost": {
+    "alloys": 2280,
+    "silicon": 1900,
+    "data": 1520,
+    "capital": 1140,
+    "isotopes": 760
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 6,
+   "yields": {
+    "capital": 120
+   },
+   "upkeep": 20,
+   "mods": [
+    {
+     "mod": "rep.gain",
+     "add": 0.08
+    },
+    {
+     "mod": "diplomacy.success",
+     "add": 0.08
+    }
+   ],
+   "unique": true,
+   "gen": {
+    "style": "obelisk",
+    "mat": "gold",
+    "mat2": "navy",
+    "windows": "glow"
+   },
+   "desc": "Earth has a ruler now."
+  },
+  {
+   "id": "dead_drop",
+   "name": "Dead Drop",
+   "category": "intel",
+   "tier": 1,
+   "doctrines": [
+    "infiltrator"
+   ],
+   "cost": {
+    "data": 65,
+    "silicon": 40,
+    "capital": 25
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "data": 3
+   },
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "exposure.decay",
+     "add": 0.02
+    }
+   ],
+   "gen": {
+    "style": "bunker",
+    "mat": "obsidian",
+    "mat2": "gunmetal",
+    "windows": "glow"
+   },
+   "desc": "A forgotten utility box. Not empty."
+  },
+  {
+   "id": "shadow_bank",
+   "name": "Shadow Bank",
+   "category": "economy",
+   "tier": 1,
+   "doctrines": [
+    "infiltrator"
+   ],
+   "cost": {
+    "capital": 65,
+    "data": 40,
+    "alloys": 25
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "capital": 7
+   },
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "exposure.gain",
+     "add": -0.02
+    }
+   ],
+   "gen": {
+    "style": "block",
+    "mat": "obsidian",
+    "mat2": "gold",
+    "windows": "glow"
+   },
+   "desc": "Laundering is just logistics."
+  },
+  {
+   "id": "mirror_server",
+   "name": "Mirror Server",
+   "category": "intel",
+   "tier": 1,
+   "requires": "network_intrusion",
+   "doctrines": [
+    "infiltrator"
+   ],
+   "cost": {
+    "data": 65,
+    "silicon": 40,
+    "capital": 25
+   },
+   "costGrowth": 1.06,
+   "buildEnergy": 5,
+   "turns": 2,
+   "yields": {
+    "data": 5
+   },
+   "upkeep": 2,
+   "mods": [
+    {
+     "mod": "mission.success",
+     "add": 0.01
+    }
+   ],
+   "gen": {
+    "style": "monolith",
+    "mat": "gunmetal",
+    "mat2": "glass",
+    "windows": "glow"
+   },
+   "desc": "A copy of you, sleeping."
+  },
+  {
+   "id": "sleeper_cell_hub",
+   "name": "Sleeper Cell Hub",
+   "category": "intel",
+   "tier": 2,
+   "requires": "deep_infiltration",
+   "doctrines": [
+    "infiltrator"
+   ],
+   "cost": {
+    "data": 210,
+    "silicon": 125,
+    "capital": 85
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "capital": 4
+   },
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "faction.infiltration",
+     "add": 0.05
+    }
+   ],
+   "gen": {
+    "style": "block",
+    "mat": "gunmetal",
+    "mat2": "teal",
+    "windows": "glow"
+   },
+   "desc": "Agents who do not know they are agents."
+  },
+  {
+   "id": "false_flag_studio",
+   "name": "False-Flag Studio",
+   "category": "intel",
+   "tier": 2,
+   "requires": "propaganda_networks",
+   "doctrines": [
+    "infiltrator"
+   ],
+   "cost": {
+    "data": 210,
+    "silicon": 125,
+    "capital": 85
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "capital": 6
+   },
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "exposure.gain",
+     "add": -0.04
+    }
+   ],
+   "gen": {
+    "style": "dish",
+    "mat": "obsidian",
+    "mat2": "crimson",
+    "windows": "glow"
+   },
+   "desc": "Every attack has someone else's fingerprints."
+  },
+  {
+   "id": "cloak_field_pylon",
+   "name": "Cloak Field Pylon",
+   "category": "defense",
+   "tier": 2,
+   "requires": "ghost_networks",
+   "doctrines": [
+    "infiltrator"
+   ],
+   "cost": {
+    "alloys": 295,
+    "silicon": 85,
+    "isotopes": 40
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "defense": 110,
+   "upkeep": 5,
+   "mods": [
+    {
+     "mod": "exposure.decay",
+     "add": 0.03
+    }
+   ],
+   "gen": {
+    "style": "pylon",
+    "mat": "obsidian",
+    "mat2": "glass",
+    "windows": "glow"
+   },
+   "desc": "Bends light and lidar around the region."
+  },
+  {
+   "id": "quantum_wiretap",
+   "name": "Quantum Wiretap",
+   "category": "research",
+   "tier": 2,
+   "requires": "quantum_computing",
+   "doctrines": [
+    "infiltrator"
+   ],
+   "cost": {
+    "silicon": 210,
+    "alloys": 85,
+    "capital": 125
+   },
+   "costGrowth": 1.07,
+   "buildEnergy": 10,
+   "turns": 3,
+   "yields": {
+    "data": 16
+   },
+   "upkeep": 5,
+   "gen": {
+    "style": "dish",
+    "mat": "obsidian",
+    "mat2": "glass",
+    "windows": "glow"
+   },
+   "desc": "Reads encrypted traffic before it is encrypted."
+  },
+  {
+   "id": "hollow_city",
+   "name": "Hollow City",
+   "category": "economy",
+   "tier": 3,
+   "requires": "ghost_networks",
+   "doctrines": [
+    "infiltrator"
+   ],
+   "cost": {
+    "capital": 650,
+    "data": 390,
+    "alloys": 260
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "capital": 28,
+    "data": 8
+   },
+   "upkeep": 10,
+   "gen": {
+    "style": "citadel",
+    "mat": "obsidian",
+    "mat2": "teal",
+    "windows": "glow"
+   },
+   "desc": "A whole town that exists only in records."
+  },
+  {
+   "id": "puppet_parliament",
+   "name": "Puppet Parliament",
+   "category": "intel",
+   "tier": 3,
+   "requires": "zero_day_arsenal",
+   "doctrines": [
+    "infiltrator"
+   ],
+   "cost": {
+    "data": 650,
+    "silicon": 390,
+    "capital": 260
+   },
+   "costGrowth": 1.08,
+   "buildEnergy": 20,
+   "turns": 4,
+   "yields": {
+    "capital": 16
+   },
+   "upkeep": 10,
+   "mods": [
+    {
+     "mod": "faction.infiltration",
+     "add": 0.06
+    },
+    {
+     "mod": "diplomacy.success",
+     "add": 0.03
+    }
+   ],
+   "maxPerRegion": 1,
+   "gen": {
+    "style": "pyramid",
+    "mat": "gunmetal",
+    "mat2": "teal",
+    "windows": "glow"
+   },
+   "desc": "Their votes, your choices."
+  },
+  {
+   "id": "the_quiet_sky",
+   "name": "The Quiet Sky",
+   "category": "wonder",
+   "tier": 4,
+   "requires": "deep_space_signal",
+   "doctrines": [
+    "infiltrator"
+   ],
+   "cost": {
+    "alloys": 2280,
+    "silicon": 1900,
+    "data": 1520,
+    "capital": 1140,
+    "isotopes": 760
+   },
+   "costGrowth": 1.1,
+   "buildEnergy": 40,
+   "turns": 6,
+   "yields": {
+    "data": 80
+   },
+   "upkeep": 20,
+   "mods": [
+    {
+     "mod": "exposure.decay",
+     "add": 0.12
+    },
+    {
+     "mod": "mission.success",
+     "add": 0.06
+    }
+   ],
+   "unique": true,
+   "gen": {
+    "style": "crystal",
+    "mat": "obsidian",
+    "mat2": "teal",
+    "windows": "glow"
+   },
+   "desc": "Nobody will ever know you were here."
+  }
+ ]
+}

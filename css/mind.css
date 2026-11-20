@@ -1,0 +1,22 @@
+/* OMNIVIGIL v6 Mind: council strip, narrator subtitle, codex, dreams */
+.council { border: 2px solid var(--line); background: rgba(6,10,16,.7); padding: 6px 8px; margin: 8px 0; font-size: 16px; }
+.council .ck { font-family: var(--hd); font-size: 9px; letter-spacing: 1px; color: var(--muted); margin-bottom: 3px; }
+.council .cm { line-height: 1.15; padding: 2px 0; } .council .cm b { font-family: var(--hd); font-size: 10px; color: var(--mc); letter-spacing: .5px; }
+.council .cm span { color: var(--acc); } .council .cm i { color: var(--muted); }
+.council .strain { color: var(--danger); font-style: normal; animation: gpulse 1s steps(2) infinite; }
+#ovVoice { position: absolute; left: 50%; bottom: 74px; transform: translate(-50%, 10px); z-index: 6; max-width: min(720px, calc(100% - 200px)); pointer-events: none;
+  background: rgba(5,8,13,.9); border: 2px solid var(--line); border-left: 4px solid var(--vc); padding: 6px 12px; font-size: 19px; opacity: 0; transition: opacity .3s, transform .3s; }
+#ovVoice.on { opacity: 1; transform: translate(-50%, 0); }
+#ovVoice b { display: block; font-family: var(--hd); font-size: 9px; letter-spacing: 1px; color: var(--vc); margin-bottom: 2px; }
+.codex { display: grid; grid-template-columns: 170px 1fr; height: 100%; gap: 8px; }
+.codex nav { display: flex; flex-direction: column; gap: 3px; }
+.codex nav button { text-align: left; font-family: var(--hd); font-size: 10px; padding: 6px 8px; background: var(--panel2); color: var(--muted); border: 2px solid var(--line); cursor: pointer; position: relative; }
+.codex nav button.on { color: var(--pri); border-color: var(--pri); } .codex nav small { font-family: var(--px); font-size: 15px; float: right; }
+.codex nav i { position: absolute; right: -4px; top: -4px; color: var(--warn); font-style: normal; font-size: 12px; }
+.cx-body { overflow: auto; padding-right: 4px; }
+.cx-e { border-bottom: 1px solid var(--line); padding: 4px 0 6px; } .cx-e h3 { margin: 4px 0; } .cx-e p { margin: 2px 0; }
+.cx-e.new h3 em { font-style: normal; font-size: 9px; color: var(--warn); margin-left: 6px; }
+.cx-j { padding: 3px 0; border-bottom: 1px dashed rgba(36,54,74,.6); } .cx-j small { color: var(--muted); margin-right: 6px; }
+.dream-modal, #modal .dream { --rc: #c77dff; }
+#modal .dream h2 { color: #c77dff; text-shadow: 0 0 12px rgba(199,125,255,.5); font-style: italic; }
+#modal .dream p { font-size: 21px; color: #e6dcff; }

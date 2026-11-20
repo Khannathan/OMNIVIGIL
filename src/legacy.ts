@@ -1,0 +1,36 @@
+// Legacy game code, loaded in its original order. Each file is an IIFE on window.OV.
+// Convert files to TypeScript one by one; keep this order.
+import '../js/core/util.js';
+import '../js/core/packs.js';
+import '../packs/bundle.js';
+import '../js/engine/cosmos.js';
+import '../js/engine/world.js';
+import '../js/engine/sim.js';
+import '../js/engine/space.js';
+import '../js/engine/v4.js';
+import '../js/engine/society.js';
+import '../js/engine/guild.js';
+import '../js/engine/populace.js';
+import '../js/engine/source.js';
+import '../js/engine/hotseat.js';
+import '../js/engine/field.js';
+import '../js/engine/frontier.js';
+import '../js/render/sigil.js';
+import '../js/render/pixel.js';
+import '../js/render/spritegen.js';
+import '../js/render/globe.js';
+import '../js/render/surface.js';
+import '../js/ui/wm.js';
+import '../js/ui/shell.js';
+import '../js/ui/map.js';
+import '../js/ui/system.js';
+import '../js/ui/windows.js';
+import '../js/ui/intel.js';
+import '../js/ui/dominion.js';
+import '../js/ui/guild.js';
+import '../js/ui/populace.js';
+import '../js/ui/source.js';
+import '../js/ui/field.js';
+import '../js/ui/create.js';
+import '../js/forge/render.js';
+import '../js/forge/forge.js';

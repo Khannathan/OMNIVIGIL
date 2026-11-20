@@ -1,0 +1,20 @@
+{
+  "terrains": [
+    { "id": "deep", "name": "Abyssal Deep", "water": true, "colors": ["#0b1f3a", "#10294a", "#163559", "#1d4169"], "desc": "Cold, crushing depths." },
+    { "id": "ocean", "name": "Open Ocean", "water": true, "colors": ["#123a62", "#184a77", "#1f5a8b", "#2a6c9f"], "desc": "Open water." },
+    { "id": "shallows", "name": "Shallows", "water": true, "colors": ["#1f6a8a", "#2a809c", "#3a97ad", "#58b2bf"], "desc": "Coastal shelf waters." },
+    { "id": "pack_ice", "name": "Pack Ice", "water": true, "colors": ["#8fb0c8", "#a9c6da", "#c4dbe9", "#e2eef6"], "desc": "Floating polar ice." },
+    { "id": "plains", "name": "Grassland", "colors": ["#3e6b2f", "#4f8137", "#649a43", "#7fb354"], "mods": { "capital": 0.1 }, "desc": "Fertile open land. +10% Capital." },
+    { "id": "forest", "name": "Temperate Forest", "colors": ["#1f4a27", "#2a5c2f", "#376f37", "#4a8542"], "mods": { "defense": 0.15 }, "desc": "Dense cover. +15% structure defence." },
+    { "id": "jungle", "name": "Jungle", "colors": ["#164024", "#1e552b", "#286b31", "#3a843a"], "mods": { "defense": 0.2, "essence": 0.1 }, "desc": "Teeming, wet canopy. +20% defence, +10% essence." },
+    { "id": "savanna", "name": "Savanna", "colors": ["#7a7232", "#8f873b", "#a69c48", "#bdb35b"], "mods": { "capital": 0.05, "energy": 0.05 }, "desc": "Sun-baked grass. +5% energy." },
+    { "id": "desert", "name": "Desert", "colors": ["#a07a42", "#b88f4f", "#cfa560", "#e2bd77"], "mods": { "energy": 0.25, "silicon": 0.15 }, "desc": "Endless sun and sand. +25% energy, +15% Silicon." },
+    { "id": "steppe", "name": "Steppe", "colors": ["#6b6a3a", "#7f7d45", "#959252", "#aba864"], "mods": { "alloys": 0.05 }, "desc": "Wind-scoured plains." },
+    { "id": "taiga", "name": "Taiga", "colors": ["#244236", "#2e5241", "#3b644d", "#4e7a5f"], "mods": { "defense": 0.1 }, "desc": "Boreal pine forest." },
+    { "id": "tundra", "name": "Tundra", "colors": ["#6f7a6a", "#84907e", "#9aa592", "#b3bca9"], "mods": { "data": 0.1 }, "desc": "Frozen flats. Cold air cools servers: +10% Data." },
+    { "id": "ice", "name": "Ice Sheet", "colors": ["#a9bfcf", "#c0d3e0", "#d7e5ee", "#eef6fa"], "mods": { "data": 0.2 }, "desc": "Polar ice. +20% Data." },
+    { "id": "highlands", "name": "Highlands", "colors": ["#5d5a3e", "#716d4a", "#878158", "#a09868"], "mods": { "alloys": 0.15, "defense": 0.1 }, "desc": "Rugged uplands. +15% Alloys." },
+    { "id": "mountains", "name": "Mountains", "colors": ["#4f4a48", "#66605c", "#807873", "#9d958e"], "mods": { "alloys": 0.25, "isotopes": 0.2, "defense": 0.3 }, "desc": "Ore-rich peaks. +25% Alloys, +20% Isotopes, +30% defence." },
+    { "id": "glacier", "name": "Glacier Peaks", "colors": ["#8a9aae", "#a5b4c6", "#c3cfdc", "#e6edf4"], "mods": { "defense": 0.35, "data": 0.15 }, "desc": "Frozen summits. +35% defence." }
+  ]
+}

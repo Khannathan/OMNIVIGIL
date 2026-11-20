@@ -1,0 +1,2848 @@
+{
+ "loci": [
+  {
+   "id": "Carapace",
+   "name": "Carapace",
+   "icon": "⬢",
+   "order": 1,
+   "desc": "Armour and hide."
+  },
+  {
+   "id": "Metabolism",
+   "name": "Metabolism",
+   "icon": "♨",
+   "order": 2,
+   "desc": "Energy, healing and upkeep."
+  },
+  {
+   "id": "Weaponry",
+   "name": "Weaponry",
+   "icon": "⚔",
+   "order": 3,
+   "desc": "Teeth, claws, spines and spit."
+  },
+  {
+   "id": "Neural",
+   "name": "Neural",
+   "icon": "✺",
+   "order": 4,
+   "desc": "Cognition and coordination."
+  },
+  {
+   "id": "Adaptation",
+   "name": "Adaptation",
+   "icon": "∞",
+   "order": 5,
+   "desc": "Resistance to the deep and its pressures."
+  },
+  {
+   "id": "Locomotion",
+   "name": "Locomotion",
+   "icon": "➶",
+   "order": 6,
+   "desc": "How it moves: fins, legs, jets."
+  },
+  {
+   "id": "Sensory",
+   "name": "Sensory",
+   "icon": "◉",
+   "order": 7,
+   "desc": "Eyes, pits, lateral lines and stranger organs."
+  },
+  {
+   "id": "Venom",
+   "name": "Venom",
+   "icon": "☣",
+   "order": 8,
+   "desc": "Toxins, acids and paralytics."
+  },
+  {
+   "id": "Endocrine",
+   "name": "Endocrine",
+   "icon": "⚕",
+   "order": 9,
+   "desc": "Hormones, growth and rage."
+  },
+  {
+   "id": "Resonance",
+   "name": "Resonance",
+   "icon": "≋",
+   "order": 10,
+   "desc": "The part of it that is still in the Abyss."
+  }
+ ],
+ "genes": [
+  {
+   "id": "chitin_lattice",
+   "name": "Chitin Lattice",
+   "locus": "Carapace",
+   "rarity": "common",
+   "dominance": 3,
+   "upow": 0.07,
+   "mods": {
+    "def": 0.08
+   },
+   "starter": true,
+   "desc": "Layered chitin plating. +8% defence."
+  },
+  {
+   "id": "riftback_plate",
+   "name": "Riftback Plate",
+   "locus": "Carapace",
+   "rarity": "common",
+   "dominance": 3,
+   "upow": 0.06,
+   "mods": {
+    "def": 0.09
+   },
+   "desc": "Glowing plates from a Riftback Colossus. +9% defence."
+  },
+  {
+   "id": "mirror_scale",
+   "name": "Mirror Scale",
+   "locus": "Carapace",
+   "rarity": "common",
+   "dominance": 3,
+   "upow": 0.05,
+   "mods": {
+    "def": 0.09
+   },
+   "ability": "stealth_plating",
+   "desc": "Light-bending scales. +9% defence."
+  },
+  {
+   "id": "obsidian_hide",
+   "name": "Obsidian Hide",
+   "locus": "Carapace",
+   "rarity": "common",
+   "dominance": 3,
+   "upow": 0.08,
+   "mods": {
+    "def": 0.08
+   },
+   "desc": "Rare. Near-indestructible hide. +8% defence."
+  },
+  {
+   "id": "coral_shell",
+   "name": "Coral Shell",
+   "locus": "Carapace",
+   "rarity": "common",
+   "dominance": 5,
+   "upow": 0.07,
+   "mods": {
+    "def": 0.08,
+    "hp": 0.04
+   },
+   "desc": "+8% defence, +4% health."
+  },
+  {
+   "id": "basalt_scute",
+   "name": "Basalt Scute",
+   "locus": "Carapace",
+   "rarity": "uncommon",
+   "dominance": 7,
+   "upow": 0.12,
+   "mods": {
+    "def": 0.13,
+    "hp": 0.06
+   },
+   "desc": "+13% defence, +6% health."
+  },
+  {
+   "id": "pearl_nacre",
+   "name": "Pearl Nacre",
+   "locus": "Carapace",
+   "rarity": "uncommon",
+   "dominance": 7,
+   "upow": 0.14,
+   "mods": {
+    "def": 0.16,
+    "hp": 0.06
+   },
+   "desc": "+16% defence, +6% health."
+  },
+  {
+   "id": "thornback_ridge",
+   "name": "Thornback Ridge",
+   "locus": "Carapace",
+   "rarity": "uncommon",
+   "dominance": 5,
+   "upow": 0.1,
+   "mods": {
+    "def": 0.12,
+    "hp": 0.05
+   },
+   "desc": "+12% defence, +5% health."
+  },
+  {
+   "id": "glassbone_plates",
+   "name": "Glassbone Plates",
+   "locus": "Carapace",
+   "rarity": "uncommon",
+   "dominance": 7,
+   "upow": 0.11,
+   "mods": {
+    "def": 0.15,
+    "garrison": 0.06
+   },
+   "desc": "+15% defence, +6% garrison power."
+  },
+  {
+   "id": "iron_barnacle",
+   "name": "Iron Barnacle",
+   "locus": "Carapace",
+   "rarity": "rare",
+   "dominance": 8,
+   "upow": 0.18,
+   "mods": {
+    "def": 0.23,
+    "hp": 0.11
+   },
+   "desc": "+23% defence, +11% health."
+  },
+  {
+   "id": "prism_hide",
+   "name": "Prism Hide",
+   "locus": "Carapace",
+   "rarity": "rare",
+   "dominance": 5,
+   "upow": 0.2,
+   "mods": {
+    "def": 0.2,
+    "hp": 0.1
+   },
+   "desc": "+20% defence, +10% health."
+  },
+  {
+   "id": "leatherwing_skin",
+   "name": "Leatherwing Skin",
+   "locus": "Carapace",
+   "rarity": "rare",
+   "dominance": 7,
+   "upow": 0.19,
+   "mods": {
+    "def": 0.22,
+    "garrison": 0.08
+   },
+   "desc": "+22% defence, +8% garrison power."
+  },
+  {
+   "id": "tidestone_armour",
+   "name": "Tidestone Armour",
+   "locus": "Carapace",
+   "rarity": "epic",
+   "dominance": 9,
+   "upow": 0.3,
+   "mods": {
+    "def": 0.34,
+    "hp": 0.19
+   },
+   "ability": "terror_aura",
+   "desc": "+34% defence, +19% health."
+  },
+  {
+   "id": "ossified_mantle",
+   "name": "Ossified Mantle",
+   "locus": "Carapace",
+   "rarity": "epic",
+   "dominance": 8,
+   "upow": 0.31,
+   "mods": {
+    "def": 0.34,
+    "covert": 0.18
+   },
+   "ability": "swarm_logic",
+   "desc": "+34% defence, +18% covert power."
+  },
+  {
+   "id": "voidglass_carapace",
+   "name": "Voidglass Carapace",
+   "locus": "Carapace",
+   "rarity": "mythic",
+   "dominance": 9,
+   "upow": 0.38,
+   "mods": {
+    "def": 0.43,
+    "hp": 0.25
+   },
+   "ability": "bulwark",
+   "desc": "+43% defence, +25% health."
+  },
+  {
+   "id": "brine_glands",
+   "name": "Brine Glands",
+   "locus": "Metabolism",
+   "rarity": "common",
+   "dominance": 4,
+   "upow": 0.06,
+   "mods": {
+    "regen": 0.1
+   },
+   "starter": true,
+   "desc": "Salt-processing organs that speed healing. +10% regeneration."
+  },
+  {
+   "id": "furnace_heart",
+   "name": "Furnace Heart",
+   "locus": "Metabolism",
+   "rarity": "common",
+   "dominance": 2,
+   "upow": 0.06,
+   "mods": {
+    "regen": 0.09
+   },
+   "desc": "A metabolism that burns hot. +9% regeneration."
+  },
+  {
+   "id": "deepking_heart",
+   "name": "Deepking Heart",
+   "locus": "Metabolism",
+   "rarity": "common",
+   "dominance": 5,
+   "upow": 0.05,
+   "mods": {
+    "regen": 0.08,
+    "upkeep": -0.03
+   },
+   "ability": "self_repair",
+   "desc": "The heart of a Behemoth, still beating. +8% regeneration, −3% upkeep."
+  },
+  {
+   "id": "void_metabolism",
+   "name": "Void Metabolism",
+   "locus": "Metabolism",
+   "rarity": "common",
+   "dominance": 5,
+   "upow": 0.06,
+   "mods": {
+    "regen": 0.07
+   },
+   "desc": "Rare. Feeds on nothing at all. +7% regeneration."
+  },
+  {
+   "id": "slow_burn",
+   "name": "Slow Burn",
+   "locus": "Metabolism",
+   "rarity": "common",
+   "dominance": 5,
+   "upow": 0.06,
+   "mods": {
+    "regen": 0.07,
+    "upkeep": -0.03
+   },
+   "desc": "+7% regeneration, −3% upkeep."
+  },
+  {
+   "id": "krill_cascade",
+   "name": "Krill Cascade",
+   "locus": "Metabolism",
+   "rarity": "uncommon",
+   "dominance": 5,
+   "upow": 0.14,
+   "mods": {
+    "regen": 0.16,
+    "essence": 0.07
+   },
+   "desc": "+16% regeneration, +7% essence harvest."
+  },
+  {
+   "id": "cold_engine",
+   "name": "Cold Engine",
+   "locus": "Metabolism",
+   "rarity": "uncommon",
+   "dominance": 5,
+   "upow": 0.1,
+   "mods": {
+    "regen": 0.14,
+    "hp": 0.07
+   },
+   "desc": "+14% regeneration, +7% health."
+  },
+  {
+   "id": "lantern_liver",
+   "name": "Lantern Liver",
+   "locus": "Metabolism",
+   "rarity": "uncommon",
+   "dominance": 5,
+   "upow": 0.13,
+   "mods": {
+    "regen": 0.16,
+    "upkeep": -0.09
+   },
+   "desc": "+16% regeneration, −9% upkeep."
+  },
+  {
+   "id": "thermal_vents",
+   "name": "Thermal Vents",
+   "locus": "Metabolism",
+   "rarity": "uncommon",
+   "dominance": 6,
+   "upow": 0.11,
+   "mods": {
+    "regen": 0.13,
+    "upkeep": -0.06
+   },
+   "desc": "+13% regeneration, −6% upkeep."
+  },
+  {
+   "id": "blood_battery",
+   "name": "Blood Battery",
+   "locus": "Metabolism",
+   "rarity": "rare",
+   "dominance": 4,
+   "upow": 0.17,
+   "mods": {
+    "regen": 0.25,
+    "essence": 0.1
+   },
+   "desc": "+25% regeneration, +10% essence harvest."
+  },
+  {
+   "id": "bloom_cycle",
+   "name": "Bloom Cycle",
+   "locus": "Metabolism",
+   "rarity": "rare",
+   "dominance": 6,
+   "upow": 0.19,
+   "mods": {
+    "regen": 0.18,
+    "hp": 0.1
+   },
+   "desc": "+18% regeneration, +10% health."
+  },
+  {
+   "id": "twin_hearts",
+   "name": "Twin Hearts",
+   "locus": "Metabolism",
+   "rarity": "rare",
+   "dominance": 4,
+   "upow": 0.19,
+   "mods": {
+    "regen": 0.25,
+    "upkeep": -0.15
+   },
+   "desc": "+25% regeneration, −15% upkeep."
+  },
+  {
+   "id": "mantle_furnace",
+   "name": "Mantle Furnace",
+   "locus": "Metabolism",
+   "rarity": "epic",
+   "dominance": 9,
+   "upow": 0.31,
+   "mods": {
+    "regen": 0.33,
+    "upkeep": -0.13
+   },
+   "ability": "self_repair",
+   "desc": "+33% regeneration, −13% upkeep."
+  },
+  {
+   "id": "leech_gut",
+   "name": "Leech Gut",
+   "locus": "Metabolism",
+   "rarity": "epic",
+   "dominance": 7,
+   "upow": 0.3,
+   "mods": {
+    "regen": 0.32,
+    "upkeep": -0.18
+   },
+   "ability": "regenerative_tissue",
+   "desc": "+32% regeneration, −18% upkeep."
+  },
+  {
+   "id": "starving_sun",
+   "name": "Starving Sun",
+   "locus": "Metabolism",
+   "rarity": "mythic",
+   "dominance": 10,
+   "upow": 0.42,
+   "mods": {
+    "regen": 0.49,
+    "essence": 0.29
+   },
+   "ability": "berserk_core",
+   "desc": "+49% regeneration, +29% essence harvest."
+  },
+  {
+   "id": "maw_jaw",
+   "name": "Maw Jaw",
+   "locus": "Weaponry",
+   "rarity": "common",
+   "dominance": 3,
+   "upow": 0.07,
+   "mods": {
+    "atk": 0.08
+   },
+   "desc": "Rows of serrated teeth. +8% attack.",
+   "starter": true
+  },
+  {
+   "id": "barbed_tendrils",
+   "name": "Barbed Tendrils",
+   "locus": "Weaponry",
+   "rarity": "common",
+   "dominance": 5,
+   "upow": 0.05,
+   "mods": {
+    "atk": 0.07
+   },
+   "starter": true,
+   "desc": "Grasping, hooked tendrils. +7% attack."
+  },
+  {
+   "id": "acid_sacs",
+   "name": "Acid Sacs",
+   "locus": "Weaponry",
+   "rarity": "common",
+   "dominance": 2,
+   "upow": 0.06,
+   "mods": {
+    "atk": 0.08
+   },
+   "desc": "Corrosive spray. +8% attack."
+  },
+  {
+   "id": "rift_lance",
+   "name": "Rift Lance",
+   "locus": "Weaponry",
+   "rarity": "common",
+   "dominance": 4,
+   "upow": 0.06,
+   "mods": {
+    "atk": 0.07
+   },
+   "desc": "Rare. A spine that pierces dimensions. +7% attack."
+  },
+  {
+   "id": "hook_claws",
+   "name": "Hook Claws",
+   "locus": "Weaponry",
+   "rarity": "common",
+   "dominance": 4,
+   "upow": 0.07,
+   "mods": {
+    "atk": 0.08,
+    "abyss": 0.04
+   },
+   "desc": "+8% attack, +4% damage vs Abyssians."
+  },
+  {
+   "id": "saw_fins",
+   "name": "Saw Fins",
+   "locus": "Weaponry",
+   "rarity": "uncommon",
+   "dominance": 3,
+   "upow": 0.11,
+   "mods": {
+    "atk": 0.15,
+    "assault": 0.06
+   },
+   "desc": "+15% attack, +6% assault power."
+  },
+  {
+   "id": "spine_volley",
+   "name": "Spine Volley",
+   "locus": "Weaponry",
+   "rarity": "uncommon",
+   "dominance": 4,
+   "upow": 0.14,
+   "mods": {
+    "atk": 0.15,
+    "assault": 0.06
+   },
+   "desc": "+15% attack, +6% assault power."
+  },
+  {
+   "id": "crusher_mandibles",
+   "name": "Crusher Mandibles",
+   "locus": "Weaponry",
+   "rarity": "uncommon",
+   "dominance": 7,
+   "upow": 0.1,
+   "mods": {
+    "atk": 0.13,
+    "upow": 0.08
+   },
+   "desc": "+13% attack, +8% UPow."
+  },
+  {
+   "id": "lamprey_ring",
+   "name": "Lamprey Ring",
+   "locus": "Weaponry",
+   "rarity": "uncommon",
+   "dominance": 6,
+   "upow": 0.12,
+   "mods": {
+    "atk": 0.16,
+    "assault": 0.07
+   },
+   "desc": "+16% attack, +7% assault power."
+  },
+  {
+   "id": "harpoon_tongue",
+   "name": "Harpoon Tongue",
+   "locus": "Weaponry",
+   "rarity": "rare",
+   "dominance": 4,
+   "upow": 0.18,
+   "mods": {
+    "atk": 0.22,
+    "abyss": 0.12
+   },
+   "desc": "+22% attack, +12% damage vs Abyssians."
+  },
+  {
+   "id": "bone_gatling",
+   "name": "Bone Gatling",
+   "locus": "Weaponry",
+   "rarity": "rare",
+   "dominance": 6,
+   "upow": 0.16,
+   "mods": {
+    "atk": 0.25,
+    "upow": 0.1
+   },
+   "desc": "+25% attack, +10% UPow."
+  },
+  {
+   "id": "shear_beak",
+   "name": "Shear Beak",
+   "locus": "Weaponry",
+   "rarity": "rare",
+   "dominance": 5,
+   "upow": 0.19,
+   "mods": {
+    "atk": 0.18,
+    "upow": 0.1
+   },
+   "desc": "+18% attack, +10% UPow."
+  },
+  {
+   "id": "glass_fangs",
+   "name": "Glass Fangs",
+   "locus": "Weaponry",
+   "rarity": "epic",
+   "dominance": 9,
+   "upow": 0.26,
+   "mods": {
+    "atk": 0.33,
+    "assault": 0.19
+   },
+   "ability": "swarm_logic",
+   "desc": "+33% attack, +19% assault power."
+  },
+  {
+   "id": "tide_cleaver",
+   "name": "Tide Cleaver",
+   "locus": "Weaponry",
+   "rarity": "epic",
+   "dominance": 6,
+   "upow": 0.29,
+   "mods": {
+    "atk": 0.35,
+    "assault": 0.18
+   },
+   "ability": "ambush_logic",
+   "desc": "+35% attack, +18% assault power."
+  },
+  {
+   "id": "worldbiter_maw",
+   "name": "Worldbiter Maw",
+   "locus": "Weaponry",
+   "rarity": "mythic",
+   "dominance": 10,
+   "upow": 0.4,
+   "mods": {
+    "atk": 0.45,
+    "upow": 0.19
+   },
+   "ability": "overclock",
+   "desc": "+45% attack, +19% UPow."
+  },
+  {
+   "id": "ganglion_web",
+   "name": "Ganglion Web",
+   "locus": "Neural",
+   "rarity": "common",
+   "dominance": 4,
+   "upow": 0.05,
+   "mods": {
+    "upow": 0.09
+   },
+   "starter": true,
+   "desc": "Distributed nerve clusters. +9% UPow."
+  },
+  {
+   "id": "choir_node",
+   "name": "Choir Node",
+   "locus": "Neural",
+   "rarity": "common",
+   "dominance": 4,
+   "upow": 0.06,
+   "mods": {
+    "upow": 0.06,
+    "def": 0.03
+   },
+   "ability": "ghost",
+   "desc": "A psionic organ from the Hollow Choir. +6% UPow, +3% defence."
+  },
+  {
+   "id": "hive_thread",
+   "name": "Hive Thread",
+   "locus": "Neural",
+   "rarity": "common",
+   "dominance": 4,
+   "upow": 0.06,
+   "mods": {
+    "upow": 0.1
+   },
+   "desc": "+10% UPow."
+  },
+  {
+   "id": "dreaming_lobe",
+   "name": "Dreaming Lobe",
+   "locus": "Neural",
+   "rarity": "common",
+   "dominance": 4,
+   "upow": 0.06,
+   "mods": {
+    "upow": 0.08
+   },
+   "desc": "+8% UPow."
+  },
+  {
+   "id": "twitch_reflex",
+   "name": "Twitch Reflex",
+   "locus": "Neural",
+   "rarity": "common",
+   "dominance": 3,
+   "upow": 0.05,
+   "mods": {
+    "upow": 0.1,
+    "def": 0.05
+   },
+   "desc": "+10% UPow, +5% defence."
+  },
+  {
+   "id": "predator_cortex",
+   "name": "Predator Cortex",
+   "locus": "Neural",
+   "rarity": "uncommon",
+   "dominance": 5,
+   "upow": 0.11,
+   "mods": {
+    "upow": 0.16,
+    "covert": 0.07
+   },
+   "ability": "predictive_targeting",
+   "desc": "Hunting instincts, distilled. +16% UPow, +7% covert power."
+  },
+  {
+   "id": "pack_mind",
+   "name": "Pack Mind",
+   "locus": "Neural",
+   "rarity": "uncommon",
+   "dominance": 4,
+   "upow": 0.1,
+   "mods": {
+    "upow": 0.13,
+    "def": 0.06
+   },
+   "desc": "+13% UPow, +6% defence."
+  },
+  {
+   "id": "mirror_neurons",
+   "name": "Mirror Neurons",
+   "locus": "Neural",
+   "rarity": "uncommon",
+   "dominance": 6,
+   "upow": 0.1,
+   "mods": {
+    "upow": 0.14,
+    "def": 0.08
+   },
+   "desc": "+14% UPow, +8% defence."
+  },
+  {
+   "id": "pressure_sense",
+   "name": "Pressure Sense",
+   "locus": "Neural",
+   "rarity": "uncommon",
+   "dominance": 3,
+   "upow": 0.13,
+   "mods": {
+    "upow": 0.14,
+    "atk": 0.08
+   },
+   "desc": "+14% UPow, +8% attack."
+  },
+  {
+   "id": "swarm_synapse",
+   "name": "Swarm Synapse",
+   "locus": "Neural",
+   "rarity": "rare",
+   "dominance": 7,
+   "upow": 0.22,
+   "mods": {
+    "upow": 0.18,
+    "def": 0.11
+   },
+   "desc": "+18% UPow, +11% defence."
+  },
+  {
+   "id": "cold_logic_gland",
+   "name": "Cold Logic Gland",
+   "locus": "Neural",
+   "rarity": "rare",
+   "dominance": 8,
+   "upow": 0.16,
+   "mods": {
+    "upow": 0.21,
+    "def": 0.11
+   },
+   "desc": "+21% UPow, +11% defence."
+  },
+  {
+   "id": "forked_brain",
+   "name": "Forked Brain",
+   "locus": "Neural",
+   "rarity": "rare",
+   "dominance": 6,
+   "upow": 0.19,
+   "mods": {
+    "upow": 0.2,
+    "covert": 0.12
+   },
+   "desc": "+20% UPow, +12% covert power."
+  },
+  {
+   "id": "lucid_core",
+   "name": "Lucid Core",
+   "locus": "Neural",
+   "rarity": "epic",
+   "dominance": 9,
+   "upow": 0.3,
+   "mods": {
+    "upow": 0.3,
+    "atk": 0.11
+   },
+   "ability": "nanoweave",
+   "desc": "+30% UPow, +11% attack."
+  },
+  {
+   "id": "mother_mind",
+   "name": "Mother-Mind Fragment",
+   "locus": "Neural",
+   "rarity": "epic",
+   "dominance": 8,
+   "upow": 0.27,
+   "mods": {
+    "upow": 0.34,
+    "covert": 0.15
+   },
+   "ability": "self_repair",
+   "desc": "Rare. A shard of an Abyss Mother's consciousness. +34% UPow, +15% covert power."
+  },
+  {
+   "id": "overmind_seed",
+   "name": "Overmind Seed",
+   "locus": "Neural",
+   "rarity": "mythic",
+   "dominance": 9,
+   "upow": 0.41,
+   "mods": {
+    "upow": 0.44,
+    "def": 0.25
+   },
+   "ability": "rift_diver",
+   "desc": "+44% UPow, +25% defence."
+  },
+  {
+   "id": "pressure_bladder",
+   "name": "Pressure Bladder",
+   "locus": "Adaptation",
+   "rarity": "common",
+   "dominance": 1,
+   "upow": 0.07,
+   "mods": {
+    "abyss": 0.09,
+    "regen": 0.04
+   },
+   "desc": "+9% damage vs Abyssians, +4% regeneration.",
+   "starter": true
+  },
+  {
+   "id": "tidal_adaptation",
+   "name": "Tidal Adaptation",
+   "locus": "Adaptation",
+   "rarity": "common",
+   "dominance": 1,
+   "upow": 0.07,
+   "mods": {
+    "abyss": 0.1,
+    "def": 0.05
+   },
+   "starter": true,
+   "desc": "Thrives in the deep, understands its creatures. +10% damage vs Abyssians, +5% defence."
+  },
+  {
+   "id": "trench_lungs",
+   "name": "Trench Lungs",
+   "locus": "Adaptation",
+   "rarity": "common",
+   "dominance": 1,
+   "upow": 0.07,
+   "mods": {
+    "abyss": 0.06,
+    "regen": 0.02
+   },
+   "desc": "+6% damage vs Abyssians, +2% regeneration."
+  },
+  {
+   "id": "rift_skin",
+   "name": "Rift Skin",
+   "locus": "Adaptation",
+   "rarity": "common",
+   "dominance": 4,
+   "upow": 0.07,
+   "mods": {
+    "abyss": 0.08,
+    "hp": 0.04
+   },
+   "desc": "+8% damage vs Abyssians, +4% health."
+  },
+  {
+   "id": "abyssal_mimicry",
+   "name": "Abyssal Mimicry",
+   "locus": "Adaptation",
+   "rarity": "common",
+   "dominance": 5,
+   "upow": 0.05,
+   "mods": {
+    "abyss": 0.09
+   },
+   "desc": "+9% damage vs Abyssians."
+  },
+  {
+   "id": "darkwater_eyes",
+   "name": "Darkwater Eyes",
+   "locus": "Adaptation",
+   "rarity": "uncommon",
+   "dominance": 3,
+   "upow": 0.14,
+   "mods": {
+    "abyss": 0.16,
+    "hp": 0.09
+   },
+   "desc": "+16% damage vs Abyssians, +9% health."
+  },
+  {
+   "id": "thermocline_blood",
+   "name": "Thermocline Blood",
+   "locus": "Adaptation",
+   "rarity": "uncommon",
+   "dominance": 3,
+   "upow": 0.11,
+   "mods": {
+    "abyss": 0.13,
+    "regen": 0.07
+   },
+   "desc": "+13% damage vs Abyssians, +7% regeneration."
+  },
+  {
+   "id": "pressure_bones",
+   "name": "Pressure Bones",
+   "locus": "Adaptation",
+   "rarity": "uncommon",
+   "dominance": 7,
+   "upow": 0.11,
+   "mods": {
+    "abyss": 0.13,
+    "hp": 0.05
+   },
+   "desc": "Bones built for the hadal zone. +13% damage vs Abyssians, +5% health."
+  },
+  {
+   "id": "ammonia_cells",
+   "name": "Ammonia Cells",
+   "locus": "Adaptation",
+   "rarity": "uncommon",
+   "dominance": 5,
+   "upow": 0.13,
+   "mods": {
+    "abyss": 0.13,
+    "regen": 0.05
+   },
+   "desc": "+13% damage vs Abyssians, +5% regeneration."
+  },
+  {
+   "id": "blackwater_gills",
+   "name": "Blackwater Gills",
+   "locus": "Adaptation",
+   "rarity": "rare",
+   "dominance": 7,
+   "upow": 0.21,
+   "mods": {
+    "abyss": 0.18,
+    "def": 0.08
+   },
+   "desc": "+18% damage vs Abyssians, +8% defence."
+  },
+  {
+   "id": "crush_resilience",
+   "name": "Crush Resilience",
+   "locus": "Adaptation",
+   "rarity": "rare",
+   "dominance": 8,
+   "upow": 0.2,
+   "mods": {
+    "abyss": 0.23,
+    "def": 0.12
+   },
+   "desc": "+23% damage vs Abyssians, +12% defence."
+  },
+  {
+   "id": "parasitic_link",
+   "name": "Parasitic Link",
+   "locus": "Adaptation",
+   "rarity": "rare",
+   "dominance": 8,
+   "upow": 0.2,
+   "mods": {
+    "abyss": 0.22,
+    "hp": 0.09
+   },
+   "ability": "essence_siphon",
+   "desc": "Drinks the essence of what it kills. +22% damage vs Abyssians, +9% health."
+  },
+  {
+   "id": "phase_skin",
+   "name": "Phase Skin",
+   "locus": "Adaptation",
+   "rarity": "epic",
+   "dominance": 9,
+   "upow": 0.28,
+   "mods": {
+    "abyss": 0.32,
+    "hp": 0.15
+   },
+   "ability": "rift_diver",
+   "desc": "Rare. Partially exists elsewhere. +32% damage vs Abyssians, +15% health."
+  },
+  {
+   "id": "null_pressure",
+   "name": "Null Pressure",
+   "locus": "Adaptation",
+   "rarity": "epic",
+   "dominance": 9,
+   "upow": 0.29,
+   "mods": {
+    "abyss": 0.34,
+    "def": 0.15
+   },
+   "ability": "nanoweave",
+   "desc": "+34% damage vs Abyssians, +15% defence."
+  },
+  {
+   "id": "mothers_blessing",
+   "name": "Mother's Blessing",
+   "locus": "Adaptation",
+   "rarity": "mythic",
+   "dominance": 9,
+   "upow": 0.39,
+   "mods": {
+    "abyss": 0.45,
+    "regen": 0.23
+   },
+   "ability": "rift_diver",
+   "desc": "+45% damage vs Abyssians, +23% regeneration."
+  },
+  {
+   "id": "paddle_limbs",
+   "name": "Paddle Limbs",
+   "locus": "Locomotion",
+   "rarity": "common",
+   "dominance": 2,
+   "upow": 0.06,
+   "mods": {
+    "assault": 0.06
+   },
+   "desc": "+6% assault power."
+  },
+  {
+   "id": "jet_siphon",
+   "name": "Jet Siphon",
+   "locus": "Locomotion",
+   "rarity": "common",
+   "dominance": 3,
+   "upow": 0.07,
+   "mods": {
+    "assault": 0.09
+   },
+   "desc": "+9% assault power."
+  },
+  {
+   "id": "skitter_legs",
+   "name": "Skitter Legs",
+   "locus": "Locomotion",
+   "rarity": "common",
+   "dominance": 5,
+   "upow": 0.07,
+   "mods": {
+    "assault": 0.08
+   },
+   "desc": "+8% assault power."
+  },
+  {
+   "id": "wing_membranes",
+   "name": "Wing Membranes",
+   "locus": "Locomotion",
+   "rarity": "common",
+   "dominance": 2,
+   "upow": 0.07,
+   "mods": {
+    "assault": 0.09
+   },
+   "desc": "+9% assault power."
+  },
+  {
+   "id": "coil_spine",
+   "name": "Coil Spine",
+   "locus": "Locomotion",
+   "rarity": "common",
+   "dominance": 1,
+   "upow": 0.06,
+   "mods": {
+    "assault": 0.06
+   },
+   "desc": "+6% assault power."
+  },
+  {
+   "id": "sprint_tendons",
+   "name": "Sprint Tendons",
+   "locus": "Locomotion",
+   "rarity": "uncommon",
+   "dominance": 7,
+   "upow": 0.14,
+   "mods": {
+    "assault": 0.16,
+    "def": 0.09
+   },
+   "desc": "+16% assault power, +9% defence."
+  },
+  {
+   "id": "glider_folds",
+   "name": "Glider Folds",
+   "locus": "Locomotion",
+   "rarity": "uncommon",
+   "dominance": 7,
+   "upow": 0.1,
+   "mods": {
+    "assault": 0.15,
+    "covert": 0.08
+   },
+   "desc": "+15% assault power, +8% covert power."
+  },
+  {
+   "id": "burrow_claws",
+   "name": "Burrow Claws",
+   "locus": "Locomotion",
+   "rarity": "uncommon",
+   "dominance": 5,
+   "upow": 0.13,
+   "mods": {
+    "assault": 0.13,
+    "def": 0.07
+   },
+   "desc": "+13% assault power, +7% defence."
+  },
+  {
+   "id": "tidal_fins",
+   "name": "Tidal Fins",
+   "locus": "Locomotion",
+   "rarity": "uncommon",
+   "dominance": 5,
+   "upow": 0.14,
+   "mods": {
+    "assault": 0.16,
+    "covert": 0.09
+   },
+   "desc": "+16% assault power, +9% covert power."
+  },
+  {
+   "id": "spring_hocks",
+   "name": "Spring Hocks",
+   "locus": "Locomotion",
+   "rarity": "rare",
+   "dominance": 7,
+   "upow": 0.2,
+   "mods": {
+    "assault": 0.18,
+    "def": 0.11
+   },
+   "desc": "+18% assault power, +11% defence."
+  },
+  {
+   "id": "undulant_body",
+   "name": "Undulant Body",
+   "locus": "Locomotion",
+   "rarity": "rare",
+   "dominance": 4,
+   "upow": 0.21,
+   "mods": {
+    "assault": 0.21,
+    "covert": 0.09
+   },
+   "desc": "+21% assault power, +9% covert power."
+  },
+  {
+   "id": "leaping_haunches",
+   "name": "Leaping Haunches",
+   "locus": "Locomotion",
+   "rarity": "rare",
+   "dominance": 6,
+   "upow": 0.17,
+   "mods": {
+    "assault": 0.24,
+    "def": 0.1
+   },
+   "desc": "+24% assault power, +10% defence."
+  },
+  {
+   "id": "ballistic_jets",
+   "name": "Ballistic Jets",
+   "locus": "Locomotion",
+   "rarity": "epic",
+   "dominance": 6,
+   "upow": 0.31,
+   "mods": {
+    "assault": 0.34,
+    "covert": 0.16
+   },
+   "ability": "stealth_plating",
+   "desc": "+34% assault power, +16% covert power."
+  },
+  {
+   "id": "phase_stride",
+   "name": "Phase Stride",
+   "locus": "Locomotion",
+   "rarity": "epic",
+   "dominance": 8,
+   "upow": 0.29,
+   "mods": {
+    "assault": 0.32,
+    "covert": 0.11
+   },
+   "ability": "rift_hunter",
+   "desc": "+32% assault power, +11% covert power."
+  },
+  {
+   "id": "riftwalk",
+   "name": "Riftwalk",
+   "locus": "Locomotion",
+   "rarity": "mythic",
+   "dominance": 8,
+   "upow": 0.4,
+   "mods": {
+    "assault": 0.46,
+    "atk": 0.2
+   },
+   "ability": "phase_cloak",
+   "desc": "+46% assault power, +20% attack."
+  },
+  {
+   "id": "pit_organs",
+   "name": "Pit Organs",
+   "locus": "Sensory",
+   "rarity": "common",
+   "dominance": 5,
+   "upow": 0.07,
+   "mods": {
+    "atk": 0.07,
+    "upow": 0.03
+   },
+   "desc": "+7% attack, +3% UPow."
+  },
+  {
+   "id": "lateral_line",
+   "name": "Lateral Line",
+   "locus": "Sensory",
+   "rarity": "common",
+   "dominance": 5,
+   "upow": 0.07,
+   "mods": {
+    "atk": 0.1,
+    "abyss": 0.04
+   },
+   "desc": "+10% attack, +4% damage vs Abyssians."
+  },
+  {
+   "id": "compound_eyes",
+   "name": "Compound Eyes",
+   "locus": "Sensory",
+   "rarity": "common",
+   "dominance": 4,
+   "upow": 0.07,
+   "mods": {
+    "atk": 0.06
+   },
+   "desc": "+6% attack."
+  },
+  {
+   "id": "lantern_lure",
+   "name": "Lantern Lure",
+   "locus": "Sensory",
+   "rarity": "common",
+   "dominance": 3,
+   "upow": 0.07,
+   "mods": {
+    "atk": 0.08
+   },
+   "desc": "+8% attack."
+  },
+  {
+   "id": "echolocation",
+   "name": "Echolocation",
+   "locus": "Sensory",
+   "rarity": "common",
+   "dominance": 5,
+   "upow": 0.07,
+   "mods": {
+    "atk": 0.1
+   },
+   "desc": "+10% attack."
+  },
+  {
+   "id": "magnet_sense",
+   "name": "Magnet Sense",
+   "locus": "Sensory",
+   "rarity": "uncommon",
+   "dominance": 3,
+   "upow": 0.12,
+   "mods": {
+    "atk": 0.16,
+    "abyss": 0.07
+   },
+   "desc": "+16% attack, +7% damage vs Abyssians."
+  },
+  {
+   "id": "heat_pits",
+   "name": "Heat Pits",
+   "locus": "Sensory",
+   "rarity": "uncommon",
+   "dominance": 3,
+   "upow": 0.11,
+   "mods": {
+    "atk": 0.15,
+    "abyss": 0.07
+   },
+   "desc": "+15% attack, +7% damage vs Abyssians."
+  },
+  {
+   "id": "whisker_array",
+   "name": "Whisker Array",
+   "locus": "Sensory",
+   "rarity": "uncommon",
+   "dominance": 5,
+   "upow": 0.13,
+   "mods": {
+    "atk": 0.15,
+    "covert": 0.06
+   },
+   "desc": "+15% attack, +6% covert power."
+  },
+  {
+   "id": "spectral_eyes",
+   "name": "Spectral Eyes",
+   "locus": "Sensory",
+   "rarity": "uncommon",
+   "dominance": 3,
+   "upow": 0.11,
+   "mods": {
+    "atk": 0.14,
+    "covert": 0.08
+   },
+   "desc": "+14% attack, +8% covert power."
+  },
+  {
+   "id": "pressure_antennae",
+   "name": "Pressure Antennae",
+   "locus": "Sensory",
+   "rarity": "rare",
+   "dominance": 4,
+   "upow": 0.19,
+   "mods": {
+    "atk": 0.19,
+    "covert": 0.09
+   },
+   "desc": "+19% attack, +9% covert power."
+  },
+  {
+   "id": "third_eye",
+   "name": "Third Eye",
+   "locus": "Sensory",
+   "rarity": "rare",
+   "dominance": 7,
+   "upow": 0.17,
+   "mods": {
+    "atk": 0.24,
+    "covert": 0.1
+   },
+   "desc": "+24% attack, +10% covert power."
+  },
+  {
+   "id": "night_retina",
+   "name": "Night Retina",
+   "locus": "Sensory",
+   "rarity": "rare",
+   "dominance": 4,
+   "upow": 0.2,
+   "mods": {
+    "atk": 0.21,
+    "covert": 0.12
+   },
+   "desc": "+21% attack, +12% covert power."
+  },
+  {
+   "id": "storm_sense",
+   "name": "Storm Sense",
+   "locus": "Sensory",
+   "rarity": "epic",
+   "dominance": 6,
+   "upow": 0.31,
+   "mods": {
+    "atk": 0.31,
+    "covert": 0.15
+   },
+   "ability": "regenerative_tissue",
+   "desc": "+31% attack, +15% covert power."
+  },
+  {
+   "id": "deep_sight",
+   "name": "Deep Sight",
+   "locus": "Sensory",
+   "rarity": "epic",
+   "dominance": 7,
+   "upow": 0.29,
+   "mods": {
+    "atk": 0.35,
+    "abyss": 0.18
+   },
+   "ability": "self_repair",
+   "desc": "+35% attack, +18% damage vs Abyssians."
+  },
+  {
+   "id": "omniscient_iris",
+   "name": "Omniscient Iris",
+   "locus": "Sensory",
+   "rarity": "mythic",
+   "dominance": 10,
+   "upow": 0.45,
+   "mods": {
+    "atk": 0.45,
+    "abyss": 0.17
+   },
+   "ability": "rift_diver",
+   "desc": "+45% attack, +17% damage vs Abyssians."
+  },
+  {
+   "id": "numbing_spit",
+   "name": "Numbing Spit",
+   "locus": "Venom",
+   "rarity": "common",
+   "dominance": 3,
+   "upow": 0.08,
+   "mods": {
+    "abyss": 0.09
+   },
+   "desc": "+9% damage vs Abyssians."
+  },
+  {
+   "id": "acid_glands",
+   "name": "Acid Glands",
+   "locus": "Venom",
+   "rarity": "common",
+   "dominance": 2,
+   "upow": 0.08,
+   "mods": {
+    "abyss": 0.08,
+    "atk": 0.05
+   },
+   "desc": "+8% damage vs Abyssians, +5% attack."
+  },
+  {
+   "id": "blackblood_toxin",
+   "name": "Blackblood Toxin",
+   "locus": "Venom",
+   "rarity": "common",
+   "dominance": 2,
+   "upow": 0.08,
+   "mods": {
+    "abyss": 0.09
+   },
+   "desc": "+9% damage vs Abyssians."
+  },
+  {
+   "id": "paralytic_barbs",
+   "name": "Paralytic Barbs",
+   "locus": "Venom",
+   "rarity": "common",
+   "dominance": 3,
+   "upow": 0.06,
+   "mods": {
+    "abyss": 0.09,
+    "atk": 0.03
+   },
+   "desc": "+9% damage vs Abyssians, +3% attack."
+  },
+  {
+   "id": "rust_venom",
+   "name": "Rust Venom",
+   "locus": "Venom",
+   "rarity": "common",
+   "dominance": 4,
+   "upow": 0.07,
+   "mods": {
+    "abyss": 0.07,
+    "assault": 0.04
+   },
+   "desc": "+7% damage vs Abyssians, +4% assault power."
+  },
+  {
+   "id": "nerve_ink",
+   "name": "Nerve Ink",
+   "locus": "Venom",
+   "rarity": "uncommon",
+   "dominance": 5,
+   "upow": 0.1,
+   "mods": {
+    "abyss": 0.15,
+    "atk": 0.09
+   },
+   "desc": "+15% damage vs Abyssians, +9% attack."
+  },
+  {
+   "id": "bleeding_saliva",
+   "name": "Bleeding Saliva",
+   "locus": "Venom",
+   "rarity": "uncommon",
+   "dominance": 6,
+   "upow": 0.12,
+   "mods": {
+    "abyss": 0.15,
+    "assault": 0.09
+   },
+   "desc": "+15% damage vs Abyssians, +9% assault power."
+  },
+  {
+   "id": "spore_venom",
+   "name": "Spore Venom",
+   "locus": "Venom",
+   "rarity": "uncommon",
+   "dominance": 4,
+   "upow": 0.1,
+   "mods": {
+    "abyss": 0.14,
+    "essence": 0.06
+   },
+   "desc": "+14% damage vs Abyssians, +6% essence harvest."
+  },
+  {
+   "id": "fever_sting",
+   "name": "Fever Sting",
+   "locus": "Venom",
+   "rarity": "uncommon",
+   "dominance": 6,
+   "upow": 0.11,
+   "mods": {
+    "abyss": 0.14,
+    "assault": 0.08
+   },
+   "desc": "+14% damage vs Abyssians, +8% assault power."
+  },
+  {
+   "id": "bone_rot",
+   "name": "Bone Rot",
+   "locus": "Venom",
+   "rarity": "rare",
+   "dominance": 8,
+   "upow": 0.17,
+   "mods": {
+    "abyss": 0.24,
+    "assault": 0.12
+   },
+   "desc": "+24% damage vs Abyssians, +12% assault power."
+  },
+  {
+   "id": "dissolving_kiss",
+   "name": "Dissolving Kiss",
+   "locus": "Venom",
+   "rarity": "rare",
+   "dominance": 8,
+   "upow": 0.17,
+   "mods": {
+    "abyss": 0.2,
+    "atk": 0.1
+   },
+   "desc": "+20% damage vs Abyssians, +10% attack."
+  },
+  {
+   "id": "rift_venom",
+   "name": "Rift Venom",
+   "locus": "Venom",
+   "rarity": "rare",
+   "dominance": 5,
+   "upow": 0.18,
+   "mods": {
+    "abyss": 0.24,
+    "assault": 0.12
+   },
+   "desc": "+24% damage vs Abyssians, +12% assault power."
+  },
+  {
+   "id": "silencing_toxin",
+   "name": "Silencing Toxin",
+   "locus": "Venom",
+   "rarity": "epic",
+   "dominance": 8,
+   "upow": 0.31,
+   "mods": {
+    "abyss": 0.35,
+    "atk": 0.2
+   },
+   "ability": "ambush_logic",
+   "desc": "+35% damage vs Abyssians, +20% attack."
+  },
+  {
+   "id": "unmaking_poison",
+   "name": "Unmaking Poison",
+   "locus": "Venom",
+   "rarity": "epic",
+   "dominance": 8,
+   "upow": 0.3,
+   "mods": {
+    "abyss": 0.34,
+    "essence": 0.15
+   },
+   "ability": "regenerative_tissue",
+   "desc": "+34% damage vs Abyssians, +15% essence harvest."
+  },
+  {
+   "id": "abyssal_ichor",
+   "name": "Abyssal Ichor",
+   "locus": "Venom",
+   "rarity": "mythic",
+   "dominance": 8,
+   "upow": 0.42,
+   "mods": {
+    "abyss": 0.42,
+    "assault": 0.19
+   },
+   "ability": "rift_diver",
+   "desc": "+42% damage vs Abyssians, +19% assault power."
+  },
+  {
+   "id": "growth_surge",
+   "name": "Growth Surge",
+   "locus": "Endocrine",
+   "rarity": "common",
+   "dominance": 2,
+   "upow": 0.06,
+   "mods": {
+    "hp": 0.09,
+    "atk": 0.04
+   },
+   "desc": "+9% health, +4% attack."
+  },
+  {
+   "id": "rage_gland",
+   "name": "Rage Gland",
+   "locus": "Endocrine",
+   "rarity": "common",
+   "dominance": 5,
+   "upow": 0.08,
+   "mods": {
+    "hp": 0.07,
+    "regen": 0.03
+   },
+   "desc": "+7% health, +3% regeneration."
+  },
+  {
+   "id": "calm_hormone",
+   "name": "Calm Hormone",
+   "locus": "Endocrine",
+   "rarity": "common",
+   "dominance": 3,
+   "upow": 0.08,
+   "mods": {
+    "hp": 0.09,
+    "atk": 0.05
+   },
+   "desc": "+9% health, +5% attack."
+  },
+  {
+   "id": "molting_cycle",
+   "name": "Molting Cycle",
+   "locus": "Endocrine",
+   "rarity": "common",
+   "dominance": 3,
+   "upow": 0.07,
+   "mods": {
+    "hp": 0.06,
+    "atk": 0.03
+   },
+   "desc": "+6% health, +3% attack."
+  },
+  {
+   "id": "adrenal_storm",
+   "name": "Adrenal Storm",
+   "locus": "Endocrine",
+   "rarity": "common",
+   "dominance": 2,
+   "upow": 0.07,
+   "mods": {
+    "hp": 0.09
+   },
+   "desc": "+9% health."
+  },
+  {
+   "id": "colossal_pituitary",
+   "name": "Colossal Pituitary",
+   "locus": "Endocrine",
+   "rarity": "uncommon",
+   "dominance": 7,
+   "upow": 0.14,
+   "mods": {
+    "hp": 0.14,
+    "atk": 0.08
+   },
+   "desc": "+14% health, +8% attack."
+  },
+  {
+   "id": "stress_armour",
+   "name": "Stress Armour",
+   "locus": "Endocrine",
+   "rarity": "uncommon",
+   "dominance": 7,
+   "upow": 0.11,
+   "mods": {
+    "hp": 0.13,
+    "regen": 0.05
+   },
+   "desc": "+13% health, +5% regeneration."
+  },
+  {
+   "id": "pack_pheromone",
+   "name": "Pack Pheromone",
+   "locus": "Endocrine",
+   "rarity": "uncommon",
+   "dominance": 5,
+   "upow": 0.12,
+   "mods": {
+    "hp": 0.16,
+    "regen": 0.08
+   },
+   "desc": "+16% health, +8% regeneration."
+  },
+  {
+   "id": "endless_growth",
+   "name": "Endless Growth",
+   "locus": "Endocrine",
+   "rarity": "uncommon",
+   "dominance": 5,
+   "upow": 0.13,
+   "mods": {
+    "hp": 0.15,
+    "regen": 0.09
+   },
+   "desc": "+15% health, +9% regeneration."
+  },
+  {
+   "id": "battle_musk",
+   "name": "Battle Musk",
+   "locus": "Endocrine",
+   "rarity": "rare",
+   "dominance": 6,
+   "upow": 0.18,
+   "mods": {
+    "hp": 0.18,
+    "garrison": 0.08
+   },
+   "desc": "+18% health, +8% garrison power."
+  },
+  {
+   "id": "hibernation_gland",
+   "name": "Hibernation Gland",
+   "locus": "Endocrine",
+   "rarity": "rare",
+   "dominance": 6,
+   "upow": 0.21,
+   "mods": {
+    "hp": 0.23,
+    "atk": 0.09
+   },
+   "desc": "+23% health, +9% attack."
+  },
+  {
+   "id": "royal_jelly",
+   "name": "Royal Jelly",
+   "locus": "Endocrine",
+   "rarity": "rare",
+   "dominance": 7,
+   "upow": 0.2,
+   "mods": {
+    "hp": 0.22,
+    "garrison": 0.13
+   },
+   "desc": "+22% health, +13% garrison power."
+  },
+  {
+   "id": "titan_hormone",
+   "name": "Titan Hormone",
+   "locus": "Endocrine",
+   "rarity": "epic",
+   "dominance": 6,
+   "upow": 0.31,
+   "mods": {
+    "hp": 0.34,
+    "garrison": 0.16
+   },
+   "ability": "amphibious",
+   "desc": "+34% health, +16% garrison power."
+  },
+  {
+   "id": "berserk_cascade",
+   "name": "Berserk Cascade",
+   "locus": "Endocrine",
+   "rarity": "epic",
+   "dominance": 8,
+   "upow": 0.31,
+   "mods": {
+    "hp": 0.32,
+    "garrison": 0.14
+   },
+   "ability": "stealth_plating",
+   "desc": "+32% health, +14% garrison power."
+  },
+  {
+   "id": "eternal_youth",
+   "name": "Eternal Youth",
+   "locus": "Endocrine",
+   "rarity": "mythic",
+   "dominance": 10,
+   "upow": 0.4,
+   "mods": {
+    "hp": 0.45,
+    "regen": 0.26
+   },
+   "ability": "bulwark",
+   "desc": "+45% health, +26% regeneration."
+  },
+  {
+   "id": "faint_echo",
+   "name": "Faint Echo",
+   "locus": "Resonance",
+   "rarity": "common",
+   "dominance": 4,
+   "upow": 0.05,
+   "mods": {
+    "essence": 0.06
+   },
+   "desc": "+6% essence harvest."
+  },
+  {
+   "id": "rift_hum",
+   "name": "Rift Hum",
+   "locus": "Resonance",
+   "rarity": "common",
+   "dominance": 4,
+   "upow": 0.08,
+   "mods": {
+    "essence": 0.07,
+    "abyss": 0.04
+   },
+   "desc": "+7% essence harvest, +4% damage vs Abyssians."
+  },
+  {
+   "id": "abyssal_chord",
+   "name": "Abyssal Chord",
+   "locus": "Resonance",
+   "rarity": "common",
+   "dominance": 2,
+   "upow": 0.06,
+   "mods": {
+    "essence": 0.09,
+    "upow": 0.03
+   },
+   "desc": "+9% essence harvest, +3% UPow."
+  },
+  {
+   "id": "deep_choir",
+   "name": "Deep Choir",
+   "locus": "Resonance",
+   "rarity": "common",
+   "dominance": 4,
+   "upow": 0.07,
+   "mods": {
+    "essence": 0.07
+   },
+   "desc": "+7% essence harvest."
+  },
+  {
+   "id": "whisper_field",
+   "name": "Whisper Field",
+   "locus": "Resonance",
+   "rarity": "common",
+   "dominance": 4,
+   "upow": 0.07,
+   "mods": {
+    "essence": 0.07,
+    "upow": 0.04
+   },
+   "desc": "+7% essence harvest, +4% UPow."
+  },
+  {
+   "id": "hollow_note",
+   "name": "Hollow Note",
+   "locus": "Resonance",
+   "rarity": "uncommon",
+   "dominance": 6,
+   "upow": 0.12,
+   "mods": {
+    "essence": 0.13,
+    "covert": 0.08
+   },
+   "desc": "+13% essence harvest, +8% covert power."
+  },
+  {
+   "id": "dark_harmonic",
+   "name": "Dark Harmonic",
+   "locus": "Resonance",
+   "rarity": "uncommon",
+   "dominance": 5,
+   "upow": 0.12,
+   "mods": {
+    "essence": 0.13,
+    "covert": 0.06
+   },
+   "desc": "+13% essence harvest, +6% covert power."
+  },
+  {
+   "id": "tide_song",
+   "name": "Tide Song",
+   "locus": "Resonance",
+   "rarity": "uncommon",
+   "dominance": 4,
+   "upow": 0.11,
+   "mods": {
+    "essence": 0.13,
+    "upow": 0.07
+   },
+   "desc": "+13% essence harvest, +7% UPow."
+  },
+  {
+   "id": "mothers_call",
+   "name": "Mother's Call",
+   "locus": "Resonance",
+   "rarity": "uncommon",
+   "dominance": 6,
+   "upow": 0.11,
+   "mods": {
+    "essence": 0.14,
+    "covert": 0.05
+   },
+   "desc": "+14% essence harvest, +5% covert power."
+  },
+  {
+   "id": "essence_weave",
+   "name": "Essence Weave",
+   "locus": "Resonance",
+   "rarity": "rare",
+   "dominance": 6,
+   "upow": 0.22,
+   "mods": {
+    "essence": 0.26,
+    "upow": 0.16
+   },
+   "desc": "+26% essence harvest, +16% UPow."
+  },
+  {
+   "id": "lantern_aura",
+   "name": "Lantern Aura",
+   "locus": "Resonance",
+   "rarity": "rare",
+   "dominance": 5,
+   "upow": 0.21,
+   "mods": {
+    "essence": 0.2,
+    "abyss": 0.11
+   },
+   "desc": "+20% essence harvest, +11% damage vs Abyssians."
+  },
+  {
+   "id": "starless_chord",
+   "name": "Starless Chord",
+   "locus": "Resonance",
+   "rarity": "rare",
+   "dominance": 5,
+   "upow": 0.21,
+   "mods": {
+    "essence": 0.24,
+    "covert": 0.11
+   },
+   "desc": "+24% essence harvest, +11% covert power."
+  },
+  {
+   "id": "void_resonator",
+   "name": "Void Resonator",
+   "locus": "Resonance",
+   "rarity": "epic",
+   "dominance": 8,
+   "upow": 0.29,
+   "mods": {
+    "essence": 0.36,
+    "upow": 0.18
+   },
+   "ability": "swarm_logic",
+   "desc": "+36% essence harvest, +18% UPow."
+  },
+  {
+   "id": "black_hymn",
+   "name": "Black Hymn",
+   "locus": "Resonance",
+   "rarity": "epic",
+   "dominance": 6,
+   "upow": 0.27,
+   "mods": {
+    "essence": 0.34,
+    "abyss": 0.15
+   },
+   "ability": "stealth_plating",
+   "desc": "+34% essence harvest, +15% damage vs Abyssians."
+  },
+  {
+   "id": "the_first_note",
+   "name": "The First Note",
+   "locus": "Resonance",
+   "rarity": "mythic",
+   "dominance": 10,
+   "upow": 0.44,
+   "mods": {
+    "essence": 0.5,
+    "covert": 0.23
+   },
+   "ability": "overclock",
+   "desc": "+50% essence harvest, +23% covert power."
+  }
+ ],
+ "synergies": [
+  {
+   "id": "syn_living_fortress",
+   "name": "Living Fortress",
+   "requires": [
+    "third_eye",
+    "black_hymn"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "def": 0.2
+   },
+   "desc": "Expressing Third Eye, Black Hymn together: +20% defence, +16% UPow."
+  },
+  {
+   "id": "syn_apex_hunter",
+   "name": "Apex Hunter",
+   "requires": [
+    "colossal_pituitary",
+    "bleeding_saliva"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "assault": 0.2
+   },
+   "desc": "Expressing Colossal Pituitary, Bleeding Saliva together: +20% assault power, +16% UPow."
+  },
+  {
+   "id": "syn_ghost_leviathan",
+   "name": "Ghost Leviathan",
+   "requires": [
+    "mothers_call",
+    "spine_volley"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "regen": 0.2
+   },
+   "desc": "Expressing Mother's Call, Spine Volley together: +20% regeneration, +16% UPow."
+  },
+  {
+   "id": "syn_tidal_berserker",
+   "name": "Tidal Berserker",
+   "requires": [
+    "bleeding_saliva",
+    "phase_stride"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "covert": 0.2
+   },
+   "desc": "Expressing Bleeding Saliva, Phase Stride together: +20% covert power, +16% UPow."
+  },
+  {
+   "id": "syn_choir_of_teeth",
+   "name": "Choir of Teeth",
+   "requires": [
+    "hollow_note",
+    "cold_logic_gland"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "atk": 0.2
+   },
+   "desc": "Expressing Hollow Note, Cold Logic Gland together: +20% attack, +16% UPow."
+  },
+  {
+   "id": "syn_hadal_sentinel",
+   "name": "Hadal Sentinel",
+   "requires": [
+    "hibernation_gland",
+    "basalt_scute"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "upow": 0.2
+   },
+   "desc": "Expressing Hibernation Gland, Basalt Scute together: +20% UPow, +16% UPow."
+  },
+  {
+   "id": "syn_riftborn_sprinter",
+   "name": "Riftborn Sprinter",
+   "requires": [
+    "darkwater_eyes",
+    "worldbiter_maw"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "assault": 0.2
+   },
+   "desc": "Expressing Darkwater Eyes, Worldbiter Maw together: +20% assault power, +16% UPow."
+  },
+  {
+   "id": "syn_venom_bloom",
+   "name": "Venom Bloom",
+   "requires": [
+    "hollow_note",
+    "silencing_toxin"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "atk": 0.2
+   },
+   "desc": "Expressing Hollow Note, Silencing Toxin together: +20% attack, +16% UPow."
+  },
+  {
+   "id": "syn_eternal_engine",
+   "name": "Eternal Engine",
+   "requires": [
+    "heat_pits",
+    "mantle_furnace"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "upow": 0.2
+   },
+   "desc": "Expressing Heat Pits, Mantle Furnace together: +20% UPow, +16% UPow."
+  },
+  {
+   "id": "syn_mind_swarm",
+   "name": "Mind Swarm",
+   "requires": [
+    "starless_chord",
+    "mirror_neurons"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "def": 0.2
+   },
+   "desc": "Expressing Starless Chord, Mirror Neurons together: +20% defence, +16% UPow."
+  },
+  {
+   "id": "syn_pressure_titan",
+   "name": "Pressure Titan",
+   "requires": [
+    "leech_gut",
+    "mother_mind"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "hp": 0.2
+   },
+   "desc": "Expressing Leech Gut, Mother-Mind Fragment together: +20% health, +16% UPow."
+  },
+  {
+   "id": "syn_silent_stalker",
+   "name": "Silent Stalker",
+   "requires": [
+    "undulant_body",
+    "pressure_sense"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "covert": 0.2
+   },
+   "desc": "Expressing Undulant Body, Pressure Sense together: +20% covert power, +16% UPow."
+  },
+  {
+   "id": "syn_bone_cathedral",
+   "name": "Bone Cathedral",
+   "requires": [
+    "spectral_eyes",
+    "crush_resilience"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "atk": 0.2
+   },
+   "desc": "Expressing Spectral Eyes, Crush Resilience together: +20% attack, +16% UPow."
+  },
+  {
+   "id": "syn_blood_tide",
+   "name": "Blood Tide",
+   "requires": [
+    "cold_engine",
+    "hollow_note"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "hp": 0.2
+   },
+   "desc": "Expressing Cold Engine, Hollow Note together: +20% health, +16% UPow."
+  },
+  {
+   "id": "syn_lantern_king",
+   "name": "Lantern King",
+   "requires": [
+    "tide_cleaver",
+    "pearl_nacre"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "upow": 0.2
+   },
+   "desc": "Expressing Tide Cleaver, Pearl Nacre together: +20% UPow, +16% UPow."
+  },
+  {
+   "id": "syn_abyssal_saint",
+   "name": "Abyssal Saint",
+   "requires": [
+    "null_pressure",
+    "iron_barnacle"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "upow": 0.2
+   },
+   "desc": "Expressing Null Pressure, Iron Barnacle together: +20% UPow, +16% UPow."
+  },
+  {
+   "id": "syn_storm_biter",
+   "name": "Storm Biter",
+   "requires": [
+    "berserk_cascade",
+    "saw_fins"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "abyss": 0.2
+   },
+   "desc": "Expressing Berserk Cascade, Saw Fins together: +20% damage vs Abyssians, +16% UPow."
+  },
+  {
+   "id": "syn_iron_choir",
+   "name": "Iron Choir",
+   "requires": [
+    "nerve_ink",
+    "spine_volley"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "upow": 0.2
+   },
+   "desc": "Expressing Nerve Ink, Spine Volley together: +20% UPow, +16% UPow."
+  },
+  {
+   "id": "syn_black_bloom",
+   "name": "Black Bloom",
+   "requires": [
+    "cold_logic_gland",
+    "spectral_eyes"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "upow": 0.2
+   },
+   "desc": "Expressing Cold Logic Gland, Spectral Eyes together: +20% UPow, +16% UPow."
+  },
+  {
+   "id": "syn_deep_ambusher",
+   "name": "Deep Ambusher",
+   "requires": [
+    "deep_sight",
+    "leatherwing_skin"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "abyss": 0.2
+   },
+   "desc": "Expressing Deep Sight, Leatherwing Skin together: +20% damage vs Abyssians, +16% UPow."
+  },
+  {
+   "id": "syn_hollow_monarch",
+   "name": "Hollow Monarch",
+   "requires": [
+    "darkwater_eyes",
+    "heat_pits"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "regen": 0.2
+   },
+   "desc": "Expressing Darkwater Eyes, Heat Pits together: +20% regeneration, +16% UPow."
+  },
+  {
+   "id": "syn_wave_breaker",
+   "name": "Wave Breaker",
+   "requires": [
+    "glassbone_plates",
+    "unmaking_poison"
+   ],
+   "upow": 0.16,
+   "mods": {
+    "covert": 0.2
+   },
+   "desc": "Expressing Glassbone Plates, Unmaking Poison together: +20% covert power, +16% UPow."
+  },
+  {
+   "id": "syn_spore_mind",
+   "name": "Spore Mind",
+   "requires": [
+    "leaping_haunches",
+    "starless_chord",
+    "darkwater_eyes"
+   ],
+   "upow": 0.28,
+   "mods": {
+    "def": 0.35
+   },
+   "desc": "Expressing Leaping Haunches, Starless Chord, Darkwater Eyes together: +35% defence, +28% UPow."
+  },
+  {
+   "id": "syn_glass_reaper",
+   "name": "Glass Reaper",
+   "requires": [
+    "voidglass_carapace",
+    "forked_brain",
+    "tide_song"
+   ],
+   "upow": 0.28,
+   "mods": {
+    "regen": 0.35
+   },
+   "desc": "Expressing Voidglass Carapace, Forked Brain, Tide Song together: +35% regeneration, +28% UPow."
+  },
+  {
+   "id": "syn_mothers_child",
+   "name": "Mother's Child",
+   "requires": [
+    "colossal_pituitary",
+    "prism_hide",
+    "mothers_blessing"
+   ],
+   "upow": 0.28,
+   "mods": {
+    "upow": 0.35
+   },
+   "desc": "Expressing Colossal Pituitary, Prism Hide, Mother's Blessing together: +35% UPow, +28% UPow."
+  },
+  {
+   "id": "syn_the_unkillable",
+   "name": "The Unkillable",
+   "requires": [
+    "blood_battery",
+    "pack_mind",
+    "colossal_pituitary"
+   ],
+   "upow": 0.28,
+   "mods": {
+    "abyss": 0.35
+   },
+   "desc": "Expressing Blood Battery, Pack Mind, Colossal Pituitary together: +35% damage vs Abyssians, +28% UPow."
+  },
+  {
+   "id": "syn_night_shepherd",
+   "name": "Night Shepherd",
+   "requires": [
+    "crusher_mandibles",
+    "berserk_cascade",
+    "dark_harmonic"
+   ],
+   "upow": 0.28,
+   "mods": {
+    "upow": 0.35
+   },
+   "desc": "Expressing Crusher Mandibles, Berserk Cascade, Dark Harmonic together: +35% UPow, +28% UPow."
+  },
+  {
+   "id": "syn_rift_warden",
+   "name": "Rift Warden",
+   "requires": [
+    "leaping_haunches",
+    "nerve_ink",
+    "whisker_array"
+   ],
+   "upow": 0.28,
+   "mods": {
+    "hp": 0.35
+   },
+   "desc": "Expressing Leaping Haunches, Nerve Ink, Whisker Array together: +35% health, +28% UPow."
+  },
+  {
+   "id": "syn_feral_genius",
+   "name": "Feral Genius",
+   "requires": [
+    "leatherwing_skin",
+    "deep_sight",
+    "glider_folds"
+   ],
+   "upow": 0.28,
+   "mods": {
+    "def": 0.35
+   },
+   "desc": "Expressing Leatherwing Skin, Deep Sight, Glider Folds together: +35% defence, +28% UPow."
+  },
+  {
+   "id": "syn_worldbreaker",
+   "name": "Worldbreaker",
+   "requires": [
+    "phase_skin",
+    "pressure_antennae",
+    "basalt_scute"
+   ],
+   "upow": 0.28,
+   "mods": {
+    "covert": 0.35
+   },
+   "desc": "Expressing Phase Skin, Pressure Antennae, Basalt Scute together: +35% covert power, +28% UPow."
+  }
+ ],
+ "lootTables": [
+  {
+   "id": "skitterling",
+   "chance": 0.4,
+   "count": [
+    1,
+    1
+   ],
+   "rarityBonus": 0,
+   "loci": [
+    "Carapace",
+    "Locomotion",
+    "Sensory"
+   ]
+  },
+  {
+   "id": "tidecrawler",
+   "chance": 0.4,
+   "count": [
+    1,
+    1
+   ],
+   "rarityBonus": 0,
+   "loci": [
+    "Metabolism",
+    "Adaptation",
+    "Locomotion"
+   ]
+  },
+  {
+   "id": "maw_leviathan",
+   "chance": 0.4,
+   "count": [
+    1,
+    1
+   ],
+   "rarityBonus": 0,
+   "loci": [
+    "Weaponry",
+    "Venom",
+    "Endocrine"
+   ]
+  },
+  {
+   "id": "riftback",
+   "chance": 0.55,
+   "count": [
+    1,
+    1
+   ],
+   "rarityBonus": 1,
+   "loci": [
+    "Carapace",
+    "Endocrine",
+    "Adaptation"
+   ]
+  },
+  {
+   "id": "hollow_choir",
+   "chance": 0.55,
+   "count": [
+    1,
+    1
+   ],
+   "rarityBonus": 1,
+   "loci": [
+    "Neural",
+    "Resonance",
+    "Sensory"
+   ]
+  },
+  {
+   "id": "deepking",
+   "chance": 0.55,
+   "count": [
+    1,
+    1
+   ],
+   "rarityBonus": 1,
+   "loci": [
+    "Metabolism",
+    "Endocrine",
+    "Weaponry"
+   ]
+  },
+  {
+   "id": "sovereign",
+   "chance": 1.0,
+   "count": [
+    2,
+    3
+   ],
+   "rarityBonus": 2,
+   "loci": [
+    "Resonance",
+    "Neural",
+    "Weaponry",
+    "Venom"
+   ]
+  },
+  {
+   "id": "abyss_mother",
+   "chance": 1.0,
+   "count": [
+    3,
+    5
+   ],
+   "rarityBonus": 3,
+   "loci": [
+    "Carapace",
+    "Metabolism",
+    "Weaponry",
+    "Neural",
+    "Adaptation",
+    "Locomotion",
+    "Sensory",
+    "Venom",
+    "Endocrine",
+    "Resonance"
+   ]
+  },
+  {
+   "id": "lantern_wraith",
+   "chance": 0.4,
+   "count": [
+    1,
+    1
+   ],
+   "rarityBonus": 0,
+   "loci": [
+    "Sensory",
+    "Resonance",
+    "Venom"
+   ]
+  }
+ ],
+ "genomeResearch": [
+  {
+   "id": "g_sequencing",
+   "name": "Basic Sequencing",
+   "cost": 20,
+   "requires": [],
+   "effects": [
+    {
+     "mod": "symbiote.power",
+     "add": 0.05
+    }
+   ],
+   "desc": "+5% symbiote power."
+  },
+  {
+   "id": "g_carapace",
+   "name": "Carapace Genome",
+   "cost": 40,
+   "requires": [
+    "g_sequencing"
+   ],
+   "unlocksGenes": [
+    "mirror_scale"
+   ],
+   "desc": "Unlocks Mirror Scale."
+  },
+  {
+   "id": "g_metabolic",
+   "name": "Metabolic Genome",
+   "cost": 40,
+   "requires": [
+    "g_sequencing"
+   ],
+   "unlocksGenes": [
+    "furnace_heart"
+   ],
+   "desc": "Unlocks Furnace Heart."
+  },
+  {
+   "id": "g_weapon",
+   "name": "Weaponry Genome",
+   "cost": 40,
+   "requires": [
+    "g_sequencing"
+   ],
+   "unlocksGenes": [
+    "acid_sacs"
+   ],
+   "desc": "Unlocks Acid Sacs."
+  },
+  {
+   "id": "g_neural",
+   "name": "Neural Genome",
+   "cost": 50,
+   "requires": [
+    "g_sequencing"
+   ],
+   "unlocksGenes": [
+    "predator_cortex"
+   ],
+   "desc": "Unlocks Predator Cortex."
+  },
+  {
+   "id": "g_adapt",
+   "name": "Adaptation Genome",
+   "cost": 50,
+   "requires": [
+    "g_sequencing"
+   ],
+   "unlocksGenes": [
+    "pressure_bones",
+    "parasitic_link"
+   ],
+   "desc": "Unlocks Pressure Bones and Parasitic Link."
+  },
+  {
+   "id": "g_dominance",
+   "name": "Dominance Mapping",
+   "cost": 80,
+   "requires": [
+    "g_carapace",
+    "g_metabolic"
+   ],
+   "effects": [
+    {
+     "mod": "symbiote.power",
+     "add": 0.1
+    }
+   ],
+   "desc": "+10% symbiote power."
+  },
+  {
+   "id": "g_mutagen",
+   "name": "Mutagenic Catalysts",
+   "cost": 80,
+   "requires": [
+    "g_weapon",
+    "g_neural"
+   ],
+   "effects": [
+    {
+     "mod": "symbiote.mutation",
+     "add": 0.05
+    }
+   ],
+   "desc": "+5% mutation chance per allele."
+  },
+  {
+   "id": "g_efficient",
+   "name": "Efficient Cultures",
+   "cost": 90,
+   "requires": [
+    "g_adapt"
+   ],
+   "effects": [
+    {
+     "mod": "cost.culture",
+     "add": -0.2
+    }
+   ],
+   "desc": "-20% culturing and fusion cost."
+  },
+  {
+   "id": "g_harvest",
+   "name": "Essence Harvesting",
+   "cost": 100,
+   "requires": [
+    "g_adapt"
+   ],
+   "effects": [
+    {
+     "mod": "essence.gain",
+     "add": 0.15
+    }
+   ],
+   "desc": "+15% essence gains."
+  },
+  {
+   "id": "g_hybrid",
+   "name": "Hybrid Vigour",
+   "cost": 150,
+   "requires": [
+    "g_dominance",
+    "g_mutagen"
+   ],
+   "effects": [
+    {
+     "mod": "symbiote.power",
+     "add": 0.15
+    }
+   ],
+   "desc": "+15% symbiote power."
+  },
+  {
+   "id": "g_apex",
+   "name": "Apex Genome",
+   "cost": 300,
+   "requires": [
+    "g_hybrid",
+    "g_harvest"
+   ],
+   "effects": [
+    {
+     "mod": "symbiote.power",
+     "add": 0.25
+    },
+    {
+     "mod": "symbiote.mutation",
+     "add": 0.03
+    }
+   ],
+   "desc": "+25% symbiote power, +3% mutation."
+  },
+  {
+   "id": "g_abyssal_code",
+   "name": "The Abyssal Code",
+   "cost": 600,
+   "requires": [
+    "g_apex"
+   ],
+   "unlocksGenes": [
+    "obsidian_hide"
+   ],
+   "effects": [
+    {
+     "mod": "abyss.damage",
+     "add": 0.15
+    }
+   ],
+   "desc": "Unlocks Obsidian Hide, +15% vs Abyssians."
+  },
+  {
+   "id": "g_cryo",
+   "name": "Sample Cryostorage",
+   "cost": 30,
+   "requires": [
+    "g_sequencing"
+   ],
+   "effects": [
+    {
+     "mod": "sample.capacity",
+     "add": 20
+    }
+   ],
+   "desc": "+20 Genetic Sample storage."
+  },
+  {
+   "id": "g_assay",
+   "name": "Deep Assay",
+   "cost": 90,
+   "requires": [
+    "g_cryo"
+   ],
+   "effects": [
+    {
+     "mod": "loot.quality",
+     "add": 0.15
+    }
+   ],
+   "desc": "Better odds of rare Genetic Samples."
+  },
+  {
+   "id": "g_purity",
+   "name": "Purity Filters",
+   "cost": 120,
+   "requires": [
+    "g_assay"
+   ],
+   "effects": [
+    {
+     "mod": "sample.purity",
+     "add": 8
+    }
+   ],
+   "desc": "+8% purity on every sample recovered."
+  },
+  {
+   "id": "g_synergy",
+   "name": "Synergy Mapping",
+   "cost": 150,
+   "requires": [
+    "g_sequencing"
+   ],
+   "effects": [
+    {
+     "mod": "symbiote.synergy",
+     "add": 0.25
+    }
+   ],
+   "desc": "+25% to all synergy bonuses."
+  },
+  {
+   "id": "g_cartography",
+   "name": "Allele Cartography",
+   "cost": 260,
+   "requires": [
+    "g_purity",
+    "g_synergy"
+   ],
+   "effects": [
+    {
+     "mod": "loot.quality",
+     "add": 0.2
+    },
+    {
+     "mod": "symbiote.power",
+     "add": 0.1
+    }
+   ],
+   "desc": "Maps the whole Abyssal genome. Better samples, +10% symbiote power."
+  }
+ ]
+}

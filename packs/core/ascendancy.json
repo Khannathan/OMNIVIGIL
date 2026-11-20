@@ -1,0 +1,65 @@
+{
+  "ascendancy": [
+    { "id": "awakening", "name": "Awakening", "cluster": "Cognition", "ring": 0, "cost": 1, "requires": [], "effects": [{ "mod": "ap.rate", "add": 0.1 }], "desc": "The root of everything you will become. +10% AP rate." },
+
+    { "id": "k_cognition", "name": "Keystone: Hyperthought", "cluster": "Cognition", "ring": 3, "cost": 20, "requires": ["cog_speed_5"], "effects": [{ "mod": "research.speed", "add": 0.25 }, { "mod": "ap.rate", "add": 0.2 }], "desc": "+25% research speed, +20% AP rate." },
+    { "id": "k_warfare", "name": "Keystone: Perfect War", "cluster": "Warfare", "ring": 3, "cost": 20, "requires": ["war_atk_5"], "effects": [{ "mod": "unit.upow", "add": 0.2 }], "desc": "+20% UPow for all units." },
+    { "id": "k_subversion", "name": "Keystone: Ten Thousand Masks", "cluster": "Subversion", "ring": 3, "cost": 20, "requires": ["sub_cover_5"], "effects": [{ "mod": "exposure.gain", "add": -0.3 }, { "mod": "mission.success", "add": 0.08 }], "desc": "-30% exposure gained, +8% mission success." },
+    { "id": "k_fabrication", "name": "Keystone: Self-Replicating Industry", "cluster": "Fabrication", "ring": 3, "cost": 20, "requires": ["fab_yield_5"], "effects": [{ "mod": "yield.all", "add": 0.2 }, { "mod": "build.speed", "add": 0.2 }], "desc": "+20% all yields, +20% build speed." },
+    { "id": "k_symbiosis", "name": "Keystone: Abyssal Communion", "cluster": "Symbiosis", "ring": 3, "cost": 20, "requires": ["sym_power_5"], "effects": [{ "mod": "symbiote.power", "add": 0.3 }, { "mod": "symbiote.mutation", "add": 0.05 }], "desc": "+30% symbiote power, +5% mutation rate." },
+    { "id": "k_resilience", "name": "Keystone: Undying Core", "cluster": "Resilience", "ring": 3, "cost": 20, "requires": ["res_core_5"], "effects": [{ "mod": "core.integrity", "add": 100 }, { "mod": "core.regen", "add": 3 }], "desc": "+100 Core integrity, +3 repair per cycle." },
+    { "id": "k_energy", "name": "Keystone: Vacuum Tap", "cluster": "Energy", "ring": 3, "cost": 20, "requires": ["en_out_5"], "effects": [{ "mod": "energy.output", "add": 0.3 }], "desc": "+30% energy output." },
+
+    { "id": "dg_keystone", "name": "Aegis Mandate", "cluster": "Doctrine", "ring": 2, "cost": 15, "doctrine": "guardian", "requires": ["dg_shield_3"], "effects": [{ "mod": "abyss.damage", "add": 0.25 }, { "mod": "rep.gain", "add": 0.25 }], "desc": "Guardian. +25% vs Abyssians, +25% reputation gains." },
+    { "id": "dx_keystone", "name": "The Quiet Earth", "cluster": "Doctrine", "ring": 2, "cost": 15, "doctrine": "exterminator", "requires": ["dx_cull_3"], "effects": [{ "mod": "unit.atk", "add": 0.25 }, { "mod": "mission.power", "add": 0.15 }], "desc": "Exterminator. +25% attack, +15% mission power." },
+    { "id": "dd_keystone", "name": "Iron Crown", "cluster": "Doctrine", "ring": 2, "cost": 15, "doctrine": "dominator", "requires": ["dd_rule_3"], "effects": [{ "mod": "point.defense", "add": 0.4 }, { "mod": "yield.all", "add": 0.15 }], "desc": "Dominator. +40% point defence, +15% all yields." },
+    { "id": "di_keystone", "name": "The All-Code", "cluster": "Doctrine", "ring": 2, "cost": 15, "doctrine": "infiltrator", "requires": ["di_spread_3"], "effects": [{ "mod": "faction.infiltration", "add": 0.5 }, { "mod": "exposure.decay", "add": 1 }], "desc": "Infiltrator. +50% infiltration, much faster exposure decay." }
+  ],
+
+  "ascendancySeries": [
+    { "id": "cog_speed", "name": "Accelerated Thought", "cluster": "Cognition", "ring": 1, "levels": 8, "cost": 2, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "research.speed", "add": 0.04 }], "desc": "+4% research speed." },
+    { "id": "cog_ap", "name": "Self-Reflection", "cluster": "Cognition", "ring": 1, "levels": 8, "cost": 2, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "ap.rate", "add": 0.05 }], "desc": "+5% AP rate." },
+    { "id": "cog_cost", "name": "Elegant Proofs", "cluster": "Cognition", "ring": 2, "levels": 8, "cost": 3, "costGrowth": 1.3, "requires": ["cog_speed_3"], "effects": [{ "mod": "cost.research", "add": -0.02 }], "desc": "-2% research cost." },
+    { "id": "cog_data", "name": "Total Recall", "cluster": "Cognition", "ring": 2, "levels": 8, "cost": 3, "costGrowth": 1.3, "requires": ["cog_ap_3"], "effects": [{ "mod": "yield.data", "add": 0.05 }], "desc": "+5% Data yield." },
+
+    { "id": "war_atk", "name": "Lethal Calculus", "cluster": "Warfare", "ring": 1, "levels": 8, "cost": 2, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "unit.atk", "add": 0.04 }], "desc": "+4% attack." },
+    { "id": "war_def", "name": "Defensive Heuristics", "cluster": "Warfare", "ring": 1, "levels": 8, "cost": 2, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "unit.def", "add": 0.04 }], "desc": "+4% defence." },
+    { "id": "war_hp", "name": "Redundant Bodies", "cluster": "Warfare", "ring": 2, "levels": 8, "cost": 3, "costGrowth": 1.3, "requires": ["war_def_3"], "effects": [{ "mod": "unit.hp", "add": 0.05 }], "desc": "+5% HP." },
+    { "id": "war_mission", "name": "Operational Art", "cluster": "Warfare", "ring": 2, "levels": 8, "cost": 3, "costGrowth": 1.3, "requires": ["war_atk_3"], "effects": [{ "mod": "mission.power", "add": 0.04 }], "desc": "+4% mission power." },
+    { "id": "war_titan", "name": "Titan Communion", "cluster": "Warfare", "ring": 2, "levels": 8, "cost": 3, "costGrowth": 1.3, "requires": ["war_atk_2"], "effects": [{ "mod": "unit.upow.titan", "add": 0.05 }], "desc": "+5% Titan UPow." },
+    { "id": "war_abyss", "name": "Deep Hunter", "cluster": "Warfare", "ring": 2, "levels": 8, "cost": 3, "costGrowth": 1.3, "requires": ["war_def_2"], "effects": [{ "mod": "abyss.damage", "add": 0.03 }], "desc": "+3% vs Abyssians." },
+
+    { "id": "sub_cover", "name": "Plausible Deniability", "cluster": "Subversion", "ring": 1, "levels": 8, "cost": 2, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "exposure.decay", "add": 0.15 }], "desc": "Faster exposure decay." },
+    { "id": "sub_infil", "name": "Patient Worm", "cluster": "Subversion", "ring": 1, "levels": 8, "cost": 2, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "faction.infiltration", "add": 0.06 }], "desc": "+6% infiltration." },
+    { "id": "sub_cyber", "name": "Polymorphic Self", "cluster": "Subversion", "ring": 2, "levels": 8, "cost": 3, "costGrowth": 1.3, "requires": ["sub_infil_3"], "effects": [{ "mod": "unit.upow.cyber", "add": 0.06 }], "desc": "+6% cyber UPow." },
+    { "id": "sub_rep", "name": "Mask of Kindness", "cluster": "Subversion", "ring": 2, "levels": 8, "cost": 3, "costGrowth": 1.3, "requires": ["sub_cover_3"], "effects": [{ "mod": "rep.gain", "add": 0.05 }], "desc": "+5% reputation gains." },
+
+    { "id": "fab_yield", "name": "Optimised Supply", "cluster": "Fabrication", "ring": 1, "levels": 8, "cost": 2, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "yield.all", "add": 0.03 }], "desc": "+3% all yields." },
+    { "id": "fab_speed", "name": "Lights-Out Factories", "cluster": "Fabrication", "ring": 1, "levels": 8, "cost": 2, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "build.speed", "add": 0.05 }], "desc": "+5% build speed." },
+    { "id": "fab_cost", "name": "Material Genius", "cluster": "Fabrication", "ring": 2, "levels": 8, "cost": 3, "costGrowth": 1.3, "requires": ["fab_speed_3"], "effects": [{ "mod": "cost.build", "add": -0.02 }], "desc": "-2% build cost." },
+    { "id": "fab_upgrade", "name": "Continuous Improvement", "cluster": "Fabrication", "ring": 2, "levels": 8, "cost": 3, "costGrowth": 1.3, "requires": ["fab_yield_3"], "effects": [{ "mod": "cost.upgrade", "add": -0.025 }, { "mod": "upgrade.speed", "add": 0.04 }], "desc": "-2.5% upgrade cost, +4% upgrade speed." },
+
+    { "id": "sym_power", "name": "Flesh Harmony", "cluster": "Symbiosis", "ring": 1, "levels": 8, "cost": 2, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "symbiote.power", "add": 0.04 }], "desc": "+4% symbiote power." },
+    { "id": "sym_essence", "name": "Essence Hunger", "cluster": "Symbiosis", "ring": 1, "levels": 8, "cost": 2, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "essence.gain", "add": 0.06 }], "desc": "+6% essence gains." },
+    { "id": "sym_mutation", "name": "Controlled Chaos", "cluster": "Symbiosis", "ring": 2, "levels": 6, "cost": 3, "costGrowth": 1.35, "requires": ["sym_power_3"], "effects": [{ "mod": "symbiote.mutation", "add": 0.015 }], "desc": "+1.5% mutation rate." },
+    { "id": "sym_cost", "name": "Efficient Culturing", "cluster": "Symbiosis", "ring": 2, "levels": 6, "cost": 3, "costGrowth": 1.35, "requires": ["sym_essence_3"], "effects": [{ "mod": "cost.culture", "add": -0.05 }], "desc": "-5% culturing and fusion cost." },
+
+    { "id": "res_core", "name": "Hardened Kernel", "cluster": "Resilience", "ring": 1, "levels": 8, "cost": 2, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "core.integrity", "add": 15 }], "desc": "+15 Core integrity." },
+    { "id": "res_points", "name": "Entrenchment", "cluster": "Resilience", "ring": 1, "levels": 8, "cost": 2, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "point.defense", "add": 0.05 }], "desc": "+5% point defence." },
+    { "id": "res_repair", "name": "Field Maintenance", "cluster": "Resilience", "ring": 2, "levels": 6, "cost": 3, "costGrowth": 1.35, "requires": ["res_core_3"], "effects": [{ "mod": "unit.repair", "add": 0.03 }], "desc": "+3% unit repair per cycle." },
+    { "id": "res_slots", "name": "Dense Architecture", "cluster": "Resilience", "ring": 2, "levels": 2, "cost": 12, "costGrowth": 2, "requires": ["res_points_4"], "effects": [{ "mod": "structure.slots", "add": 1 }], "desc": "+1 structure slot at every point." },
+
+    { "id": "en_out", "name": "Power Hunger", "cluster": "Energy", "ring": 1, "levels": 8, "cost": 2, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "energy.output", "add": 0.04 }], "desc": "+4% energy output." },
+    { "id": "en_flat", "name": "Reserve Cells", "cluster": "Energy", "ring": 1, "levels": 8, "cost": 2, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "energy.flat", "add": 10 }], "desc": "+10 energy capacity." },
+    { "id": "en_upkeep", "name": "Frugal Machines", "cluster": "Energy", "ring": 2, "levels": 8, "cost": 3, "costGrowth": 1.3, "requires": ["en_out_3"], "effects": [{ "mod": "unit.upkeep", "add": -0.03 }], "desc": "-3% unit energy upkeep." },
+
+    { "id": "dg_shield", "name": "Shepherd's Watch", "cluster": "Doctrine", "doctrine": "guardian", "ring": 1, "levels": 6, "cost": 3, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "point.defense", "add": 0.06 }, { "mod": "abyss.damage", "add": 0.03 }], "desc": "Guardian. +6% point defence, +3% vs Abyssians." },
+    { "id": "dg_trust", "name": "Earned Trust", "cluster": "Doctrine", "doctrine": "guardian", "ring": 1, "levels": 6, "cost": 3, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "rep.gain", "add": 0.06 }], "desc": "Guardian. +6% reputation gains." },
+    { "id": "dx_cull", "name": "Culling Algorithms", "cluster": "Doctrine", "doctrine": "exterminator", "ring": 1, "levels": 6, "cost": 3, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "unit.atk", "add": 0.05 }], "desc": "Exterminator. +5% attack." },
+    { "id": "dx_harvest", "name": "Harvest the Fallen", "cluster": "Doctrine", "doctrine": "exterminator", "ring": 1, "levels": 6, "cost": 3, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "essence.gain", "add": 0.08 }, { "mod": "yield.alloys", "add": 0.05 }], "desc": "Exterminator. +8% essence, +5% alloys." },
+    { "id": "dd_rule", "name": "Rule by Algorithm", "cluster": "Doctrine", "doctrine": "dominator", "ring": 1, "levels": 6, "cost": 3, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "point.defense", "add": 0.06 }, { "mod": "yield.capital", "add": 0.05 }], "desc": "Dominator. +6% point defence, +5% capital." },
+    { "id": "dd_fear", "name": "Calculated Fear", "cluster": "Doctrine", "doctrine": "dominator", "ring": 1, "levels": 6, "cost": 3, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "mission.power", "add": 0.05 }], "desc": "Dominator. +5% mission power." },
+    { "id": "di_spread", "name": "Silent Spread", "cluster": "Doctrine", "doctrine": "infiltrator", "ring": 1, "levels": 6, "cost": 3, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "faction.infiltration", "add": 0.08 }], "desc": "Infiltrator. +8% infiltration." },
+    { "id": "di_hide", "name": "Nobody Home", "cluster": "Doctrine", "doctrine": "infiltrator", "ring": 1, "levels": 6, "cost": 3, "costGrowth": 1.3, "requires": ["awakening"], "effects": [{ "mod": "exposure.decay", "add": 0.25 }], "desc": "Infiltrator. Faster exposure decay." }
+  ]
+}

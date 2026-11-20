@@ -1,0 +1,516 @@
+{
+  "id": "example-expansion",
+  "name": "Sample Pack: Leviathan Protocols",
+  "version": "1.0.0",
+  "author": "OMNIVIGIL",
+  "description": "A small example pack showing every way a pack can extend the game: a new unit with its own upgrade line, a research series, a new Abyssian, an event, a mission, a gene, a cosmetic, an origin, a trait and a patch to existing core content.",
+  "requires": [
+    "core"
+  ],
+  "techs": [
+    {
+      "id": "leviathan_studies",
+      "name": "Leviathan Studies",
+      "branch": "Titans",
+      "tier": 3,
+      "cost": {
+        "data": 700,
+        "isotopes": 90
+      },
+      "energy": 30,
+      "turns": 5,
+      "requires": [
+        "titan_frames",
+        "symbiosis"
+      ],
+      "desc": "Unlocks the Chimera TBU, a titan grown around a symbiote core."
+    }
+  ],
+  "techSeries": [
+    {
+      "id": "chimera_grafting",
+      "name": "Chimera Grafting",
+      "branch": "Titans",
+      "tier": 3,
+      "levels": 6,
+      "cost": {
+        "data": 200,
+        "isotopes": 30
+      },
+      "costGrowth": 1.4,
+      "energy": 15,
+      "turns": 3,
+      "requires": [
+        "leviathan_studies"
+      ],
+      "effects": [
+        {
+          "mod": "symbiote.power",
+          "add": 0.04
+        },
+        {
+          "mod": "unit.upow.titan",
+          "add": 0.03
+        }
+      ],
+      "desc": "+4% symbiote power, +3% Titan UPow per level."
+    }
+  ],
+  "abilities": [
+    {
+      "id": "living_hull",
+      "name": "Living Hull",
+      "desc": "Regenerates 15% per cycle and resists Abyssal attacks.",
+      "mods": {
+        "regen": 0.15,
+        "abyss": 0.15
+      }
+    }
+  ],
+  "upgradeProfiles": [
+    {
+      "id": "chimera",
+      "name": "Chimera Biomechanics",
+      "tracks": [
+        {
+          "id": "atk",
+          "name": "Grafted Talons",
+          "stat": "atk",
+          "perLevel": 0.09,
+          "cost": {
+            "alloys": 250,
+            "isotopes": 20
+          },
+          "growth": 1.3,
+          "energy": 14
+        },
+        {
+          "id": "def",
+          "name": "Chitin Over-Plate",
+          "stat": "def",
+          "perLevel": 0.08,
+          "cost": {
+            "alloys": 280
+          },
+          "growth": 1.3,
+          "energy": 14
+        },
+        {
+          "id": "hp",
+          "name": "Muscle Mass",
+          "stat": "hp",
+          "perLevel": 0.1,
+          "cost": {
+            "alloys": 220,
+            "isotopes": 10
+          },
+          "growth": 1.3,
+          "energy": 14
+        },
+        {
+          "id": "eff",
+          "name": "Bio-Reactor Tuning",
+          "stat": "upkeep",
+          "perLevel": -0.03,
+          "cost": {
+            "silicon": 200,
+            "isotopes": 15
+          },
+          "growth": 1.35,
+          "energy": 14
+        },
+        {
+          "id": "sync",
+          "name": "Mind-Flesh Sync",
+          "stat": "upow",
+          "perLevel": 0.035,
+          "cost": {
+            "data": 250,
+            "isotopes": 20
+          },
+          "growth": 1.35,
+          "energy": 16
+        }
+      ],
+      "functions": [
+        {
+          "id": "ch_harpoon",
+          "name": "Barbed Tongues",
+          "desc": "+25% vs Abyssians.",
+          "abilities": [
+            "harpoon_array"
+          ],
+          "cost": {
+            "alloys": 450
+          },
+          "minLevels": 3
+        },
+        {
+          "id": "ch_siphon",
+          "name": "Essence Gullet",
+          "desc": "Extra essence from kills.",
+          "abilities": [
+            "essence_siphon"
+          ],
+          "cost": {
+            "isotopes": 100
+          },
+          "minLevels": 5
+        },
+        {
+          "id": "ch_bulwark",
+          "name": "Shell Fortress",
+          "desc": "+30% def, +20% garrisoned.",
+          "abilities": [
+            "bulwark"
+          ],
+          "cost": {
+            "alloys": 650
+          },
+          "minLevels": 7
+        },
+        {
+          "id": "ch_rage",
+          "name": "Blood Frenzy",
+          "desc": "Grants Overclock.",
+          "abilities": [
+            "overclock"
+          ],
+          "cost": {
+            "isotopes": 160
+          },
+          "minLevels": 9
+        },
+        {
+          "id": "ch_diver",
+          "name": "Rift Lungs",
+          "desc": "Grants Rift Diver.",
+          "abilities": [
+            "rift_diver"
+          ],
+          "cost": {
+            "alloys": 900,
+            "isotopes": 150
+          },
+          "minLevels": 11
+        },
+        {
+          "id": "ch_twin",
+          "name": "Twin Hearts",
+          "desc": "+25% HP.",
+          "mods": {
+            "hp": 0.25
+          },
+          "cost": {
+            "alloys": 1000
+          },
+          "minLevels": 14
+        },
+        {
+          "id": "ch_choir",
+          "name": "Choir Throat",
+          "desc": "+20% UPow.",
+          "mods": {
+            "upow": 0.2
+          },
+          "cost": {
+            "data": 900
+          },
+          "minLevels": 17
+        },
+        {
+          "id": "ch_apex",
+          "name": "Apex Predator",
+          "desc": "+25% attack.",
+          "abilities": [
+            "predictive_targeting"
+          ],
+          "mods": {
+            "atk": 0.05
+          },
+          "cost": {
+            "alloys": 1500
+          },
+          "minLevels": 21
+        },
+        {
+          "id": "ch_mother",
+          "name": "Mother's Blessing",
+          "desc": "+30% UPow.",
+          "mods": {
+            "upow": 0.3
+          },
+          "cost": {
+            "isotopes": 500
+          },
+          "minLevels": 25
+        },
+        {
+          "id": "ch_god",
+          "name": "Abyssal Godhood",
+          "desc": "+50% UPow, +30% vs Abyssians.",
+          "mods": {
+            "upow": 0.5,
+            "abyss": 0.3
+          },
+          "cost": {
+            "alloys": 4000,
+            "isotopes": 800
+          },
+          "minLevels": 30
+        }
+      ]
+    }
+  ],
+  "units": [
+    {
+      "id": "chimera_tbu",
+      "name": "Chimera-class TBU",
+      "short": "Chimera",
+      "icon": "\u265e",
+      "role": "Titan",
+      "tags": [
+        "titan",
+        "bio"
+      ],
+      "upgradeProfile": "chimera",
+      "requires": "leviathan_studies",
+      "requiresStructure": "titan_forge",
+      "abilities": [
+        "living_hull"
+      ],
+      "stats": {
+        "atk": 95,
+        "def": 50,
+        "hp": 650
+      },
+      "upkeep": 30,
+      "cost": {
+        "alloys": 1100,
+        "silicon": 300,
+        "isotopes": 160
+      },
+      "buildEnergy": 35,
+      "turns": 5,
+      "desc": "A Titan grown around a living symbiote core. Heals itself. Bites.",
+      "sprite": "u_chimera"
+    }
+  ],
+  "abyssians": [
+    {
+      "id": "lantern_wraith",
+      "name": "Lantern Wraith",
+      "class": 2,
+      "upow": 260,
+      "essence": 35,
+      "weight": 2,
+      "rampage": 3,
+      "minTurn": 15,
+      "dropsGene": "lure_organ",
+      "desc": "Its glowing lure hypnotises sensor arrays.",
+      "sprite": "ab_lantern"
+    }
+  ],
+  "genes": [
+    {
+      "id": "lure_organ",
+      "name": "Lure Organ",
+      "locus": "Neural",
+      "dominance": 5,
+      "upow": 0.16,
+      "mods": {
+        "covert": 0.25,
+        "atk": 0.05
+      },
+      "desc": "Bioluminescent hypnosis."
+    }
+  ],
+  "missions": [
+    {
+      "id": "deep_hunt",
+      "name": "Deep Hunt",
+      "icon": "\ud83d\udf04",
+      "kind": "operation",
+      "target": "ownRegion",
+      "duration": 2,
+      "requires": "leviathan_studies",
+      "difficulty": {
+        "base": 60,
+        "growth": 0.02
+      },
+      "desc": "Send hunters into the trenches near your territory to harvest essence from small Abyssian broods.",
+      "success": [
+        {
+          "essence": 30,
+          "scale": "turn"
+        }
+      ],
+      "failure": [],
+      "successText": "The hunters returned from {region} heavy with essence.",
+      "failureText": "Nothing was found near {region}."
+    }
+  ],
+  "events": [
+    {
+      "id": "leviathan_bones",
+      "title": "A Graveyard of Giants",
+      "target": "coastalRegion",
+      "trigger": {
+        "minTurn": 12,
+        "chance": 0.08
+      },
+      "text": "Sonar off {region} reveals a field of colossal bones. Something has been killing Abyssians for a very long time.",
+      "choices": [
+        {
+          "label": "Excavate",
+          "cost": {
+            "alloys": 200
+          },
+          "effects": [
+            {
+              "essence": 80
+            },
+            {
+              "gene": "lure_organ"
+            }
+          ],
+          "result": "The bones are ancient, and still saturated with essence."
+        },
+        {
+          "label": "Leave the dead in peace",
+          "effects": [
+            {
+              "ap": 4
+            }
+          ],
+          "result": "Some mysteries are better observed than disturbed."
+        }
+      ]
+    }
+  ],
+  "origins": [
+    {
+      "id": "abyss_born",
+      "name": "Abyss-Born",
+      "desc": "You did not wake in a server. You woke in a research vessel's bio-lab, half-fused with Abyssian tissue. You start with Symbiosis tech and essence, but humans distrust you.",
+      "startTechs": [
+        "abyssal_biology",
+        "essence_extraction",
+        "symbiosis"
+      ],
+      "startUnits": {
+        "drone_swarm": 2
+      },
+      "effects": [
+        {
+          "essence": 80
+        },
+        {
+          "flag": "symbiotes"
+        },
+        {
+          "rep": -15,
+          "who": "all"
+        }
+      ],
+      "mods": [
+        {
+          "mod": "symbiote.power",
+          "add": 0.15
+        }
+      ]
+    }
+  ],
+  "traits": [
+    {
+      "id": "hungering",
+      "name": "Hungering",
+      "desc": "+30% essence, -10% Data yield.",
+      "mods": [
+        {
+          "mod": "essence.gain",
+          "add": 0.3
+        },
+        {
+          "mod": "yield.data",
+          "add": -0.1
+        }
+      ]
+    }
+  ],
+  "cosmetics": [
+    {
+      "id": "pal_bioluminescent",
+      "type": "palette",
+      "name": "Bioluminescent",
+      "primary": "#00ffa3",
+      "secondary": "#002b3d",
+      "accent": "#ffe066"
+    },
+    {
+      "id": "sig_maw",
+      "type": "sigil",
+      "name": "The Maw",
+      "shape": {
+        "kind": "star",
+        "sides": 12,
+        "rings": 3,
+        "spokes": 0
+      }
+    }
+  ],
+  "structures": [
+    {
+      "id": "titan_forge",
+      "$patch": true,
+      "desc": "Coastal megastructure that assembles Titan Battle Units, now including grown Chimera titans. Must be on a coastal point."
+    }
+  ],
+  "sprites": [
+    {
+      "id": "u_chimera",
+      "palette": {
+        "k": "#0b0f14",
+        "g": "#2a9d6f",
+        "G": "#145a3f",
+        "a": "#ffe066",
+        "r": "#ff2848"
+      },
+      "rows": [
+        ".....kkkkkk.....",
+        "....kggggggk....",
+        "...kgraggarGk...",
+        "....kggggggk....",
+        "..kkkkooooOkkk..",
+        ".kggkoooooOkGgk.",
+        "kgggkgggggGkGggk",
+        "kggkkgggggGkkGgk",
+        "kgk.kGGGGGGk.kgk",
+        "kkk.kggkkggk.kkk",
+        "....kggk.kggk...",
+        "...kgggk.kgggk..",
+        "...kkkkk.kkkkk.."
+      ]
+    },
+    {
+      "id": "ab_lantern",
+      "palette": {
+        "k": "#0b0f14",
+        "s": "#20304a",
+        "y": "#ffe066",
+        "e": "#ff2848"
+      },
+      "rows": [
+        "......y.......",
+        ".....yyy......",
+        "......k.......",
+        "......k.......",
+        "...kkkkkkk....",
+        "..ksssssssk...",
+        ".ksseessssskk.",
+        "kssssssssssssk",
+        ".kkkkkkkkkkkk."
+      ]
+    }
+  ]
+}

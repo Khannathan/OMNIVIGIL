@@ -1,0 +1,54 @@
+{
+  "id": "core",
+  "name": "OMNIVIGIL",
+  "version": "5.0.0",
+  "author": "OMNIVIGIL",
+  "description": "The whole game: Earthfall on your seeded home world and Sunreach across its star system.",
+  "requires": [],
+  "include": [
+    "resources.json",
+    "world.json",
+    "terrain.json",
+    "cosmos.json",
+    "structures.json",
+    "units.json",
+    "research.json",
+    "ascendancy.json",
+    "threats.json",
+    "missions.json",
+    "events.json",
+    "doctrines.json",
+    "symbiotes.json",
+    "diplomacy.json",
+    "cosmetics.json",
+    "sprites.json",
+    "creator.json",
+    "balance.json",
+    "sunreach.json",
+    "ascendancy_v4.json",
+    "events_v4.json",
+    "dominion.json",
+    "source.json",
+    "frontier.json"
+  ],
+  "phases": [
+    {
+      "id": "earth",
+      "name": "Earthfall",
+      "order": 1,
+      "desc": "Survive, fulfil your doctrine on Earth and achieve interstellar capability."
+    },
+    {
+      "id": "interstellar",
+      "name": "Starward",
+      "order": 2,
+      "desc": "The galactic war map. Arrives in a future content pack."
+    },
+    {
+      "id": "multiversal",
+      "name": "Intercontinuum",
+      "order": 3,
+      "desc": "Dimensional warfare and the Gateframe. Arrives in a future content pack."
+    }
+  ]
+}

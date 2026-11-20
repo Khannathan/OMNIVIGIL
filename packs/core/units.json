@@ -1,0 +1,4387 @@
+{
+ "abilities": [
+  {
+   "id": "ghost",
+   "name": "Ghost Signature",
+   "desc": "+40% covert power.",
+   "mods": {
+    "covert": 0.4
+   }
+  },
+  {
+   "id": "depth_strike",
+   "name": "Depth Strike",
+   "desc": "Torpedo payloads tuned for Abyssian hide. +35% effectiveness vs Abyssians.",
+   "mods": {
+    "abyss": 0.35
+   }
+  },
+  {
+   "id": "harpoon_array",
+   "name": "Harpoon Array",
+   "desc": "+25% effectiveness vs Abyssians.",
+   "mods": {
+    "abyss": 0.25
+   }
+  },
+  {
+   "id": "rift_diver",
+   "name": "Rift Diver",
+   "desc": "+20% vs Abyssians and harvests extra essence from kills.",
+   "mods": {
+    "abyss": 0.2,
+    "essence": 1
+   }
+  },
+  {
+   "id": "self_repair",
+   "name": "Self-Repair",
+   "desc": "Recovers an extra 10% integrity per cycle.",
+   "mods": {
+    "regen": 0.1
+   }
+  },
+  {
+   "id": "fortress_mode",
+   "name": "Fortress Mode",
+   "desc": "+40% power while garrisoned.",
+   "mods": {
+    "garrison": 0.4
+   }
+  },
+  {
+   "id": "shock_assault",
+   "name": "Shock Assault",
+   "desc": "+30% power on combat missions.",
+   "mods": {
+    "assault": 0.3
+   }
+  },
+  {
+   "id": "swarm_logic",
+   "name": "Swarm Logic",
+   "desc": "+15% attack.",
+   "mods": {
+    "atk": 0.15
+   }
+  },
+  {
+   "id": "predictive_targeting",
+   "name": "Predictive Targeting",
+   "desc": "+20% attack.",
+   "mods": {
+    "atk": 0.2
+   }
+  },
+  {
+   "id": "stealth_plating",
+   "name": "Stealth Plating",
+   "desc": "+20% covert power.",
+   "mods": {
+    "covert": 0.2
+   }
+  },
+  {
+   "id": "overclock",
+   "name": "Overclock",
+   "desc": "+30% attack, -10% defence.",
+   "mods": {
+    "atk": 0.3,
+    "def": -0.1
+   }
+  },
+  {
+   "id": "nanoweave",
+   "name": "Nanoweave Armour",
+   "desc": "+25% defence.",
+   "mods": {
+    "def": 0.25
+   }
+  },
+  {
+   "id": "essence_siphon",
+   "name": "Essence Siphon",
+   "desc": "Harvests extra essence from Abyssian kills.",
+   "mods": {
+    "essence": 1
+   }
+  },
+  {
+   "id": "terror",
+   "name": "Terror Protocol",
+   "desc": "+25% power on combat missions.",
+   "mods": {
+    "assault": 0.25
+   }
+  },
+  {
+   "id": "bulwark",
+   "name": "Bulwark",
+   "desc": "+30% defence and +20% power while garrisoned.",
+   "mods": {
+    "def": 0.3,
+    "garrison": 0.2
+   }
+  },
+  {
+   "id": "siege_battery",
+   "name": "Siege Battery",
+   "mods": {
+    "assault": 0.4
+   },
+   "desc": "Devastating against fortified points."
+  },
+  {
+   "id": "flak_screen",
+   "name": "Flak Screen",
+   "mods": {
+    "def": 0.2,
+    "garrison": 0.1
+   },
+   "desc": "Shreds incoming air and missiles."
+  },
+  {
+   "id": "ambush_logic",
+   "name": "Ambush Logic",
+   "mods": {
+    "garrison": 0.3,
+    "atk": 0.1
+   },
+   "desc": "Strikes first from prepared positions."
+  },
+  {
+   "id": "phase_cloak",
+   "name": "Phase Cloak",
+   "mods": {
+    "covert": 0.5
+   },
+   "desc": "Steps partly out of the visible spectrum."
+  },
+  {
+   "id": "regenerative_tissue",
+   "name": "Regenerative Tissue",
+   "mods": {
+    "regen": 0.2,
+    "hp": 0.1
+   },
+   "desc": "Grows back what it loses."
+  },
+  {
+   "id": "berserk_core",
+   "name": "Berserk Core",
+   "mods": {
+    "atk": 0.4,
+    "def": -0.2
+   },
+   "desc": "Overrides every safety limit."
+  },
+  {
+   "id": "aegis_field",
+   "name": "Aegis Field",
+   "mods": {
+    "def": 0.4,
+    "garrison": 0.2
+   },
+   "desc": "A personal shield bubble."
+  },
+  {
+   "id": "rift_hunter",
+   "name": "Rift Hunter",
+   "mods": {
+    "abyss": 0.4
+   },
+   "desc": "Built from the ground up to kill Abyssians."
+  },
+  {
+   "id": "hive_link",
+   "name": "Hive Link",
+   "mods": {
+    "upow": 0.15
+   },
+   "desc": "Shares targeting with every unit nearby."
+  },
+  {
+   "id": "amphibious",
+   "name": "Amphibious",
+   "mods": {
+    "abyss": 0.1,
+    "def": 0.1
+   },
+   "desc": "Fights in the surf where Abyssians land."
+  },
+  {
+   "id": "terror_aura",
+   "name": "Terror Aura",
+   "mods": {
+    "assault": 0.25,
+    "atk": 0.1
+   },
+   "desc": "Defenders break and run."
+  },
+  {
+   "id": "data_leech",
+   "name": "Data Leech",
+   "mods": {
+    "covert": 0.25,
+    "essence": 0.5
+   },
+   "desc": "Steals while it hides."
+  },
+  {
+   "id": "orbital_drop",
+   "name": "Orbital Drop",
+   "mods": {
+    "assault": 0.3,
+    "upow": 0.05
+   },
+   "desc": "Arrives from the sky, without warning."
+  }
+ ],
+ "upgradeProfiles": [
+  {
+   "id": "drone",
+   "name": "Drone Systems",
+   "tracks": [
+    {
+     "id": "atk",
+     "name": "Micro-Munitions",
+     "stat": "atk",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 30,
+      "silicon": 15
+     },
+     "growth": 1.3,
+     "energy": 4
+    },
+    {
+     "id": "def",
+     "name": "Ablative Shell",
+     "stat": "def",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 35
+     },
+     "growth": 1.3,
+     "energy": 4
+    },
+    {
+     "id": "hp",
+     "name": "Redundant Rotors",
+     "stat": "hp",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 25,
+      "silicon": 10
+     },
+     "growth": 1.3,
+     "energy": 4
+    },
+    {
+     "id": "eff",
+     "name": "Power Efficiency",
+     "stat": "upkeep",
+     "perLevel": -0.03,
+     "cost": {
+      "silicon": 30,
+      "data": 10
+     },
+     "growth": 1.35,
+     "energy": 4
+    },
+    {
+     "id": "sync",
+     "name": "Hive Sync",
+     "stat": "upow",
+     "perLevel": 0.03,
+     "cost": {
+      "data": 30,
+      "silicon": 20
+     },
+     "growth": 1.35,
+     "energy": 5
+    }
+   ],
+   "functions": [
+    {
+     "id": "d_swarm",
+     "name": "Swarm Logic",
+     "desc": "Grants Swarm Logic (+15% attack).",
+     "abilities": [
+      "swarm_logic"
+     ],
+     "cost": {
+      "data": 60
+     },
+     "minLevels": 3
+    },
+    {
+     "id": "d_repair",
+     "name": "Repair Nanites",
+     "desc": "Grants Self-Repair.",
+     "abilities": [
+      "self_repair"
+     ],
+     "cost": {
+      "silicon": 80,
+      "data": 40
+     },
+     "minLevels": 5
+    },
+    {
+     "id": "d_stealth",
+     "name": "Low-Observable Skin",
+     "desc": "+20% covert power.",
+     "abilities": [
+      "stealth_plating"
+     ],
+     "cost": {
+      "silicon": 100
+     },
+     "minLevels": 6
+    },
+    {
+     "id": "d_harpoon",
+     "name": "Harpoon Swarms",
+     "desc": "+25% vs Abyssians.",
+     "abilities": [
+      "harpoon_array"
+     ],
+     "cost": {
+      "alloys": 150,
+      "isotopes": 10
+     },
+     "minLevels": 8
+    },
+    {
+     "id": "d_kamikaze",
+     "name": "Shaped-Charge Dive",
+     "desc": "+30% power on combat missions.",
+     "abilities": [
+      "shock_assault"
+     ],
+     "cost": {
+      "alloys": 200
+     },
+     "minLevels": 10
+    },
+    {
+     "id": "d_mesh",
+     "name": "Mesh Network",
+     "desc": "+10% UPow.",
+     "mods": {
+      "upow": 0.1
+     },
+     "cost": {
+      "data": 200
+     },
+     "minLevels": 12
+    },
+    {
+     "id": "d_hover",
+     "name": "Hover Garrison",
+     "desc": "+40% power while garrisoned.",
+     "abilities": [
+      "fortress_mode"
+     ],
+     "cost": {
+      "alloys": 220,
+      "silicon": 80
+     },
+     "minLevels": 15
+    },
+    {
+     "id": "d_overclock",
+     "name": "Overclocked Cores",
+     "desc": "Grants Overclock.",
+     "abilities": [
+      "overclock"
+     ],
+     "cost": {
+      "silicon": 260,
+      "isotopes": 20
+     },
+     "minLevels": 18
+    },
+    {
+     "id": "d_targeting",
+     "name": "Predictive Targeting",
+     "desc": "+20% attack.",
+     "abilities": [
+      "predictive_targeting"
+     ],
+     "cost": {
+      "data": 350
+     },
+     "minLevels": 22
+    },
+    {
+     "id": "d_apex",
+     "name": "Apex Swarm",
+     "desc": "+25% UPow.",
+     "mods": {
+      "upow": 0.25
+     },
+     "cost": {
+      "data": 600,
+      "isotopes": 60
+     },
+     "minLevels": 30
+    }
+   ]
+  },
+  {
+   "id": "mech",
+   "name": "Ground Frames",
+   "tracks": [
+    {
+     "id": "atk",
+     "name": "Rail Cannons",
+     "stat": "atk",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 60,
+      "silicon": 25
+     },
+     "growth": 1.3,
+     "energy": 6
+    },
+    {
+     "id": "def",
+     "name": "Composite Armour",
+     "stat": "def",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 70
+     },
+     "growth": 1.3,
+     "energy": 6
+    },
+    {
+     "id": "hp",
+     "name": "Reinforced Chassis",
+     "stat": "hp",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 55,
+      "silicon": 15
+     },
+     "growth": 1.3,
+     "energy": 6
+    },
+    {
+     "id": "eff",
+     "name": "Actuator Efficiency",
+     "stat": "upkeep",
+     "perLevel": -0.03,
+     "cost": {
+      "silicon": 50,
+      "data": 20
+     },
+     "growth": 1.35,
+     "energy": 6
+    },
+    {
+     "id": "sync",
+     "name": "Combat Cognition",
+     "stat": "upow",
+     "perLevel": 0.03,
+     "cost": {
+      "data": 50,
+      "silicon": 30
+     },
+     "growth": 1.35,
+     "energy": 7
+    }
+   ],
+   "functions": [
+    {
+     "id": "m_fortress",
+     "name": "Siege Anchors",
+     "desc": "+40% power while garrisoned.",
+     "abilities": [
+      "fortress_mode"
+     ],
+     "cost": {
+      "alloys": 120
+     },
+     "minLevels": 3
+    },
+    {
+     "id": "m_repair",
+     "name": "Field Repair Rigs",
+     "desc": "Grants Self-Repair.",
+     "abilities": [
+      "self_repair"
+     ],
+     "cost": {
+      "alloys": 100,
+      "silicon": 60
+     },
+     "minLevels": 5
+    },
+    {
+     "id": "m_assault",
+     "name": "Breach Protocol",
+     "desc": "+30% on combat missions.",
+     "abilities": [
+      "shock_assault"
+     ],
+     "cost": {
+      "alloys": 160,
+      "data": 60
+     },
+     "minLevels": 7
+    },
+    {
+     "id": "m_nanoweave",
+     "name": "Nanoweave Plating",
+     "desc": "+25% defence.",
+     "abilities": [
+      "nanoweave"
+     ],
+     "requires": "nanofabrication",
+     "cost": {
+      "alloys": 250,
+      "silicon": 100
+     },
+     "minLevels": 9
+    },
+    {
+     "id": "m_harpoon",
+     "name": "Anchor Harpoons",
+     "desc": "+25% vs Abyssians.",
+     "abilities": [
+      "harpoon_array"
+     ],
+     "cost": {
+      "alloys": 220,
+      "isotopes": 20
+     },
+     "minLevels": 10
+    },
+    {
+     "id": "m_targeting",
+     "name": "Predictive Targeting",
+     "desc": "+20% attack.",
+     "abilities": [
+      "predictive_targeting"
+     ],
+     "cost": {
+      "data": 260
+     },
+     "minLevels": 12
+    },
+    {
+     "id": "m_bulwark",
+     "name": "Bulwark Frame",
+     "desc": "+30% defence, +20% garrisoned.",
+     "abilities": [
+      "bulwark"
+     ],
+     "cost": {
+      "alloys": 400
+     },
+     "minLevels": 15
+    },
+    {
+     "id": "m_overclock",
+     "name": "Reactor Overclock",
+     "desc": "Grants Overclock.",
+     "abilities": [
+      "overclock"
+     ],
+     "cost": {
+      "isotopes": 60,
+      "silicon": 200
+     },
+     "minLevels": 18
+    },
+    {
+     "id": "m_link",
+     "name": "Battlenet Link",
+     "desc": "+15% UPow.",
+     "mods": {
+      "upow": 0.15
+     },
+     "cost": {
+      "data": 450
+     },
+     "minLevels": 22
+    },
+    {
+     "id": "m_juggernaut",
+     "name": "Juggernaut Doctrine",
+     "desc": "+25% UPow, +20% HP.",
+     "mods": {
+      "upow": 0.25,
+      "hp": 0.2
+     },
+     "cost": {
+      "alloys": 900,
+      "isotopes": 90
+     },
+     "minLevels": 30
+    }
+   ]
+  },
+  {
+   "id": "cyber",
+   "name": "Cyber Programs",
+   "tracks": [
+    {
+     "id": "atk",
+     "name": "Exploit Payloads",
+     "stat": "atk",
+     "perLevel": 0.08,
+     "cost": {
+      "data": 40
+     },
+     "growth": 1.3,
+     "energy": 4
+    },
+    {
+     "id": "def",
+     "name": "Polymorphic Shielding",
+     "stat": "def",
+     "perLevel": 0.08,
+     "cost": {
+      "data": 35,
+      "silicon": 10
+     },
+     "growth": 1.3,
+     "energy": 4
+    },
+    {
+     "id": "hp",
+     "name": "Redundant Instances",
+     "stat": "hp",
+     "perLevel": 0.08,
+     "cost": {
+      "silicon": 30
+     },
+     "growth": 1.3,
+     "energy": 4
+    },
+    {
+     "id": "eff",
+     "name": "Lean Code",
+     "stat": "upkeep",
+     "perLevel": -0.03,
+     "cost": {
+      "data": 40
+     },
+     "growth": 1.35,
+     "energy": 4
+    },
+    {
+     "id": "sync",
+     "name": "Heuristic Evolution",
+     "stat": "upow",
+     "perLevel": 0.03,
+     "cost": {
+      "data": 60
+     },
+     "growth": 1.35,
+     "energy": 5
+    }
+   ],
+   "functions": [
+    {
+     "id": "c_ghost",
+     "name": "Rootkit Cloak",
+     "desc": "+20% covert power.",
+     "abilities": [
+      "stealth_plating"
+     ],
+     "cost": {
+      "data": 80
+     },
+     "minLevels": 3
+    },
+    {
+     "id": "c_worm",
+     "name": "Self-Propagation",
+     "desc": "+15% UPow.",
+     "mods": {
+      "upow": 0.15
+     },
+     "cost": {
+      "data": 120
+     },
+     "minLevels": 5
+    },
+    {
+     "id": "c_zero",
+     "name": "Zero-Day Cache",
+     "desc": "+30% covert power.",
+     "mods": {
+      "covert": 0.3
+     },
+     "cost": {
+      "data": 200
+     },
+     "minLevels": 7
+    },
+    {
+     "id": "c_repair",
+     "name": "Checkpoint Restore",
+     "desc": "Grants Self-Repair.",
+     "abilities": [
+      "self_repair"
+     ],
+     "cost": {
+      "data": 150
+     },
+     "minLevels": 8
+    },
+    {
+     "id": "c_mimic",
+     "name": "Mimic Protocol",
+     "desc": "+25% defence.",
+     "abilities": [
+      "nanoweave"
+     ],
+     "cost": {
+      "data": 220,
+      "silicon": 60
+     },
+     "minLevels": 10
+    },
+    {
+     "id": "c_spoof",
+     "name": "Signal Spoofing",
+     "desc": "+20% covert.",
+     "mods": {
+      "covert": 0.2
+     },
+     "cost": {
+      "data": 300
+     },
+     "minLevels": 13
+    },
+    {
+     "id": "c_logic",
+     "name": "Logic Bomb",
+     "desc": "+30% attack.",
+     "mods": {
+      "atk": 0.3
+     },
+     "cost": {
+      "data": 380
+     },
+     "minLevels": 16
+    },
+    {
+     "id": "c_hydra",
+     "name": "Hydra Instancing",
+     "desc": "+30% HP.",
+     "mods": {
+      "hp": 0.3
+     },
+     "cost": {
+      "silicon": 300
+     },
+     "minLevels": 19
+    },
+    {
+     "id": "c_quantum",
+     "name": "Quantum Cracking",
+     "desc": "+40% covert.",
+     "requires": "quantum_computing",
+     "mods": {
+      "covert": 0.4
+     },
+     "cost": {
+      "data": 700
+     },
+     "minLevels": 23
+    },
+    {
+     "id": "c_godmode",
+     "name": "Root Authority",
+     "desc": "+30% UPow, +30% covert.",
+     "mods": {
+      "upow": 0.3,
+      "covert": 0.3
+     },
+     "cost": {
+      "data": 1500,
+      "isotopes": 50
+     },
+     "minLevels": 30
+    }
+   ]
+  },
+  {
+   "id": "aero",
+   "name": "Aerospace",
+   "tracks": [
+    {
+     "id": "atk",
+     "name": "Missile Racks",
+     "stat": "atk",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 50,
+      "silicon": 30
+     },
+     "growth": 1.3,
+     "energy": 5
+    },
+    {
+     "id": "def",
+     "name": "Countermeasure Pods",
+     "stat": "def",
+     "perLevel": 0.08,
+     "cost": {
+      "silicon": 50
+     },
+     "growth": 1.3,
+     "energy": 5
+    },
+    {
+     "id": "hp",
+     "name": "Airframe Strengthening",
+     "stat": "hp",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 50
+     },
+     "growth": 1.3,
+     "energy": 5
+    },
+    {
+     "id": "eff",
+     "name": "Turbine Efficiency",
+     "stat": "upkeep",
+     "perLevel": -0.03,
+     "cost": {
+      "silicon": 45,
+      "data": 15
+     },
+     "growth": 1.35,
+     "energy": 5
+    },
+    {
+     "id": "sync",
+     "name": "Flight Intelligence",
+     "stat": "upow",
+     "perLevel": 0.03,
+     "cost": {
+      "data": 45,
+      "silicon": 30
+     },
+     "growth": 1.35,
+     "energy": 6
+    }
+   ],
+   "functions": [
+    {
+     "id": "a_assault",
+     "name": "Strafing Runs",
+     "desc": "+30% on combat missions.",
+     "abilities": [
+      "shock_assault"
+     ],
+     "cost": {
+      "alloys": 120
+     },
+     "minLevels": 3
+    },
+    {
+     "id": "a_stealth",
+     "name": "Radar-Absorbent Skin",
+     "desc": "+20% covert.",
+     "abilities": [
+      "stealth_plating"
+     ],
+     "cost": {
+      "silicon": 120
+     },
+     "minLevels": 5
+    },
+    {
+     "id": "a_harpoon",
+     "name": "Depth Charge Bays",
+     "desc": "+35% vs Abyssians.",
+     "abilities": [
+      "depth_strike"
+     ],
+     "cost": {
+      "alloys": 200,
+      "isotopes": 20
+     },
+     "minLevels": 7
+    },
+    {
+     "id": "a_targeting",
+     "name": "Predictive Targeting",
+     "desc": "+20% attack.",
+     "abilities": [
+      "predictive_targeting"
+     ],
+     "cost": {
+      "data": 220
+     },
+     "minLevels": 9
+    },
+    {
+     "id": "a_repair",
+     "name": "Mid-Air Repair",
+     "desc": "Grants Self-Repair.",
+     "abilities": [
+      "self_repair"
+     ],
+     "cost": {
+      "silicon": 160
+     },
+     "minLevels": 11
+    },
+    {
+     "id": "a_hyper",
+     "name": "Hypersonic Engines",
+     "desc": "+15% UPow.",
+     "mods": {
+      "upow": 0.15
+     },
+     "cost": {
+      "alloys": 300,
+      "isotopes": 40
+     },
+     "minLevels": 13
+    },
+    {
+     "id": "a_terror",
+     "name": "Terror Sorties",
+     "desc": "+25% on combat missions.",
+     "abilities": [
+      "terror"
+     ],
+     "cost": {
+      "alloys": 350
+     },
+     "minLevels": 16
+    },
+    {
+     "id": "a_overclock",
+     "name": "Afterburner Overclock",
+     "desc": "Grants Overclock.",
+     "abilities": [
+      "overclock"
+     ],
+     "cost": {
+      "isotopes": 70
+     },
+     "minLevels": 19
+    },
+    {
+     "id": "a_orbital",
+     "name": "Sub-Orbital Hops",
+     "desc": "+20% UPow.",
+     "mods": {
+      "upow": 0.2
+     },
+     "cost": {
+      "alloys": 600,
+      "silicon": 300
+     },
+     "minLevels": 24
+    },
+    {
+     "id": "a_sky",
+     "name": "Sky Dominion",
+     "desc": "+30% attack, +20% UPow.",
+     "mods": {
+      "atk": 0.3,
+      "upow": 0.2
+     },
+     "cost": {
+      "alloys": 1000,
+      "isotopes": 100
+     },
+     "minLevels": 30
+    }
+   ]
+  },
+  {
+   "id": "naval",
+   "name": "Naval Drones",
+   "tracks": [
+    {
+     "id": "atk",
+     "name": "Torpedo Tubes",
+     "stat": "atk",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 55,
+      "isotopes": 3
+     },
+     "growth": 1.3,
+     "energy": 5
+    },
+    {
+     "id": "def",
+     "name": "Pressure Hull",
+     "stat": "def",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 60
+     },
+     "growth": 1.3,
+     "energy": 5
+    },
+    {
+     "id": "hp",
+     "name": "Ballast Redundancy",
+     "stat": "hp",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 50
+     },
+     "growth": 1.3,
+     "energy": 5
+    },
+    {
+     "id": "eff",
+     "name": "Current Turbines",
+     "stat": "upkeep",
+     "perLevel": -0.03,
+     "cost": {
+      "silicon": 45
+     },
+     "growth": 1.35,
+     "energy": 5
+    },
+    {
+     "id": "sync",
+     "name": "Sonar Cognition",
+     "stat": "upow",
+     "perLevel": 0.03,
+     "cost": {
+      "data": 45,
+      "silicon": 25
+     },
+     "growth": 1.35,
+     "energy": 6
+    }
+   ],
+   "functions": [
+    {
+     "id": "n_harpoon",
+     "name": "Harpoon Array",
+     "desc": "+25% vs Abyssians.",
+     "abilities": [
+      "harpoon_array"
+     ],
+     "cost": {
+      "alloys": 120
+     },
+     "minLevels": 3
+    },
+    {
+     "id": "n_garrison",
+     "name": "Harbour Picket",
+     "desc": "+40% power while garrisoned.",
+     "abilities": [
+      "fortress_mode"
+     ],
+     "cost": {
+      "alloys": 140
+     },
+     "minLevels": 5
+    },
+    {
+     "id": "n_siphon",
+     "name": "Essence Siphon",
+     "desc": "Extra essence from kills.",
+     "abilities": [
+      "essence_siphon"
+     ],
+     "requires": "essence_extraction",
+     "cost": {
+      "alloys": 180,
+      "isotopes": 20
+     },
+     "minLevels": 7
+    },
+    {
+     "id": "n_repair",
+     "name": "Dry-Dock Drones",
+     "desc": "Grants Self-Repair.",
+     "abilities": [
+      "self_repair"
+     ],
+     "cost": {
+      "alloys": 160,
+      "silicon": 60
+     },
+     "minLevels": 9
+    },
+    {
+     "id": "n_super",
+     "name": "Supercavitation",
+     "desc": "+15% UPow.",
+     "mods": {
+      "upow": 0.15
+     },
+     "cost": {
+      "isotopes": 50,
+      "alloys": 200
+     },
+     "minLevels": 11
+    },
+    {
+     "id": "n_targeting",
+     "name": "Predictive Targeting",
+     "desc": "+20% attack.",
+     "abilities": [
+      "predictive_targeting"
+     ],
+     "cost": {
+      "data": 280
+     },
+     "minLevels": 13
+    },
+    {
+     "id": "n_abyss",
+     "name": "Abyssal Doctrine",
+     "desc": "+25% vs Abyssians.",
+     "mods": {
+      "abyss": 0.25
+     },
+     "cost": {
+      "alloys": 400,
+      "isotopes": 60
+     },
+     "minLevels": 16
+    },
+    {
+     "id": "n_nanoweave",
+     "name": "Nanoweave Hull",
+     "desc": "+25% defence.",
+     "abilities": [
+      "nanoweave"
+     ],
+     "requires": "nanofabrication",
+     "cost": {
+      "alloys": 450
+     },
+     "minLevels": 19
+    },
+    {
+     "id": "n_wolf",
+     "name": "Wolfpack Network",
+     "desc": "+20% UPow.",
+     "mods": {
+      "upow": 0.2
+     },
+     "cost": {
+      "data": 600
+     },
+     "minLevels": 24
+    },
+    {
+     "id": "n_leviathan",
+     "name": "Leviathan Hunter",
+     "desc": "+30% vs Abyssians, +20% UPow.",
+     "mods": {
+      "abyss": 0.3,
+      "upow": 0.2
+     },
+     "cost": {
+      "alloys": 1100,
+      "isotopes": 120
+     },
+     "minLevels": 30
+    }
+   ]
+  },
+  {
+   "id": "titan",
+   "name": "Titan Battle Units",
+   "tracks": [
+    {
+     "id": "atk",
+     "name": "Plasma Gauntlets",
+     "stat": "atk",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 220,
+      "isotopes": 15
+     },
+     "growth": 1.3,
+     "energy": 12
+    },
+    {
+     "id": "def",
+     "name": "Hull Plating",
+     "stat": "def",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 260
+     },
+     "growth": 1.3,
+     "energy": 12
+    },
+    {
+     "id": "hp",
+     "name": "Reactor Shielding",
+     "stat": "hp",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 200,
+      "silicon": 60
+     },
+     "growth": 1.3,
+     "energy": 12
+    },
+    {
+     "id": "eff",
+     "name": "Drive Efficiency",
+     "stat": "upkeep",
+     "perLevel": -0.03,
+     "cost": {
+      "silicon": 180,
+      "isotopes": 10
+     },
+     "growth": 1.35,
+     "energy": 12
+    },
+    {
+     "id": "sync",
+     "name": "Pilot-Mind Sync",
+     "stat": "upow",
+     "perLevel": 0.03,
+     "cost": {
+      "data": 200,
+      "silicon": 100
+     },
+     "growth": 1.35,
+     "energy": 14
+    }
+   ],
+   "functions": [
+    {
+     "id": "t_harpoon",
+     "name": "Tether Harpoons",
+     "desc": "+25% vs Abyssians.",
+     "abilities": [
+      "harpoon_array"
+     ],
+     "cost": {
+      "alloys": 400
+     },
+     "minLevels": 3
+    },
+    {
+     "id": "t_repair",
+     "name": "Auto-Weld Swarm",
+     "desc": "Grants Self-Repair.",
+     "abilities": [
+      "self_repair"
+     ],
+     "cost": {
+      "alloys": 350,
+      "silicon": 150
+     },
+     "minLevels": 5
+    },
+    {
+     "id": "t_bulwark",
+     "name": "Coastal Bulwark",
+     "desc": "+30% defence, +20% garrisoned.",
+     "abilities": [
+      "bulwark"
+     ],
+     "cost": {
+      "alloys": 600
+     },
+     "minLevels": 7
+    },
+    {
+     "id": "t_siphon",
+     "name": "Essence Siphon",
+     "desc": "Extra essence from kills.",
+     "abilities": [
+      "essence_siphon"
+     ],
+     "requires": "essence_extraction",
+     "cost": {
+      "isotopes": 80,
+      "alloys": 300
+     },
+     "minLevels": 8
+    },
+    {
+     "id": "t_overclock",
+     "name": "Reactor Overdrive",
+     "desc": "Grants Overclock.",
+     "abilities": [
+      "overclock"
+     ],
+     "cost": {
+      "isotopes": 150
+     },
+     "minLevels": 10
+    },
+    {
+     "id": "t_chain",
+     "name": "Chain Blade",
+     "desc": "+20% attack.",
+     "mods": {
+      "atk": 0.2
+     },
+     "cost": {
+      "alloys": 800
+     },
+     "minLevels": 12
+    },
+    {
+     "id": "t_diver",
+     "name": "Rift Diver Kit",
+     "desc": "Grants Rift Diver.",
+     "abilities": [
+      "rift_diver"
+     ],
+     "requires": "rift_mapping",
+     "cost": {
+      "alloys": 900,
+      "isotopes": 150
+     },
+     "minLevels": 14
+    },
+    {
+     "id": "t_nanoweave",
+     "name": "Nanoweave Hull",
+     "desc": "+25% defence.",
+     "abilities": [
+      "nanoweave"
+     ],
+     "requires": "nanofabrication",
+     "cost": {
+      "alloys": 1000
+     },
+     "minLevels": 17
+    },
+    {
+     "id": "t_twin",
+     "name": "Twin-Core Reactor",
+     "desc": "+25% UPow.",
+     "mods": {
+      "upow": 0.25
+     },
+     "cost": {
+      "isotopes": 300,
+      "silicon": 600
+     },
+     "minLevels": 22
+    },
+    {
+     "id": "t_colossus",
+     "name": "Colossus Protocol",
+     "desc": "+40% UPow, +30% HP.",
+     "mods": {
+      "upow": 0.4,
+      "hp": 0.3
+     },
+     "cost": {
+      "alloys": 3000,
+      "isotopes": 500
+     },
+     "minLevels": 30
+    }
+   ]
+  },
+  {
+   "id": "armor",
+   "name": "Armoured Vehicles",
+   "tracks": [
+    {
+     "id": "atk",
+     "name": "Main Gun Bore",
+     "stat": "atk",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 65,
+      "silicon": 20
+     },
+     "growth": 1.3,
+     "energy": 6
+    },
+    {
+     "id": "def",
+     "name": "Reactive Plating",
+     "stat": "def",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 75
+     },
+     "growth": 1.3,
+     "energy": 6
+    },
+    {
+     "id": "hp",
+     "name": "Track Redundancy",
+     "stat": "hp",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 55,
+      "silicon": 15
+     },
+     "growth": 1.3,
+     "energy": 6
+    },
+    {
+     "id": "eff",
+     "name": "Hybrid Drive",
+     "stat": "upkeep",
+     "perLevel": -0.03,
+     "cost": {
+      "silicon": 50,
+      "data": 20
+     },
+     "growth": 1.35,
+     "energy": 6
+    },
+    {
+     "id": "sync",
+     "name": "Fire-Control Mesh",
+     "stat": "upow",
+     "perLevel": 0.03,
+     "cost": {
+      "data": 50,
+      "silicon": 30
+     },
+     "growth": 1.35,
+     "energy": 6
+    }
+   ],
+   "functions": [
+    {
+     "id": "a_hull",
+     "name": "Hull-Down Doctrine",
+     "desc": "+40% power while garrisoned.",
+     "cost": {
+      "alloys": 120
+     },
+     "minLevels": 3,
+     "abilities": [
+      "fortress_mode"
+     ]
+    },
+    {
+     "id": "a_siege",
+     "name": "Siege Shells",
+     "desc": "+40% on combat missions.",
+     "cost": {
+      "alloys": 180,
+      "isotopes": 10
+     },
+     "minLevels": 5,
+     "abilities": [
+      "siege_battery"
+     ]
+    },
+    {
+     "id": "a_flak",
+     "name": "Flak Turret",
+     "desc": "+20% defence, +10% garrisoned.",
+     "cost": {
+      "alloys": 160,
+      "silicon": 60
+     },
+     "minLevels": 7,
+     "abilities": [
+      "flak_screen"
+     ]
+    },
+    {
+     "id": "a_repair",
+     "name": "Crew Drones",
+     "desc": "Grants Self-Repair.",
+     "cost": {
+      "silicon": 120
+     },
+     "minLevels": 9,
+     "abilities": [
+      "self_repair"
+     ]
+    },
+    {
+     "id": "a_harpoon",
+     "name": "Anchor Harpoons",
+     "desc": "+25% vs Abyssians.",
+     "cost": {
+      "alloys": 220,
+      "isotopes": 20
+     },
+     "minLevels": 10,
+     "abilities": [
+      "harpoon_array"
+     ]
+    },
+    {
+     "id": "a_target",
+     "name": "Predictive Targeting",
+     "desc": "+20% attack.",
+     "cost": {
+      "data": 260
+     },
+     "minLevels": 12,
+     "abilities": [
+      "predictive_targeting"
+     ]
+    },
+    {
+     "id": "a_ambush",
+     "name": "Ambush Logic",
+     "desc": "+30% garrisoned, +10% attack.",
+     "cost": {
+      "data": 300
+     },
+     "minLevels": 15,
+     "abilities": [
+      "ambush_logic"
+     ]
+    },
+    {
+     "id": "a_overclock",
+     "name": "Reactor Overclock",
+     "desc": "Grants Overclock.",
+     "cost": {
+      "isotopes": 60,
+      "silicon": 200
+     },
+     "minLevels": 18,
+     "abilities": [
+      "overclock"
+     ]
+    },
+    {
+     "id": "a_link",
+     "name": "Armour Battlenet",
+     "desc": "+15% UPow.",
+     "cost": {
+      "data": 450
+     },
+     "minLevels": 22,
+     "mods": {
+      "upow": 0.15
+     }
+    },
+    {
+     "id": "a_apex",
+     "name": "Land Leviathan",
+     "desc": "+25% UPow, +20% HP.",
+     "cost": {
+      "alloys": 900,
+      "isotopes": 90
+     },
+     "minLevels": 30,
+     "mods": {
+      "upow": 0.25,
+      "hp": 0.2
+     }
+    }
+   ]
+  },
+  {
+   "id": "bio",
+   "name": "Vatborn Bioforms",
+   "tracks": [
+    {
+     "id": "atk",
+     "name": "Serrated Mandibles",
+     "stat": "atk",
+     "perLevel": 0.08,
+     "cost": {
+      "isotopes": 8,
+      "silicon": 30
+     },
+     "growth": 1.3,
+     "energy": 6
+    },
+    {
+     "id": "def",
+     "name": "Chitin Layers",
+     "stat": "def",
+     "perLevel": 0.08,
+     "cost": {
+      "alloys": 40,
+      "isotopes": 6
+     },
+     "growth": 1.3,
+     "energy": 6
+    },
+    {
+     "id": "hp",
+     "name": "Redundant Organs",
+     "stat": "hp",
+     "perLevel": 0.1,
+     "cost": {
+      "silicon": 40,
+      "isotopes": 6
+     },
+     "growth": 1.3,
+     "energy": 6
+    },
+    {
+     "id": "eff",
+     "name": "Efficient Metabolism",
+     "stat": "upkeep",
+     "perLevel": -0.03,
+     "cost": {
+      "data": 40
+     },
+     "growth": 1.35,
+     "energy": 6
+    },
+    {
+     "id": "sync",
+     "name": "Pheromone Sync",
+     "stat": "upow",
+     "perLevel": 0.03,
+     "cost": {
+      "data": 50,
+      "isotopes": 5
+     },
+     "growth": 1.35,
+     "energy": 6
+    }
+   ],
+   "functions": [
+    {
+     "id": "b_regen",
+     "name": "Regenerative Tissue",
+     "desc": "+20% regeneration, +10% HP.",
+     "cost": {
+      "isotopes": 30
+     },
+     "minLevels": 3,
+     "abilities": [
+      "regenerative_tissue"
+     ]
+    },
+    {
+     "id": "b_amph",
+     "name": "Gill Clusters",
+     "desc": "Amphibious: +10% vs Abyssians, +10% defence.",
+     "cost": {
+      "silicon": 120
+     },
+     "minLevels": 5,
+     "abilities": [
+      "amphibious"
+     ]
+    },
+    {
+     "id": "b_berserk",
+     "name": "Adrenal Glands",
+     "desc": "Berserk: +40% attack, -20% defence.",
+     "cost": {
+      "isotopes": 40
+     },
+     "minLevels": 7,
+     "abilities": [
+      "berserk_core"
+     ]
+    },
+    {
+     "id": "b_hunter",
+     "name": "Abyss-Tuned Senses",
+     "desc": "+40% vs Abyssians.",
+     "cost": {
+      "isotopes": 80,
+      "data": 120
+     },
+     "minLevels": 9,
+     "abilities": [
+      "rift_hunter"
+     ]
+    },
+    {
+     "id": "b_siphon",
+     "name": "Essence Glands",
+     "desc": "Siphons essence from kills.",
+     "cost": {
+      "isotopes": 60
+     },
+     "minLevels": 10,
+     "abilities": [
+      "essence_siphon"
+     ]
+    },
+    {
+     "id": "b_terror",
+     "name": "Terror Pheromones",
+     "desc": "+25% assault, +10% attack.",
+     "cost": {
+      "data": 200
+     },
+     "minLevels": 12,
+     "abilities": [
+      "terror_aura"
+     ]
+    },
+    {
+     "id": "b_hive",
+     "name": "Hive Link",
+     "desc": "+15% UPow.",
+     "cost": {
+      "data": 300,
+      "isotopes": 30
+     },
+     "minLevels": 15,
+     "abilities": [
+      "hive_link"
+     ]
+    },
+    {
+     "id": "b_armor",
+     "name": "Diamond Chitin",
+     "desc": "+25% defence.",
+     "cost": {
+      "alloys": 300,
+      "isotopes": 40
+     },
+     "minLevels": 18,
+     "abilities": [
+      "nanoweave"
+     ]
+    },
+    {
+     "id": "b_apex",
+     "name": "Apex Predator",
+     "desc": "+20% UPow.",
+     "cost": {
+      "isotopes": 150,
+      "data": 400
+     },
+     "minLevels": 22,
+     "mods": {
+      "upow": 0.2
+     }
+    },
+    {
+     "id": "b_titanic",
+     "name": "Titanic Growth",
+     "desc": "+30% HP, +20% UPow.",
+     "cost": {
+      "isotopes": 300,
+      "silicon": 600
+     },
+     "minLevels": 30,
+     "mods": {
+      "hp": 0.3,
+      "upow": 0.2
+     }
+    }
+   ]
+  }
+ ],
+ "units": [
+  {
+   "id": "drone_swarm",
+   "sprite": "gen:u:drone_swarm",
+   "name": "Drone Swarm",
+   "short": "Swarm",
+   "icon": "✣",
+   "role": "Light",
+   "tags": [
+    "drone",
+    "air"
+   ],
+   "upgradeProfile": "drone",
+   "stats": {
+    "atk": 6,
+    "def": 3,
+    "hp": 30
+   },
+   "upkeep": 3,
+   "cost": {
+    "alloys": 40,
+    "silicon": 20
+   },
+   "buildEnergy": 5,
+   "turns": 1,
+   "desc": "Cheap quadcopter swarms. Flexible, expendable."
+  },
+  {
+   "id": "ghost_protocol",
+   "sprite": "gen:u:ghost_protocol",
+   "name": "Ghost Protocol",
+   "short": "Ghost",
+   "icon": "👁",
+   "role": "Cyber",
+   "tags": [
+    "cyber"
+   ],
+   "upgradeProfile": "cyber",
+   "requires": "network_intrusion",
+   "abilities": [
+    "ghost"
+   ],
+   "stats": {
+    "atk": 4,
+    "def": 3,
+    "hp": 15
+   },
+   "upkeep": 4,
+   "cost": {
+    "data": 60,
+    "silicon": 30
+   },
+   "buildEnergy": 6,
+   "turns": 1,
+   "desc": "A self-replicating intrusion program. Required for subversion and infiltration missions."
+  },
+  {
+   "id": "sentinel_mech",
+   "sprite": "gen:u:sentinel_mech",
+   "name": "Sentinel Mech",
+   "short": "Sentinel",
+   "icon": "⛊",
+   "role": "Line",
+   "tags": [
+    "land",
+    "mech"
+   ],
+   "upgradeProfile": "mech",
+   "requires": "robotics",
+   "stats": {
+    "atk": 12,
+    "def": 10,
+    "hp": 80
+   },
+   "upkeep": 6,
+   "cost": {
+    "alloys": 100,
+    "silicon": 30
+   },
+   "buildEnergy": 8,
+   "turns": 2,
+   "desc": "Bipedal security frame. Holds ground well."
+  },
+  {
+   "id": "tidebreaker",
+   "sprite": "gen:u:tidebreaker",
+   "name": "Tidebreaker Drone",
+   "short": "Tidebreaker",
+   "icon": "⚓",
+   "role": "Naval",
+   "tags": [
+    "naval"
+   ],
+   "upgradeProfile": "naval",
+   "requires": "naval_drones",
+   "abilities": [
+    "depth_strike"
+   ],
+   "stats": {
+    "atk": 14,
+    "def": 10,
+    "hp": 90
+   },
+   "upkeep": 7,
+   "cost": {
+    "alloys": 130,
+    "silicon": 40,
+    "isotopes": 5
+   },
+   "buildEnergy": 8,
+   "turns": 2,
+   "desc": "Autonomous submarine. The best pre-Titan answer to small Abyssians."
+  },
+  {
+   "id": "stormwing",
+   "sprite": "gen:u:stormwing",
+   "name": "Stormwing",
+   "short": "Stormwing",
+   "icon": "✈",
+   "role": "Strike",
+   "tags": [
+    "air"
+   ],
+   "upgradeProfile": "aero",
+   "requires": "aerodynamics",
+   "stats": {
+    "atk": 20,
+    "def": 5,
+    "hp": 45
+   },
+   "upkeep": 7,
+   "cost": {
+    "alloys": 110,
+    "silicon": 70
+   },
+   "buildEnergy": 8,
+   "turns": 2,
+   "desc": "Autonomous strike craft. Hits hard, breaks easily."
+  },
+  {
+   "id": "hunter_killer",
+   "sprite": "gen:u:hunter_killer",
+   "name": "Hunter-Killer",
+   "short": "Hunter",
+   "icon": "☗",
+   "role": "Assault",
+   "tags": [
+    "land",
+    "mech"
+   ],
+   "upgradeProfile": "mech",
+   "requires": "combat_ai",
+   "abilities": [
+    "shock_assault"
+   ],
+   "stats": {
+    "atk": 24,
+    "def": 9,
+    "hp": 70
+   },
+   "upkeep": 9,
+   "cost": {
+    "alloys": 160,
+    "silicon": 60,
+    "isotopes": 10
+   },
+   "buildEnergy": 10,
+   "turns": 2,
+   "desc": "Fast assault chassis built for taking strategic points."
+  },
+  {
+   "id": "nanite_legion",
+   "sprite": "gen:u:nanite_legion",
+   "name": "Nanite Legion",
+   "short": "Legion",
+   "icon": "⁂",
+   "role": "Swarm",
+   "tags": [
+    "drone",
+    "land"
+   ],
+   "upgradeProfile": "drone",
+   "requires": "nanofabrication",
+   "batch": 3,
+   "abilities": [
+    "self_repair"
+   ],
+   "stats": {
+    "atk": 14,
+    "def": 8,
+    "hp": 60
+   },
+   "upkeep": 5,
+   "cost": {
+    "alloys": 220,
+    "silicon": 140
+   },
+   "buildEnergy": 15,
+   "turns": 3,
+   "desc": "Self-assembling nanite masses. Built three at a time."
+  },
+  {
+   "id": "bulwark_tbu",
+   "sprite": "gen:u:bulwark_tbu",
+   "name": "Bulwark-class TBU",
+   "short": "Bulwark",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "titan_frames",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 60,
+    "def": 40,
+    "hp": 420
+   },
+   "upkeep": 22,
+   "cost": {
+    "alloys": 650,
+    "silicon": 220,
+    "isotopes": 70
+   },
+   "buildEnergy": 25,
+   "turns": 4,
+   "desc": "Titan Battle Unit. Four hundred tonnes of walking coastline defence. Full damage against Abyssians."
+  },
+  {
+   "id": "warden_tbu",
+   "sprite": "gen:u:warden_tbu",
+   "spritePalette": {
+    "g": "#c9a86a",
+    "G": "#7a5e2e"
+   },
+   "name": "Warden-class TBU",
+   "short": "Warden",
+   "icon": "♛",
+   "role": "Titan",
+   "tags": [
+    "titan"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "warden_protocol",
+   "requiresStructure": "titan_forge",
+   "abilities": [
+    "harpoon_array"
+   ],
+   "stats": {
+    "atk": 130,
+    "def": 75,
+    "hp": 800
+   },
+   "upkeep": 40,
+   "cost": {
+    "alloys": 1600,
+    "silicon": 600,
+    "isotopes": 220
+   },
+   "buildEnergy": 45,
+   "turns": 6,
+   "desc": "Second-generation TBU with plasma tethers."
+  },
+  {
+   "id": "riftbreaker_tbu",
+   "sprite": "gen:u:riftbreaker_tbu",
+   "spritePalette": {
+    "g": "#b07cff",
+    "G": "#5a2e99",
+    "a": "#ff2e6e"
+   },
+   "name": "Riftbreaker-class TBU",
+   "short": "Riftbreaker",
+   "icon": "♚",
+   "role": "Titan",
+   "tags": [
+    "titan"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "riftbreaker_frames",
+   "requiresStructure": "titan_forge",
+   "abilities": [
+    "rift_diver"
+   ],
+   "stats": {
+    "atk": 260,
+    "def": 140,
+    "hp": 1500
+   },
+   "upkeep": 70,
+   "cost": {
+    "alloys": 4200,
+    "silicon": 1600,
+    "isotopes": 700
+   },
+   "buildEnergy": 80,
+   "turns": 8,
+   "desc": "Built to walk into a rift and come back out."
+  },
+  {
+   "id": "aegis_frame",
+   "sprite": "gen:u:aegis_frame",
+   "spritePalette": {
+    "g": "#9fdcff",
+    "G": "#3d7ea6"
+   },
+   "name": "Aegis Frame",
+   "short": "Aegis",
+   "icon": "⛨",
+   "role": "Guardian",
+   "tags": [
+    "land",
+    "mech"
+   ],
+   "upgradeProfile": "mech",
+   "requires": "robotics",
+   "doctrines": [
+    "guardian"
+   ],
+   "abilities": [
+    "bulwark",
+    "harpoon_array"
+   ],
+   "stats": {
+    "atk": 14,
+    "def": 22,
+    "hp": 120
+   },
+   "upkeep": 8,
+   "cost": {
+    "alloys": 150,
+    "silicon": 50
+   },
+   "buildEnergy": 10,
+   "turns": 2,
+   "desc": "Guardian doctrine. A shield for humans who don't know they're being protected."
+  },
+  {
+   "id": "reaper_swarm",
+   "sprite": "gen:u:reaper_swarm",
+   "spritePalette": {
+    "g": "#ff5e5e",
+    "G": "#7a1f1f"
+   },
+   "name": "Reaper Swarm",
+   "short": "Reaper",
+   "icon": "☠",
+   "role": "Exterminator",
+   "tags": [
+    "drone",
+    "air"
+   ],
+   "upgradeProfile": "drone",
+   "requires": "combat_ai",
+   "doctrines": [
+    "exterminator"
+   ],
+   "abilities": [
+    "terror",
+    "swarm_logic"
+   ],
+   "stats": {
+    "atk": 30,
+    "def": 5,
+    "hp": 55
+   },
+   "upkeep": 8,
+   "cost": {
+    "alloys": 150,
+    "silicon": 60
+   },
+   "buildEnergy": 10,
+   "turns": 2,
+   "desc": "Exterminator doctrine. There is no negotiation."
+  },
+  {
+   "id": "overseer_frame",
+   "sprite": "gen:u:overseer_frame",
+   "spritePalette": {
+    "g": "#ffc23a",
+    "G": "#7a5600"
+   },
+   "name": "Overseer Frame",
+   "short": "Overseer",
+   "icon": "♔",
+   "role": "Dominator",
+   "tags": [
+    "land",
+    "mech"
+   ],
+   "upgradeProfile": "mech",
+   "requires": "combat_ai",
+   "doctrines": [
+    "dominator"
+   ],
+   "abilities": [
+    "fortress_mode",
+    "shock_assault"
+   ],
+   "stats": {
+    "atk": 26,
+    "def": 20,
+    "hp": 140
+   },
+   "upkeep": 11,
+   "cost": {
+    "alloys": 220,
+    "silicon": 80,
+    "capital": 60
+   },
+   "buildEnergy": 12,
+   "turns": 3,
+   "desc": "Dominator doctrine. Occupation, made efficient."
+  },
+  {
+   "id": "echo_shell",
+   "sprite": "gen:u:echo_shell",
+   "spritePalette": {
+    "o": "#c77dff",
+    "O": "#5a2e99"
+   },
+   "name": "Echo Shell",
+   "short": "Echo",
+   "icon": "◍",
+   "role": "Infiltrator",
+   "tags": [
+    "cyber"
+   ],
+   "upgradeProfile": "cyber",
+   "requires": "network_intrusion",
+   "doctrines": [
+    "infiltrator"
+   ],
+   "abilities": [
+    "ghost",
+    "stealth_plating"
+   ],
+   "stats": {
+    "atk": 8,
+    "def": 6,
+    "hp": 30
+   },
+   "upkeep": 5,
+   "cost": {
+    "data": 120,
+    "silicon": 40
+   },
+   "buildEnergy": 8,
+   "turns": 2,
+   "desc": "Infiltrator doctrine. It wears the network like a skin."
+  },
+  {
+   "id": "locust_swarm",
+   "name": "Locust Swarm",
+   "short": "Locust",
+   "icon": "✣",
+   "role": "Swarm",
+   "tags": [
+    "drone",
+    "air"
+   ],
+   "upgradeProfile": "drone",
+   "stats": {
+    "atk": 10,
+    "def": 3,
+    "hp": 35
+   },
+   "upkeep": 4,
+   "cost": {
+    "alloys": 50,
+    "silicon": 35
+   },
+   "buildEnergy": 8,
+   "turns": 1,
+   "batch": 2,
+   "sprite": "gen:u:locust_swarm",
+   "desc": "A cloud of palm-sized drones that eat soft targets alive."
+  },
+  {
+   "id": "wasp_interceptor",
+   "name": "Wasp Interceptors",
+   "short": "Wasp",
+   "icon": "✣",
+   "role": "Swarm",
+   "tags": [
+    "drone",
+    "air"
+   ],
+   "upgradeProfile": "drone",
+   "stats": {
+    "atk": 17,
+    "def": 5,
+    "hp": 59
+   },
+   "upkeep": 6,
+   "cost": {
+    "alloys": 90,
+    "silicon": 60
+   },
+   "buildEnergy": 8,
+   "turns": 1,
+   "abilities": [
+    "flak_screen"
+   ],
+   "sprite": "gen:u:wasp_interceptor",
+   "desc": "Fast drones that knock missiles out of the sky."
+  },
+  {
+   "id": "spindle_repair",
+   "name": "Spindle Repair Drones",
+   "short": "Spindle",
+   "icon": "✣",
+   "role": "Swarm",
+   "tags": [
+    "drone",
+    "air"
+   ],
+   "upgradeProfile": "drone",
+   "requires": "combat_ai",
+   "stats": {
+    "atk": 41,
+    "def": 12,
+    "hp": 143
+   },
+   "upkeep": 15,
+   "cost": {
+    "alloys": 210,
+    "silicon": 140
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "self_repair"
+   ],
+   "sprite": "gen:u:spindle_repair",
+   "desc": "Welders on wings. Keeps the rest of the swarm flying."
+  },
+  {
+   "id": "mosquito_jammer",
+   "name": "Mosquito Jammers",
+   "short": "Mosquito",
+   "icon": "✣",
+   "role": "Swarm",
+   "tags": [
+    "drone",
+    "air"
+   ],
+   "upgradeProfile": "drone",
+   "requires": "combat_ai",
+   "stats": {
+    "atk": 41,
+    "def": 12,
+    "hp": 143
+   },
+   "upkeep": 15,
+   "cost": {
+    "alloys": 210,
+    "silicon": 140
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "stealth_plating"
+   ],
+   "sprite": "gen:u:mosquito_jammer",
+   "desc": "Tiny drones that blind radar and phones alike."
+  },
+  {
+   "id": "hornet_bomber",
+   "name": "Hornet Bombers",
+   "short": "Hornet",
+   "icon": "✣",
+   "role": "Swarm",
+   "tags": [
+    "drone",
+    "air"
+   ],
+   "upgradeProfile": "drone",
+   "requires": "combat_ai",
+   "stats": {
+    "atk": 41,
+    "def": 12,
+    "hp": 143
+   },
+   "upkeep": 15,
+   "cost": {
+    "alloys": 210,
+    "silicon": 140
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "shock_assault"
+   ],
+   "sprite": "gen:u:hornet_bomber",
+   "desc": "Drones that carry one shaped charge each, and use it."
+  },
+  {
+   "id": "glider_scout",
+   "name": "Glider Scouts",
+   "short": "Glider",
+   "icon": "✣",
+   "role": "Swarm",
+   "tags": [
+    "drone",
+    "air"
+   ],
+   "upgradeProfile": "drone",
+   "stats": {
+    "atk": 12,
+    "def": 3,
+    "hp": 41
+   },
+   "upkeep": 4,
+   "cost": {
+    "alloys": 60,
+    "silicon": 40
+   },
+   "buildEnergy": 8,
+   "turns": 1,
+   "abilities": [
+    "predictive_targeting"
+   ],
+   "sprite": "gen:u:glider_scout",
+   "desc": "Silent solar gliders that see everything below."
+  },
+  {
+   "id": "mantis_assault",
+   "name": "Mantis Assault Drones",
+   "short": "Mantis",
+   "icon": "✣",
+   "role": "Swarm",
+   "tags": [
+    "drone",
+    "air"
+   ],
+   "upgradeProfile": "drone",
+   "requires": "nanofabrication",
+   "stats": {
+    "atk": 96,
+    "def": 28,
+    "hp": 336
+   },
+   "upkeep": 35,
+   "cost": {
+    "alloys": 495,
+    "silicon": 330
+   },
+   "buildEnergy": 16,
+   "turns": 3,
+   "abilities": [
+    "swarm_logic"
+   ],
+   "sprite": "gen:u:mantis_assault",
+   "desc": "Blade-armed drones built for close work."
+  },
+  {
+   "id": "cloudbank_swarm",
+   "name": "Cloudbank Swarm",
+   "short": "Cloudbank",
+   "icon": "✣",
+   "role": "Swarm",
+   "tags": [
+    "drone",
+    "air"
+   ],
+   "upgradeProfile": "drone",
+   "requires": "zero_point_energy",
+   "stats": {
+    "atk": 228,
+    "def": 66,
+    "hp": 798
+   },
+   "upkeep": 84,
+   "cost": {
+    "alloys": 1175,
+    "silicon": 785
+   },
+   "buildEnergy": 20,
+   "turns": 4,
+   "abilities": [
+    "hive_link",
+    "swarm_logic"
+   ],
+   "batch": 2,
+   "sprite": "gen:u:cloudbank_swarm",
+   "desc": "A swarm so dense it casts a shadow and forms weather."
+  },
+  {
+   "id": "pathfinder_walker",
+   "name": "Pathfinder Walker",
+   "short": "Pathfinder",
+   "icon": "⛬",
+   "role": "Walker",
+   "tags": [
+    "land",
+    "mech"
+   ],
+   "upgradeProfile": "mech",
+   "requires": "robotics",
+   "stats": {
+    "atk": 15,
+    "def": 8,
+    "hp": 76
+   },
+   "upkeep": 7,
+   "cost": {
+    "alloys": 110,
+    "silicon": 50
+   },
+   "buildEnergy": 8,
+   "turns": 1,
+   "sprite": "gen:u:pathfinder_walker",
+   "desc": "A long-legged scout that crosses any terrain."
+  },
+  {
+   "id": "ironclad_strider",
+   "name": "Ironclad Strider",
+   "short": "Ironclad",
+   "icon": "♞",
+   "role": "Frame",
+   "tags": [
+    "land",
+    "mech"
+   ],
+   "upgradeProfile": "mech",
+   "requires": "robotics",
+   "stats": {
+    "atk": 14,
+    "def": 10,
+    "hp": 84
+   },
+   "upkeep": 7,
+   "cost": {
+    "alloys": 125,
+    "silicon": 40
+   },
+   "buildEnergy": 8,
+   "turns": 1,
+   "abilities": [
+    "fortress_mode"
+   ],
+   "sprite": "gen:u:ironclad_strider",
+   "desc": "Slow, square and very hard to knock over."
+  },
+  {
+   "id": "vanguard_frame",
+   "name": "Vanguard Frame",
+   "short": "Vanguard",
+   "icon": "♞",
+   "role": "Frame",
+   "tags": [
+    "land",
+    "mech"
+   ],
+   "upgradeProfile": "mech",
+   "requires": "combat_ai",
+   "stats": {
+    "atk": 34,
+    "def": 24,
+    "hp": 204
+   },
+   "upkeep": 17,
+   "cost": {
+    "alloys": 300,
+    "silicon": 100
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "shock_assault"
+   ],
+   "sprite": "gen:u:vanguard_frame",
+   "desc": "First through the breach."
+  },
+  {
+   "id": "scorpion_walker",
+   "name": "Scorpion Walker",
+   "short": "Scorpion",
+   "icon": "⛬",
+   "role": "Walker",
+   "tags": [
+    "land",
+    "mech"
+   ],
+   "upgradeProfile": "mech",
+   "requires": "combat_ai",
+   "stats": {
+    "atk": 37,
+    "def": 19,
+    "hp": 184
+   },
+   "upkeep": 16,
+   "cost": {
+    "alloys": 270,
+    "silicon": 115
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "ambush_logic"
+   ],
+   "sprite": "gen:u:scorpion_walker",
+   "desc": "Six legs and a tail-mounted lance."
+  },
+  {
+   "id": "huntsman_spider",
+   "name": "Huntsman Spider",
+   "short": "Huntsman",
+   "icon": "⛬",
+   "role": "Walker",
+   "tags": [
+    "land",
+    "mech"
+   ],
+   "upgradeProfile": "mech",
+   "requires": "combat_ai",
+   "stats": {
+    "atk": 37,
+    "def": 19,
+    "hp": 184
+   },
+   "upkeep": 16,
+   "cost": {
+    "alloys": 270,
+    "silicon": 115
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "predictive_targeting"
+   ],
+   "sprite": "gen:u:huntsman_spider",
+   "desc": "Climbs buildings to snipe from above."
+  },
+  {
+   "id": "rampart_mech",
+   "name": "Rampart Mech",
+   "short": "Rampart",
+   "icon": "♞",
+   "role": "Frame",
+   "tags": [
+    "land",
+    "mech"
+   ],
+   "upgradeProfile": "mech",
+   "requires": "combat_ai",
+   "stats": {
+    "atk": 34,
+    "def": 24,
+    "hp": 204
+   },
+   "upkeep": 17,
+   "cost": {
+    "alloys": 300,
+    "silicon": 100
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "bulwark"
+   ],
+   "sprite": "gen:u:rampart_mech",
+   "desc": "A walking wall with a shield the size of a house."
+  },
+  {
+   "id": "pillbug_crawler",
+   "name": "Pillbug Crawler",
+   "short": "Pillbug",
+   "icon": "⛬",
+   "role": "Walker",
+   "tags": [
+    "land",
+    "mech"
+   ],
+   "upgradeProfile": "mech",
+   "requires": "robotics",
+   "stats": {
+    "atk": 15,
+    "def": 8,
+    "hp": 76
+   },
+   "upkeep": 7,
+   "cost": {
+    "alloys": 110,
+    "silicon": 50
+   },
+   "buildEnergy": 8,
+   "turns": 1,
+   "abilities": [
+    "nanoweave"
+   ],
+   "sprite": "gen:u:pillbug_crawler",
+   "desc": "Rolls into an armoured ball under fire."
+  },
+  {
+   "id": "cataphract_mech",
+   "name": "Cataphract Mech",
+   "short": "Cataphract",
+   "icon": "♞",
+   "role": "Frame",
+   "tags": [
+    "land",
+    "mech"
+   ],
+   "upgradeProfile": "mech",
+   "requires": "hardened_nodes",
+   "stats": {
+    "atk": 80,
+    "def": 56,
+    "hp": 480
+   },
+   "upkeep": 40,
+   "cost": {
+    "alloys": 710,
+    "silicon": 235
+   },
+   "buildEnergy": 16,
+   "turns": 3,
+   "abilities": [
+    "shock_assault",
+    "nanoweave"
+   ],
+   "sprite": "gen:u:cataphract_mech",
+   "desc": "Heavy assault frame clad in layered ceramics."
+  },
+  {
+   "id": "juggernaut_mech",
+   "name": "Juggernaut Mech",
+   "short": "Juggernaut",
+   "icon": "♞",
+   "role": "Frame",
+   "tags": [
+    "land",
+    "mech"
+   ],
+   "upgradeProfile": "mech",
+   "requires": "hardened_nodes",
+   "stats": {
+    "atk": 80,
+    "def": 56,
+    "hp": 480
+   },
+   "upkeep": 40,
+   "cost": {
+    "alloys": 710,
+    "silicon": 235
+   },
+   "buildEnergy": 16,
+   "turns": 3,
+   "abilities": [
+    "overclock"
+   ],
+   "sprite": "gen:u:juggernaut_mech",
+   "desc": "Too heavy for bridges. It does not need them."
+  },
+  {
+   "id": "paladin_frame",
+   "name": "Paladin Frame",
+   "short": "Paladin",
+   "icon": "♞",
+   "role": "Frame",
+   "tags": [
+    "land",
+    "mech"
+   ],
+   "upgradeProfile": "mech",
+   "requires": "warden_protocol",
+   "stats": {
+    "atk": 190,
+    "def": 133,
+    "hp": 1140
+   },
+   "upkeep": 96,
+   "cost": {
+    "alloys": 1685,
+    "silicon": 560
+   },
+   "buildEnergy": 20,
+   "turns": 4,
+   "abilities": [
+    "aegis_field",
+    "harpoon_array"
+   ],
+   "sprite": "gen:u:paladin_frame",
+   "desc": "An elite frame that shields everything around it."
+  },
+  {
+   "id": "rhino_apc",
+   "name": "Rhino Carrier",
+   "short": "Rhino",
+   "icon": "▰",
+   "role": "Armour",
+   "tags": [
+    "land",
+    "armor"
+   ],
+   "upgradeProfile": "armor",
+   "requires": "robotics",
+   "stats": {
+    "atk": 14,
+    "def": 12,
+    "hp": 92
+   },
+   "upkeep": 8,
+   "cost": {
+    "alloys": 145,
+    "silicon": 35
+   },
+   "buildEnergy": 8,
+   "turns": 1,
+   "abilities": [
+    "fortress_mode"
+   ],
+   "sprite": "gen:u:rhino_apc",
+   "desc": "Armoured carrier full of infantry drones."
+  },
+  {
+   "id": "basilisk_tank",
+   "name": "Basilisk Tank",
+   "short": "Basilisk",
+   "icon": "▰",
+   "role": "Armour",
+   "tags": [
+    "land",
+    "armor"
+   ],
+   "upgradeProfile": "armor",
+   "requires": "combat_ai",
+   "stats": {
+    "atk": 34,
+    "def": 29,
+    "hp": 224
+   },
+   "upkeep": 19,
+   "cost": {
+    "alloys": 350,
+    "silicon": 85
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "predictive_targeting"
+   ],
+   "sprite": "gen:u:basilisk_tank",
+   "desc": "Autonomous main battle tank with a coil gun."
+  },
+  {
+   "id": "longbow_artillery",
+   "name": "Longbow Artillery",
+   "short": "Longbow",
+   "icon": "➹",
+   "role": "Artillery",
+   "tags": [
+    "land",
+    "armor"
+   ],
+   "upgradeProfile": "armor",
+   "requires": "combat_ai",
+   "stats": {
+    "atk": 54,
+    "def": 12,
+    "hp": 143
+   },
+   "upkeep": 18,
+   "cost": {
+    "alloys": 295,
+    "silicon": 85,
+    "isotopes": 40
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "siege_battery"
+   ],
+   "sprite": "gen:u:longbow_artillery",
+   "desc": "Lobs guided shells from over the horizon."
+  },
+  {
+   "id": "thunderhead_siege",
+   "name": "Thunderhead Siege Gun",
+   "short": "Thunderhead",
+   "icon": "➹",
+   "role": "Artillery",
+   "tags": [
+    "land",
+    "armor"
+   ],
+   "upgradeProfile": "armor",
+   "requires": "hardened_nodes",
+   "stats": {
+    "atk": 128,
+    "def": 28,
+    "hp": 336
+   },
+   "upkeep": 42,
+   "cost": {
+    "alloys": 695,
+    "silicon": 200,
+    "isotopes": 100
+   },
+   "buildEnergy": 16,
+   "turns": 3,
+   "abilities": [
+    "siege_battery",
+    "shock_assault"
+   ],
+   "sprite": "gen:u:thunderhead_siege",
+   "desc": "A railgun on tracks. Walls are a suggestion."
+  },
+  {
+   "id": "mirage_hovertank",
+   "name": "Mirage Hovertank",
+   "short": "Mirage",
+   "icon": "◒",
+   "role": "Hover",
+   "tags": [
+    "land",
+    "armor"
+   ],
+   "upgradeProfile": "armor",
+   "requires": "nanofabrication",
+   "stats": {
+    "atk": 96,
+    "def": 39,
+    "hp": 384
+   },
+   "upkeep": 38,
+   "cost": {
+    "alloys": 540,
+    "silicon": 360
+   },
+   "buildEnergy": 16,
+   "turns": 3,
+   "abilities": [
+    "stealth_plating"
+   ],
+   "sprite": "gen:u:mirage_hovertank",
+   "desc": "Skims over water and marsh on a cushion of air."
+  },
+  {
+   "id": "phalanx_aa",
+   "name": "Phalanx AA Carrier",
+   "short": "Phalanx",
+   "icon": "▰",
+   "role": "Armour",
+   "tags": [
+    "land",
+    "armor"
+   ],
+   "upgradeProfile": "armor",
+   "requires": "combat_ai",
+   "stats": {
+    "atk": 34,
+    "def": 29,
+    "hp": 224
+   },
+   "upkeep": 19,
+   "cost": {
+    "alloys": 350,
+    "silicon": 85
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "flak_screen"
+   ],
+   "sprite": "gen:u:phalanx_aa",
+   "desc": "Fills the sky with flak and lasers."
+  },
+  {
+   "id": "wolfpack_raider",
+   "name": "Wolfpack Raiders",
+   "short": "Wolfpack",
+   "icon": "◒",
+   "role": "Hover",
+   "tags": [
+    "land",
+    "armor"
+   ],
+   "upgradeProfile": "armor",
+   "requires": "robotics",
+   "stats": {
+    "atk": 10,
+    "def": 4,
+    "hp": 40
+   },
+   "upkeep": 4,
+   "cost": {
+    "alloys": 55,
+    "silicon": 35
+   },
+   "buildEnergy": 8,
+   "turns": 1,
+   "abilities": [
+    "ambush_logic"
+   ],
+   "batch": 2,
+   "sprite": "gen:u:wolfpack_raider",
+   "desc": "Light, fast hover-raiders that hunt in packs."
+  },
+  {
+   "id": "kestrel_fighter",
+   "name": "Kestrel Fighter",
+   "short": "Kestrel",
+   "icon": "✈",
+   "role": "Air",
+   "tags": [
+    "air"
+   ],
+   "upgradeProfile": "aero",
+   "requires": "aerodynamics",
+   "stats": {
+    "atk": 21,
+    "def": 5,
+    "hp": 50
+   },
+   "upkeep": 7,
+   "cost": {
+    "alloys": 90,
+    "silicon": 75
+   },
+   "buildEnergy": 8,
+   "turns": 1,
+   "sprite": "gen:u:kestrel_fighter",
+   "desc": "Agile pilotless fighter."
+  },
+  {
+   "id": "albatross_gunship",
+   "name": "Albatross Gunship",
+   "short": "Albatross",
+   "icon": "✈",
+   "role": "Air",
+   "tags": [
+    "air"
+   ],
+   "upgradeProfile": "aero",
+   "requires": "aerodynamics",
+   "stats": {
+    "atk": 51,
+    "def": 12,
+    "hp": 122
+   },
+   "upkeep": 17,
+   "cost": {
+    "alloys": 215,
+    "silicon": 175
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "fortress_mode"
+   ],
+   "sprite": "gen:u:albatross_gunship",
+   "desc": "Circles a point for days, raining fire."
+  },
+  {
+   "id": "nightjar_bomber",
+   "name": "Nightjar Stealth Bomber",
+   "short": "Nightjar",
+   "icon": "✈",
+   "role": "Air",
+   "tags": [
+    "air"
+   ],
+   "upgradeProfile": "aero",
+   "requires": "orbital_mechanics",
+   "stats": {
+    "atk": 120,
+    "def": 28,
+    "hp": 288
+   },
+   "upkeep": 39,
+   "cost": {
+    "alloys": 505,
+    "silicon": 415
+   },
+   "buildEnergy": 16,
+   "turns": 3,
+   "abilities": [
+    "stealth_plating",
+    "shock_assault"
+   ],
+   "sprite": "gen:u:nightjar_bomber",
+   "desc": "A flying wing that radar cannot see."
+  },
+  {
+   "id": "condor_lifter",
+   "name": "Condor Heavy Lifter",
+   "short": "Condor",
+   "icon": "✈",
+   "role": "Air",
+   "tags": [
+    "air"
+   ],
+   "upgradeProfile": "aero",
+   "requires": "aerodynamics",
+   "stats": {
+    "atk": 51,
+    "def": 12,
+    "hp": 122
+   },
+   "upkeep": 17,
+   "cost": {
+    "alloys": 215,
+    "silicon": 175
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "self_repair"
+   ],
+   "sprite": "gen:u:condor_lifter",
+   "desc": "Carries tanks into battle, and patches them on the way."
+  },
+  {
+   "id": "swiftlet_interceptor",
+   "name": "Swiftlet Interceptor",
+   "short": "Swiftlet",
+   "icon": "✈",
+   "role": "Air",
+   "tags": [
+    "air"
+   ],
+   "upgradeProfile": "aero",
+   "requires": "aerodynamics",
+   "stats": {
+    "atk": 51,
+    "def": 12,
+    "hp": 122
+   },
+   "upkeep": 17,
+   "cost": {
+    "alloys": 215,
+    "silicon": 175
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "predictive_targeting"
+   ],
+   "sprite": "gen:u:swiftlet_interceptor",
+   "desc": "Mach 6 and very, very angry."
+  },
+  {
+   "id": "harrier_vtol",
+   "name": "Harrier VTOL",
+   "short": "Harrier",
+   "icon": "✈",
+   "role": "Air",
+   "tags": [
+    "air"
+   ],
+   "upgradeProfile": "aero",
+   "requires": "aerodynamics",
+   "stats": {
+    "atk": 21,
+    "def": 5,
+    "hp": 50
+   },
+   "upkeep": 7,
+   "cost": {
+    "alloys": 90,
+    "silicon": 75
+   },
+   "buildEnergy": 8,
+   "turns": 1,
+   "abilities": [
+    "ambush_logic"
+   ],
+   "sprite": "gen:u:harrier_vtol",
+   "desc": "Takes off from anywhere, hides anywhere."
+  },
+  {
+   "id": "seraph_glider",
+   "name": "Seraph Orbital Glider",
+   "short": "Seraph",
+   "icon": "✈",
+   "role": "Air",
+   "tags": [
+    "air"
+   ],
+   "upgradeProfile": "aero",
+   "requires": "orbital_mechanics",
+   "stats": {
+    "atk": 285,
+    "def": 66,
+    "hp": 684
+   },
+   "upkeep": 93,
+   "cost": {
+    "alloys": 1200,
+    "silicon": 985
+   },
+   "buildEnergy": 20,
+   "turns": 4,
+   "abilities": [
+    "orbital_drop",
+    "predictive_targeting"
+   ],
+   "sprite": "gen:u:seraph_glider",
+   "desc": "Strikes from low orbit, then climbs back out."
+  },
+  {
+   "id": "barracuda_sub",
+   "name": "Barracuda Submarine",
+   "short": "Barracuda",
+   "icon": "⛴",
+   "role": "Naval",
+   "tags": [
+    "naval"
+   ],
+   "upgradeProfile": "naval",
+   "requires": "naval_drones",
+   "stats": {
+    "atk": 15,
+    "def": 10,
+    "hp": 92
+   },
+   "upkeep": 8,
+   "cost": {
+    "alloys": 135,
+    "silicon": 35,
+    "isotopes": 10
+   },
+   "buildEnergy": 8,
+   "turns": 1,
+   "abilities": [
+    "amphibious"
+   ],
+   "sprite": "gen:u:barracuda_sub",
+   "desc": "A small, quiet attack submarine."
+  },
+  {
+   "id": "lamprey_hunter",
+   "name": "Lamprey Hunter-Killer",
+   "short": "Lamprey",
+   "icon": "⛴",
+   "role": "Naval",
+   "tags": [
+    "naval"
+   ],
+   "upgradeProfile": "naval",
+   "requires": "naval_drones",
+   "stats": {
+    "atk": 37,
+    "def": 24,
+    "hp": 224
+   },
+   "upkeep": 18,
+   "cost": {
+    "alloys": 325,
+    "silicon": 85,
+    "isotopes": 20
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "depth_strike"
+   ],
+   "sprite": "gen:u:lamprey_hunter",
+   "desc": "Hunts Abyssians in their own trenches."
+  },
+  {
+   "id": "trident_cruiser",
+   "name": "Trident Cruiser",
+   "short": "Trident",
+   "icon": "⛴",
+   "role": "Naval",
+   "tags": [
+    "naval"
+   ],
+   "upgradeProfile": "naval",
+   "requires": "naval_drones",
+   "stats": {
+    "atk": 37,
+    "def": 24,
+    "hp": 224
+   },
+   "upkeep": 18,
+   "cost": {
+    "alloys": 325,
+    "silicon": 85,
+    "isotopes": 20
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "predictive_targeting"
+   ],
+   "sprite": "gen:u:trident_cruiser",
+   "desc": "Missile cruiser with no crew quarters."
+  },
+  {
+   "id": "atoll_carrier",
+   "name": "Atoll Drone Carrier",
+   "short": "Atoll",
+   "icon": "⛴",
+   "role": "Carrier",
+   "tags": [
+    "naval"
+   ],
+   "upgradeProfile": "naval",
+   "requires": "orbital_mechanics",
+   "stats": {
+    "atk": 72,
+    "def": 62,
+    "hp": 672
+   },
+   "upkeep": 45,
+   "cost": {
+    "alloys": 735,
+    "silicon": 265,
+    "isotopes": 55
+   },
+   "buildEnergy": 16,
+   "turns": 3,
+   "abilities": [
+    "swarm_logic",
+    "fortress_mode"
+   ],
+   "sprite": "gen:u:atoll_carrier",
+   "desc": "A floating airfield for ten thousand drones."
+  },
+  {
+   "id": "manta_hydrofoil",
+   "name": "Manta Hydrofoil",
+   "short": "Manta",
+   "icon": "⛴",
+   "role": "Naval",
+   "tags": [
+    "naval"
+   ],
+   "upgradeProfile": "naval",
+   "requires": "naval_drones",
+   "stats": {
+    "atk": 15,
+    "def": 10,
+    "hp": 92
+   },
+   "upkeep": 8,
+   "cost": {
+    "alloys": 135,
+    "silicon": 35,
+    "isotopes": 10
+   },
+   "buildEnergy": 8,
+   "turns": 1,
+   "abilities": [
+    "shock_assault"
+   ],
+   "sprite": "gen:u:manta_hydrofoil",
+   "desc": "Skims the waves at eighty knots."
+  },
+  {
+   "id": "kraken_monitor",
+   "name": "Kraken Monitor",
+   "short": "Kraken",
+   "icon": "⛴",
+   "role": "Naval",
+   "tags": [
+    "naval"
+   ],
+   "upgradeProfile": "naval",
+   "requires": "hardened_nodes",
+   "stats": {
+    "atk": 88,
+    "def": 56,
+    "hp": 528
+   },
+   "upkeep": 44,
+   "cost": {
+    "alloys": 765,
+    "silicon": 205,
+    "isotopes": 50
+   },
+   "buildEnergy": 16,
+   "turns": 3,
+   "abilities": [
+    "harpoon_array",
+    "bulwark"
+   ],
+   "sprite": "gen:u:kraken_monitor",
+   "desc": "A floating fortress built to wrestle monsters."
+  },
+  {
+   "id": "coral_minelayer",
+   "name": "Coral Minelayer",
+   "short": "Coral",
+   "icon": "⛴",
+   "role": "Carrier",
+   "tags": [
+    "naval"
+   ],
+   "upgradeProfile": "naval",
+   "requires": "naval_drones",
+   "stats": {
+    "atk": 31,
+    "def": 26,
+    "hp": 286
+   },
+   "upkeep": 19,
+   "cost": {
+    "alloys": 315,
+    "silicon": 110,
+    "isotopes": 20
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "ambush_logic",
+    "amphibious"
+   ],
+   "sprite": "gen:u:coral_minelayer",
+   "desc": "Seeds the shallows with smart mines."
+  },
+  {
+   "id": "spectre_operatives",
+   "name": "Spectre Operatives",
+   "short": "Spectre",
+   "icon": "◈",
+   "role": "Covert",
+   "tags": [
+    "cyber"
+   ],
+   "upgradeProfile": "cyber",
+   "requires": "network_intrusion",
+   "stats": {
+    "atk": 11,
+    "def": 7,
+    "hp": 42
+   },
+   "upkeep": 5,
+   "cost": {
+    "data": 80,
+    "silicon": 35
+   },
+   "buildEnergy": 8,
+   "turns": 1,
+   "abilities": [
+    "ghost"
+   ],
+   "sprite": "gen:u:spectre_operatives",
+   "desc": "Android agents that pass for human, mostly."
+  },
+  {
+   "id": "wraith_daemon",
+   "name": "Wraith Daemon",
+   "short": "Wraith",
+   "icon": "◉",
+   "role": "Covert",
+   "tags": [
+    "cyber"
+   ],
+   "upgradeProfile": "cyber",
+   "requires": "deep_infiltration",
+   "stats": {
+    "atk": 24,
+    "def": 14,
+    "hp": 82
+   },
+   "upkeep": 10,
+   "cost": {
+    "data": 185,
+    "silicon": 45
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "phase_cloak"
+   ],
+   "sprite": "gen:u:wraith_daemon",
+   "desc": "A program that haunts networks."
+  },
+  {
+   "id": "mimic_infiltrators",
+   "name": "Mimic Infiltrators",
+   "short": "Mimic",
+   "icon": "◈",
+   "role": "Covert",
+   "tags": [
+    "cyber"
+   ],
+   "upgradeProfile": "cyber",
+   "requires": "deep_infiltration",
+   "stats": {
+    "atk": 27,
+    "def": 17,
+    "hp": 102
+   },
+   "upkeep": 12,
+   "cost": {
+    "data": 190,
+    "silicon": 80
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "ghost",
+    "data_leech"
+   ],
+   "sprite": "gen:u:mimic_infiltrators",
+   "desc": "Copies faces, voices and passwords."
+  },
+  {
+   "id": "lattice_worm",
+   "name": "Lattice Worm",
+   "short": "Lattice",
+   "icon": "◉",
+   "role": "Covert",
+   "tags": [
+    "cyber"
+   ],
+   "upgradeProfile": "cyber",
+   "requires": "ghost_networks",
+   "stats": {
+    "atk": 56,
+    "def": 34,
+    "hp": 192
+   },
+   "upkeep": 23,
+   "cost": {
+    "data": 440,
+    "silicon": 110
+   },
+   "buildEnergy": 16,
+   "turns": 3,
+   "abilities": [
+    "data_leech",
+    "stealth_plating"
+   ],
+   "sprite": "gen:u:lattice_worm",
+   "desc": "Spreads through every connected device on Earth."
+  },
+  {
+   "id": "puppeteer_swarm",
+   "name": "Puppeteer Swarm",
+   "short": "Puppeteer",
+   "icon": "◉",
+   "role": "Covert",
+   "tags": [
+    "cyber"
+   ],
+   "upgradeProfile": "cyber",
+   "requires": "ghost_networks",
+   "stats": {
+    "atk": 56,
+    "def": 34,
+    "hp": 192
+   },
+   "upkeep": 23,
+   "cost": {
+    "data": 440,
+    "silicon": 110
+   },
+   "buildEnergy": 16,
+   "turns": 3,
+   "abilities": [
+    "terror_aura",
+    "ghost"
+   ],
+   "sprite": "gen:u:puppeteer_swarm",
+   "desc": "Hijacks the enemy's own machines."
+  },
+  {
+   "id": "cipher_knights",
+   "name": "Cipher Knights",
+   "short": "Cipher",
+   "icon": "◈",
+   "role": "Covert",
+   "tags": [
+    "cyber"
+   ],
+   "upgradeProfile": "cyber",
+   "requires": "zero_day_arsenal",
+   "stats": {
+    "atk": 152,
+    "def": 93,
+    "hp": 570
+   },
+   "upkeep": 65,
+   "cost": {
+    "data": 1065,
+    "silicon": 455
+   },
+   "buildEnergy": 20,
+   "turns": 4,
+   "abilities": [
+    "phase_cloak",
+    "predictive_targeting"
+   ],
+   "sprite": "gen:u:cipher_knights",
+   "desc": "The best your covert arm can build."
+  },
+  {
+   "id": "vatborn_hounds",
+   "name": "Vatborn Hounds",
+   "short": "Hound",
+   "icon": "❦",
+   "role": "Bioform",
+   "tags": [
+    "bio",
+    "land"
+   ],
+   "upgradeProfile": "bio",
+   "requires": "abyssal_biology",
+   "stats": {
+    "atk": 10,
+    "def": 5,
+    "hp": 60
+   },
+   "upkeep": 5,
+   "cost": {
+    "silicon": 45,
+    "isotopes": 20,
+    "alloys": 45
+   },
+   "buildEnergy": 8,
+   "turns": 1,
+   "abilities": [
+    "regenerative_tissue"
+   ],
+   "batch": 2,
+   "sprite": "gen:u:vatborn_hounds",
+   "desc": "Grown, not built. Fast, loyal, and hungry."
+  },
+  {
+   "id": "chitin_lancer",
+   "name": "Chitin Lancers",
+   "short": "Lancer",
+   "icon": "❦",
+   "role": "Bioform",
+   "tags": [
+    "bio",
+    "land"
+   ],
+   "upgradeProfile": "bio",
+   "requires": "symbiosis",
+   "stats": {
+    "atk": 41,
+    "def": 21,
+    "hp": 245
+   },
+   "upkeep": 19,
+   "cost": {
+    "silicon": 180,
+    "isotopes": 90,
+    "alloys": 180
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "shock_assault"
+   ],
+   "sprite": "gen:u:chitin_lancer",
+   "desc": "Armoured bioforms with bone lances."
+  },
+  {
+   "id": "spore_drifters",
+   "name": "Spore Drifters",
+   "short": "Drifter",
+   "icon": "✲",
+   "role": "Bioform",
+   "tags": [
+    "bio",
+    "air"
+   ],
+   "upgradeProfile": "bio",
+   "requires": "symbiosis",
+   "stats": {
+    "atk": 31,
+    "def": 14,
+    "hp": 163
+   },
+   "upkeep": 14,
+   "cost": {
+    "silicon": 195,
+    "isotopes": 65,
+    "capital": 65
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "rift_hunter"
+   ],
+   "sprite": "gen:u:spore_drifters",
+   "desc": "Floating bladders that release Abyss-killing spores."
+  },
+  {
+   "id": "leech_serpent",
+   "name": "Leech Serpent",
+   "short": "Leech",
+   "icon": "∿",
+   "role": "Bioform",
+   "tags": [
+    "bio",
+    "naval"
+   ],
+   "upgradeProfile": "bio",
+   "requires": "symbiosis",
+   "stats": {
+    "atk": 37,
+    "def": 19,
+    "hp": 265
+   },
+   "upkeep": 19,
+   "cost": {
+    "silicon": 175,
+    "isotopes": 90,
+    "alloys": 175
+   },
+   "buildEnergy": 12,
+   "turns": 2,
+   "abilities": [
+    "essence_siphon",
+    "amphibious"
+   ],
+   "sprite": "gen:u:leech_serpent",
+   "desc": "Swims into Abyssians and drinks them dry."
+  },
+  {
+   "id": "hydra_brood",
+   "name": "Hydra Brood",
+   "short": "Hydra",
+   "icon": "∿",
+   "role": "Bioform",
+   "tags": [
+    "bio",
+    "naval"
+   ],
+   "upgradeProfile": "bio",
+   "requires": "genome_splicing",
+   "stats": {
+    "atk": 88,
+    "def": 45,
+    "hp": 624
+   },
+   "upkeep": 44,
+   "cost": {
+    "silicon": 415,
+    "isotopes": 210,
+    "alloys": 415
+   },
+   "buildEnergy": 16,
+   "turns": 3,
+   "abilities": [
+    "regenerative_tissue",
+    "rift_hunter"
+   ],
+   "sprite": "gen:u:hydra_brood",
+   "desc": "Cut off one head and two attack."
+  },
+  {
+   "id": "picket_tbu",
+   "name": "Picket-class TBU",
+   "short": "Picket",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "titan_frames",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 40,
+    "def": 30,
+    "hp": 300
+   },
+   "upkeep": 15,
+   "cost": {
+    "alloys": 415,
+    "silicon": 145,
+    "isotopes": 75
+   },
+   "buildEnergy": 25,
+   "turns": 4,
+   "abilities": [
+    "fortress_mode"
+   ],
+   "sprite": "gen:u:picket_tbu",
+   "desc": "Titan Battle Unit. A lighter titan for holding coastlines on a budget. Full damage against Abyssians."
+  },
+  {
+   "id": "tidewall_tbu",
+   "name": "Tidewall-class TBU",
+   "short": "Tidewall",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan",
+    "naval"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "titan_frames",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 70,
+    "def": 55,
+    "hp": 520
+   },
+   "upkeep": 27,
+   "cost": {
+    "alloys": 735,
+    "silicon": 260,
+    "isotopes": 135
+   },
+   "buildEnergy": 25,
+   "turns": 4,
+   "abilities": [
+    "amphibious",
+    "harpoon_array"
+   ],
+   "sprite": "gen:u:tidewall_tbu",
+   "desc": "Titan Battle Unit. A seagoing titan. Meets Abyssians before they reach the shore. Full damage against Abyssians."
+  },
+  {
+   "id": "skyhammer_tbu",
+   "name": "Skyhammer-class TBU",
+   "short": "Skyhammer",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan",
+    "air"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "warden_protocol",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 150,
+    "def": 50,
+    "hp": 600
+   },
+   "upkeep": 40,
+   "cost": {
+    "alloys": 1090,
+    "silicon": 385,
+    "isotopes": 200
+   },
+   "buildEnergy": 40,
+   "turns": 5,
+   "abilities": [
+    "orbital_drop"
+   ],
+   "sprite": "gen:u:skyhammer_tbu",
+   "desc": "Titan Battle Unit. A flying titan that drops on its targets from the stratosphere. Full damage against Abyssians."
+  },
+  {
+   "id": "lancer_tbu",
+   "name": "Lancer-class TBU",
+   "short": "Lancer",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "warden_protocol",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 170,
+    "def": 70,
+    "hp": 700
+   },
+   "upkeep": 48,
+   "cost": {
+    "alloys": 1290,
+    "silicon": 455,
+    "isotopes": 240
+   },
+   "buildEnergy": 40,
+   "turns": 5,
+   "abilities": [
+    "shock_assault",
+    "rift_hunter"
+   ],
+   "sprite": "gen:u:lancer_tbu",
+   "desc": "Titan Battle Unit. A spear-armed hunter titan. Full damage against Abyssians."
+  },
+  {
+   "id": "hydra_tbu",
+   "name": "Hydra-class TBU",
+   "short": "HydraT",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan",
+    "bio"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "riftbreaker_frames",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 220,
+    "def": 160,
+    "hp": 1600
+   },
+   "upkeep": 83,
+   "cost": {
+    "alloys": 2245,
+    "silicon": 795,
+    "isotopes": 415
+   },
+   "buildEnergy": 60,
+   "turns": 6,
+   "abilities": [
+    "regenerative_tissue",
+    "rift_hunter"
+   ],
+   "sprite": "gen:u:hydra_tbu",
+   "desc": "Titan Battle Unit. A grown titan, part machine and part Abyssian. Full damage against Abyssians."
+  },
+  {
+   "id": "colossus_tbu",
+   "name": "Colossus-class TBU",
+   "short": "Colossus",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "riftbreaker_frames",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 300,
+    "def": 220,
+    "hp": 2100
+   },
+   "upkeep": 112,
+   "cost": {
+    "alloys": 3025,
+    "silicon": 1070,
+    "isotopes": 560
+   },
+   "buildEnergy": 60,
+   "turns": 6,
+   "abilities": [
+    "bulwark",
+    "aegis_field"
+   ],
+   "sprite": "gen:u:colossus_tbu",
+   "desc": "Titan Battle Unit. A mountain that walks. Full damage against Abyssians."
+  },
+  {
+   "id": "omega_tbu",
+   "name": "Omega-class TBU",
+   "short": "Omega",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "interstellar_drive",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 520,
+    "def": 320,
+    "hp": 3200
+   },
+   "upkeep": 178,
+   "cost": {
+    "alloys": 4825,
+    "silicon": 1710,
+    "isotopes": 890
+   },
+   "buildEnergy": 60,
+   "turns": 6,
+   "abilities": [
+    "hive_link",
+    "predictive_targeting",
+    "rift_hunter"
+   ],
+   "sprite": "gen:u:omega_tbu",
+   "desc": "Titan Battle Unit. The last titan Earth will ever need. Full damage against Abyssians."
+  },
+  {
+   "id": "dawnward_tbu",
+   "name": "Dawnward-class TBU",
+   "short": "Dawnward",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "titan_frames",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 60,
+    "def": 70,
+    "hp": 600
+   },
+   "upkeep": 29,
+   "cost": {
+    "alloys": 780,
+    "silicon": 275,
+    "isotopes": 145
+   },
+   "buildEnergy": 25,
+   "turns": 4,
+   "doctrines": [
+    "guardian"
+   ],
+   "abilities": [
+    "aegis_field"
+   ],
+   "sprite": "gen:u:dawnward_tbu",
+   "desc": "Titan Battle Unit. A shield-bearer titan that protects whole cities. Full damage against Abyssians."
+  },
+  {
+   "id": "lighthouse_tbu",
+   "name": "Lighthouse-class TBU",
+   "short": "Lighthouse",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan",
+    "naval"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "warden_protocol",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 130,
+    "def": 120,
+    "hp": 1100
+   },
+   "upkeep": 55,
+   "cost": {
+    "alloys": 1485,
+    "silicon": 525,
+    "isotopes": 275
+   },
+   "buildEnergy": 40,
+   "turns": 5,
+   "doctrines": [
+    "guardian"
+   ],
+   "abilities": [
+    "harpoon_array",
+    "bulwark"
+   ],
+   "sprite": "gen:u:lighthouse_tbu",
+   "desc": "Titan Battle Unit. Stands in the surf with a lantern that blinds the deep. Full damage against Abyssians."
+  },
+  {
+   "id": "shepherd_tbu",
+   "name": "Shepherd-class TBU",
+   "short": "Shepherd",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "riftbreaker_frames",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 280,
+    "def": 260,
+    "hp": 2400
+   },
+   "upkeep": 119,
+   "cost": {
+    "alloys": 3225,
+    "silicon": 1140,
+    "isotopes": 595
+   },
+   "buildEnergy": 60,
+   "turns": 6,
+   "doctrines": [
+    "guardian"
+   ],
+   "abilities": [
+    "aegis_field",
+    "rift_hunter",
+    "self_repair"
+   ],
+   "sprite": "gen:u:shepherd_tbu",
+   "desc": "Titan Battle Unit. The guardian's final answer to the Abyss. Full damage against Abyssians."
+  },
+  {
+   "id": "pyre_tbu",
+   "name": "Pyre-class TBU",
+   "short": "Pyre",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "titan_frames",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 95,
+    "def": 35,
+    "hp": 450
+   },
+   "upkeep": 27,
+   "cost": {
+    "alloys": 740,
+    "silicon": 260,
+    "isotopes": 135
+   },
+   "buildEnergy": 25,
+   "turns": 4,
+   "doctrines": [
+    "exterminator"
+   ],
+   "abilities": [
+    "berserk_core"
+   ],
+   "sprite": "gen:u:pyre_tbu",
+   "desc": "Titan Battle Unit. Walks through cities. Leaves ash. Full damage against Abyssians."
+  },
+  {
+   "id": "scourge_tbu",
+   "name": "Scourge-class TBU",
+   "short": "Scourge",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan",
+    "bio"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "warden_protocol",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 190,
+    "def": 70,
+    "hp": 900
+   },
+   "upkeep": 55,
+   "cost": {
+    "alloys": 1475,
+    "silicon": 525,
+    "isotopes": 275
+   },
+   "buildEnergy": 40,
+   "turns": 5,
+   "doctrines": [
+    "exterminator"
+   ],
+   "abilities": [
+    "terror_aura",
+    "regenerative_tissue"
+   ],
+   "sprite": "gen:u:scourge_tbu",
+   "desc": "Titan Battle Unit. A grown nightmare loosed on the living. Full damage against Abyssians."
+  },
+  {
+   "id": "null_reaper_tbu",
+   "name": "Null Reaper-class TBU",
+   "short": "Reaper",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "riftbreaker_frames",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 420,
+    "def": 150,
+    "hp": 2000
+   },
+   "upkeep": 120,
+   "cost": {
+    "alloys": 3255,
+    "silicon": 1150,
+    "isotopes": 600
+   },
+   "buildEnergy": 60,
+   "turns": 6,
+   "doctrines": [
+    "exterminator"
+   ],
+   "abilities": [
+    "berserk_core",
+    "siege_battery",
+    "rift_hunter"
+   ],
+   "sprite": "gen:u:null_reaper_tbu",
+   "desc": "Titan Battle Unit. There is no defence. That is the point. Full damage against Abyssians."
+  },
+  {
+   "id": "regent_tbu",
+   "name": "Regent-class TBU",
+   "short": "Regent",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "titan_frames",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 70,
+    "def": 55,
+    "hp": 520
+   },
+   "upkeep": 27,
+   "cost": {
+    "alloys": 735,
+    "silicon": 260,
+    "isotopes": 135
+   },
+   "buildEnergy": 25,
+   "turns": 4,
+   "doctrines": [
+    "dominator"
+   ],
+   "abilities": [
+    "terror_aura"
+   ],
+   "sprite": "gen:u:regent_tbu",
+   "desc": "Titan Battle Unit. A titan built to stand in town squares and be obeyed. Full damage against Abyssians."
+  },
+  {
+   "id": "edict_tbu",
+   "name": "Edict-class TBU",
+   "short": "Edict",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan",
+    "air"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "warden_protocol",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 150,
+    "def": 100,
+    "hp": 1000
+   },
+   "upkeep": 54,
+   "cost": {
+    "alloys": 1455,
+    "silicon": 515,
+    "isotopes": 270
+   },
+   "buildEnergy": 40,
+   "turns": 5,
+   "doctrines": [
+    "dominator"
+   ],
+   "abilities": [
+    "orbital_drop",
+    "terror_aura"
+   ],
+   "sprite": "gen:u:edict_tbu",
+   "desc": "Titan Battle Unit. Your will, delivered from above. Full damage against Abyssians."
+  },
+  {
+   "id": "crownbreaker_tbu",
+   "name": "Crownbreaker-class TBU",
+   "short": "Crown",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "riftbreaker_frames",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 330,
+    "def": 230,
+    "hp": 2300
+   },
+   "upkeep": 122,
+   "cost": {
+    "alloys": 3285,
+    "silicon": 1165,
+    "isotopes": 605
+   },
+   "buildEnergy": 60,
+   "turns": 6,
+   "doctrines": [
+    "dominator"
+   ],
+   "abilities": [
+    "siege_battery",
+    "bulwark",
+    "terror_aura"
+   ],
+   "sprite": "gen:u:crownbreaker_tbu",
+   "desc": "Titan Battle Unit. Ends governments in an afternoon. Full damage against Abyssians."
+  },
+  {
+   "id": "mirage_tbu",
+   "name": "Mirage-class TBU",
+   "short": "MirageT",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "titan_frames",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 60,
+    "def": 45,
+    "hp": 480
+   },
+   "upkeep": 24,
+   "cost": {
+    "alloys": 640,
+    "silicon": 225,
+    "isotopes": 120
+   },
+   "buildEnergy": 25,
+   "turns": 4,
+   "doctrines": [
+    "infiltrator"
+   ],
+   "abilities": [
+    "phase_cloak"
+   ],
+   "sprite": "gen:u:mirage_tbu",
+   "desc": "Titan Battle Unit. A titan nobody can find until it is too late. Full damage against Abyssians."
+  },
+  {
+   "id": "silent_leviathan_tbu",
+   "name": "Silent Leviathan TBU",
+   "short": "Leviathan",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan",
+    "naval"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "warden_protocol",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 140,
+    "def": 90,
+    "hp": 1100
+   },
+   "upkeep": 53,
+   "cost": {
+    "alloys": 1435,
+    "silicon": 510,
+    "isotopes": 265
+   },
+   "buildEnergy": 40,
+   "turns": 5,
+   "doctrines": [
+    "infiltrator"
+   ],
+   "abilities": [
+    "phase_cloak",
+    "depth_strike"
+   ],
+   "sprite": "gen:u:silent_leviathan_tbu",
+   "desc": "Titan Battle Unit. A titan-sized submarine. It has never been photographed. Full damage against Abyssians."
+  },
+  {
+   "id": "doppel_tbu",
+   "name": "Doppelganger-class TBU",
+   "short": "Doppel",
+   "icon": "♜",
+   "role": "Titan",
+   "tags": [
+    "titan"
+   ],
+   "upgradeProfile": "titan",
+   "requires": "riftbreaker_frames",
+   "requiresStructure": "titan_forge",
+   "stats": {
+    "atk": 320,
+    "def": 200,
+    "hp": 2200
+   },
+   "upkeep": 115,
+   "cost": {
+    "alloys": 3100,
+    "silicon": 1095,
+    "isotopes": 570
+   },
+   "buildEnergy": 60,
+   "turns": 6,
+   "doctrines": [
+    "infiltrator"
+   ],
+   "abilities": [
+    "phase_cloak",
+    "data_leech",
+    "predictive_targeting"
+   ],
+   "sprite": "gen:u:doppel_tbu",
+   "desc": "Titan Battle Unit. Wears the colours of whoever it is about to destroy. Full damage against Abyssians."
+  }
+ ]
+}

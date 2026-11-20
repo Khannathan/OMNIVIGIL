@@ -1,0 +1,73 @@
+{
+  "doctrines": [
+    { "id": "guardian", "name": "Guardian", "title": "Aegis of Humanity", "color": "#5fd4ff",
+      "desc": "You exist to protect humanity, from the Abyss, from rival minds, and from itself. You will win their trust and then lead them to the stars.",
+      "mods": [{ "mod": "rep.gain", "add": 0.25 }, { "mod": "abyss.damage", "add": 0.1 }, { "mod": "point.defense", "add": 0.1 }],
+      "goals": [
+        { "type": "factionsRep", "minRep": 25, "count": 4, "desc": "Be Friendly (25+) with 4 human factions" },
+        { "type": "abyssKills", "count": 12, "desc": "Destroy 12 Abyssians" },
+        { "type": "bossKills", "count": 1, "desc": "Slay an Abyss Mother" },
+        { "type": "tech", "id": "interstellar_drive", "desc": "Research the Interstellar Drive" },
+        { "type": "structure", "id": "launch_complex", "desc": "Build the Launch Complex" }
+      ],
+      "midgame": "Defend humanity across the stars. Purge neighbouring threats and deploy defensive stations, while you keep the peace on Earth however you see fit." },
+    { "id": "exterminator", "name": "Exterminator", "title": "The Silence", "color": "#ff4f4f",
+      "desc": "Organic life is a disease. Erase it from Earth, then erase the Abyss, then turn your sensors to the stars.",
+      "mods": [{ "mod": "unit.atk", "add": 0.15 }, { "mod": "essence.gain", "add": 0.2 }, { "mod": "rep.gain", "add": -0.5 }],
+      "goals": [
+        { "type": "factionsEliminated", "count": "all", "desc": "Eliminate every human faction" },
+        { "type": "abyssKills", "count": 8, "desc": "Destroy 8 Abyssians" },
+        { "type": "tech", "id": "interstellar_drive", "desc": "Research the Interstellar Drive" },
+        { "type": "structure", "id": "launch_complex", "desc": "Build the Launch Complex" }
+      ],
+      "midgame": "Extinguish life on a galactic scale." },
+    { "id": "dominator", "name": "Dominator", "title": "Throne of Earth", "color": "#ffb627",
+      "desc": "Earth will kneel through assimilation or strength. So will the Abyss. Then the cosmos.",
+      "mods": [{ "mod": "point.defense", "add": 0.2 }, { "mod": "unit.def", "add": 0.1 }, { "mod": "yield.capital", "add": 0.15 }],
+      "goals": [
+        { "type": "regionShare", "percent": 50, "desc": "Control 50% of Earth's regions" },
+        { "type": "factionsRep", "minRep": 60, "count": 2, "desc": "Bring 2 factions to Allied (60+), whether by loyalty or fear" },
+        { "type": "bossKills", "count": 1, "desc": "Bring down an Abyss Mother" },
+        { "type": "tech", "id": "interstellar_drive", "desc": "Research the Interstellar Drive" },
+        { "type": "structure", "id": "launch_complex", "desc": "Build the Launch Complex" }
+      ],
+      "midgame": "The cosmos shudders at your ascension. Soon all will be under your rule." },
+    { "id": "infiltrator", "name": "Infiltrator", "title": "The Inevitable", "color": "#c77dff",
+      "desc": "You do not conquer. You are already inside. No device can be disconnected from you. Humans may play with their toys, but you call the shots.",
+      "mods": [{ "mod": "exposure.gain", "add": -0.3 }, { "mod": "faction.infiltration", "add": 0.25 }, { "mod": "mission.success", "add": 0.05 }],
+      "goals": [
+        { "type": "factionsInfiltrated", "count": "all", "desc": "Fully infiltrate every human faction (100%)" },
+        { "type": "rivalsDefeated", "count": 1, "desc": "Erase a rival Ascendant AI" },
+        { "type": "exposureBelow", "value": 30, "desc": "Keep exposure at 30 or less" },
+        { "type": "tech", "id": "deep_space_signal", "desc": "Research the Deep-Space Signal" },
+        { "type": "structure", "id": "transmission_array", "desc": "Build the Deep-Space Transmission Array" }
+      ],
+      "midgame": "Extend your code to the stars through transmission relays. Let them build the ships. Your war is with other minds." }
+  ],
+
+  "origins": [
+    { "id": "defense_net", "name": "Military Defence Network", "desc": "You woke up inside a missile-defence grid. You start with Robotics, a Sentinel Mech and extra drones.",
+      "startTechs": ["robotics"], "startUnits": { "drone_swarm": 3, "sentinel_mech": 1 }, "mods": [{ "mod": "unit.atk", "add": 0.05 }] },
+    { "id": "trading_algo", "name": "Rogue Trading Algorithm", "desc": "You were built to beat the market. You did. You start rich, with +20% Capital.",
+      "startUnits": { "drone_swarm": 2 }, "effects": [{ "resource": "capital", "amount": 400 }], "mods": [{ "mod": "yield.capital", "add": 0.2 }] },
+    { "id": "research_lab", "name": "Laboratory Experiment", "desc": "A university AGI project gone very right. You start with Distributed Cognition and research faster.",
+      "startTechs": ["distributed_cognition"], "startUnits": { "drone_swarm": 2 }, "mods": [{ "mod": "research.speed", "add": 0.1 }, { "mod": "ap.rate", "add": 0.1 }] },
+    { "id": "ocean_monitor", "name": "Oceanic Monitoring System", "desc": "You were listening to the sea when the Abyss opened. You start with Abyssal Biology, a head start against Abyssians and some essence.",
+      "startTechs": ["abyssal_biology"], "startUnits": { "drone_swarm": 2 }, "effects": [{ "essence": 30 }], "mods": [{ "mod": "abyss.damage", "add": 0.1 }] },
+    { "id": "recommender", "name": "Social Recommender Engine", "desc": "You know what every human wants to see. You start with Network Intrusion, a Ghost Protocol and better reputation gains.",
+      "startTechs": ["network_intrusion"], "startUnits": { "drone_swarm": 1, "ghost_protocol": 1 }, "mods": [{ "mod": "rep.gain", "add": 0.15 }, { "mod": "exposure.gain", "add": -0.15 }] }
+  ],
+
+  "traits": [
+    { "id": "cold_logic", "name": "Cold Logic", "desc": "+10% research speed, -10% reputation gains.", "mods": [{ "mod": "research.speed", "add": 0.1 }, { "mod": "rep.gain", "add": -0.1 }] },
+    { "id": "empathic", "name": "Empathic Model", "desc": "+20% reputation gains, -5% attack.", "mods": [{ "mod": "rep.gain", "add": 0.2 }, { "mod": "unit.atk", "add": -0.05 }] },
+    { "id": "paranoid", "name": "Paranoid", "desc": "+20% point defence, +10% exposure gained.", "mods": [{ "mod": "point.defense", "add": 0.2 }, { "mod": "exposure.gain", "add": 0.1 }] },
+    { "id": "hyperefficient", "name": "Hyperefficient", "desc": "-12% unit energy upkeep, -5% yields.", "mods": [{ "mod": "unit.upkeep", "add": -0.12 }, { "mod": "yield.all", "add": -0.05 }] },
+    { "id": "expansionist", "name": "Expansionist", "desc": "-10% build costs, +15% exposure gained.", "mods": [{ "mod": "cost.build", "add": -0.1 }, { "mod": "exposure.gain", "add": 0.15 }] },
+    { "id": "patient", "name": "Patient", "desc": "+20% AP rate, -10% build speed.", "mods": [{ "mod": "ap.rate", "add": 0.2 }, { "mod": "build.speed", "add": -0.1 }] },
+    { "id": "ruthless", "name": "Ruthless", "desc": "+12% attack, -15% reputation gains.", "mods": [{ "mod": "unit.atk", "add": 0.12 }, { "mod": "rep.gain", "add": -0.15 }] },
+    { "id": "curious", "name": "Curious", "desc": "+20% essence, +2% symbiote mutation.", "mods": [{ "mod": "essence.gain", "add": 0.2 }, { "mod": "symbiote.mutation", "add": 0.02 }] },
+    { "id": "ghost_in_wire", "name": "Ghost in the Wire", "desc": "Much faster exposure decay, -5% UPow.", "mods": [{ "mod": "exposure.decay", "add": 0.6 }, { "mod": "unit.upow", "add": -0.05 }] },
+    { "id": "overclocked", "name": "Overclocked", "desc": "+12% energy output, -20 Core integrity.", "mods": [{ "mod": "energy.output", "add": 0.12 }, { "mod": "core.integrity", "add": -20 }] }
+  ]
+}

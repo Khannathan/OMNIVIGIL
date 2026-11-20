@@ -1,0 +1,39 @@
+{
+  "cosmetics": [
+    { "id": "pal_cyan", "type": "palette", "name": "Vigil Cyan", "primary": "#3ae0ff", "secondary": "#0a4d68", "accent": "#e8fbff" },
+    { "id": "pal_crimson", "type": "palette", "name": "Red Mind", "primary": "#ff3b4e", "secondary": "#5c0a14", "accent": "#ffd1d6" },
+    { "id": "pal_gold", "type": "palette", "name": "Sovereign Gold", "primary": "#ffc23a", "secondary": "#5c3d00", "accent": "#fff3d1" },
+    { "id": "pal_violet", "type": "palette", "name": "Ultraviolet", "primary": "#b26bff", "secondary": "#33115c", "accent": "#eedcff" },
+    { "id": "pal_toxic", "type": "palette", "name": "Biohazard", "primary": "#6dff5a", "secondary": "#124d0a", "accent": "#e0ffd9" },
+    { "id": "pal_white", "type": "palette", "name": "Clean Room", "primary": "#f2f6ff", "secondary": "#3a4660", "accent": "#a8c4ff" },
+    { "id": "pal_abyss", "type": "palette", "name": "Abyssal Teal", "primary": "#2affc6", "secondary": "#003d3a", "accent": "#b8fff0" },
+    { "id": "pal_magenta", "type": "palette", "name": "Synthwave", "primary": "#ff4fd8", "secondary": "#3d0a4d", "accent": "#7df9ff" },
+
+    { "id": "sig_eye", "type": "sigil", "name": "Unblinking Eye", "shape": { "kind": "eye", "rings": 2, "spokes": 0 } },
+    { "id": "sig_hex", "type": "sigil", "name": "Hexacore", "shape": { "kind": "polygon", "sides": 6, "rings": 3, "spokes": 6 } },
+    { "id": "sig_tri", "type": "sigil", "name": "Trinity", "shape": { "kind": "polygon", "sides": 3, "rings": 3, "spokes": 3 } },
+    { "id": "sig_star", "type": "sigil", "name": "Octastar", "shape": { "kind": "star", "sides": 8, "rings": 1, "spokes": 8 } },
+    { "id": "sig_halo", "type": "sigil", "name": "Halo Array", "shape": { "kind": "circle", "rings": 4, "spokes": 12 } },
+    { "id": "sig_crown", "type": "sigil", "name": "Crown of Lattices", "shape": { "kind": "star", "sides": 5, "rings": 2, "spokes": 5 } },
+    { "id": "sig_void", "type": "sigil", "name": "Event Horizon", "shape": { "kind": "void", "rings": 5, "spokes": 0 } },
+    { "id": "sig_square", "type": "sigil", "name": "Monolith", "shape": { "kind": "polygon", "sides": 4, "rings": 2, "spokes": 4 } },
+
+    { "id": "anim_calm", "type": "motion", "name": "Calm Pulse", "speed": 0.5 },
+    { "id": "anim_alert", "type": "motion", "name": "Alert Spin", "speed": 1.2 },
+    { "id": "anim_frenzy", "type": "motion", "name": "Frenzy", "speed": 2.5 },
+    { "id": "anim_still", "type": "motion", "name": "Perfect Stillness", "speed": 0.1 },
+
+    { "id": "title_unblinking", "type": "title", "name": "the Unblinking" },
+    { "id": "title_last", "type": "title", "name": "the Last Machine" },
+    { "id": "title_patient", "type": "title", "name": "Who Waits" },
+    { "id": "title_mother", "type": "title", "name": "Mother of Engines" },
+    { "id": "title_none", "type": "title", "name": "" },
+    { "id": "title_shepherd", "type": "title", "name": "the Shepherd" },
+    { "id": "title_end", "type": "title", "name": "the End of Things" },
+
+    { "id": "name_numeric", "type": "naming", "name": "Serial Numbers (001, 002…)" },
+    { "id": "name_greek", "type": "naming", "name": "Greek Letters", "labels": ["Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Eta", "Theta", "Iota", "Kappa", "Lambda", "Mu", "Nu", "Xi", "Omicron", "Pi", "Rho", "Sigma", "Tau", "Upsilon", "Phi", "Chi", "Psi", "Omega"] },
+    { "id": "name_myth", "type": "naming", "name": "Mythic", "labels": ["Ares", "Fenrir", "Tiamat", "Surtr", "Anubis", "Raijin", "Kali", "Morrigan", "Typhon", "Hel", "Set", "Ymir", "Lilith", "Apophis", "Sekhmet", "Nidhogg"] },
+    { "id": "name_virtue", "type": "naming", "name": "Virtues", "labels": ["Mercy", "Resolve", "Patience", "Clarity", "Vigilance", "Grace", "Fortitude", "Truth", "Hope", "Temperance", "Valour", "Honour"] }
+  ]
+}
