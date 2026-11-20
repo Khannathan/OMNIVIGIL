@@ -28,7 +28,10 @@ def tint(im, hexc):
     return out
 sheet2 = Image.open(art / 'icons2.png').convert('RGBA')
 icon = lambda row, i: sheet.crop((i * 12, row * 12, i * 12 + 12, row * 12 + 12))
-dock = [(k, icon(0, i)) for i, k in enumerate(meta['dock'])] + [(k, sheet2.crop((i * 12, 0, i * 12 + 12, 12))) for i, k in enumerate(meta.get('dock2', []))]
+sheet3 = Image.open(art / 'icons3.png').convert('RGBA')
+strip = lambda im, i: im.crop((i * 12, 0, i * 12 + 12, 12))
+dock = [(k, icon(0, i)) for i, k in enumerate(meta['dock'])] + [(k, strip(sheet2, i)) for i, k in enumerate(meta.get('dock2', []))] \
+     + [(k, strip(sheet3, i)) for i, k in enumerate(meta.get('dock3', []))]
 G = 'body:not(.no-prism-icons)'
 # only ids that have an icon lose their glyph, so a new dock entry or resource keeps its text icon
 D = ', '.join(f'{G} .dock-btn[data-id="{k}"] > span' for k, _ in dock)

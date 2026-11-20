@@ -12,6 +12,7 @@
 //    owner's colour in three shades. One canvas is cached per (unit, team, frame).
 //  - Sheets face right and are anchored bottom-centre (feet on the last row; flyers carry the
 //    space below them so their fall in the death animation stays in frame).
+//  - Starships (corvette, frigate, dreadnought), the orbital station and serpent-style units (batch 1b).
 //  - Creatures and Abyssians (batch 3): cr:<id> map to one of seven creature designs, ab_* ids to
 //    their own art; their manifest keys keep the creatures/ prefix.
 //  - Static map art (batch 2): structures by generated style (24 styles), the 11 strategic sites,
@@ -77,6 +78,9 @@ export function prismFor(id: string): string | null {
   if (!def || def.gen !== 'unit') return null;
   if (id.startsWith('cr:')) return 'creatures/' + (CREATURE[id.slice(3)] || CREATURE_STYLE[def.style] || 'crawler');
   const uid = id.startsWith('gen:u:') ? id.slice(6) : id;
+  if (def.style === 'starship') return /carrier|dreadnought/.test(uid) ? 'dreadnought' : /frigate|destroyer|cruiser/.test(uid) ? 'frigate' : 'corvette';
+  if (def.style === 'station') return 'station';
+  if (def.style === 'serpent') return 'creatures/serpent';
   for (const [re, p] of BY_UNIT) if (re.test(uid)) return p;
   return BY_STYLE[def.style] || null;
 }
