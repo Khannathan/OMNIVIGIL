@@ -395,7 +395,7 @@
       return `<label class="urow ${on ? 'on' : ''}"><input type="checkbox" data-change="toggleMU" value="${u.id}" ${on ? 'checked' : ''}> ${esc(db.units[u.type].icon)} ${esc(u.name)} <small>${loc} · ${Math.round(u.hpFrac * 100)}% · power ${fmt(Math.round(pw))}</small>${(db.units[u.type].tags || []).map((t) => UI.tagChip(t)).join('')}</label>`;
     }).join('');
     const active = st.missions.map((r) => `<div class="proc"><b>${esc(db.missions[r.mission].name)}</b> → ${esc(r.target ? r.target.label : '')}${r.planet && r.planet !== 'earth' ? ' · ' + esc(OV.planetName(st, r.planet)) : ''} <small>${r.turnsLeft} cycle(s) · ${r.units.map((id) => st.units[id] ? st.units[id].name : '').join(', ')}</small></div>`).join('');
-    return `<div class="split"><div class="col-list scroll"><h3>Mission types</h3>${mlist}</div><div class="col-main scroll">
+    return `<div class="split"><div class="col-list scroll"><h3>Operations</h3>${mlist}</div><div class="col-main scroll">
       <h2>${esc(m.icon || '')} ${esc(m.name)}</h2><p class="muted">${esc(m.desc || '')}</p>
       <div class="kv"><span>Type</span><b>${esc(m.kind)}${m.abyss ? ' · anti-Abyssal' : ''}</b><span>Duration</span><b>${m.duration || 2} cycle(s)</b>${m.requiresTags ? `<span>Needs</span><b>${m.requiresTags.join(', ')} unit</b>` : ''}${m.cost ? `<span>Cost</span><b>${UI.costHTML(m.cost, st)}</b>` : ''}</div>
       ${m.target === 'planet' ? '' : `<p class="small muted">Targets on ${esc(OV.planetName(st, st.planet || 'earth'))}. Switch worlds from the top bar to strike elsewhere.</p>`}
@@ -403,7 +403,7 @@
       <h3>Strike force <small>${units.length} selected</small></h3><div class="ulist">${urows || '<p class="muted">No available units.</p>'}</div>
       <div class="odds"><div><small>Your power</small><b>${fmt(Math.round(P))}</b></div><div><small>Opposition</small><b>${fmt(D)}</b></div><div><small>Success</small><b class="${chance > 0.65 ? 'good' : chance > 0.4 ? 'warn' : 'danger'}">${Math.round(chance * 100)}%</b></div></div>
       ${m.abyss ? '<p class="small muted">Against Abyssians, non-Titan units fight at 40% unless upgraded.</p>' : ''}
-      <button class="btn primary big" data-act="launch" ${chk.ok && tgt ? '' : 'disabled'}>Launch mission</button> ${chk.ok ? '' : `<span class="warn small">${esc(chk.why)}</span>`}
+      <button class="btn primary big" data-act="launch" ${chk.ok && tgt ? '' : 'disabled'}>Launch operation</button> ${chk.ok ? '' : `<span class="warn small">${esc(chk.why)}</span>`}
       ${active ? `<h3>Active missions</h3>${active}` : ''}
     </div></div>`;
   };

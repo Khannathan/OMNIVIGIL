@@ -46,11 +46,6 @@ A.add('abyss', (db, st) => {
   const near = t.find((x: any) => x.state === 'approach');
   return { text: near ? `${near.name} makes landfall in ${near.eta} cycle${near.eta === 1 ? '' : 's'}. Ready TBUs or intercept it.` : `${t.length} Abyssian threat${t.length > 1 ? 's are' : ' is'} loose. Check the Abyss.`, act: 'openWin', id: 'abyss', urgent: true, pri: 90 };
 });
-A.add('calamity', (db, st) => {
-  const c = (st.calamities || [])[0]; if (!c) return null;
-  const d = (db.calamities || {})[c.id] || {};
-  return { text: `${d.name || 'A calamity'} is hurting everyone. Launch a containment mission before it spreads.`, act: 'openWin', id: 'missions', urgent: true, pri: 85 };
-});
 A.add('wars', (db, st) => {
   const foes = Object.values(st.factions || {}).filter((f: any) => !f.eliminated && (f.wars || []).includes('player'));
   if (!foes.length) return null;
@@ -69,10 +64,6 @@ A.add('codes', (db, st) => {
   if (!st.source || !db.sourceCodes) return null;
   const ready = Object.keys(st.source.owned || {}).filter((id) => !OV.codeReadyIn(st, id) && db.sourceCodes[id] && OV.canAfford(st, OV.codeCost(db, st, db.sourceCodes[id])));
   return ready.length ? { text: `${ready.length} Source Code${ready.length > 1 ? 's are' : ' is'} compiled and affordable. Use one.`, act: 'openWin', id: 'source', pri: 35 } : null;
-});
-A.add('anomaly', (db, st) => {
-  const a = ((st.map && st.map.anomalies) || []).find((x: any) => x.state === 'known');
-  return a ? { text: `You found ${a.name || 'an anomaly'}. Send a unit to investigate it.`, act: 'openWin', id: 'wilds', pri: 45 } : null;
 });
 A.add('research', (db, st) => !(st.processes || []).some((p: any) => p.kind === 'research') ? { text: 'No research is running. Pick a project.', act: 'openWin', id: 'research', pri: 60 } : null);
 A.add('ascend', (db, st) => {
