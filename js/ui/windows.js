@@ -207,7 +207,7 @@
         <div class="card-h"><b>${esc(head.icon || '')} ${esc(head._series ? head.name.replace(/ [IVXLC]+$/, '') : head.name)}</b><small>${head.keystone ? '<span class="warn">KEYSTONE</span> · ' : ''}${g.length > 1 ? `${have}/${g.length}` : have ? 'owned' : ''}</small></div>
         ${g.length > 1 ? `<div class="pips">${g.map((n) => `<i class="${st.ascendancy[n.id] ? 'on' : ''}"></i>`).join('')}</div>` : ''}
         <p class="eff">${esc(eff || '')}${g.length > 1 && eff ? ' per level' : ''}</p><p class="small muted">${esc(head.desc || '')}</p>
-        <div class="card-f">${miss ? `<small class="muted">${esc(miss)}</small>` : '<span></span>'}${next ? `<button class="btn sm ${can && st.ap >= next.cost ? 'primary' : ''}" data-act="ascend" data-id="${next.id}" ${can && st.ap >= next.cost ? '' : 'disabled'}>✧ ${fmt(next.cost)}</button>` : '<span class="good">✓ Complete</span>'}</div></div>`;
+        <div class="card-f">${miss ? `<small class="muted">${esc(miss)}</small>` : '<span></span>'}${next ? `<button class="btn sm ${can && st.ap >= (OV.ascendPrice ? OV.ascendPrice(next) : next.cost) ? 'primary' : ''}" data-act="ascend" data-id="${next.id}" ${can && st.ap >= (OV.ascendPrice ? OV.ascendPrice(next) : next.cost) ? '' : 'disabled'}>✧ ${fmt(OV.ascendPrice ? OV.ascendPrice(next) : next.cost)}</button>` : '<span class="good">✓ Complete</span>'}</div></div>`;
     }).join('');
     const opened = info.filter((i) => i.gate.ok).length;
     return `<div class="tab-head"><h2>Ascendancy <small>${owned} / ${nodes.length} nodes · ${opened}/${clusters.length} clusters open</small></h2></div>
