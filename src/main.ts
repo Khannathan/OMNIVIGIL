@@ -18,3 +18,4 @@ const art = import.meta.glob(['../js/render/landart.js', './art/*.ts', '!./art/*
 void art;
 import '../js/main.js';
 import '../css/prism-ui.css';
+import '../css/prism-icons.css';
