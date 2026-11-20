@@ -427,5 +427,31 @@
    "boost": 1.7
   }
  },
- "statics_note": "static map sprites, anchored bottom-centre; team parts magenta"
+ "statics_note": "static map sprites, anchored bottom-centre; team parts magenta",
+ "fx": {
+  "muzzle": {
+   "w": 16,
+   "h": 16,
+   "frames": 3,
+   "asset": "spr_bccbbfae"
+  },
+  "impact": {
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "asset": "spr_bccbbfae"
+  },
+  "slash": {
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "asset": "spr_bccbbfae"
+  },
+  "burst": {
+   "w": 48,
+   "h": 48,
+   "frames": 6,
+   "asset": "spr_478ba2f3"
+  }
+ }
 }

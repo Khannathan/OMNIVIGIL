@@ -16,6 +16,8 @@
 //    their own art; their manifest keys keep the creatures/ prefix.
 //  - Static map art (batch 2): structures by generated style (24 styles), the 11 strategic sites,
 //    the core and rifts; same team recolour, sized by OV.prism.staticScale against the old art.
+//  - Combat effects (batch 4): muzzle flash, impact sparks, claw slash and the hardlight burst,
+//    drawn by js/ui/field.js over its glow effects through OV.prism.fx(name, progress).
 //  - OV.prism.enabled = false turns it off (call OV.clearSpriteCache after).
 import manifest from './prism/manifest.json';
 import SHEETS from './prism/sheets';
@@ -59,7 +61,7 @@ function load() {
   if (typeof document === 'undefined') return;
   for (const [path, url] of Object.entries(SHEETS)) {
     const unit = path.startsWith('units/') ? path.slice(6) : M.units[path] ? path : null; // creatures/* keep their path
-    if (unit ? !M.units[unit] : !M.statics[path]) continue;
+    if (unit ? !M.units[unit] : !(M.statics[path] || (M.fx && M.fx[path.slice(3)] && path.startsWith('fx/')))) continue;
     total++;
     const img = new Image();
     img.onload = () => { loaded++; if (loaded === total && OV.clearSpriteCache) OV.clearSpriteCache(); };
@@ -128,6 +130,16 @@ export function frame(key: string, pose: string, t: number) {
   return frameCanvas(K.unit, K.team, f, K.hd, key);
 }
 
+// combat effects (batch 4): OV.prism.fx(name, progress 0..1) -> the frame for that moment, or null
+const fxc = new Map<string, any>();
+export function fx(name: string, p: number) {
+  const d = M.fx && M.fx[name], img = sheets['fx/' + name];
+  if (!d || !img || !img.complete || !img.naturalWidth || !(p >= 0) || p >= 1) return null;
+  const i = Math.min(d.frames - 1, Math.floor(p * d.frames)), k = name + '|' + i; const hit = fxc.get(k); if (hit) return hit;
+  const c: any = document.createElement('canvas'); c.width = d.w; c.height = d.h;
+  c.getContext('2d').drawImage(img, i * d.w, 0, d.w, d.h, 0, 0, d.w, d.h); fxc.set(k, c); return c;
+}
+
 function install() {
   if (!OV.sprite || OV.sprite.__prism) return !!OV.sprite;
   const base = OV.sprite;
@@ -153,6 +165,6 @@ function install() {
   return true;
 }
 
-OV.prism = Object.assign(OV.prism || {}, { enabled: true, scale: 1, staticScale: 1.2, frame, prismFor, staticFor, manifest: M });
+OV.prism = Object.assign(OV.prism || {}, { enabled: true, scale: 1, staticScale: 1.2, frame, fx, prismFor, staticFor, manifest: M });
 load();
 if (typeof document !== 'undefined' && !install()) { let n = 0; const t = setInterval(() => { if (install() || ++n > 100) clearInterval(t); }, 100); }
