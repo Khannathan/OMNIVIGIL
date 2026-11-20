@@ -1,0 +1,135 @@
+{
+ "anims": {
+  "idle": [
+   0,
+   4,
+   220,
+   1
+  ],
+  "move": [
+   4,
+   4,
+   140,
+   1
+  ],
+  "attack": [
+   8,
+   3,
+   110,
+   0
+  ],
+  "death": [
+   11,
+   4,
+   160,
+   0
+  ]
+ },
+ "units": {
+  "trooper": {
+   "w": 48,
+   "h": 25,
+   "frames": 15,
+   "bodyH": 24,
+   "fly": false,
+   "asset": "spr_0446f65a",
+   "bodyW": 44
+  },
+  "mech": {
+   "w": 50,
+   "h": 41,
+   "frames": 15,
+   "bodyH": 40,
+   "fly": false,
+   "asset": "spr_d3145407",
+   "bodyW": 45
+  },
+  "tank": {
+   "w": 58,
+   "h": 33,
+   "frames": 15,
+   "bodyH": 33,
+   "fly": false,
+   "asset": "spr_7d784430",
+   "bodyW": 52
+  },
+  "drone": {
+   "w": 64,
+   "h": 39,
+   "frames": 15,
+   "bodyH": 20,
+   "fly": true,
+   "asset": "spr_08708966",
+   "bodyW": 38
+  },
+  "jet": {
+   "w": 68,
+   "h": 45,
+   "frames": 15,
+   "bodyH": 26,
+   "fly": true,
+   "asset": "spr_45a9e9ac",
+   "bodyW": 53
+  },
+  "bomber": {
+   "w": 50,
+   "h": 48,
+   "frames": 15,
+   "bodyH": 29,
+   "fly": true,
+   "asset": "spr_f369b0d2",
+   "bodyW": 40
+  },
+  "ship": {
+   "w": 67,
+   "h": 26,
+   "frames": 15,
+   "bodyH": 26,
+   "fly": false,
+   "asset": "spr_f96c7b3a",
+   "bodyW": 53
+  },
+  "sub": {
+   "w": 64,
+   "h": 20,
+   "frames": 15,
+   "bodyH": 20,
+   "fly": false,
+   "asset": "spr_8b09b8cc",
+   "bodyW": 50
+  },
+  "titan": {
+   "w": 56,
+   "h": 45,
+   "frames": 15,
+   "bodyH": 44,
+   "fly": false,
+   "asset": "spr_913a3541",
+   "bodyW": 51
+  },
+  "cyber": {
+   "w": 58,
+   "h": 51,
+   "frames": 15,
+   "bodyH": 50,
+   "fly": false,
+   "asset": "spr_dbbd8169",
+   "bodyW": 35
+  },
+  "beast": {
+   "w": 62,
+   "h": 31,
+   "frames": 15,
+   "bodyH": 30,
+   "fly": false,
+   "asset": "spr_81f42baf",
+   "bodyW": 52
+  }
+ },
+ "studio": "https://studio.pixelwright.app/?cloud=prj_424e153f0fbc00b2",
+ "team": [
+  "#800080",
+  "#c000c0",
+  "#ff00ff"
+ ]
+}
