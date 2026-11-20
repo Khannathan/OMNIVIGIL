@@ -19,6 +19,9 @@
 //    the core and rifts; same team recolour, sized by OV.prism.staticScale against the old art.
 //  - Combat effects (batch 4): muzzle flash, impact sparks, claw slash and the hardlight burst,
 //    drawn by js/ui/field.js over its glow effects through OV.prism.fx(name, progress).
+//  - Army skins (batch 6): OV.prism.skins lists them; OV.sprite(id, {team, skin}) or the hook
+//    OV.prism.skinFor(teamColour) -> skin id picks one per unit. Units only; team colour is kept.
+//  - TBU parts (batch 6): OV.prism.tbuPortrait({head, arm, back}, {team, skin}) -> 48x48 hangar portrait.
 //  - OV.prism.enabled = false turns it off (call OV.clearSpriteCache after).
 import manifest from './prism/manifest.json';
 import SHEETS from './prism/sheets';
@@ -62,7 +65,7 @@ function load() {
   if (typeof document === 'undefined') return;
   for (const [path, url] of Object.entries(SHEETS)) {
     const unit = path.startsWith('units/') ? path.slice(6) : M.units[path] ? path : null; // creatures/* keep their path
-    if (unit ? !M.units[unit] : !(M.statics[path] || (M.fx && M.fx[path.slice(3)] && path.startsWith('fx/')))) continue;
+    if (unit ? !M.units[unit] : !(M.statics[path] || (M.fx && M.fx[path.slice(3)] && path.startsWith('fx/')) || (path === 'tbu/kit' && M.tbu))) continue;
     total++;
     const img = new Image();
     img.onload = () => { loaded++; if (loaded === total && OV.clearSpriteCache) OV.clearSpriteCache(); };
@@ -98,13 +101,24 @@ export function staticFor(id: string): string | null {
 const rgbOf = (hex: string) => { const m = /^#?([0-9a-f]{6})$/i.exec(hex || ''); return m ? parseInt(m[1], 16) : 0x1fb5ad; };
 const shadeOf = (v: number, f: number) => { const c = (x: number) => Math.max(0, Math.min(255, Math.round(x * f))); return [c((v >> 16) & 255), c((v >> 8) & 255), c(v & 255)]; };
 
-function recolour(c: any, team: string) {
-  const g = c.getContext('2d'), tv = rgbOf(team), ramp = [shadeOf(tv, 0.5), shadeOf(tv, 0.78), shadeOf(tv, 1.12)];
+// army skins (batch 6): each swaps the Prism ink, bone, core and ember ramps for its own; team parts keep the owner colour
+const SKIN_KEYS = ['ink', 'bone', 'core', 'ember'];
+const skinMaps: Record<string, Map<number, number[]>> = {};
+function skinMap(skin?: string | null) {
+  if (!skin || skin === 'hardlight' || !M.skins || !M.skins[skin]) return null;
+  if (skinMaps[skin]) return skinMaps[skin];
+  const base = M.skins.hardlight, to = M.skins[skin], map = new Map<number, number[]>();
+  for (const k of SKIN_KEYS) base[k].forEach((h: string, i: number) => { const v = rgbOf(to[k][i]); map.set(rgbOf(h), [(v >> 16) & 255, (v >> 8) & 255, v & 255]); });
+  return (skinMaps[skin] = map);
+}
+function recolour(c: any, team: string, skin?: string | null) {
+  const g = c.getContext('2d'), tv = rgbOf(team), ramp = [shadeOf(tv, 0.5), shadeOf(tv, 0.78), shadeOf(tv, 1.12)], sm = skinMap(skin);
   const d = g.getImageData(0, 0, c.width, c.height), p = d.data;
   for (let j = 0; j < p.length; j += 4) {
     if (!p[j + 3]) continue;
-    const t = TEAM.indexOf((p[j] << 16) | (p[j + 1] << 8) | p[j + 2]); if (t < 0) continue;
-    p[j] = ramp[t][0]; p[j + 1] = ramp[t][1]; p[j + 2] = ramp[t][2];
+    const v = (p[j] << 16) | (p[j + 1] << 8) | p[j + 2], t = TEAM.indexOf(v);
+    const to = t >= 0 ? ramp[t] : sm && sm.get(v); if (!to) continue;
+    p[j] = to[0]; p[j + 1] = to[1]; p[j + 2] = to[2];
   }
   g.putImageData(d, 0, 0);
 }
@@ -118,12 +132,12 @@ function staticCanvas(path: string, team: string, hd: number) {
 }
 
 const frames = new Map<string, any>(); // `${unit}|${team}|${frame}` -> canvas
-const keys = new Map<string, { unit: string; team: string; hd: number }>();
-function frameCanvas(unit: string, team: string, i: number, hd: number, key: string) {
-  const k = unit + '|' + team + '|' + i; const hit = frames.get(k); if (hit) return hit;
+const keys = new Map<string, { unit: string; team: string; hd: number; skin: string | null }>();
+function frameCanvas(unit: string, team: string, i: number, hd: number, key: string, skin: string | null = null) {
+  const k = unit + '|' + team + '|' + i + '|' + (skin || ''); const hit = frames.get(k); if (hit) return hit;
   const u = M.units[unit], img = sheets[unit]; if (!u || !img || !img.complete || !img.naturalWidth) return null;
   const c: any = document.createElement('canvas'); c.width = u.w; c.height = u.h;
-  c.getContext('2d').drawImage(img, i * u.w, 0, u.w, u.h, 0, 0, u.w, u.h); recolour(c, team);
+  c.getContext('2d').drawImage(img, i * u.w, 0, u.w, u.h, 0, 0, u.w, u.h); recolour(c, team, skin);
   c.hd = hd; c.prism = key; frames.set(k, c); return c;
 }
 
@@ -131,7 +145,7 @@ export function frame(key: string, pose: string, t: number) {
   const K = keys.get(key); if (!K) return null;
   const a = ANIMS[pose] || ANIMS.idle, n = a[1], step = Math.floor((t * 1000) / a[2]);
   const f = a[0] + (a[3] ? step % n : Math.min(n - 1, step % (n + 2))); // one-shots hold their last frame briefly
-  return frameCanvas(K.unit, K.team, f, K.hd, key);
+  return frameCanvas(K.unit, K.team, f, K.hd, key, K.skin);
 }
 
 // combat effects (batch 4): OV.prism.fx(name, progress 0..1) -> the frame for that moment, or null
@@ -143,6 +157,22 @@ export function fx(name: string, p: number) {
   const c: any = document.createElement('canvas'); c.width = d.w; c.height = d.h;
   c.getContext('2d').drawImage(img, i * d.w, 0, d.w, d.h, 0, 0, d.w, d.h); fxc.set(k, c); return c;
 }
+
+// TBU hangar portrait (batch 6): parts from the kit sheet stacked back, frame, head, arm.
+// loadout = { head: 'sensor'|'crest'|'dome', arm: 'rifle'|'blade'|'cannon', back: 'missiles'|'radar'|'shield' }
+export const TBU_PARTS = { head: ['sensor', 'crest', 'dome'], arm: ['rifle', 'blade', 'cannon'], back: ['missiles', 'radar', 'shield'] };
+const portraits = new Map<string, any>();
+export function tbuPortrait(loadout: any = {}, opts: any = {}) {
+  const T = M.tbu, img = sheets['tbu/kit']; if (!T || !img || !img.complete || !img.naturalWidth) return null;
+  const team = opts.team || '#1fb5ad', skin = skinMap(opts.skin) ? opts.skin : null;
+  const pick: Record<string, string> = { base: 'frame' };
+  for (const [slot, list] of Object.entries(TBU_PARTS)) pick[slot] = list.includes(loadout[slot]) ? loadout[slot] : list[0];
+  const k = JSON.stringify([pick, team, skin]); const hit = portraits.get(k); if (hit) return hit;
+  const c: any = document.createElement('canvas'); c.width = c.height = T.cell; const g = c.getContext('2d');
+  for (const slot of T.order) { const i = T.parts.indexOf(slot + '/' + pick[slot]); if (i >= 0) g.drawImage(img, i * T.cell, 0, T.cell, T.cell, 0, 0, T.cell, T.cell); }
+  recolour(c, team, skin); portraits.set(k, c); return c;
+}
+export const skins = Object.entries(M.skins || {}).map(([id, s]: [string, any]) => ({ id, name: s.name, blurb: s.blurb, swatch: [s.ink[2], s.bone[1], s.core[1], s.ember[1]] }));
 
 function install() {
   if (!OV.sprite || OV.sprite.__prism) return !!OV.sprite;
@@ -161,14 +191,17 @@ function install() {
     const native = base(id, opts), u = M.units[unit];
     const nh = native && native.height ? native.height / (native.hd || 1) : 20, nw = native && native.width ? native.width / (native.hd || 1) : 20;
     const hd = Math.max(1, Math.max(u.bodyH / nh, (u.bodyW * 0.75) / nw) / (P.scale || 1));
-    const team = (opts && opts.team) || '#1fb5ad', key = unit + '|' + team + '|' + hd.toFixed(3);
-    if (!keys.has(key)) keys.set(key, { unit, team, hd });
-    return frameCanvas(unit, team, 0, hd, key) || native;
+    const team = (opts && opts.team) || '#1fb5ad';
+    let skin = opts && opts.skin !== undefined ? opts.skin : P.skinFor ? P.skinFor(team) : null;
+    if (!skinMap(skin)) skin = null;
+    const key = unit + '|' + team + '|' + hd.toFixed(3) + '|' + (skin || '');
+    if (!keys.has(key)) keys.set(key, { unit, team, hd, skin });
+    return frameCanvas(unit, team, 0, hd, key, skin) || native;
   };
   wrapped.__prism = true; wrapped.__hd = base.__hd; OV.sprite = wrapped;
   return true;
 }
 
-OV.prism = Object.assign(OV.prism || {}, { enabled: true, scale: 1, staticScale: 1.2, frame, fx, prismFor, staticFor, manifest: M });
+OV.prism = Object.assign(OV.prism || {}, { enabled: true, scale: 1, staticScale: 1.2, frame, fx, skins, skinFor: (OV.prism && OV.prism.skinFor) || null, tbuPortrait, tbuParts: TBU_PARTS, prismFor, staticFor, manifest: M });
 load();
 if (typeof document !== 'undefined' && !install()) { let n = 0; const t = setInterval(() => { if (install() || ++n > 100) clearInterval(t); }, 100); }
