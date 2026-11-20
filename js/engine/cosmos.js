@@ -5,7 +5,7 @@
   'use strict';
 
   // ---------- world settings (creator "Universe" step) ----------
-  OV.WORLD_DEFAULTS = { homeType: 'random', homeSize: 'm', ocean: 'auto', climate: 'auto', oddity: 'mild', star: 'random', planets: 0, exotic: 'normal', moons: 'normal', factions: 'normal', rivals: 'normal' };
+  OV.WORLD_DEFAULTS = { earthfall: 'short', homeType: 'random', homeSize: 'm', ocean: 'auto', climate: 'auto', oddity: 'mild', star: 'random', planets: 0, exotic: 'normal', moons: 'normal', factions: 'normal', rivals: 'normal' };
   OV.worldSettings = (st) => Object.assign({}, OV.WORLD_DEFAULTS, (st && st.world) || {});
   // v5: worlds are ~1.6x larger in each direction (2.5x the tiles); every tile is a Civ-style grid square on the surface view
   const SIZES = { s: [152, 76], m: [192, 100], l: [232, 116], g: [256, 128] };

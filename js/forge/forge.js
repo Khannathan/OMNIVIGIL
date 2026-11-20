@@ -407,6 +407,7 @@
     fate(s) {
       const D = db(), w = s.world;
       const WORLD_OPTS = [
+        ['earthfall', 'Earthfall', [['short', 'Short · about 15 min'], ['classic', 'Classic · full conquest']]],
         ['homeType', 'Home world type', [['random', 'Random']].concat(Object.values(D.planetTypes || {}).filter((t) => !t.giant).map((t) => [t.id, t.name.replace(/ World$/, '')]))],
         ['homeSize', 'Home world size', [['s', 'Small'], ['m', 'Medium'], ['l', 'Large']]],
         ['ocean', 'Oceans', [['auto', 'By type'], ['dry', 'Arid'], ['low', 'Low'], ['normal', 'Normal'], ['high', 'High'], ['ocean', 'Ocean world']]],
