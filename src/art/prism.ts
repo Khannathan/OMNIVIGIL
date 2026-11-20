@@ -12,6 +12,8 @@
 //    owner's colour in three shades. One canvas is cached per (unit, team, frame).
 //  - Sheets face right and are anchored bottom-centre (feet on the last row; flyers carry the
 //    space below them so their fall in the death animation stays in frame).
+//  - Static map art (batch 2): structures by generated style (24 styles), the 11 strategic sites,
+//    the core and rifts; same team recolour, sized by OV.prism.staticScale against the old art.
 //  - OV.prism.enabled = false turns it off (call OV.clearSpriteCache after).
 import manifest from './prism/manifest.json';
 import SHEETS from './prism/sheets';
@@ -45,12 +47,12 @@ let loaded = 0, total = 0;
 function load() {
   if (typeof document === 'undefined') return;
   for (const [path, url] of Object.entries(SHEETS)) {
-    const name = path.replace(/^units\//, '');
-    if (!M.units[name]) continue;
+    const unit = path.startsWith('units/') ? path.slice(6) : null;
+    if (unit ? !M.units[unit] : !M.statics[path]) continue;
     total++;
     const img = new Image();
     img.onload = () => { loaded++; if (loaded === total && OV.clearSpriteCache) OV.clearSpriteCache(); };
-    img.src = url; sheets[name] = img;
+    img.src = url; sheets[unit || path] = img;
   }
 }
 
@@ -64,8 +66,37 @@ export function prismFor(id: string): string | null {
   return BY_STYLE[def.style] || null;
 }
 
+// static map art: strategic sites, the core and rifts by sprite id, structures by generated style
+export function staticFor(id: string): string | null {
+  if (!id) return null;
+  if (M.statics['sites/' + id]) return 'sites/' + id;
+  const def = OV.db && OV.db.sprites && OV.db.sprites[id];
+  if (!def || def.gen !== 'building') return null;
+  const k = 'structures/' + (def.style || 'block');
+  return M.statics[k] ? k : 'structures/block';
+}
+
 const rgbOf = (hex: string) => { const m = /^#?([0-9a-f]{6})$/i.exec(hex || ''); return m ? parseInt(m[1], 16) : 0x1fb5ad; };
 const shadeOf = (v: number, f: number) => { const c = (x: number) => Math.max(0, Math.min(255, Math.round(x * f))); return [c((v >> 16) & 255), c((v >> 8) & 255), c(v & 255)]; };
+
+function recolour(c: any, team: string) {
+  const g = c.getContext('2d'), tv = rgbOf(team), ramp = [shadeOf(tv, 0.5), shadeOf(tv, 0.78), shadeOf(tv, 1.12)];
+  const d = g.getImageData(0, 0, c.width, c.height), p = d.data;
+  for (let j = 0; j < p.length; j += 4) {
+    if (!p[j + 3]) continue;
+    const t = TEAM.indexOf((p[j] << 16) | (p[j + 1] << 8) | p[j + 2]); if (t < 0) continue;
+    p[j] = ramp[t][0]; p[j + 1] = ramp[t][1]; p[j + 2] = ramp[t][2];
+  }
+  g.putImageData(d, 0, 0);
+}
+const statics = new Map<string, any>();
+function staticCanvas(path: string, team: string, hd: number) {
+  const k = path + '|' + team + '|' + hd.toFixed(3); const hit = statics.get(k); if (hit) return hit;
+  const s = M.statics[path], img = sheets[path]; if (!s || !img || !img.complete || !img.naturalWidth) return null;
+  const c: any = document.createElement('canvas'); c.width = s.w; c.height = s.h;
+  c.getContext('2d').drawImage(img, 0, 0); recolour(c, team);
+  c.hd = hd; statics.set(k, c); return c;
+}
 
 const frames = new Map<string, any>(); // `${unit}|${team}|${frame}` -> canvas
 const keys = new Map<string, { unit: string; team: string; hd: number }>();
@@ -73,15 +104,7 @@ function frameCanvas(unit: string, team: string, i: number, hd: number, key: str
   const k = unit + '|' + team + '|' + i; const hit = frames.get(k); if (hit) return hit;
   const u = M.units[unit], img = sheets[unit]; if (!u || !img || !img.complete || !img.naturalWidth) return null;
   const c: any = document.createElement('canvas'); c.width = u.w; c.height = u.h;
-  const g = c.getContext('2d'); g.drawImage(img, i * u.w, 0, u.w, u.h, 0, 0, u.w, u.h);
-  const tv = rgbOf(team), ramp = [shadeOf(tv, 0.5), shadeOf(tv, 0.78), shadeOf(tv, 1.12)];
-  const d = g.getImageData(0, 0, u.w, u.h), p = d.data;
-  for (let j = 0; j < p.length; j += 4) {
-    if (!p[j + 3]) continue;
-    const t = TEAM.indexOf((p[j] << 16) | (p[j + 1] << 8) | p[j + 2]); if (t < 0) continue;
-    p[j] = ramp[t][0]; p[j + 1] = ramp[t][1]; p[j + 2] = ramp[t][2];
-  }
-  g.putImageData(d, 0, 0);
+  c.getContext('2d').drawImage(img, i * u.w, 0, u.w, u.h, 0, 0, u.w, u.h); recolour(c, team);
   c.hd = hd; c.prism = key; frames.set(k, c); return c;
 }
 
@@ -96,8 +119,15 @@ function install() {
   if (!OV.sprite || OV.sprite.__prism) return !!OV.sprite;
   const base = OV.sprite;
   const wrapped: any = function (id: string, opts?: any) {
-    const P = OV.prism;
-    const unit = P && P.enabled !== false ? prismFor(id) : null;
+    const P = OV.prism, on = P && P.enabled !== false;
+    const st = on ? staticFor(id) : null;
+    if (st && sheets[st] && sheets[st].complete) {
+      const native = base(id, opts), s = M.statics[st];
+      const nh = native && native.height ? native.height / (native.hd || 1) : 24, nw = native && native.width ? native.width / (native.hd || 1) : 24;
+      const hd = Math.max(1, Math.sqrt((s.h / nh) * (s.w / nw)) / ((P.staticScale || 1.2) * (s.boost || 1)));
+      return staticCanvas(st, (opts && opts.team) || '#1fb5ad', hd) || native;
+    }
+    const unit = on ? prismFor(id) : null;
     if (!unit || !sheets[unit] || !sheets[unit].complete) return base(id, opts);
     const native = base(id, opts), u = M.units[unit];
     const nh = native && native.height ? native.height / (native.hd || 1) : 20, nw = native && native.width ? native.width / (native.hd || 1) : 20;
@@ -110,6 +140,6 @@ function install() {
   return true;
 }
 
-OV.prism = Object.assign(OV.prism || {}, { enabled: true, scale: 1, frame, prismFor, manifest: M });
+OV.prism = Object.assign(OV.prism || {}, { enabled: true, scale: 1, staticScale: 1.2, frame, prismFor, staticFor, manifest: M });
 load();
 if (typeof document !== 'undefined' && !install()) { let n = 0; const t = setInterval(() => { if (install() || ++n > 100) clearInterval(t); }, 100); }

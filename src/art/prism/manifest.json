@@ -131,5 +131,157 @@
   "#800080",
   "#c000c0",
   "#ff00ff"
- ]
+ ],
+ "statics": {
+  "structures/block": {
+   "w": 32,
+   "h": 27
+  },
+  "structures/tower": {
+   "w": 26,
+   "h": 40
+  },
+  "structures/spire": {
+   "w": 22,
+   "h": 37
+  },
+  "structures/dome": {
+   "w": 30,
+   "h": 18
+  },
+  "structures/reactor": {
+   "w": 32,
+   "h": 25
+  },
+  "structures/factory": {
+   "w": 34,
+   "h": 31
+  },
+  "structures/bunker": {
+   "w": 32,
+   "h": 19
+  },
+  "structures/citadel": {
+   "w": 32,
+   "h": 36
+  },
+  "structures/launch": {
+   "w": 34,
+   "h": 37
+  },
+  "structures/pylon": {
+   "w": 18,
+   "h": 34
+  },
+  "structures/silo": {
+   "w": 32,
+   "h": 29
+  },
+  "structures/lab": {
+   "w": 32,
+   "h": 29
+  },
+  "structures/monolith": {
+   "w": 22,
+   "h": 37
+  },
+  "structures/obelisk": {
+   "w": 22,
+   "h": 39
+  },
+  "structures/vat": {
+   "w": 32,
+   "h": 27
+  },
+  "structures/dish": {
+   "w": 26,
+   "h": 29
+  },
+  "structures/ring": {
+   "w": 32,
+   "h": 33
+  },
+  "structures/hive": {
+   "w": 32,
+   "h": 32
+  },
+  "structures/crystal": {
+   "w": 26,
+   "h": 34
+  },
+  "structures/pyramid": {
+   "w": 34,
+   "h": 36
+  },
+  "structures/spaceport": {
+   "w": 38,
+   "h": 33
+  },
+  "structures/habitat": {
+   "w": 30,
+   "h": 28
+  },
+  "structures/array": {
+   "w": 34,
+   "h": 19
+  },
+  "structures/elevator": {
+   "w": 26,
+   "h": 40
+  },
+  "sites/pt_data_hub": {
+   "w": 34,
+   "h": 22
+  },
+  "sites/pt_power_grid": {
+   "w": 34,
+   "h": 26
+  },
+  "sites/pt_industrial": {
+   "w": 34,
+   "h": 28
+  },
+  "sites/pt_foundry": {
+   "w": 34,
+   "h": 30
+  },
+  "sites/pt_financial": {
+   "w": 34,
+   "h": 34
+  },
+  "sites/pt_port": {
+   "w": 34,
+   "h": 25
+  },
+  "sites/pt_mine": {
+   "w": 36,
+   "h": 26
+  },
+  "sites/pt_base": {
+   "w": 34,
+   "h": 22
+  },
+  "sites/pt_campus": {
+   "w": 34,
+   "h": 21
+  },
+  "sites/pt_relay": {
+   "w": 30,
+   "h": 30
+  },
+  "sites/pt_unclaimed": {
+   "w": 30,
+   "h": 22
+  },
+  "sites/core": {
+   "w": 30,
+   "h": 35
+  },
+  "sites/rift": {
+   "w": 28,
+   "h": 33,
+   "boost": 1.7
+  }
+ },
+ "statics_note": "static map sprites, anchored bottom-centre; team parts magenta"
 }
