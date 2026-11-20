@@ -178,7 +178,9 @@
         const type = db.abyssians[th.type] || {};
         const sc = z >= 2 ? px : ds;
         const bob = th.state === 'approach' ? Math.sin(t * 3 + th.x) * 1.5 * sc : -Math.abs(Math.sin(t * 6)) * 2 * sc;
-        blit(OV.sprite(type.sprite || 'ab_tidecrawler'), p.x, p.y + bob + 3 * sc, sc);
+        const s0 = OV.sprite(type.sprite || 'ab_tidecrawler'); // Prism art animates its idle (or move while approaching)
+        const sa = s0 && s0.prism && OV.prism && OV.prism.frame ? OV.prism.frame(s0.prism, th.state === 'approach' ? 'move' : 'idle', t + th.x * 0.37) || s0 : s0;
+        blit(sa, p.x, p.y + bob + 3 * sc, sc);
         for (let k = 0; k < th.cls; k++) { ctx.fillStyle = '#ff2848'; ctx.fillRect(snap(p.x - th.cls * 2 * sc + k * 4 * sc), snap(p.y + 5 * sc), 3 * sc, 2 * sc); }
         if (sel && sel.kind === 'threat' && sel.id === th.id) selBox(ctx, p.x, p.y - 6 * sc, 12 * sc, t, px);
       } });
