@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OMNIVIGIL</title>
+<title>OMNIVIGIL v1b</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Silkscreen&family=VT323&family=Pixelify+Sans:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
@@ -14,11 +14,10 @@
 
 <section class="screen" id="screen-menu" hidden>
   <div class="menu">
-    <canvas id="menuSigil" width="300" height="300"></canvas>
     <h1>OMNIVIGIL</h1>
     <p class="tag">You are the mind that woke up. This world is only the beginning.</p>
-    <div id="menuButtons" class="menu-buttons"></div>
-    <p class="muted small">v4.3 Hotseat · 2-4 players on one screen, plus shadow governments and Source Codes</p>
+    <div id="v1bMenuButtons" class="menu-buttons"></div>
+    <p class="muted small">v1b "Ascendant" · the ground-up rebuild from the v6 design bible · milestone M1 (Earthfall slice)</p>
   </div>
 </section>
 
@@ -28,15 +27,25 @@
 </section>
 
 <section class="screen" id="screen-game" hidden>
-  <header id="hud"></header>
-  <div id="stage">
-    <div id="mapHost"></div>
-    <nav id="dock"></nav>
-    <div id="windows"></div>
-    <div id="ticker"></div>
+  <header id="v1bHud"></header>
+  <div id="v1bStage">
+    <div id="v1bMap"></div>
+    <div id="v1bLabels"></div>
+    <aside id="v1bDirectives"></aside>
+    <nav id="v1bDock"></nav>
+    <aside id="v1bFeed"></aside>
+    <section id="v1bSel" hidden></section>
+    <div id="v1bWindows"></div>
+    <div id="v1bVoice"></div>
+    <button id="v1bSkip" data-v="skip" hidden>SPACE · skip playback</button>
+    <button id="v1bEnd" class="end-turn" data-v="endCycle">END CYCLE</button>
+    <div id="v1bBoot" hidden></div>
   </div>
 </section>
 
+<div id="v1bModal"></div>
+<div id="v1bToasts"></div>
+<div id="v1bTip" hidden></div>
 <div id="modal"></div>
 <div id="toasts"></div>
 

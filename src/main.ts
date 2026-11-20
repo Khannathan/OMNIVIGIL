@@ -1,11 +1,26 @@
-// OMNIVIGIL entry point. Loads the legacy game modules in order, then the WebGL renderer,
-// then any art layers, then boots (js/main.js).
-import './legacy';
-import './gl/globe';
-import './feel/index';
-import './mind/mind';
-import '../css/mind.css';
-// optional art layers (the art thread's land/city art); either path may exist
-const art = import.meta.glob(['../js/render/landart.js', './art/*.ts', '!./art/*.worker.ts'], { eager: true });
-void art;
-import '../js/main.js';
+// OMNIVIGIL v1b "Ascendant" entry point (the v6 design-bible rebuild).
+//   src/sim     deterministic simulation (worker), five resources, one cycle
+//   src/render  one continuous globe (Three.js) with the HD Diorama art from src/art
+//   src/ui      HUD, Directives, five docks, playback
+import './forgehost';
+import { hookForge } from './forgehost';
+import './art/landart';
+import { buildContent } from './sim/content';
+import { App } from './ui/app';
+import '../css/v1b.css';
+
+const OV: any = (globalThis as any).OV;
+
+async function boot() {
+  const bootEl = document.getElementById('boot')!;
+  try {
+    OV.db = await OV.loadPacks();
+  } catch (e) { bootEl.textContent = 'Failed to load content packs: ' + (e as Error).message; return; }
+  const C = buildContent(OV.db);
+  const app = new App(C);
+  (window as any).v1b = app;
+  hookForge((setup, epithet, forge) => { const s = app.setupFromForge(setup, epithet); s.forge = forge; app.start(s); }, () => app.menu());
+  bootEl.hidden = true;
+  await app.boot();
+}
+if (document.readyState === 'loading') window.addEventListener('DOMContentLoaded', boot); else boot();
