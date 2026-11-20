@@ -523,7 +523,7 @@
     if (st.processes.some((p) => p.kind === 'supgrade' && p.cell === cell)) return `<div class="upg"><h4>Upgrade ${pips}</h4><div class="callout">⧗ Upgrading to Mk ${OV.roman(lvl + 1)}…</div></div>`;
     if (lvl >= max) return `<div class="upg"><h4>Upgrade ${pips}</h4><div class="callout good">Maximum level reached.</div></div>`;
     const chk = OV.canUpgradeStructure(db, st, cell); const cost = OV.structUpgradeCost(db, st, tile);
-    return `<div class="upg"><h4>Upgrade to Mk ${OV.roman(lvl + 1)} ${pips}</h4><div class="sc-out next">${UI.structOutput(db, d, { lvl: lvl + 1 })}</div>
+    return `<div class="upg"><h4>Upgrade to Mk ${OV.roman(lvl + 1)} ${pips}</h4><div class="sc-out next">${UI.structOutput(db, d, { lvl: lvl + 1 })}</div>${UI.upgradePaybackHTML ? UI.upgradePaybackHTML(db, st, cell, tile, d, cost) : ''}
       <button class="btn primary wide" data-act="upgradeStruct" data-id="${cell}" ${chk.ok ? '' : 'disabled'} title="${esc(chk.why || '')}">▲ Upgrade<span>${UI.costHTML(cost, st)} · ⚡${d.buildEnergy || 10} · ${1 + Math.ceil((lvl + 1) / 2)}c</span></button>${chk.ok ? '' : `<small class="warn">${esc(chk.why)}</small>`}</div>`;
   }
   function fogHTML(st, db, cell) {
@@ -602,7 +602,7 @@
       const chk = OV.canPlaceStructure(db, st, s, cell);
       const cost = OV.structCost(db, st, s);
       return { ok: chk.ok, html: `<button class="build ${chk.ok && OV.canAfford(st, cost) ? '' : 'dim'}" data-act="buildAt" data-id="${s.id}|${cell}" ${chk.ok ? '' : 'disabled'} title="${esc(s.desc || '')}${chk.ok ? '' : '\n✕ ' + esc(chk.why)}">
-          <span class="b-spr">${OV.spriteImg(OV.structSprite(s), 2)}</span><span class="b-body"><b>${esc(s.name)}${s.doctrines ? ' <em class="tag doc">Doctrine</em>' : ''}</b><span class="b-out">${UI.structOutput(db, s)}</span><span class="b-bonus">${chk.ok ? bonusText(db, st, cell, s) : `<span class="danger">${esc(chk.why)}</span>`}</span><span class="b-cost">${UI.costHTML(cost, st)} <small>⚡${s.buildEnergy || 10} · ${s.turns || 2}c</small></span></span></button>` };
+          <span class="b-spr">${OV.spriteImg(OV.structSprite(s), 2)}</span><span class="b-body"><b>${esc(s.name)}${s.doctrines ? ' <em class="tag doc">Doctrine</em>' : ''}</b><span class="b-out">${UI.structOutput(db, s)}</span><span class="b-bonus">${chk.ok ? bonusText(db, st, cell, s) : `<span class="danger">${esc(chk.why)}</span>`}</span>${UI.paybackHTML ? UI.paybackHTML(db, st, s, cell) : ''}<span class="b-cost">${UI.costHTML(cost, st)} <small>⚡${s.buildEnergy || 10} · ${s.turns || 2}c</small></span></span></button>` };
     });
     rows.sort((a, b) => b.ok - a.ok);
     return rows.map((x) => x.html).join('') || '<div class="small muted">Nothing available in this category yet. Research unlocks more.</div>';
@@ -616,7 +616,7 @@
       ${catTabs(db)}
       <div class="build-list">${unlocked.map((s) => { const cost = OV.structCost(db, st, s); return `<button class="build ${OV.canAfford(st, cost) ? '' : 'dim'} ${UI.placing === s.id ? 'on' : ''}" data-act="place" data-id="${s.id}" title="${esc(s.desc || '')}">
         <span class="b-spr">${OV.spriteImg(OV.structSprite(s), 2)}</span><span class="b-body"><b>${esc(s.name)}${s.doctrines ? ' <em class="tag doc">Doctrine</em>' : ''}${s.unique ? ' <em class="tag">Unique</em>' : ''}</b><span class="b-out">${UI.structOutput(db, s)}</span>
-        ${s.terrain ? `<span class="b-bonus">Terrain: ${s.terrain.map((t) => esc(((db.terrains || {})[t] || {}).name || t)).join(', ')}</span>` : ''}${s.coastalOnly ? '<span class="b-bonus">Coastal tiles only</span>' : ''}
+        ${s.terrain ? `<span class="b-bonus">Terrain: ${s.terrain.map((t) => esc(((db.terrains || {})[t] || {}).name || t)).join(', ')}</span>` : ''}${s.coastalOnly ? '<span class="b-bonus">Coastal tiles only</span>' : ''}${UI.paybackHTML ? UI.paybackHTML(db, st, s) : ''}
         <span class="b-cost">${UI.costHTML(cost, st)} <small>⚡${s.buildEnergy || 10} · ${s.turns || 2}c</small></span></span></button>`; }).join('') || '<div class="small muted">Nothing here yet.</div>'}</div>
       ${locked ? `<p class="small muted">${locked} more structure(s) in this view are locked behind research.</p>` : ''}`;
   }

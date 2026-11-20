@@ -402,6 +402,7 @@
       <h3>Target</h3>${targets.length ? `<select data-change="selTarget">${targets.map((t, i) => `<option value="${i}" ${tgt && t.id === tgt.id && t.kind === tgt.kind ? 'selected' : ''}>${esc(t.label)}</option>`).join('')}</select>` : '<p class="warn">No valid targets right now.</p>'}
       <h3>Strike force <small>${units.length} selected</small></h3><div class="ulist">${urows || '<p class="muted">No available units.</p>'}</div>
       <div class="odds"><div><small>Your power</small><b>${fmt(Math.round(P))}</b></div><div><small>Opposition</small><b>${fmt(D)}</b></div><div><small>Success</small><b class="${chance > 0.65 ? 'good' : chance > 0.4 ? 'warn' : 'danger'}">${Math.round(chance * 100)}%</b></div></div>
+      ${UI.opForecastHTML ? UI.opForecastHTML(db, st, m, tgt, ctx, P, D, chance) : ''}
       ${m.abyss ? '<p class="small muted">Against Abyssians, non-Titan units fight at 40% unless upgraded.</p>' : ''}
       <button class="btn primary big" data-act="launch" ${chk.ok && tgt ? '' : 'disabled'}>Launch operation</button> ${chk.ok ? '' : `<span class="warn small">${esc(chk.why)}</span>`}
       ${active ? `<h3>Active missions</h3>${active}` : ''}

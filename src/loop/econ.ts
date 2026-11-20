@@ -22,6 +22,8 @@ const ROLE: Record<string, string> = {
 // base worth in Capital, used by the Exchange
 const WORTH: Record<string, number> = { alloys: 1, silicon: 1.25, data: 1.15, capital: 1, isotopes: 4 };
 const TRADABLE = Object.keys(WORTH);
+// worth of any resource in Capital, for payback times (non-tradables get a fair guess)
+OV.resWorth = (k: string) => k === 'essence' ? 20 : k === 'crypto' ? 2 : (WORTH[k] ?? 1.5);
 
 function cityStanding(st: any) {
   const cs = (st.map && st.map.cities) || [];

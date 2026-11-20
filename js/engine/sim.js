@@ -768,21 +768,30 @@
     return p2 / (p2 + e2);
   };
   // Resolve a fight between a set of player units (or a flat power) and an enemy power.
+  // v20b: damage is exponential in the strength gap (Civ-style). Gap = 25·ln(P/E), so double the power
+  // is about +17 strength. Each side takes about 30% of its health at an even fight, ×e^(±0.04·gap), ±20%.
+  OV.combatGap = (P, E) => OV.clamp(25 * Math.log((Math.max(0, P) + 1) / (Math.max(0, E) + 1)), -80, 80);
+  OV.combatForecast = function (P, E) {
+    const gap = OV.combatGap(P, E);
+    return { gap, dealt: Math.min(1, 0.3 * Math.exp(0.04 * gap)), taken: Math.min(1, 0.3 * Math.exp(-0.04 * gap)), chance: OV.winChance(P, E) };
+  };
   function resolveCombat(db, st, units, enemyPower, opts) {
     opts = opts || {};
     const P = units.reduce((s, u) => s + OV.unitPower(db, st, u, opts), 0) + (opts.bonus || 0);
     const chance = OV.winChance(P, enemyPower);
     const win = R().next() < chance;
-    const lossFrac = (enemyPower / (P + enemyPower + 1)) * (win ? 0.55 : 1.1) * R().range(0.7, 1.2);
+    const fc = OV.combatForecast(P, enemyPower);
+    const lossFrac = fc.taken * (win ? 0.85 : 1.25) * R().range(0.8, 1.2);
     const dead = [];
     for (const u of units) {
       const s = OV.unitStats(db, st, u.type, u);
       const armor = 60 / (60 + s.def);
-      u.hpFrac -= lossFrac * armor * R().range(0.6, 1.4);
+      u.hpFrac -= lossFrac * armor * R().range(0.9, 1.1);
       if (u.hpFrac <= 0.02) dead.push(u);
     }
     for (const u of dead) killUnit(db, st, u);
-    return { win, chance, P, E: enemyPower, dead: dead.map((u) => u.name), enemyLoss: P / (P + enemyPower + 1) };
+    if (win && units.length) { st.stats = st.stats || {}; st.stats.battlesWon = (st.stats.battlesWon || 0) + 1; }
+    return { win, chance, P, E: enemyPower, gap: fc.gap, dead: dead.map((u) => u.name), enemyLoss: Math.min(1, fc.dealt * (win ? 1.25 : 0.85) * R().range(0.8, 1.2)) };
   }
   OV.resolveCombat = resolveCombat;
 
