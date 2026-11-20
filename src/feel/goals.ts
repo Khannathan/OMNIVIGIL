@@ -20,8 +20,13 @@ function voice(st: any): (s: string) => string {
   return (s) => s;
 }
 
+let pos = { i: 0, n: 0 };
 export function nextMove(db: any, st: any): Move {
   const v = voice(st);
+  if (OV.advisor) { // v20b: every system posts moves to the advisor (src/loop/advisor.ts)
+    const p = OV.advisor.pick(db, st); pos = { i: p.i, n: p.n };
+    if (p.move) return { text: v(p.move.text), act: p.move.act, id: p.move.id, urgent: p.move.urgent };
+  }
   if (st.pendingEvents && st.pendingEvents.length) return { text: v('Something needs a decision. Answer the waiting event.'), act: 'endTurn', urgent: true };
   if (st.pendingAscension) return { text: v('The next phase is open. Ascend when you are ready.'), act: 'openWin', id: 'doctrine', urgent: true };
   const threats = (st.threats || []).filter((t: any) => t && (t.turns === undefined || t.turns <= 3));
@@ -52,6 +57,7 @@ export function renderGoals() {
       const t = (e.target as HTMLElement).closest('[data-gact]') as HTMLElement | null;
       if (!t) return;
       e.stopPropagation();
+      if (t.dataset.gact === 'advNext') { OV.advisor && OV.advisor.next(); renderGoals(); return; }
       if (t.dataset.gact === 'toggle') { collapsed = !collapsed; try { localStorage.setItem(KEY, collapsed ? '0' : '1'); } catch { /* */ } renderGoals(); return; }
       const fn = OV.ui.actions[t.dataset.gact!]; if (fn) fn(t.dataset.gid, t, e);
     });
@@ -75,6 +81,7 @@ export function renderGoals() {
   el.className = collapsed ? 'min' : '';
   el.innerHTML = `<div class="gh" data-gact="toggle"><span>◇ DIRECTIVES</span><span>${collapsed ? '▸' : '▾'}</span></div>` +
     row('NOW', mv.urgent ? 'urgent' : 'now', esc(mv.text), mv.act, mv.id) +
+    (pos.n > 1 ? `<div class="gr adv" data-gact="advNext"><span class="gt"></span><span class="gx"><small>Move ${pos.i + 1} of ${pos.n} · next ▸</small></span></div>` : '') +
     (collapsed ? '' :
       (obj ? row('OBJECTIVE', 'obj', `${esc(obj.g.desc)}<small>${obj.p.label ? esc(obj.p.label) : `${OV.fmt(obj.p.cur)} / ${OV.fmt(obj.p.max)}${obj.p.unit || ''}`}</small>${bar(obj.pct)}`, 'openWin', 'doctrine') : '') +
       (amb ? row('AMBITION', 'amb', `${esc(d.name || 'Doctrine')}: ${esc(amb.g.desc)}<small>${ambDone} of ${ambAll} doctrine goals done</small>${bar(amb.pct)}`, 'openWin', 'doctrine')
