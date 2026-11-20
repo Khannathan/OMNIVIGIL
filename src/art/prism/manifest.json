@@ -489,5 +489,191 @@
    "frames": 6,
    "asset": "spr_478ba2f3"
   }
+ },
+ "skins": {
+  "hardlight": {
+   "name": "Ascendant Hardlight",
+   "blurb": "Ink armour, bone plating, teal hardlight. The house style.",
+   "ink": [
+    "#0e111c",
+    "#182033",
+    "#25304d",
+    "#364670",
+    "#52679a"
+   ],
+   "bone": [
+    "#8b8d9e",
+    "#c3c4cb",
+    "#efede4"
+   ],
+   "core": [
+    "#0d6670",
+    "#1fb5ad",
+    "#7cf4da",
+    "#e9fff8"
+   ],
+   "ember": [
+    "#8a2c1e",
+    "#e2622c",
+    "#ffb35c"
+   ]
+  },
+  "goth": {
+   "name": "Industrial Gothic",
+   "blurb": "Soot-black iron, brass filigree, furnace light.",
+   "ink": [
+    "#14110f",
+    "#221c18",
+    "#33302f",
+    "#4d4946",
+    "#716b64"
+   ],
+   "bone": [
+    "#7a5e2e",
+    "#c9a86a",
+    "#efe0b0"
+   ],
+   "core": [
+    "#8a4a10",
+    "#e08a1e",
+    "#ffc552",
+    "#fff2c8"
+   ],
+   "ember": [
+    "#6a1810",
+    "#c43a1e",
+    "#ff7a3a"
+   ]
+  },
+  "noir": {
+   "name": "Neon Noir",
+   "blurb": "Wet black chrome under magenta and cyan signage.",
+   "ink": [
+    "#0a0710",
+    "#151022",
+    "#221a38",
+    "#3a2d5c",
+    "#5a4d82"
+   ],
+   "bone": [
+    "#4a4660",
+    "#8f8aa0",
+    "#cfc8c0"
+   ],
+   "core": [
+    "#7a0f5c",
+    "#ff2fb0",
+    "#ff8ae0",
+    "#ffe0f6"
+   ],
+   "ember": [
+    "#0d5a70",
+    "#20d0ff",
+    "#a0f4ff"
+   ]
+  },
+  "bio": {
+   "name": "Abyssal Biomech",
+   "blurb": "Deep-sea carapace, ivory bone, bioluminescent veins.",
+   "ink": [
+    "#071512",
+    "#0e2420",
+    "#173a33",
+    "#24564a",
+    "#3a7a66"
+   ],
+   "bone": [
+    "#8a7e6a",
+    "#c8b99a",
+    "#efe4cc"
+   ],
+   "core": [
+    "#2a5a14",
+    "#6ccf3a",
+    "#b8ff7a",
+    "#efffd8"
+   ],
+   "ember": [
+    "#5a0f1e",
+    "#c42848",
+    "#ff6a80"
+   ]
+  },
+  "glitch": {
+   "name": "Signal Corruption",
+   "blurb": "Void-black frames with red error light and green static.",
+   "ink": [
+    "#05060a",
+    "#0c0f18",
+    "#161b2a",
+    "#22293e",
+    "#343e5a"
+   ],
+   "bone": [
+    "#6a6f80",
+    "#b0b4c4",
+    "#f4f6ff"
+   ],
+   "core": [
+    "#6a0010",
+    "#ff1a3c",
+    "#ff7a8a",
+    "#ffe0e4"
+   ],
+   "ember": [
+    "#0a5a20",
+    "#2aff6a",
+    "#b0ffc8"
+   ]
+  },
+  "mono": {
+   "name": "Desert Monolith",
+   "blurb": "Sandstone hulls, limestone faces, sun-gold glyphs.",
+   "ink": [
+    "#2a1e14",
+    "#46331f",
+    "#6a4f30",
+    "#8f6e44",
+    "#b8925c"
+   ],
+   "bone": [
+    "#a89a80",
+    "#d8ccb0",
+    "#f6f0e0"
+   ],
+   "core": [
+    "#8a5a10",
+    "#e0a020",
+    "#ffd166",
+    "#fff4cc"
+   ],
+   "ember": [
+    "#6a2a14",
+    "#b8502a",
+    "#e88a50"
+   ]
+  }
+ },
+ "tbu": {
+  "cell": 48,
+  "asset": "spr_d9f8f80e",
+  "parts": [
+   "base/frame",
+   "head/sensor",
+   "head/crest",
+   "head/dome",
+   "arm/rifle",
+   "arm/blade",
+   "arm/cannon",
+   "back/missiles",
+   "back/radar",
+   "back/shield"
+  ],
+  "order": [
+   "back",
+   "base",
+   "head",
+   "arm"
+  ]
  }
 }
