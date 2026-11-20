@@ -260,6 +260,17 @@
       items.push({ z: p.z + 0.005, draw: () => { if (z < 1.6 && !surf) return; ctx.save(); ctx.globalAlpha = 1 - f; const spr = OV.sprite(gh.sprite, gh.team ? { team: pc } : undefined); if (spr) DX.blit(spr, p.x, p.y + f * 4 * sc, Math.max(1, Math.round(sc * 0.7)), 1 - f); ctx.restore(); } });
     }
   };
+  // Prism effect sprites (muzzle, impact, slash, burst) over the glows; centred unless anchored at the left edge
+  function prismFx(DX, F, name, q, x, y, s, flip, left, add) {
+    const PR = OV.prism; if (!PR || !PR.fx || PR.enabled === false) return;
+    const cv = PR.fx(name, q); if (!cv) return;
+    const w = cv.width * s, h = cv.height * s, cx = left ? x + (flip ? -w / 2 : w / 2) : x;
+    if (F && F.on) { F.sprite(cv, cx, y + h / 2, s, { flip, add }); return; }
+    const ctx = DX.ctx; ctx.save(); ctx.imageSmoothingEnabled = false;
+    if (flip) { ctx.translate(cx, 0); ctx.scale(-1, 1); ctx.translate(-cx, 0); }
+    ctx.drawImage(cv, Math.round(cx - w / 2), Math.round(y - h / 2), w, h); ctx.restore();
+  }
+
   // shots and blasts go over everything
   const baseOverlay = UI.extraDrawOverlay;
   UI.extraDrawOverlay = function (DX) {
@@ -284,6 +295,8 @@
           ctx.strokeStyle = col; ctx.lineWidth = Math.max(1, px); ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - dx / L * len, y - dy / L * len); ctx.stroke();
         }
         if (p < 0.25) { ctx.fillStyle = '#fff6c8'; const s = Math.max(px, sc * 2); ctx.fillRect(Math.round(a.x - s / 2), Math.round(a.y - s / 2), s, s); }
+        if (f.kind !== 'claw' && p < 0.3) prismFx(DX, null, 'muzzle', p / 0.3, a.x, a.y, sc * 0.6, b.x < a.x, true, true);
+        const qi = p * 1.6; if (qi > 1 && qi < 1.45) prismFx(DX, null, f.kind === 'claw' ? 'slash' : 'impact', (qi - 1) / 0.45, b.x, b.y, sc * 0.65, b.x < a.x, false, true);
       }
       if (f.t === 'boom') {
         const [x, y] = cellXY(st, f.cell); const c = P(x + 0.5, y + 0.4); if (!c || !c.visible) continue;
@@ -299,6 +312,7 @@
           ctx.fillRect(Math.round(c.x + Math.cos(ang) * d), Math.round(c.y + Math.sin(ang) * d * 0.7 - p * 6 * sc), s, s);
         }
         ctx.globalAlpha = 1;
+        prismFx(DX, null, 'burst', p, c.x, c.y - 4 * sc, sc * (0.45 + 0.15 * f.size), false, false, false);
       }
     }
   };
@@ -329,6 +343,8 @@
           F.disc(x, y, 3 * sc, col, 0.45, true);
         }
         if (p < 0.25) { const k = 1 - p / 0.25; F.disc(a.x, a.y, 5 * sc * (0.6 + k * 0.4), '#fff1b8', 0.9 * k, true); }
+        if (!claw && p < 0.3) prismFx(DX, F, 'muzzle', p / 0.3, a.x, a.y, sc * 0.6, dx < 0, true, true);
+        const qi = p * 1.6; if (qi > 1 && qi < 1.45) prismFx(DX, F, claw ? 'slash' : 'impact', (qi - 1) / 0.45, b.x, b.y, sc * 0.65, dx < 0, false, true);
       }
       if (f.t === 'boom') {
         const [x, y] = cellXY(st, f.cell); const c = P(x + 0.5, y + 0.4); if (!c || !c.visible) continue;
@@ -349,6 +365,7 @@
           const s2 = Math.max(px, sc * (j % 2 ? 2 : 1));
           F.rect(c.x + Math.cos(an) * d, c.y + Math.sin(an) * d * 0.7 - Math.sin(p * Math.PI) * 8 * sc, s2, s2, j % 2 ? '#3a3a3a' : '#ffcf5a', k, j % 2 === 0);
         }
+        prismFx(DX, F, 'burst', p, c.x, c.y - 4 * sc, sc * (0.45 + 0.15 * f.size), false, false, false);
       }
     }
   }
