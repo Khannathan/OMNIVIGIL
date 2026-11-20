@@ -287,8 +287,9 @@ export class App {
     const st = this.st!; if (!st || this.sel?.kind !== 'unit') return;
     const u = st.units.find((q) => q.id === (this.sel as any).id); if (!u || u.owner !== 'player') return;
     const c = st.map.cities.find((q) => q.x === x && q.y === y && q.status !== 'ruins');
-    if (c && c.owner && c.owner !== 'player' && !st.factions[c.owner]?.wars.includes('player') && !confirm(`Attacking ${c.name} means war with ${st.factions[c.owner]?.name}. Go ahead?`)) return;
-    this.send({ t: 'move', unit: u.id, to: [x, y] });
+    const go = () => void this.send({ t: 'move', unit: u.id, to: [x, y] });
+    if (c && c.owner && c.owner !== 'player' && !st.factions[c.owner]?.wars.includes('player')) return this.ask(`Attacking ${c.name} means war with ${st.factions[c.owner]?.name}.`, 'Declare war', go);
+    go();
   }
   nextIdle() {
     const st = this.st!; const idle = st.units.filter((u) => u.owner === 'player' && !u.dest); if (!idle.length) return;
@@ -336,10 +337,11 @@ export class App {
       case 'selCity': { const c = st?.map.cities.find((q) => q.id === id); if (c) { this.sel = { kind: 'city', id: c.id }; this.globe.flyTo(c.x + 0.5, c.y + 0.5, Math.min(this.globe.view.alt, 0.9)); this.render(); } return; }
       case 'moveMode': this.targeting = 'move'; return this.render();
       case 'stop': return void this.send({ t: 'stop', unit: id! });
-      case 'scrap': if (confirm('Scrap it for 40% of its Matter?')) this.send({ t: 'scrap', id: id! }); return;
+      case 'scrap': return this.ask('Scrap it for 40% of its Matter?', 'Scrap', () => void this.send({ t: 'scrap', id: id! }));
+      case 'askYes': { const f = this.pendingAsk; this.pendingAsk = null; this.closeModal(); f?.(); return; }
       case 'place': this.placing = id!; this.toast('Click a cell in your territory. Esc cancels. Shift keeps building.', 'info'); return this.render();
       case 'train': { const [at, unit] = id!.split('|'); return void this.send({ t: 'train', at, unit }); }
-      case 'cityAct': { const [city, act] = id!.split('|'); if (act === 'raze' && !confirm('Raze this city? Everyone will remember.')) return; return void this.send({ t: 'city', city, act: act as any }); }
+      case 'cityAct': { const [city, act] = id!.split('|'); const run = () => void this.send({ t: 'city', city, act: act as any }); if (act === 'raze') return this.ask('Raze this city? Everyone will remember.', 'Raze it', run); return run(); }
       case 'diplo': { const [f, act] = id!.split('|'); return void this.send({ t: 'diplo', faction: f, act: act as any }); }
       case 'code': return void this.send({ t: 'code', node: id! });
       case 'tier': return void this.send({ t: 'tier' });
@@ -583,6 +585,11 @@ export class App {
 
   // ================================================================ modal, toasts, reveal
   modal(html: string) { const m = $('#v1bModal'); m.innerHTML = `<div class="modal-card">${html}</div>`; m.classList.add('open'); }
+  pendingAsk: (() => void) | null = null;
+  ask(text: string, yes: string, f: () => void) {
+    this.pendingAsk = f;
+    this.modal(`<h2>Are you sure?</h2><p>${esc(text)}</p><div class="choices"><button class="choice" data-v="askYes"><b>${esc(yes)}</b></button><button class="choice" data-v="closeModal"><b>Cancel</b></button></div>`);
+  }
   closeModal() { $('#v1bModal').classList.remove('open'); $('#v1bModal').innerHTML = ''; }
   toast(msg: string, kind: string) { const el = document.createElement('div'); el.className = 'toast ' + kind; el.textContent = msg; $('#v1bToasts').appendChild(el); setTimeout(() => el.remove(), 4200); }
   reveal(kicker: string, title: string, sub: string) { const el = document.createElement('div'); el.className = 'reveal'; el.innerHTML = `<small>${esc(kicker)}</small><b>${esc(title)}</b><span>${esc(sub)}</span>`; document.body.appendChild(el); setTimeout(() => el.remove(), 3600); }
