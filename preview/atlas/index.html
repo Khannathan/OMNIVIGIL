@@ -1,0 +1,1281 @@
+<title>OMNIVIGIL Cosmic Atlas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen&family=Pixelify+Sans:wght@400;600&family=VT323&display=swap">
+<style>
+/* Layout: game-style command bar, filter strip, dense grid of pixel portraits, detail drawer on the right (bottom sheet on phones). Single dark theme, matching the in-game UI. */
+:root{
+  --ink0:#0b0d17; --ink1:#141a2b; --ink2:#1f2840; --ink3:#33416a;
+  --bone:#efede4; --muted:#9aa3bd; --hot:#c2412f; --hot1:#ff7a52; --core:#1fb5ad; --core2:#7cf4da; --amber:#ffb42e;
+  --hd:'Silkscreen','Pixelify Sans',ui-monospace,monospace; --px:'VT323',ui-monospace,monospace; --ui:'Pixelify Sans',ui-monospace,monospace;
+  --r-c:#9aa3bd; --r-u:#5fd38a; --r-r:#4aa8ff; --r-e:#c27aff; --r-l:#ffb42e; --r-m:#ff5a8a;
+  color-scheme:dark;
+}
+html,body{background:var(--ink0);color:var(--bone)}
+body{font-family:var(--ui);font-size:15px;line-height:1.4}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--ink1)}
+.wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--ink1);border-bottom:2px solid var(--hot)}
+.bar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-block:10px}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto}
+.brand b{font-family:var(--hd);color:var(--hot1);letter-spacing:.18em;font-size:15px;font-weight:400}
+.brand small{display:block;font-family:var(--hd);font-size:9px;letter-spacing:.2em;color:var(--muted)}
+.tabs{display:flex;gap:6px}
+.tab,.chip,.btn{font-family:var(--hd);font-size:10px;letter-spacing:.16em;text-transform:uppercase;background:var(--ink0);color:var(--muted);border:1px solid var(--ink3);padding:7px 10px;cursor:pointer}
+.tab[aria-selected="true"]{color:var(--hot1);border-color:var(--hot);background:#2a1414}
+.tab:focus-visible,.chip:focus-visible,.btn:focus-visible,.card:focus-visible,input:focus-visible{outline:2px solid var(--core2);outline-offset:2px}
+.filters{display:flex;flex-direction:column;gap:8px;padding-block:12px;border-bottom:1px solid var(--ink2)}
+.frow{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.flabel{font-family:var(--hd);font-size:9px;letter-spacing:.2em;color:var(--muted);width:64px}
+.chip[aria-pressed="true"]{color:var(--core2);border-color:var(--core);background:#0c2626}
+.chip .n{color:var(--muted);margin-left:6px}
+#q{font-family:var(--px);font-size:20px;background:var(--ink0);color:var(--bone);border:1px solid var(--ink3);padding:2px 10px;min-width:0;flex:1 1 200px;max-width:340px}
+.count{font-family:var(--px);font-size:20px;color:var(--muted);margin-left:auto}
+.count b{color:var(--amber);font-weight:400}
+main{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:20px;padding-block:16px 40px}
+@media (max-width:900px){main{grid-template-columns:minmax(0,1fr)}}
+.sec{font-family:var(--hd);font-size:11px;letter-spacing:.2em;color:var(--core2);margin:18px 0 8px;display:flex;gap:10px;align-items:baseline}
+.sec span{color:var(--muted);font-size:9px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px}
+.card{background:var(--ink1);border:1px solid var(--ink2);padding:6px;cursor:pointer;display:flex;flex-direction:column;gap:4px;position:relative;text-align:left;color:inherit;font:inherit}
+.card:hover{border-color:var(--ink3);background:var(--ink2)}
+.card.sel{border-color:var(--hot1)}
+.card canvas{width:100%;aspect-ratio:1;image-rendering:pixelated;display:block;background:var(--ink0)}
+.card .id{font-family:var(--px);font-size:16px;color:var(--muted);line-height:1}
+.card .nm{font-size:12px;line-height:1.15;min-height:2.3em}
+.card .rb{position:absolute;top:10px;left:10px;width:8px;height:8px;border:1px solid #000}
+.card .stc{position:absolute;top:6px;right:8px;color:var(--amber);font-size:14px;display:none}
+.card.starred .stc{display:block}
+.rC{background:var(--r-c)}.rU{background:var(--r-u)}.rR{background:var(--r-r)}.rE{background:var(--r-e)}.rL{background:var(--r-l)}.rM{background:var(--r-m)}
+aside{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);align-self:start;background:var(--ink1);border:1px solid var(--ink3);padding:14px;display:flex;flex-direction:column;gap:10px;max-height:calc(100vh - 90px);overflow:auto}
+@media (max-width:900px){aside{position:fixed;left:0;right:0;bottom:0;top:auto;max-height:62vh;z-index:25;border-left:0;border-right:0;border-bottom:0;padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  aside.closed{display:none}}
+#big{width:100%;max-width:320px;aspect-ratio:1;image-rendering:pixelated;display:block;margin:0 auto;border:1px solid var(--ink2)}
+@media (max-width:900px){#big{max-width:180px}}
+.dhead{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.dhead h2{font-family:var(--hd);font-weight:400;font-size:16px;letter-spacing:.06em;margin:0;text-wrap:balance}
+.did{font-family:var(--px);font-size:20px;color:var(--muted)}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-family:var(--hd);font-size:9px;letter-spacing:.14em;padding:3px 6px;border:1px solid var(--ink3);color:var(--muted)}
+.tag.rar{color:#000;border-color:#000}
+.dl{font-family:var(--hd);font-size:9px;letter-spacing:.2em;color:var(--core2);margin-top:4px}
+.dt{margin:0;color:var(--bone);font-size:15px}
+.closeX{display:none}
+@media (max-width:900px){.closeX{display:inline-block;margin-left:auto}}
+.drow{display:flex;gap:8px;flex-wrap:wrap}
+.btn.on{color:var(--amber);border-color:var(--amber)}
+/* roll view */
+#roll{padding-block:16px 40px}
+.rollbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.rollgrid{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px}
+@media (max-width:900px){.rollgrid{grid-template-columns:minmax(0,1fr)}}
+#sys{width:100%;aspect-ratio:16/10;image-rendering:pixelated;background:#06070d;border:1px solid var(--ink3);display:block;max-width:100%}
+.log{background:var(--ink1);border:1px solid var(--ink3);padding:12px;display:flex;flex-direction:column;gap:8px;font-size:14px}
+.log h3{font-family:var(--hd);font-weight:400;font-size:11px;letter-spacing:.18em;color:var(--core2);margin:6px 0 0}
+.li{display:flex;gap:8px;align-items:center;cursor:pointer;background:none;border:0;color:inherit;font:inherit;text-align:left;padding:2px 0}
+.li canvas{width:40px;height:40px;image-rendering:pixelated;flex:none}
+.li .rb{width:8px;height:8px;flex:none}
+.li span{min-width:0}
+.li b{font-family:var(--px);font-size:17px;font-weight:400;color:var(--muted)}
+.note{color:var(--muted);font-size:13px;max-width:70ch}
+.toast{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink2);border:1px solid var(--core);padding:8px 14px;font-family:var(--hd);font-size:10px;letter-spacing:.16em;z-index:40}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<header><div class="wrap bar">
+  <div class="brand">
+    <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><g fill="none" stroke="#ff7a52" stroke-width="2"><circle cx="13" cy="13" r="5"/><path d="M13 1v5M13 20v5M1 13h5M20 13h5M4.5 4.5l3.5 3.5M18 18l3.5 3.5M21.5 4.5L18 8M8 18l-3.5 3.5"/></g><rect x="11" y="11" width="4" height="4" fill="#ff7a52"/></svg>
+    <div><b>OMNIVIGIL</b><small>COSMIC ATLAS · 434 ENTRIES</small></div>
+  </div>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-atlas" aria-selected="true">Atlas</button>
+    <button class="tab" role="tab" id="tab-roll" aria-selected="false">Roll a system</button>
+  </div>
+</div></header>
+
+<section id="atlas">
+  <div class="wrap filters">
+    <div class="frow"><span class="flabel">TYPE</span><div class="frow" id="f-cat"></div></div>
+    <div class="frow"><span class="flabel">PHASE</span><div class="frow" id="f-ph"></div></div>
+    <div class="frow"><span class="flabel">RARITY</span><div class="frow" id="f-rar"></div></div>
+    <div class="frow"><span class="flabel">FIND</span><input id="q" type="search" placeholder="black hole, moon, time…" aria-label="Search entries"><button class="chip" id="f-star" aria-pressed="false">★ Starred</button><span class="count" id="count"></span></div>
+  </div>
+  <main class="wrap">
+    <div id="list"></div>
+    <aside id="detail" class="closed" aria-live="polite">
+      <div class="drow"><span class="did" id="d-id"></span><button class="btn closeX" id="d-close">Close</button></div>
+      <canvas id="big" width="128" height="128"></canvas>
+      <div class="dhead"><h2 id="d-name"></h2></div>
+      <div class="tags" id="d-tags"></div>
+      <div class="dl">WHAT IT IS</div><p class="dt" id="d-desc"></p>
+      <div class="dl">HOW IT PLAYS</div><p class="dt" id="d-hook"></p>
+      <div class="drow"><button class="btn" id="d-star">★ Star</button><button class="btn" id="d-copy">Copy starred list</button></div>
+    </aside>
+  </main>
+</section>
+
+<section id="roll" hidden>
+  <div class="wrap">
+    <div class="rollbar">
+      <span class="flabel">REACH</span><div class="frow" id="r-ph"></div>
+      <button class="btn on" id="r-go">Roll new system</button>
+      <span class="count" id="r-seed"></span>
+    </div>
+    <div class="rollgrid">
+      <canvas id="sys" width="480" height="300"></canvas>
+      <div class="log" id="r-log"></div>
+    </div>
+    <p class="note">Each roll draws a star, its worlds and moons, a live event and, deeper in the game, something strange, weighted by rarity. Common things fill most systems; a Mythic entry turns up in roughly one roll in a hundred. Click any entry to open it in the Atlas.</p>
+  </div>
+</section>
+
+<script>// OMNIVIGIL Cosmic Atlas: procedural pixel-art renderer.
+// Every portrait is drawn per pixel onto palette ramps with 4x4 Bayer dithering,
+// lit from the upper left, with a dark outline around solid bodies (Diorama look).
+(function(){
+const HX = h => [parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+const RAMPS = {
+  rock:['#16121a','#2e2630','#4a3e44','#6e6066','#9a8c88','#c4b8ae'],
+  dust:['#1a1210','#3a2618','#6a4426','#9a6a3a','#c8995a','#ecd09a'],
+  sand:['#2a1c12','#5a3e22','#8e6634','#c2944e','#e6c27a','#fae6b4'],
+  rust:['#1e0e0c','#46201a','#7a3622','#a8552c','#cc7e44','#ecb070'],
+  lava:['#1a0806','#5a1206','#a02a08','#e0620e','#ffa62a','#fff0a0'],
+  ocean:['#060a1e','#0b1a40','#123a6a','#1d6a98','#3aa0c0','#8ad8e8'],
+  deep:['#04050e','#080e24','#0e1c3e','#18305a','#284c7a','#4a74a0'],
+  grass:['#0e180e','#1c3216','#2e5020','#4f7a2a','#7ea83e','#b8d870'],
+  jungle:['#06120c','#0c2416','#143e22','#1e5e30','#3a8a3e','#74b850'],
+  ice:['#16203a','#2a3a5a','#4a6a90','#8ab0d0','#c8e2f4','#f4fcff'],
+  salt:['#3a3640','#6a6670','#9a96a0','#c8c4cc','#e8e6ec','#ffffff'],
+  tar:['#020204','#08070c','#121018','#1e1a26','#2e2838','#463c52'],
+  diamond:['#2a3448','#4a5a78','#6a7a90','#a8c0d8','#e0f0ff','#ffffff'],
+  crystal:['#1a0a2a','#3a1458','#6a2a8a','#a04ac0','#d080e8','#f8c8ff'],
+  cyan:['#04141a','#0a2e36','#105a62','#1fb5ad','#7cf4da','#d8fff4'],
+  circuit:['#04100a','#08140f','#0e2a1e','#165a3a','#2a8a5a','#6ae0a0'],
+  violet:['#0a0614','#1a1030','#2e1e54','#4a3080','#7a54b0','#b490e0'],
+  flesh:['#1a0608','#3e0e14','#6e1e26','#a03a3e','#d06a62','#f4a898'],
+  gold:['#1a1006','#4a3008','#8a5e10','#c8901c','#f0c040','#fff0a0'],
+  teal:['#041010','#0a2626','#124444','#1e6a62','#3a9a88','#7ed0b8'],
+  bone:['#1a1814','#3a362e','#6a6456','#a09884','#d0c8b0','#f4f0e0'],
+  steam:['#202630','#3a4450','#5a6672','#8a96a0','#b8c4cc','#e8f0f4'],
+  sulfur:['#1a1604','#3e3608','#6a5a10','#b0a020','#e0d84a','#fff8a0'],
+  toxic:['#0a1004','#1a2a06','#3a5a0a','#6a9a10','#a8d830','#e8ff8a'],
+  pink:['#1e0818','#4a1438','#8a2a62','#c8508e','#f08ab8','#ffd0e4'],
+  navy:['#04060e','#0a0e1c','#121a30','#1e2a48','#30406a','#4a5c90'],
+  metal:['#0e0e12','#1e1e24','#34343c','#50505a','#7a7a86','#b4b4c0'],
+  copper:['#140a06','#3a1c0e','#6a3418','#a05a28','#d08a44','#f4c080'],
+  green:['#04140a','#0a3018','#14582a','#22903e','#4cc860','#a8f8a0'],
+  red:['#120404','#3a0808','#6e1010','#b0201c','#e85030','#ff9a70'],
+  blue:['#040818','#0a1840','#14327a','#2a5ac0','#5a90f0','#b0d8ff'],
+  magenta:['#14041a','#3a0a44','#6e1478','#b020b0','#f050e0','#ffb0ff'],
+  white:['#2a2c38','#5a5e70','#9aa0b4','#d0d4e0','#f0f2f8','#ffffff'],
+  // star / emissive ramps
+  sYel:['#5a2a06','#b0600e','#f0a028','#ffd060','#fff0b0','#ffffff'],
+  sOra:['#4a1606','#9a3608','#e06a14','#ff9a30','#ffd080','#fff4d8'],
+  sRed:['#2a0604','#5e0e06','#a02008','#e04a14','#ff8a40','#ffc890'],
+  sBlu:['#0a1a5a','#1a3aa0','#3a70e0','#7ab0ff','#c8e4ff','#ffffff'],
+  sWht:['#3a4058','#7a84a0','#b8c0d8','#e0e6f4','#f8faff','#ffffff'],
+  plasma:['#200a3a','#4a1a8a','#8a30d0','#d060f0','#ffa0ff','#ffffff'],
+  ember:['#2a0804','#6a1a08','#c2412f','#ff7a52','#ffb08a','#ffe8d8'],
+  lights:['#4a2a08','#a06010','#ffb42e','#ffd880','#fff4c8','#ffffff'],
+  aurora:['#04201a','#0a5a40','#1fb58a','#5af0b0','#b0ffd8','#ffffff'],
+  disk:['#2a0802','#7a2004','#d05a0a','#ffa030','#ffe0a0','#ffffff'],
+  void:['#000000','#020204','#05050a','#0a0a14','#12121e','#1c1c2c'],
+};
+const RGB = {}; for (const k in RAMPS) RGB[k] = RAMPS[k].map(HX);
+const OUT = HX('#08070d');
+const BAYER = [0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5].map(v => (v + .5) / 16);
+
+// ---- noise ----
+function hash(x,y,z,s){ let h = (x*374761393 + y*668265263 + z*1274126177 + s*974634177) | 0; h = Math.imul(h ^ (h >>> 13), 1274126177); h ^= h >>> 16; return (h >>> 0) / 4294967296; }
+function vn(x,y,z,s){ const xi=Math.floor(x),yi=Math.floor(y),zi=Math.floor(z); let xf=x-xi,yf=y-yi,zf=z-zi;
+  xf=xf*xf*(3-2*xf); yf=yf*yf*(3-2*yf); zf=zf*zf*(3-2*zf);
+  const a=hash(xi,yi,zi,s),b=hash(xi+1,yi,zi,s),c=hash(xi,yi+1,zi,s),d=hash(xi+1,yi+1,zi,s);
+  const e=hash(xi,yi,zi+1,s),f=hash(xi+1,yi,zi+1,s),g=hash(xi,yi+1,zi+1,s),h=hash(xi+1,yi+1,zi+1,s);
+  const l1=a+(b-a)*xf, l2=c+(d-c)*xf, l3=e+(f-e)*xf, l4=g+(h-g)*xf;
+  const m1=l1+(l2-l1)*yf, m2=l3+(l4-l3)*yf; return m1+(m2-m1)*zf; }
+function fbm(x,y,z,s,o){ o=o||4; let v=0,a=.5,t=0; for(let i=0;i<o;i++){ v+=a*vn(x,y,z,s+i*17); t+=a; x*=2.03; y*=2.03; z*=2.03; a*=.5; } return v/t; }
+const cl = (v,a,b) => v<a?a:v>b?b:v;
+const fr = v => v - Math.floor(v);
+function srand(seed){ let s = seed >>> 0 || 1; return () => { s = Math.imul(s ^ (s >>> 15), 2246822507) + 0x9e3779b9 | 0; s ^= s >>> 13; return ((s >>> 0) % 100000) / 100000; }; }
+function strSeed(str){ let h = 2166136261; for (let i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+
+// ---- drawing context ----
+function Ctx(N, t, seed){
+  this.N=N; this.t=t; this.seed=seed;
+  this.px = new Uint8ClampedArray(N*N*4);
+  this.solid = new Uint8Array(N*N);
+}
+Ctx.prototype.put = function(x,y,ramp,v,solid){
+  if (x<0||y<0||x>=this.N||y>=this.N) return;
+  const R = RGB[ramp] || RGB.rock, n = R.length;
+  const f = cl(v,0,1)*(n-1); let i = Math.floor(f); if (f-i > BAYER[(y&3)*4+(x&3)]) i++;
+  const c = R[cl(i,0,n-1)], o = (y*this.N+x)*4;
+  this.px[o]=c[0]; this.px[o+1]=c[1]; this.px[o+2]=c[2]; this.px[o+3]=255;
+  if (solid) this.solid[y*this.N+x]=1;
+};
+// dithered translucency: draws only where alpha beats the Bayer threshold
+Ctx.prototype.al = function(x,y,ramp,v,a){ if (a > BAYER[((y+1)&3)*4+((x+2)&3)]) this.put(x,y,ramp,v,0); };
+Ctx.prototype.rgb = function(x,y,c){ if (x<0||y<0||x>=this.N||y>=this.N) return; const o=(y*this.N+x)*4; this.px[o]=c[0];this.px[o+1]=c[1];this.px[o+2]=c[2];this.px[o+3]=255; };
+Ctx.prototype.outline = function(){
+  const N=this.N, s=this.solid, p=this.px, mark=[];
+  for (let y=0;y<N;y++) for (let x=0;x<N;x++){ const i=y*N+x; if (s[i]) continue;
+    if ((x>0&&s[i-1])||(x<N-1&&s[i+1])||(y>0&&s[i-N])||(y<N-1&&s[i+N])) mark.push(i); }
+  for (const i of mark){ p[i*4]=OUT[0]; p[i*4+1]=OUT[1]; p[i*4+2]=OUT[2]; p[i*4+3]=255; }
+};
+// loop over a box in normalized coords
+function box(c, cx, cy, rx, ry, fn){
+  const N=c.N, x0=Math.max(0,Math.floor((cx-rx)*N)), x1=Math.min(N-1,Math.ceil((cx+rx)*N)), y0=Math.max(0,Math.floor((cy-ry)*N)), y1=Math.min(N-1,Math.ceil((cy+ry)*N));
+  for (let y=y0;y<=y1;y++) for (let x=x0;x<=x1;x++) fn(x,y,(x+.5)/N,(y+.5)/N);
+}
+function full(c, fn){ const N=c.N; for (let y=0;y<N;y++) for (let x=0;x<N;x++) fn(x,y,(x+.5)/N,(y+.5)/N); }
+
+const L = (()=>{ const v=[-.62,-.52,.58], m=Math.hypot(...v); return v.map(a=>a/m); })();
+
+// ---- background ----
+function background(c, kind){
+  if (kind==='none') return;
+  const N=c.N, rnd=srand(c.seed*7+3);
+  const base = kind==='void' ? RGB.void[1] : HX('#0b0d17');
+  full(c,(x,y,u,v)=>{
+    let col = base;
+    if (kind==='dense' || kind==='nebula'){ const n=fbm(u*3,v*3,1.3,c.seed%997,3); if (n>.55) { c.al(x,y,kind==='nebula'?'violet':'navy',(n-.55)*2.2,(n-.55)*2.4); return; } }
+    c.rgb(x,y,col);
+  });
+  const stars = kind==='void' ? 3 : kind==='dense' ? N*0.9 : N*0.35;
+  for (let i=0;i<stars;i++){ const x=Math.floor(rnd()*N), y=Math.floor(rnd()*N), b=rnd();
+    c.rgb(x,y, b>.93?[255,244,220]: b>.7?[150,160,190]:[70,76,104]); }
+}
+
+// ---- spheres (planets, moons, stars) ----
+function rot(P, nx, ny, nz, t){
+  const a = (P.spin==null? .25 : P.spin)*t + (P.ph||0), ca=Math.cos(a), sa=Math.sin(a);
+  let X = nx*ca - nz*sa, Z = nx*sa + nz*ca, Y = ny;
+  const tl = P.tilt||.25, ct=Math.cos(tl), st=Math.sin(tl);
+  const X2 = X*ct - Y*st, Y2 = X*st + Y*ct; return [X2, Y2, Z];
+}
+function shapeR(P, ang){
+  if (P.lump) return 1 - P.lump*vn(Math.cos(ang)*2.2+5, Math.sin(ang)*2.2+5, 3, P.sd||1);
+  return 1;
+}
+function sphere(c, P, shade){
+  const cx=P.x==null?.5:P.x, cy=P.y==null?.5:P.y, r=P.r||.34, ob=P.ob||1;
+  box(c,cx,cy,r*1.02,r*1.02/ob,(x,y,u,v)=>{
+    let dx=(u-cx)/r, dy=(v-cy)/r*ob, d2=dx*dx+dy*dy;
+    if (P.lump){ const k=shapeR(P,Math.atan2(dy,dx)); d2/=k*k; dx/=k; dy/=k; }
+    if (d2>1) return;
+    const nz=Math.sqrt(1-d2), lam=dx*L[0]+dy*L[1]+nz*L[2];
+    const s = shade(dx,dy,nz,lam,x,y);
+    if (!s) return;
+    let val = s.v;
+    if (!s.e){ const li = cl(lam*.82+.28,0,1); val = cl(li*.78 + (s.v-.5)*.55 + .06, 0, 1); if (lam<-.05 && P.night!==false) val*=.55; }
+    c.put(x,y,s.r,val,!P.noOutline);
+  });
+}
+function atmo(c,P,ramp,w,str){
+  const cx=P.x==null?.5:P.x, cy=P.y==null?.5:P.y, r=P.r||.34; w=w||.14; str=str||.8;
+  box(c,cx,cy,r*(1+w),r*(1+w),(x,y,u,v)=>{ const d=Math.hypot(u-cx,v-cy)/r; if (d<1||d>1+w) return;
+    const a=(1-(d-1)/w); const sideLit = cl(.6-((u-cx)*L[0]+(v-cy)*L[1])/r*-.8,0.25,1);
+    c.al(x,y,ramp,.4+a*.5,a*a*str*sideLit); });
+}
+function ring(c,P,front){
+  const cx=P.x==null?.5:P.x, cy=P.y==null?.5:P.y, r=P.r||.34;
+  const r0=(P.ri||1.35)*r, r1=(P.ro||2.1)*r, tilt=P.rt||.28, rr=P.rg||'bone', ang=P.ra||-.25;
+  const ca=Math.cos(ang), sa=Math.sin(ang);
+  box(c,cx,cy,r1,r1,(x,y,u,v)=>{
+    const dx=u-cx, dy=v-cy, X=dx*ca+dy*sa, Y=(-dx*sa+dy*ca)/tilt, d=Math.hypot(X,Y);
+    if (d<r0||d>r1) return; const isFront = Y>0; if (isFront!==front) return;
+    if (!front){ const pd=Math.hypot(dx,dy*(P.ob||1)); if (pd<r) return; }
+    const k=(d-r0)/(r1-r0), band=vn(k*14,1,1,(c.seed%50)+3);
+    if (band<.25) return;
+    // planet shadow on the back of the ring
+    let sv=.3+band*.6; if (!front && X>0 && Math.abs(Y*tilt) < r*.9) sv*=.5;
+    c.put(x,y,rr,sv,1);
+  });
+}
+
+// planet surface shader
+function planet(c, P){
+  const t=c.t, sd=(P.sd||c.seed)%9973, f=P.f||2.2, sl=P.sl==null?-1:P.sl;
+  const craters=[]; if (P.cra){ const rnd=srand(sd*13+1); for(let i=0;i<P.cra;i++){ const a=rnd()*6.283,b=Math.acos(rnd()*2-1); craters.push([Math.sin(b)*Math.cos(a),Math.cos(b),Math.sin(b)*Math.sin(a),.08+rnd()*.22]); } }
+  if (P.rg) ring(c,P,false);
+  sphere(c,P,(nx,ny,nz,lam,px,py)=>{
+    const [X,Y,Z]=rot(P,nx,ny,nz,t);
+    const pat=P.p;
+    if (pat==='check'){ const k=(Math.floor((Math.atan2(Z,X)+3.15)*2.5)+Math.floor((Y+1)*4))&1; return {r:k?'magenta':'tar',v:k?.75:.4,e:0}; }
+    if (pat==='grid'){ const a=Math.atan2(Z,X), gx=fr(a*3/Math.PI), gy=fr((Y+1)*3); const k=((gx<.5)^(gy<.5)); return {r:k?'bone':'tar',v:k?.75:.35}; }
+    if (pat==='circuit'){ const a=Math.atan2(Z,X)*8, b=Y*8; const ln = Math.min(Math.abs(fr(a)-.5),Math.abs(fr(b)-.5)); const h=hash(Math.floor(a),Math.floor(b),1,sd); if (ln<.06 && h>.45) return {r:P.v||'cyan',v:.6+.4*Math.sin(t*3+h*9)*.5+.3,e:1}; return {r:P.t||'circuit',v:.25+fbm(X*4,Y*4,Z*4,sd,2)*.4}; }
+    if (pat==='facet'){ const q=[X*3,Y*3,Z*3].map(Math.floor); const h=hash(q[0],q[1],q[2],sd); return {r:P.t||'crystal',v:.25+h*.75}; }
+    if (pat==='gear'){ const a=Math.atan2(Z,X)+(Math.floor((Y+1)*3)%2?t*.6:-t*.6), ring=fr((Y+1)*3); const tooth=Math.sin(a*14)>0; return {r:P.t||'copper',v:(ring<.15||ring>.85)?.15:tooth?.75:.5}; }
+    if (pat==='eye'){ const d=Math.hypot(X-.0,Y)*1; const fz=Z; if (fz>0){ const e=Math.hypot(X,Y); if (e<.18) return {r:'tar',v:.1,e:1}; if (e<.42) return {r:P.v||'red',v:.5+.4*vn(Math.atan2(Y,X)*6,e*10,1,sd),e:1}; } return {r:P.t||'bone',v:.5+fbm(X*3,Y*3,Z*3,sd,2)*.4}; }
+    if (pat==='fract'){ let zx=X*1.4-.5, zy=Y*1.4, i=0; const cx2=zx, cy2=zy; for(;i<18;i++){ const nx2=zx*zx-zy*zy+cx2*.9-.2, ny2=2*zx*zy+cy2*.9; zx=nx2; zy=ny2; if (zx*zx+zy*zy>4) break; } return i>=18?{r:P.t||'grass',v:.5+fbm(X*6,Y*6,Z*6,sd,2)*.4}:{r:P.s||'ocean',v:.2+(i/18)*.7}; }
+    if (pat==='text'){ const a=Math.atan2(Z,X)*10, b=(Y+1)*14; const h=hash(Math.floor(a*2),Math.floor(b),2,sd); const inGlyph=fr(b)<.6&&h>.35; return inGlyph?{r:P.v||'gold',v:.65+h*.3,e:P.e?1:0}:{r:P.t||'bone',v:.35}; }
+    if (pat==='flesh'){ const n=fbm(X*3,Y*3,Z*3,sd,4), ridge=1-Math.abs(fbm(X*5+t*.05,Y*5,Z*5,sd+9,3)*2-1); if (ridge>.9) return {r:'red',v:.65,e:0}; return {r:P.t||'flesh',v:n}; }
+    let h = fbm(X*f+sd%31, Y*f, Z*f, sd, P.oct||4);
+    if (P.b){ const w=fbm(X*1.6,Y*1.6,Z*1.6,sd+5,3); const bv=.5+.5*Math.sin(Y*P.b*Math.PI+w*4*(P.turb||1)); h=bv*.8+h*.2;
+      if (P.st){ const sx=X-.35, sy=Y+.25; const sdd=Math.hypot(sx,sy*1.6); if (Z>0 && sdd<.2) { return {r:P.st,v:.4+.5*Math.sin(sdd*30-Math.atan2(sy,sx)*2)}; } } }
+    if (P.ridge) h = 1-Math.abs(h*2-1);
+    // ice caps
+    if (P.ic && Math.abs(Y) > 1-P.ic+(h-.5)*.25) return {r:'ice',v:.55+h*.4};
+    // craters
+    for (const k of craters){ const d=Math.hypot(X-k[0],Y-k[1],Z-k[2]); if (d<k[3]){ const q=d/k[3]; return {r:P.t||'rock',v: q>.8? .85 : .2+q*.35}; } }
+    // glowing veins (lava cracks, energy)
+    if (P.v){ const vv=1-Math.abs(fbm(X*f*1.6,Y*f*1.6,Z*f*1.6,sd+77,3)*2-1); if (vv>(P.vw||.9)) return {r:P.v,v:.45+(vv-.9)*5,e:1}; }
+    // city lights on the night side
+    if (P.lt && lam<.05 && h>sl && hash(px>>1,py>>1,3,sd)>.78) return {r:'lights',v:.6+hash(px,py,1,1)*.4,e:1};
+    // clouds
+    if (P.c){ const cc=fbm(X*2.6+t*.03,Y*4,Z*2.6,sd+31,4); if (cc>1-P.c) return {r:P.cr||'white',v:.55+(cc-(1-P.c))*1.5}; }
+    if (sl>0 && h<sl) return {r:P.s||'ocean',v:.15+h/sl*.6, e:P.se?1:0};
+    const land = sl>0 ? (h-sl)/(1-sl) : h;
+    if (P.t2 && land > (P.t2l||.55)) return {r:P.t2,v:(land-(P.t2l||.55))/(1-(P.t2l||.55))*.8+.2};
+    return {r:P.t||'rock', v: P.e? land : land*.9+.05, e:P.e?1:0};
+  });
+  if (P.a) atmo(c,P,P.a,P.aw,P.as);
+  if (P.rg) ring(c,P,true);
+  if (P.m){ for (let i=0;i<P.m;i++){ const a=c.t*.4*(1+i*.3)+i*2.3, d=(P.r||.34)*(1.5+i*.35);
+    const mx=(P.x==null?.5:P.x)+Math.cos(a)*d, my=(P.y==null?.5:P.y)+Math.sin(a)*d*.35;
+    if (Math.sin(a)<0) continue; planet(c,{x:mx,y:my,r:(P.r||.34)*(.14+.05*(i%2)),t:P.mt||'rock',cra:2,sd:(P.sd||7)+i*11,spin:.1}); } }
+}
+
+function star(c,P){
+  const cx=P.x==null?.5:P.x, cy=P.y==null?.5:P.y, r=P.r||.18, col=P.c||'sYel', t=c.t;
+  const cor=P.cor||1.9;
+  box(c,cx,cy,r*cor,r*cor,(x,y,u,v)=>{ const d=Math.hypot(u-cx,v-cy)/r; if (d<1||d>cor) return;
+    const a=Math.atan2(v-cy,u-cx); const spike = P.fl ? Math.pow(Math.max(0,Math.sin(a*P.fl+t)),6)*.6 : 0;
+    const k=1-(d-1)/(cor-1); const n=vn(a*3+t*.3,d*3-t*.5,1,c.seed%91);
+    c.al(x,y,col,.35+k*.5,k*k*(.55+n*.5)+spike*k); });
+  sphere(c,{...P,x:cx,y:cy,r,noOutline:1,night:false},(nx,ny,nz,lam)=>{
+    const [X,Y,Z]=rot({spin:.08},nx,ny,nz,t); const g=fbm(X*6,Y*6,Z*6,(c.seed%97)+2,3);
+    let v=.62+g*.35+nz*.15; if (P.sp && fbm(X*2.5,Y*2.5,Z*2.5,(c.seed%97)+40,2)>.62) v=.2;
+    return {r:col,v:cl(v,0,1),e:1};
+  });
+}
+
+function blackhole(c,P){
+  const cx=P.x==null?.5:P.x, cy=P.y==null?.5:P.y, r=P.r||.1, t=c.t, dc=P.dc||'disk';
+  const R0=r*1.5, R1=r*(P.dw||3.6), tilt=P.tilt||.22;
+  const diskAt=(u,v,front)=>{ const dx=u-cx, dy=v-cy, Y=dy/tilt, d=Math.hypot(dx,Y); if (d<R0||d>R1) return null; if ((dy>0)!==front) return null;
+    const a=Math.atan2(Y,dx), k=(d-R0)/(R1-R0); const sw=vn(a*3+k*9-t*1.4,k*6,1,c.seed%61);
+    const dop = .5 - dx/R1*.45; return .25+ (1-k)*.55*dop + sw*.3; };
+  // back disk
+  if (!P.nodisk) box(c,cx,cy,R1,R1,(x,y,u,v)=>{ const s=diskAt(u,v,false); if (s!=null) c.put(x,y,dc,s,0); });
+  // lensed halo
+  if (!P.nodisk) box(c,cx,cy,r*2.2,r*2.2,(x,y,u,v)=>{ const d=Math.hypot(u-cx,v-cy)/r; if (d<1.05||d>1.9) return; const a=Math.atan2(v-cy,u-cx);
+    const k=1-Math.abs(d-1.35)/.55; const n=vn(a*4-t,d*4,2,c.seed%33); c.al(x,y,dc,.45+k*.4+n*.15,k*(a<0?.95:.55)); });
+  // photon ring and horizon
+  box(c,cx,cy,r*1.1,r*1.1,(x,y,u,v)=>{ const d=Math.hypot(u-cx,v-cy)/r; if (d>1.08) return; if (d>.96) c.put(x,y,P.pr||'sWht',.85,0); else { const o=(y*c.N+x)*4; c.px[o]=0;c.px[o+1]=0;c.px[o+2]=0;c.px[o+3]=255; } });
+  if (!P.nodisk) box(c,cx,cy,R1,R1,(x,y,u,v)=>{ const s=diskAt(u,v,true); if (s!=null) c.put(x,y,dc,s+.08,0); });
+  if (P.jet){ box(c,cx,cy,r*.6,.5,(x,y,u,v)=>{ const dx=Math.abs(u-cx), dy=Math.abs(v-cy); if (dy<r) return; const w=r*.18+dy*.08; if (dx>w) return;
+    c.al(x,y,P.jc||'sBlu',.9-dx/w*.4,(1-dx/w)*(1-dy*1.6)+.2*vn(dy*30-t*6,1,1,3)); }); }
+}
+
+function nebula(c,P){
+  const t=c.t, col=P.c||'violet', col2=P.c2, sd=(P.sd||c.seed)%997, f=P.f||2.6, th=P.th==null?.42:P.th;
+  full(c,(x,y,u,v)=>{
+    let n=fbm(u*f+t*.02,v*f,sd*.13,sd,5); n=(n-.5)*1.9+.5;
+    if (P.sh==='ring'){ const d=Math.hypot(u-.5,v-.5); n = n*.6 + (1-Math.abs(d-.28)/.12)*.6 - .05; }
+    if (P.sh==='pillar'){ const col_=Math.max(1-Math.abs(u-.38)/.09*(1-(1-v)*.4), 1-Math.abs(u-.66)/.07*(1-(1-v)*.3)*(v>.35?1:3)); n = n*.55 + col_*.5*(v>.15?1:0); }
+    if (P.sh==='blob'){ const d=Math.hypot(u-.5,v-.5); n = n*.5 + (1-d/.3)*.7; }
+    if (P.sh==='shell'){ const d=Math.hypot(u-.5,v-.5)+(n-.5)*.12; n = (1-Math.abs(d-.3)/.06)*.9 + n*.25; }
+    if (P.sh==='disk'){ const d=Math.hypot((u-.5),(v-.5)/.35); n = n*.5 + (1-d/.42)*.6; }
+    if (n<th) return;
+    const k=(n-th)/(1-th);
+    if (P.dark){ c.al(x,y,'tar',.3+k,k*2.5); return; }
+    c.al(x,y, (col2 && fbm(u*5,v*5,2,sd+4,2)<.48 && k>.25)? col2: col, .2+k*1.1, k*3);
+  });
+  if (P.stars){ const rnd=srand(sd+5); for(let i=0;i<P.stars;i++){ const x=Math.floor(rnd()*c.N), y=Math.floor(rnd()*c.N); c.put(x,y,'sWht',.9,0); if (c.N>=96){ c.put(x+1,y,'sWht',.6,0); c.put(x-1,y,'sWht',.6,0);} } }
+}
+
+function galaxy(c,P){
+  const t=c.t, col=P.c||'sBlu', core=P.core||'sYel', sd=(P.sd||c.seed)%997, tilt=P.tilt||.55, sz=P.sz||.42, kind=P.g||'spiral';
+  const one=(cx,cy,sz,rotA,tl)=>{
+    full(c,(x,y,u,v)=>{ const dx=u-cx, dy=(v-cy)/tl; const ca=Math.cos(rotA), sa=Math.sin(rotA); const X=dx*ca-dy*sa, Y=dx*sa+dy*ca;
+      const d=Math.hypot(X,Y)/sz; if (d>1.1) return; const a=Math.atan2(Y,X);
+      let s;
+      if (kind==='ellip') s = Math.pow(1-d,1.6);
+      else if (kind==='ring') s = (1-Math.abs(d-.75)/.15)*.9 + (d<.15?(1-d/.15):0);
+      else { const arms = P.arms||2; const sp = Math.cos(arms*(a - Math.log(d+.05)*2.6 - t*.15)); s = Math.max(0,sp)*(1-d)*.9 + Math.pow(Math.max(0,1-d/.28),2);
+        if (kind==='bar' && Math.abs(Y)<.05*sz/sz && Math.abs(X)/sz<.38) s=Math.max(s,.8); }
+      s += (fbm(u*8,v*8,1,sd,3)-.5)*.35;
+      if (s<.12) return;
+      const isCore = d<.2;
+      c.al(x,y,isCore?core:col,.35+s*.8,s*2.4);
+    });
+  };
+  if (kind==='merge'){ one(.38,.45,.3,.4+t*.05,.5); one(.64,.56,.26,-.8-t*.05,.7); }
+  else one(.5,.5,sz,P.rot||.3,tilt);
+}
+
+function belt(c,P){
+  const rnd=srand(((P.sd||c.seed)%997)+9), n=P.n||40, t=c.t;
+  for (let i=0;i<n;i++){
+    let a=rnd()*6.283, rr=P.arc? .25+rnd()*.2 : rnd(), x, y;
+    if (P.mode==='cloud'){ x=.5+(rnd()-.5)*.9; y=.5+(rnd()-.5)*.9; }
+    else if (P.mode==='trojan'){ const g=i%2? -1.05: 1.05; a = -1.57+g + (rnd()-.5)*.6 + t*.05; rr=.36+(rnd()-.5)*.08; x=.5+Math.cos(a)*rr; y=.5+Math.sin(a)*rr*.5; }
+    else { a+=t*.05*(1-rr*.4); const R=P.arc? rr : .2+rr*.25; x=.5+Math.cos(a)*R; y=.5+Math.sin(a)*R*(P.flat||.35); }
+    const r=(P.min||.012)+rnd()*(P.max||.03);
+    planet(c,{x,y,r,t:P.t||'rock',lump:.35,cra:1,sd:i*7+3,spin:.2,f:3});
+  }
+}
+
+function comet(c,P){
+  const t=c.t, cx=P.x||.62, cy=P.y||.4, r=P.r||.05, ang=P.ang==null?2.5:P.ang, len=P.len||.55, col=P.c||'ice';
+  const dxA=Math.cos(ang), dyA=Math.sin(ang);
+  full(c,(x,y,u,v)=>{ const dx=u-cx, dy=v-cy; const along=dx*dxA+dy*dyA, perp=Math.abs(-dx*dyA+dy*dxA);
+    if (along<0||along>len) return; const w=r*.9+along*.35; if (perp>w) return; const k=(1-along/len)*(1-perp/w);
+    c.al(x,y,col,.4+k*.6,k*1.3*(.6+.4*vn(along*20-t*3,perp*20,1,4))); });
+  if (P.tail2) full(c,(x,y,u,v)=>{ const a2=ang+.35, dx=u-cx, dy=v-cy; const along=dx*Math.cos(a2)+dy*Math.sin(a2), perp=Math.abs(-dx*Math.sin(a2)+dy*Math.cos(a2)); if (along<0||along>len*.8||perp>.012) return; c.al(x,y,'sBlu',.8,(1-along/len)); });
+  planet(c,{x:cx,y:cy,r,t:P.t||'ice',lump:.3,cra:1,sd:5,a:col,aw:.6,as:.9});
+}
+
+// ---- effects ----
+function burst(c,P){
+  const t=c.t, cx=P.x==null?.5:P.x, cy=P.y==null?.5:P.y, col=P.c||'sYel', rays=P.rays||12, sz=P.sz||.48;
+  full(c,(x,y,u,v)=>{ const dx=u-cx, dy=v-cy, d=Math.hypot(dx,dy)/sz, a=Math.atan2(dy,dx); if (d>1) return;
+    const ray=Math.pow(Math.max(0,Math.cos(a*rays/2+vn(a*3,1,1,c.seed%9)*3)),8)*(1-d);
+    const coreV=Math.pow(Math.max(0,1-d/.25),2);
+    const sh = P.shell ? Math.max(0,1-Math.abs(d-(.55+.1*Math.sin(t)))/.08)*(.5+fbm(u*6,v*6,t*.1,3,3)) : 0;
+    const k=Math.max(ray*1.2,coreV,sh); if (k<.05) return; c.al(x,y,col,.35+k*.65,k*1.6); });
+}
+function beam(c,P){
+  const t=c.t, ang=P.ang==null?-.6:P.ang, w=P.w||.05, col=P.c||'sWht', cx=P.x==null?.5:P.x, cy=P.y==null?.5:P.y;
+  const dx_=Math.cos(ang), dy_=Math.sin(ang);
+  full(c,(x,y,u,v)=>{ const dx=u-cx, dy=v-cy, along=dx*dx_+dy*dy_, perp=Math.abs(-dx*dy_+dy*dx_); if (P.half && along<0) return; const ww=w*(1+Math.abs(along)*(P.spread||.4)); if (perp>ww*1.8) return;
+    const k=perp<ww? 1-perp/ww*.6 : (1-(perp-ww)/(ww*.8))*.4; c.al(x,y,col,.4+k*.6,k*(.8+.3*vn(along*24-t*8,1,1,2))); });
+}
+function waves(c,P){
+  const t=c.t, cx=P.x==null?.5:P.x, cy=P.y==null?.5:P.y, col=P.c||'cyan', sp=P.sp||.09, ob=P.ob||1, arc=P.arc;
+  full(c,(x,y,u,v)=>{ const dx=u-cx, dy=(v-cy)*ob, d=Math.hypot(dx,dy); if (d>.5) return; if (arc!=null){ const a=Math.atan2(dy,dx); if (Math.abs(((a-arc+Math.PI*3)%(Math.PI*2))-Math.PI)>.55) return; }
+    const ph=fr((d - t*.05)/sp); const k=Math.max(0,1-Math.abs(ph-.5)/.16)*(1-d*1.6); if (k<.05) return; c.al(x,y,col,.5+k*.5,k*2.6); });
+}
+function vortex(c,P){
+  const t=c.t, cx=P.x==null?.5:P.x, cy=P.y==null?.5:P.y, col=P.c||'steam', col2=P.c2, sz=P.sz||.45, ob=P.ob||1;
+  full(c,(x,y,u,v)=>{ const dx=u-cx, dy=(v-cy)*ob, d=Math.hypot(dx,dy)/sz; if (d>1) return; const a=Math.atan2(dy,dx);
+    const s=fbm(Math.cos(a+d*(P.tw||5)-t*.4)*2+3, Math.sin(a+d*(P.tw||5)-t*.4)*2+3, d*3, c.seed%77, 4);
+    const k=s*(1-d)*1.6 - (P.hole && d<.12 ? 2:0); if (k<.25) return; c.al(x,y,(col2&&s>.6)?col2:col,.2+k*.8,k*1.4); });
+}
+function field(c,P){
+  const t=c.t, cx=P.x==null?.5:P.x, cy=P.y==null?.5:P.y, col=P.c||'cyan', n=P.n||5, sz=P.sz||.42;
+  full(c,(x,y,u,v)=>{ const X=(u-cx)/sz, Y=(v-cy)/sz; const r=Math.hypot(X,Y); if (r<.05||r>1.2) return; const s2=(X*X)/(r*r); const L_=r/(s2+1e-3);
+    const ph=fr(L_*n*.25 - t*.1); const k=Math.max(0,1-Math.abs(ph-.5)/.14)*(1-r/1.3); if (k<.08) return; c.al(x,y,col,.5+k*.5,k*2.6); });
+}
+function streaks(c,P){
+  const t=c.t, rnd=srand((P.sd||c.seed)%97+3), n=P.n||18, ang=P.ang==null?.7:P.ang, col=P.c||'sWht', len=P.len||.25;
+  const dx=Math.cos(ang), dy=Math.sin(ang);
+  for (let i=0;i<n;i++){ const ox=rnd()*1.4-.2, oy=rnd()*1.4-.2, sp=.3+rnd()*.7, ph=fr(rnd()+t*.15*sp);
+    const sx=ox+dx*(ph-.5)*1.2, sy=oy+dy*(ph-.5)*1.2;
+    for (let s=0;s<len*c.N*sp;s++){ const u=sx-dx*s/c.N, v=sy-dy*s/c.N; const k=1-s/(len*c.N*sp); c.al(Math.floor(u*c.N),Math.floor(v*c.N),col,.4+k*.6,k*1.2); } }
+}
+function rift(c,P){
+  const t=c.t, col=P.c||'magenta', sd=(P.sd||c.seed)%97, ang=P.ang||1.2, w=P.w||.035;
+  const dx=Math.cos(ang), dy=Math.sin(ang);
+  full(c,(x,y,u,v)=>{ const X=u-.5, Y=v-.5, along=X*dx+Y*dy, perp=-X*dy+Y*dx; if (Math.abs(along)>.42) return;
+    const jag=(vn(along*14,1,1,sd)-.5)*.12 + (vn(along*40,2,1,sd)-.5)*.03; const p=Math.abs(perp-jag); const ww=w*(1-Math.abs(along)/.45);
+    if (p<ww*.45) { c.put(x,y,P.inner||'sWht',.85+.15*vn(along*30,t,1,2),0); return; }
+    if (p<ww*2.6){ const k=1-(p-ww*.45)/(ww*2.15); c.al(x,y,col,.3+k*.7,k*1.2); } });
+}
+function bubble(c,P){
+  const t=c.t, cx=P.x==null?.5:P.x, cy=P.y==null?.5:P.y, r=(P.r||.3)*(1+(P.grow?Math.sin(t*.4)*.05:0)), col=P.c||'cyan', inside=P.in;
+  full(c,(x,y,u,v)=>{ const d=Math.hypot(u-cx,v-cy)/r; if (d>1.12) return;
+    if (d<.94 && inside){ const n=fbm(u*5,v*5,t*.1,c.seed%31,3); if (inside==='void'){ const o=(y*c.N+x)*4; const g=n>.6?14:4; c.px[o]=g;c.px[o+1]=g;c.px[o+2]=g+6;c.px[o+3]=255; } else c.al(x,y,inside,.2+n*.6,.6+n*.4); return; }
+    const k=1-Math.abs(d-1)/.12; if (k<0) return; c.al(x,y,col,.5+k*.5,k*1.3); });
+}
+function lens(c,P){
+  const cx=P.x==null?.5:P.x, cy=P.y==null?.5:P.y, r=P.r||.24, col=P.c||'sBlu', t=c.t;
+  full(c,(x,y,u,v)=>{ const d=Math.hypot(u-cx,v-cy)/r; const a=Math.atan2(v-cy,u-cx); const k=1-Math.abs(d-1)/(.08+.06*vn(a*3,1,1,4)); if (k<0) return; c.al(x,y,col,.5+k*.5,k*(P.full?1.2:.4+.9*Math.max(0,Math.sin(a*2+t*.2)))); });
+}
+function stringL(c,P){
+  const t=c.t, col=P.c||'sWht', ang=P.ang==null?-.35:P.ang; const dx=Math.cos(ang), dy=Math.sin(ang);
+  full(c,(x,y,u,v)=>{ const X=u-.5, Y=v-.5, perp=-X*dy+Y*dx, along=X*dx+Y*dy; const wob=Math.sin(along*18-t*2)*.008*(P.wob||1);
+    const p=Math.abs(perp-wob); if (p<.006) { c.put(x,y,col,1,0); return; } if (p<.05) c.al(x,y,P.c2||'sBlu',.6,(1-p/.05)*.5); });
+}
+function glitch(c,P){
+  const N=c.N, rnd=srand((Math.floor(c.t*3)*31+c.seed)>>>0), p=c.px, rows=P.n||6;
+  for (let i=0;i<rows;i++){ const y0=Math.floor(rnd()*N), h=1+Math.floor(rnd()*N*.08), sh=Math.floor((rnd()-.5)*N*.25);
+    for (let y=y0;y<Math.min(N,y0+h);y++){ const row=p.slice(y*N*4,(y+1)*N*4); for(let x=0;x<N;x++){ const sx=((x-sh)%N+N)%N; for(let k=0;k<4;k++) p[(y*N+x)*4+k]=row[sx*4+k]; } } }
+  for (let i=0;i<(P.blocks||3);i++){ const bx=Math.floor(rnd()*N*.8), by=Math.floor(rnd()*N*.8), bw=Math.floor(N*(.05+rnd()*.12)), bh=Math.floor(N*(.03+rnd()*.08));
+    for (let y=by;y<by+bh;y++) for (let x=bx;x<bx+bw;x++){ const k=((x>>1)+(y>>1))&1; c.rgb(x,y,k?[255,0,220]:[0,0,0]); } }
+  if (P.rgb){ for (let y=0;y<N;y++) for (let x=N-1;x>1;x--){ const o=(y*N+x)*4, o2=(y*N+x-2)*4; p[o]=p[o2]; } }
+}
+function clock(c,P){
+  const t=c.t, cx=.5, cy=.5, r=P.r||.34, col=P.c||'gold';
+  full(c,(x,y,u,v)=>{ const dx=u-cx, dy=v-cy, d=Math.hypot(dx,dy)/r, a=Math.atan2(dy,dx);
+    if (Math.abs(d-1)<.06) { c.put(x,y,col,.8,1); return; }
+    if (d<1 && d>.82 && Math.abs(Math.sin(a*6))<.12) { c.put(x,y,col,.95,0); return; }
+    const hand=(ang,len,w)=>{ const hx=Math.cos(ang), hy=Math.sin(ang); const al=dx*hx+dy*hy, pp=Math.abs(-dx*hy+dy*hx); return al>0 && al<len*r && pp<w; };
+    const sp=P.rev?-1:1;
+    if (hand(sp*t*.8-1.57,.85,.014)||hand(sp*t*.08+.6,.6,.022)) { c.put(x,y,'sWht',.9,0); return; }
+    if (d<1){ const n=fbm(u*4,v*4,t*.1,7,3); c.al(x,y,P.c2||'navy',.3+n*.5,.5); } });
+}
+function loopL(c,P){
+  const t=c.t, col=P.c||'cyan';
+  full(c,(x,y,u,v)=>{ const X=(u-.5)*2.4, Y=(v-.5)*2.4; // lemniscate band
+    const a=Math.atan2(Y,X), r=Math.hypot(X,Y), target=Math.sqrt(Math.max(0,Math.cos(2*a)))*1.0; const d=Math.abs(r-target);
+    if (d<.09 && Math.cos(2*a)>0){ const k=1-d/.09; const pulse=.5+.5*Math.sin(a*6-t*3); c.put(x,y,col,.35+k*.45+pulse*.2,1); } });
+}
+function eyeL(c,P){
+  const t=c.t, col=P.c||'sRed', r=P.r||.36, blink=P.blink? Math.max(.08,Math.abs(Math.sin(t*.5))) : 1;
+  full(c,(x,y,u,v)=>{ const dx=(u-.5)/r, dy=(v-.5)/(r*.55*blink); const lid=dx*dx+dy*dy; if (lid>1) { const g=1-(Math.sqrt(lid)-1)/.4; if (g>0) c.al(x,y,col,.4,g*.5); return; }
+    const ix=dx*1, iy=(v-.5)/r; const ir=Math.hypot(ix-Math.sin(t*.3)*.2,iy)/.55;
+    if (ir<.35) { c.put(x,y,'tar',.05,1); return; }
+    if (ir<1) { c.put(x,y,col,.35+ir*.5+.15*vn(Math.atan2(iy,ix)*8,ir*5,1,2),1); return; }
+    c.put(x,y,'bone',.85-lid*.3,1); });
+}
+function beast(c,P){
+  const t=c.t, col=P.c||'teal', glow=P.g||'cyan', kind=P.b||'whale', sc=P.sc||1;
+  const S=(u,v)=>{ const X=(u-.5)/sc, Y=(v-.5)/sc + Math.sin(X*6+t)*.03*(kind==='serpent'?2:1);
+    if (kind==='moth'){ const body=Math.hypot(X/.05,Y/.18)<1; const wing=Math.hypot((Math.abs(X)-.18)/(.17+.03*Math.sin(t*4)),(Y+.04)/.16)<1; return body?2:wing?1:0; }
+    if (kind==='swarm'){ return 0; }
+    if (kind==='serpent'){ const w=.06*(1-Math.abs(X)/.46); return Math.abs(X)<.46 && Math.abs(Y - Math.sin(X*9-t*1.5)*.08)<w ? (Math.abs(X+.4)<.05?2:1):0; }
+    // whale / leviathan: tapered ellipse with fin & tail
+    const body = (X/.36)**2 + (Y/(.12*(1-Math.max(0,X)/.6)))**2 < 1;
+    const tail = X>.3 && X<.46 && Math.abs(Y)< (X-.3)*1.6 && Math.abs(Y)>(X-.3)*.4;
+    const fin = Math.abs(X+.05)<.08 && Y>.06 && Y<.17-(Math.abs(X+.05))*.6;
+    return body?2:(tail||fin)?1:0; };
+  if (kind==='swarm'){ const rnd=srand(17); for (let i=0;i<(P.n||22);i++){ const a=rnd()*6.28+t*.2*(rnd()>.5?1:-1), d=rnd()*.35; const sx=.5+Math.cos(a)*d, sy=.5+Math.sin(a)*d*.7;
+      beast(c,{...P,b:P.sub||'moth',sc:.12+rnd()*.06,ox:sx-.5,oy:sy-.5}); } return; }
+  const ox=P.ox||0, oy=P.oy||0;
+  full(c,(x,y,u,v)=>{ const s=S(u-ox,v-oy); if (!s) return; const X=(u-ox-.5)/sc, Y=(v-oy-.5)/sc;
+    const spot = hash(Math.floor(X*30),Math.floor(Y*30),1,P.sd||3)>.9 && s===2;
+    if (spot) { c.put(x,y,glow,.85,1); return; }
+    const sh = .55 - Y*1.6 - X*.3 + (fbm(X*8,Y*8,1,4,2)-.5)*.3; c.put(x,y,col,cl(sh,.05,.95),1); });
+}
+function crystals(c,P){
+  const rnd=srand((P.sd||c.seed)%97+1), col=P.c||'crystal', n=P.n||6;
+  const shards=[]; for(let i=0;i<n;i++) shards.push({x:.5+(rnd()-.5)*.35, y:.62+(rnd()-.5)*.1, a:-1.57+(rnd()-.5)*1.3, l:.18+rnd()*.25, w:.04+rnd()*.035});
+  full(c,(x,y,u,v)=>{ for (const s of shards){ const dx=u-s.x, dy=v-s.y, ca=Math.cos(s.a), sa=Math.sin(s.a); const al=dx*ca+dy*sa, pp=-dx*sa+dy*ca;
+      if (al<0||al>s.l) continue; const w=s.w*(al>s.l*.75? (s.l-al)/(s.l*.25):1); if (Math.abs(pp)>w) continue;
+      c.put(x,y,P.e?col:col,pp<0? .8-al/s.l*.2 : .45-al/s.l*.15 + (P.e?.2:0),1); return; } });
+}
+function slab(c,P){
+  const t=c.t, w=P.w||.14, h=P.h||.46, col=P.c||'tar';
+  box(c,.5,.5,w*.5+.01,h*.5+.01,(x,y,u,v)=>{ const X=(u-.5)/(w*.5), Y=(v-.5)/(h*.5); if (Math.abs(X)>1||Math.abs(Y)>1) return; const edge=X<-.8||Y<-.92; c.put(x,y,col,edge?.7:.15+(Y+1)*.08,1); });
+  if (P.glow) full(c,(x,y,u,v)=>{ const d=Math.hypot((u-.5)/(w*.5+.08),(v-.5)/(h*.5+.08)); if (d<1||d>1.6) return; c.al(x,y,P.glow,.6,(1.6-d)*(.6+.3*Math.sin(t*2))); });
+}
+function pylon(c,P){
+  const t=c.t, col=P.c||'metal', g=P.g||'cyan';
+  full(c,(x,y,u,v)=>{ const X=u-.5, top=.12; if (v<top||v>.86) return; const w=.012+(v-top)*.11; if (Math.abs(X)>w) return; c.put(x,y,col,X<0?.65:.3,1); });
+  full(c,(x,y,u,v)=>{ const d=Math.hypot(u-.5,v-.13); if (d>.12) return; const k=1-d/.12; c.al(x,y,g,.5+k*.5,k*1.6*(.7+.3*Math.sin(t*3))); });
+}
+function cylinder(c,P){
+  const t=c.t, L_=P.len||.62, R=P.rad||.12, ang=P.ang==null?-.35:P.ang, col=P.c||'metal';
+  const dx=Math.cos(ang), dy=Math.sin(ang);
+  full(c,(x,y,u,v)=>{ const X=u-.5, Y=v-.5, al=X*dx+Y*dy, pp=-X*dy+Y*dx; if (Math.abs(al)>L_/2||Math.abs(pp)>R) return;
+    const nn=pp/R; const stripe=fr((Math.asin(cl(nn,-1,1))/Math.PI+.5)*3 + t*.05);
+    const win = stripe<.33; const lit = .55 - nn*.4;
+    if (Math.abs(al)>L_/2-.02) { c.put(x,y,col,.3,1); return; }
+    c.put(x,y, win?(P.w||'green'):col, win? .35+lit*.5 : lit, 1); });
+}
+function torus(c,P){
+  const t=c.t, R=P.R||.3, r=P.rr||.1, tilt=P.tilt||.45, col=P.t||'grass';
+  full(c,(x,y,u,v)=>{ const X=u-.5, Y=(v-.5)/tilt; const d=Math.hypot(X,Y); const k=Math.abs(d-R)/(r/ (P.flat?1:1)); if (k>1 || Math.abs(v-.5)>r+R*tilt) return;
+    const a=Math.atan2(Y,X); const nzish=Math.sqrt(1-k*k); const lit=(.5 - (X/R)*.25 - (v-.5)*1.2)*nzish+.3;
+    const n=fbm(Math.cos(a+t*.1)*3+3,Math.sin(a+t*.1)*3+3,k*2,9,3);
+    const front = Y>0; if (!front && d<R && Math.abs(X)<R*.8) {}
+    c.put(x,y, n<(P.sl||0)? (P.s||'ocean') : col, cl(lit*.8+(n-.5)*.4,.05,.95), 1); });
+}
+function cube(c,P){
+  const t=c.t, s=P.s||.26, col=P.t||'grass', col2=P.t2||'rock';
+  const cx=.5, cy=.52;
+  // isometric cube: top, left, right faces
+  full(c,(x,y,u,v)=>{ const X=(u-cx)/s, Y=(v-cy)/s;
+    const iu=(X/0.866 + (Y+.5)*1) , iv=(-X/0.866 + (Y+.5)*1);
+    let face=null, a=0, b=0;
+    // top face: rhombus above center
+    const tx=X/0.866, ty=Y+.5; const p=(ty - tx*.5), q=(ty + tx*.5);
+    if (Y<=0 && Math.abs(X)<=0.866){ const pp=( Y + .5 ) ; }
+    const top = (Math.abs(X)/0.866 + Math.abs(Y+0.5)*2) <= 1;
+    if (top){ face='top'; a=X; b=Y; }
+    else if (X<0 && X>=-0.866 && Y>=-0.5+(-X/0.866)*0.5-.0 && Y<=0.5+(-X/0.866)*0.5 && Y> -0.5 + (0.866+X)/0.866*0.5 - 0.5) { face='l'; a=X; b=Y; }
+    else if (X>=0 && X<=0.866 && Y<=0.5+(X/0.866)*0.5 && Y> -0.5 + (0.866-X)/0.866*0.5 - 0.5) { face='r'; a=X; b=Y; }
+    if (!face) return;
+    const n=fbm(a*4+(face==='l'?9:face==='r'?19:0),b*4,1,7,3);
+    const base = face==='top'?.75: face==='l'?.5:.28;
+    const rmp = face==='top'? col : (P.t3||col2);
+    c.put(x,y, n<(P.sl||0)?(P.sea||'ocean'):rmp, cl(base+(n-.5)*.5,.05,.95),1); });
+}
+function disc(c,P){ // flat disk object (Alderson disk, pancake world)
+  const t=c.t, R=P.R||.42, tilt=P.tilt||.3, col=P.t||'grass';
+  full(c,(x,y,u,v)=>{ const X=u-.5, Y=(v-.5)/tilt, d=Math.hypot(X,Y); if (d>R) return; if (P.hole && d<P.hole) return;
+    const a=Math.atan2(Y,X); const n=fbm(X*6+3,Y*6+3,t*.02,11,4); c.put(x,y, n<(P.sl||0)?(P.s||'ocean'):col, cl(.3+n*.6 - Y*.4,.05,.95),1); });
+  full(c,(x,y,u,v)=>{ const X=u-.5, Y=(v-.5); if (Y<0) return; const d=Math.hypot(X,Y/tilt); if (d>R||d<R-.01 && Y<.015) return; });
+}
+function ringworld(c,P){
+  const t=c.t, R=P.R||.42, tilt=P.tilt||.3, col=P.t||'grass', gap=P.gap, w=P.w||.05;
+  const draw=(front)=>full(c,(x,y,u,v)=>{ const X=u-.5, Yr=v-.5; // ring band: ellipse X^2+(Y/tilt)^2=R^2 extended by height w
+    for (let hh=0; hh<=0; hh++){}
+    const Y0 = Yr; // check if any point of band at this x: band spans y from ellipseY to ellipseY - w
+    if (Math.abs(X)>R) return; const ey=Math.sqrt(R*R-X*X)*tilt; const ys = front? [ey] : [-ey];
+    for (const e of ys){ if (Yr<=e+.003 && Yr>=e-w){ const a=Math.atan2(e/tilt,X); const ang=(a+Math.PI*2+t*.05)%(Math.PI*2);
+        if (gap && ang>gap[0] && ang<gap[1]) return; const k=(e-Yr)/w;
+        const inner=!front; const n=fbm(Math.cos(a)*4+3,Math.sin(a)*4,k*2,5,3);
+        c.put(x,y, inner? (n<.45?(P.s||'ocean'):col) : (P.o||'metal'), inner? .3+n*.6 : .25+k*.5,1); return; } } });
+  draw(false); if (P.star) star(c,{c:P.star,r:.06,cor:2.6}); draw(true);
+}
+function swarm(c,P){
+  const t=c.t, rnd=srand(31), n=P.n||90, col=P.c||'gold';
+  if (P.star!==false) star(c,{c:P.star||'sYel',r:P.sr||.11,cor:P.cor||2});
+  for (let i=0;i<n;i++){ const R=.2+rnd()*.24, a=rnd()*6.28+t*.12*(1.2-R*1.5), inc=(rnd()-.5)*2.2; const X=Math.cos(a)*R, Z=Math.sin(a)*R; const Y=Z*Math.sin(inc)*.6;
+    const px=Math.floor((.5+X)*c.N), py=Math.floor((.5+Y*.9+Z*.25*Math.cos(inc))*c.N);
+    if (Z<0 && Math.hypot(X,Y)<(P.sr||.11)) continue; const sz=c.N>=96?2:1; for(let a1=0;a1<sz;a1++) for(let b1=0;b1<sz;b1++) c.put(px+a1,py+b1,col,.5+rnd()*.5,1); }
+}
+function shells(c,P){
+  const t=c.t, n=P.n||3, col=P.c||'metal';
+  star(c,{c:P.star||'sOra',r:.08,cor:1.6});
+  for (let i=0;i<n;i++){ const r=.18+i*.08; const cut=.9+i*.5+t*.05*(i%2?1:-1);
+    sphere(c,{r,spin:0,noOutline:0},(nx,ny,nz,lam)=>{ const a=Math.atan2(ny,nx); const open=Math.cos(a-cut)>.35; if (open) return null;
+      const g=hash(Math.floor((nx+1)*r*c.N/3),Math.floor((ny+1)*r*c.N/3),i,3)>.82; return g?{r:P.g||'cyan',v:.8,e:1}:{r:col,v:.35+lam*.3}; }); }
+}
+function gate(c,P){
+  const t=c.t, R=P.R||.34, tilt=P.tilt||.8, col=P.c||'metal', g=P.g||'cyan';
+  full(c,(x,y,u,v)=>{ const X=u-.5, Y=(v-.5)/tilt, d=Math.hypot(X,Y); if (d<R-.05){ const a=Math.atan2(Y,X); const sw=fbm(Math.cos(a+d*8-t)*2+3,Math.sin(a+d*8-t)*2+3,d*2,8,3);
+      c.al(x,y,g,.3+sw*.7,.4+sw*.8); return; }
+    if (d<R+.04){ const a=Math.atan2(Y,X); const seg=Math.abs(Math.sin(a*8))<.12; c.put(x,y, seg?g:col, seg?.9:.45-Y*.8,1); } });
+}
+function terminal(c,P){
+  const t=c.t, N=c.N, col=P.c||'green';
+  full(c,(x,y,u,v)=>{ if (u<.1||u>.9||v<.16||v>.84) return; if (u<.12||u>.88||v<.19||v>.81){ c.put(x,y,'metal',.5,1); return; }
+    const row=Math.floor((v-.22)*N/ (N*.07)); const col_=Math.floor((u-.15)*N/(N*.03)); const lineLen= 6+Math.floor(hash(row,1,1,7)*20);
+    const show = col_<lineLen && row*1 <= (t*4)%14 && fr((v-.22)/.07)<.6 && hash(col_,row,2,5)>.25;
+    const cursor = row===Math.floor((t*4)%14) && col_===lineLen && Math.floor(t*3)%2;
+    c.put(x,y, (show||cursor)?col:'tar', (show||cursor)?.8:.12,1); });
+}
+function tesseract(c,P){
+  const t=c.t, col=P.c||'cyan', a=t*.4;
+  const pts=[]; for (let i=0;i<16;i++){ let p=[(i&1)?1:-1,(i&2)?1:-1,(i&4)?1:-1,(i&8)?1:-1];
+    const ca=Math.cos(a), sa=Math.sin(a); let [x0,y0,z0,w0]=p; [x0,w0]=[x0*ca-w0*sa,x0*sa+w0*ca]; const cb=Math.cos(a*.6), sb=Math.sin(a*.6); [y0,z0]=[y0*cb-z0*sb,y0*sb+z0*cb];
+    const k=1/(2.6-w0); pts.push([.5+(x0*k)*.32+z0*k*.08, .5+(y0*k)*.32+z0*k*.05]); }
+  const edges=[]; for (let i=0;i<16;i++) for (let j=0;j<4;j++){ const k=i^(1<<j); if (k>i) edges.push([i,k]); }
+  for (const [i,j] of edges){ const [x0,y0]=pts[i], [x1,y1]=pts[j]; const steps=Math.ceil(Math.hypot(x1-x0,y1-y0)*c.N*1.5);
+    for (let s=0;s<=steps;s++){ const u=x0+(x1-x0)*s/steps, v=y0+(y1-y0)*s/steps; c.put(Math.floor(u*c.N),Math.floor(v*c.N),col,.7+.3*(s/steps),0); } }
+}
+function plane(c,P){ // flattened 2D zone: perspective grid
+  const t=c.t, col=P.c||'magenta';
+  full(c,(x,y,u,v)=>{ if (v<.45) return; const z=(v-.45); const X=(u-.5)/z; const Zc=1/z; const gx=fr(X*.25), gz=fr(Zc*.3+t*.3);
+    if (gx<.06||gz<.08) c.put(x,y,col,.5+z,0); });
+  if (P.sun) star(c,{c:P.sun,r:.12,y:.38,cor:1.5});
+}
+function scene(c,P){ // sky above a world surface: horizon with something in the sky
+  const t=c.t, g=P.g||'rock', hz=P.hz||.72, sd=(P.sd||c.seed)%97;
+  full(c,(x,y,u,v)=>{ if (v<hz-(fbm(u*4,1,1,sd,3)-.5)*.12) return; const n=fbm(u*8,v*8,1,sd+3,3); c.put(x,y,g,cl(.2+n*.5-(v-hz)*.4,.05,.9),1); });
+}
+
+const K = { pl:planet, star, bh:blackhole, neb:nebula, gal:galaxy, belt, comet, burst, beam, waves, vortex, field, streaks, rift, bubble, lens, str:stringL, glitch, clock, loop:loopL, eye:eyeL, beast, crys:crystals, slab, pylon, cyl:cylinder, torus, cube, disc, rw:ringworld, swarm, shells, gate, term:terminal, tess:tesseract, plane, scene };
+
+function render(spec, N, t, seed, noBg){
+  const c = new Ctx(N, t||0, seed||1);
+  const layers = Array.isArray(spec) ? spec : [spec];
+  const bgL = layers.find(l => l && l.bg); const bg = (bgL && bgL.bg) || 'space';
+  background(c, noBg ? 'none' : bg);
+  for (const L_ of layers){ const fn = K[L_.k]; if (fn) fn(c, L_); }
+  c.outline();
+  // re-run post layers (glitch) after outline so tears cover the outline too
+  return c;
+}
+function renderTo(canvas, spec, N, t, seed, noBg){
+  const c = render(spec, N, t, seed, noBg);
+  canvas.width = N; canvas.height = N;
+  const g = canvas.getContext('2d'); const img = g.createImageData(N, N); img.data.set(c.px); g.putImageData(img, 0, 0);
+}
+window.OVR = { render, renderTo, strSeed, RAMPS };
+})();
+</script>
+<script>// A look for every catalog entry: one layer or a list of layers drawn back to front.
+(function(){
+const pl=(t,o)=>({k:'pl',t,...o}), st=(c,o)=>({k:'star',c,...o}), bh=o=>({k:'bh',...o}), neb=(c,o)=>({k:'neb',c,...o});
+const gal=(g,o)=>({k:'gal',g,...o}), fx=(k,o)=>({k,...o});
+const small=(t,o)=>pl(t,{r:.16,...o});
+const S = {
+// 1a rocky
+B1: pl('rock',{sl:.5,s:'lava',se:1,v:'lava',ic:.12,a:'ember'}),
+B2: pl('ice',{f:3,v:'ocean',vw:.86,cra:3}),
+B3: pl('sand',{ridge:1,f:3,t2:'dust',sl:.12,s:'teal',a:'sOra',aw:.08}),
+B4: pl('grass',{sl:.48,r:.42,ic:.1,c:.3,a:'blue',t2:'rock'}),
+B5: pl('steam',{b:5,c:.5,cr:'ice',a:'blue',aw:.2}),
+B6: pl('metal',{cra:6,f:3,t2:'copper'}),
+B7: pl('tar',{sl:.45,s:'tar',t2:'diamond',t2l:.7}),
+B8: pl('salt',{sl:.35,s:'cyan',f:4}),
+B9: pl('rust',{cra:4,a:'magenta',aw:.06,as:.4}),
+B10: pl('sulfur',{c:.75,cr:'sulfur',a:'sOra'}),
+B11: pl('sulfur',{v:'lava',vw:.82,cra:2,t2:'rust'}),
+B12: pl('diamond',{b:7,turb:2,a:'sBlu',f:3}),
+B13: pl('ocean',{c:.65,cr:'steam',a:'steam',aw:.18}),
+B14: pl('steam',{sl:.4,s:'deep',t2:'ice',ic:.3}),
+B15: pl('rust',{ridge:1,f:4,t2:'dust'}),
+B16: pl('ocean',{ob:2.2,sl:.45,t:'grass',c:.3,a:'blue'}),
+B17: [pl('grass',{x:.38,r:.24,sl:.45,c:.2}),pl('sand',{x:.6,y:.54,r:.2,cra:3})],
+B18: pl('rock',{sl:.5,rg:'bone',r:.22,t2:'grass'}),
+B19: pl('grass',{sl:.45,spin:0,tilt:0,ph:1.6,ic:.18,t2:'sand'}),
+B20: pl('rock',{cra:12,t2:'tar',f:3}),
+B21: pl('bone',{f:5,t2:'dust',sl:.3,s:'teal'}),
+B22: [pl('metal',{v:'cyan'}),fx('field',{c:'cyan',sz:.48})],
+B23: pl('grass',{sl:.45,tilt:1.45,ic:.25,spin:.12}),
+B24: pl('grass',{sl:.5,spin:-.4,c:.3}),
+B25: pl('ice',{f:3,c:.2,t2:'white'}),
+B26: pl('rock',{cra:16}),
+B27: pl('jungle',{sl:.45,v:'cyan',vw:.95,c:.2,a:'aurora'}),
+B28: pl('jungle',{sl:.5,c:.35,a:'blue',t2:'grass',lt:0}),
+B29: pl('bone',{p:'text',v:'violet',a:'violet',aw:.1,as:.5,cra:4}),
+B30: [st('sBlu',{x:.78,y:.24,r:.05,cor:3.4,fl:2}),fx('beam',{x:.78,y:.24,ang:-2.4,w:.012,c:'sBlu',half:1,spread:.2}),pl('rock',{x:.42,y:.58,r:.24,cra:4,a:'sBlu'})],
+B31: pl('lava',{v:'lava',sl:.55,s:'lava',se:1,c:.2,cr:'steam'}),
+B32: pl('rock',{cra:6,v:'gold',vw:.95,a:'violet'}),
+// 1b exotic
+B33: fx('rw',{t:'grass',gap:[2.2,4.4],star:'sYel'}),
+B34: fx('swarm',{star:'sRed',n:70,c:'metal',sr:.13}),
+B35: [bh({x:.7,y:.3,r:.08}),pl('teal',{x:.32,y:.62,r:.2,sl:.4,a:'sBlu'})],
+B36: [pl('rock',{r:.36,lump:0}),{k:'star',c:'sYel',r:.07,cor:2.4}],
+B37: pl('ice',{b:6,v:'sBlu',vw:.86,a:'cyan'}),
+B38: [st('magenta',{x:.8,y:.22,r:.05,cor:2}),fx('field',{x:.8,y:.22,c:'magenta',sz:.6}),pl('rust',{x:.4,y:.6,r:.24,cra:3})],
+B39: [fx('lens',{x:.66,y:.32,r:.12,c:'violet',full:1}),pl('teal',{x:.38,y:.62,r:.2,sl:.4})],
+B40: pl('crystal',{p:'facet',a:'magenta',v:'pink'}),
+B41: [pl('grass',{x:.3,r:.2,sl:.5,lt:1}),pl('grass',{x:.7,r:.2,sl:.5,lt:1,ph:3.14,t2:'crystal'})],
+B42: pl('steam',{b:4,c:.4,a:'pink',cr:'pink'}),
+B43: [st('sYel',{x:.15,y:.2,r:.1}),pl('sOra',{x:.6,y:.58,r:.26,b:8,e:1,a:'sOra',aw:.4})],
+B44: pl('sand',{b:6,r:.44,a:'sOra',aw:.25,turb:.5}),
+B45: pl('metal',{r:.2,cra:6,v:'lava',vw:.93}),
+B46: [bh({x:.24,y:.22,r:.06,dw:3}),pl('violet',{x:.58,y:.62,r:.24,sl:.4,s:'blue'})],
+B47: [{k:'burst',x:.75,y:.25,sz:.2,c:'sWht',rays:8},pl('rock',{x:.4,y:.6,r:.22,lt:1,sl:.4})],
+B48: pl('metal',{r:.28,v:'sBlu',vw:.9,a:'sBlu',aw:.2}),
+B49: pl('white',{f:3,v:'magenta',a:'magenta',aw:.18,t2:'crystal'}),
+B50: pl('crystal',{v:'green',a:'magenta',cra:3}),
+B51: [pl('tar',{a:'violet',aw:.06,as:.3}),fx('lens',{r:.4,c:'violet'})],
+B52: fx('torus',{t:'grass',R:.28,rr:.08,tilt:.25,sl:.45}),
+B53: [fx('torus',{t:'violet',R:.26,rr:.07,tilt:.7}),pl('teal',{r:.12,sl:.4})],
+B54: fx('tess',{c:'cyan'}),
+B55: pl('grass',{p:'fract',s:'ocean'}),
+B56: [pl('grass',{x:.44,sl:.5,c:.2}),{k:'glitch',n:3,blocks:0,rgb:1}],
+B57: fx('disc',{R:.44,tilt:.08,t:'grass',sl:.45}),
+B58: fx('cube',{t:'grass',t3:'rock',sl:.4}),
+B59: fx('torus',{t:'grass',R:.28,rr:.11,tilt:.45,sl:.45}),
+B60: pl('sand',{ob:1.5,spin:1.2,b:3,v:'cyan'}),
+B61: pl('white',{b:5,c:.6,cr:'steam',a:'blue'}),
+B62: pl('plasma',{e:1,v:'sWht',a:'plasma',aw:.2}),
+B63: pl('teal',{b:4,turb:3,a:'cyan',c:.3,cr:'cyan'}),
+B64: pl('metal',{v:'sBlu',vw:.86,b:3}),
+B65: pl('white',{f:5,c:.5,cr:'steam',r:.3}),
+B66: pl('tar',{ridge:1,f:6,t2:'metal',v:'blue'}),
+B67: pl('copper',{p:'gear'}),
+B68: pl('bone',{p:'text',v:'gold'}),
+B69: pl('metal',{cra:5,v:'cyan',vw:.95,lt:1}),
+B70: pl('ice',{ic:.4,v:'green',vw:.93,a:'aurora',cra:2}),
+B71: [pl('rock',{v:'cyan'}),fx('waves',{c:'cyan',sp:.07})],
+B72: pl('violet',{sl:.45,s:'navy',c:.5,cr:'pink',a:'pink'}),
+B73: pl('flesh',{p:'flesh',a:'red',m:2,mt:'metal'}),
+B74: pl('bone',{p:'grid'}),
+B75: [pl('rock',{cra:3}),fx('bubble',{r:.42,c:'red'})],
+B76: [pl('ice',{sl:.4,s:'deep'}),{k:'glitch',n:8,blocks:0}],
+B77: pl('grass',{sl:.5,spin:-.8,c:.3,a:'aurora'}),
+B78: pl('circuit',{p:'circuit',v:'ember',a:'ember'}),
+B79: [pl('grass',{sl:.45}),{k:'glitch',n:2,blocks:6}],
+B80: pl('rock',{sl:.45,spin:1.4,v:'lava',vw:.95}),
+// 1c giants
+B81: pl('sand',{b:9,st:'rust',r:.42}),
+B82: pl('cyan',{b:5,rg:'ice',rt:.5,ra:-.9,r:.3,turb:.4}),
+B83: pl('sRed',{b:6,e:1,a:'sRed',aw:.2}),
+B84: pl('steam',{b:3,st:'white',r:.42,turb:2}),
+B85: pl('dust',{b:12,v:'diamond',vw:.97}),
+B86: pl('pink',{b:7,e:1,a:'magenta'}),
+B87: pl('sand',{b:8,r:.16,rg:'bone',ri:1.4,ro:3.0,rt:.35}),
+B88: pl('ocean',{b:6,a:'cyan',c:.3,cr:'steam'}),
+B89: [pl('navy',{b:7}),fx('streaks',{n:6,c:'sWht',len:.06,ang:1.3})],
+B90: [pl('sOra',{b:8,r:.42}),fx('beast',{b:'whale',c:'teal',g:'cyan',sc:.35})],
+// 1d moons
+B91: small('rock',{lump:.35,cra:5,r:.3}),
+B92: pl('sand',{b:7,r:.2,rg:'bone',ro:2.4,m:1}),
+B93: pl('sulfur',{v:'lava',vw:.88,cra:2,r:.3}),
+B94: [pl('ice',{r:.3,ridge:1}),fx('beam',{x:.5,y:.2,ang:-1.57,w:.02,c:'ice',half:1})],
+B95: pl('sOra',{sl:.4,s:'tar',c:.5,cr:'sOra',a:'sOra',r:.3}),
+B96: [pl('sand',{x:.3,y:.6,r:.28,b:7}),small('rock',{x:.72,y:.3,r:.08,cra:2,spin:-1})],
+B97: [pl('sand',{x:.3,y:.65,r:.24,b:6}),small('rock',{x:.66,y:.38,r:.12,cra:3}),small('ice',{x:.82,y:.26,r:.04})],
+B98: pl('metal',{cra:1,r:.32,p:null,sd:44}),
+B99: pl('tar',{p:null,t2:'salt',t2l:.48,f:1.2,r:.3}),
+B100: [pl('rock',{r:.3,cra:4}),fx('str',{ang:0,c:'bone',c2:'rock',wob:0})],
+B101: pl('bone',{cra:20,r:.3,f:5}),
+B102: [pl('metal',{p:'grid',r:.3}),fx('waves',{c:'gold',sp:.12})],
+B103: [small('rock',{x:.32,y:.5,r:.14,cra:3}),small('rock',{x:.68,y:.5,r:.12,cra:3})],
+B104: [pl('sOra',{x:.25,y:.3,r:.3,b:7}),pl('grass',{x:.66,y:.66,r:.18,sl:.5,c:.3,a:'blue'})],
+B105: [pl('rock',{r:.26,v:'lava',vw:.9}),{k:'belt',n:16,mode:'cloud',min:.01,max:.02}],
+B106: pl('diamond',{r:.3,f:1,e:1}),
+B107: fx('eye',{c:'sOra',r:.34}),
+B108: [small('ice',{x:.3,y:.4,r:.12,cra:3}),fx('streaks',{n:3,c:'ice',ang:2.6,len:.2})],
+B109: [pl('bone',{ob:.8,r:.28,v:'gold',vw:.94}),fx('burst',{c:'gold',sz:.4,rays:6})],
+// 1e small bodies
+B110: {k:'belt',n:60},
+B111: [pl('sand',{r:.1,b:5}),{k:'belt',mode:'trojan',n:30,min:.008,max:.02}],
+B112: small('metal',{lump:.4,cra:3,r:.32,t2:'copper'}),
+B113: small('rock',{lump:.55,r:.3,f:6,cra:2}),
+B114: [small('rock',{x:.4,r:.18,lump:.3,cra:2}),small('rock',{x:.6,y:.54,r:.15,lump:.3,cra:2})],
+B115: {k:'comet',c:'dust',t:'rock',len:.4},
+B116: [pl('rock',{x:.25,y:.7,r:.22}),{k:'comet',x:.6,y:.32,ang:2.8}],
+B117: [st('sYel',{x:.2,y:.75,r:.15}),{k:'comet',x:.55,y:.4,ang:-.5,len:.5,tail2:1}],
+B118: {k:'comet',x:.7,y:.28,len:.8,ang:2.4,tail2:1},
+B119: [small('rock',{x:.5,y:.5,r:.08,lump:.5}),fx('streaks',{n:1,c:'sWht',ang:.4,len:.4})],
+B120: fx('cyl',{len:.6,rad:.07,c:'rust',w:'rust'}),
+B121: {k:'belt',n:40,t:'ice',arc:1,flat:.25},
+B122: {k:'belt',n:50,mode:'cloud',t:'ice',min:.006,max:.012,bg:'dense'},
+B123: small('ice',{r:.3,cra:6,t2:'rust'}),
+B124: small('ice',{r:.28,lump:.25,t2:'rust',cra:3}),
+B125: pl('rock',{r:.14,rg:'bone',ri:1.4,ro:3.2,rt:.3}),
+B126: neb('dust',{sh:'disk',th:.4,stars:4}),
+B127: [{k:'belt',n:18,t:'metal',mode:'cloud'},fx('cyl',{len:.3,rad:.04,ang:.8})],
+B128: [pl('grass',{r:.26,sl:.5,lt:1}),{k:'belt',n:50,t:'metal',min:.004,max:.008,flat:.45}],
+B129: pl('rock',{r:.14,rg:'ice',ri:1.3,ro:2.6,rt:.25}),
+B130: {k:'belt',n:24,t:'dust',mode:'cloud',min:.015,max:.02},
+B131: [small('rock',{r:.3,lump:.35,cra:3,lt:1}),fx('beam',{x:.82,y:.5,ang:0,w:.03,c:'sBlu',half:1})],
+// 1f stars
+B132: st('sYel',{r:.24}),
+B133: st('sRed',{r:.16,fl:3,sp:1}),
+B134: st('sOra',{r:.22}),
+B135: st('sBlu',{r:.28,cor:1.6}),
+B136: st('sRed',{r:.38,cor:1.3,sp:1}),
+B137: st('sWht',{r:.08,cor:3}),
+B138: [st('sBlu',{r:.06,cor:2.4}),fx('field',{c:'sBlu',sz:.4})],
+B139: [st('sBlu',{r:.05,cor:2}),fx('beam',{ang:-1.2,w:.02,c:'sBlu',spread:.3})],
+B140: [st('magenta',{r:.06,cor:2}),fx('field',{c:'magenta',sz:.5,n:8})],
+B141: bh({r:.1}),
+B142: [bh({r:.14,dw:3.2,jet:1}),{bg:'dense'}],
+B143: [neb('sYel',{sh:'blob',th:.6,stars:40}),bh({r:.06,nodisk:1})],
+B144: [bh({r:.03,dw:4}),fx('bubble',{r:.16,c:'cyan'})],
+B145: [bh({x:.6,y:.45,r:.09}),pl('grass',{x:.24,y:.72,r:.14,sl:.45})],
+B146: [st('sYel',{x:.36,y:.48,r:.15}),st('sOra',{x:.68,y:.56,r:.1})],
+B147: [st('sYel',{x:.34,y:.4,r:.13}),st('sRed',{x:.68,y:.36,r:.09}),st('sBlu',{x:.52,y:.7,r:.08})],
+B148: [st('sOra',{x:.4,r:.17,cor:1.5}),st('sYel',{x:.62,r:.15,cor:1.5})],
+B149: [neb('sBlu',{sh:'shell',th:.3}),st('sWht',{r:.07,cor:2.5,fl:8})],
+B150: [neb('dust',{sh:'blob',th:.45}),st('sRed',{r:.16})],
+B151: st('sYel',{r:.22,cor:2.2,fl:0}),
+B152: st('sBlu',{r:.16,cor:2.2}),
+B153: [st('sYel',{x:.66,y:.4,r:.1}),fx('streaks',{n:1,c:'sYel',ang:2.6,len:.6})],
+B154: [st('sRed',{r:.38,cor:1.3}),st('sBlu',{r:.06,cor:2})],
+B155: [st('sRed',{r:.42,cor:1.15,sp:1}),bh({r:.08,nodisk:1})],
+B156: st('violet',{r:.26,cor:2}),
+B157: pl('metal',{r:.3,e:1,f:5,a:'metal'}),
+B158: pl('tar',{r:.24,f:4,bg:'void'}),
+B159: [bh({r:.1}),fx('cyl',{len:.16,rad:.025,ang:.3,c:'metal'})],
+B160: st('crystal',{r:.18,cor:2}),
+B161: st('green',{r:.2,cor:2,sp:1}),
+B162: [st('sYel',{r:.18}),fx('swarm',{star:false,n:40,c:'tar'})],
+B163: st('cyan',{r:.08,cor:3.2}),
+B164: [neb('sOra',{sh:'blob',th:.45}),st('sRed',{r:.08,cor:1.4})],
+B165: [pl('sRed',{x:.38,r:.14,b:5,e:1}),pl('red',{x:.66,y:.55,r:.12,b:5,e:1})],
+B166: [neb('gold',{sh:'shell',th:.35}),st('sBlu',{r:.03,cor:2})],
+B167: neb('sOra',{c2:'cyan',sh:'shell',th:.3,stars:6}),
+B168: neb('cyan',{c2:'magenta',sh:'ring',th:.4}),
+B169: [st('sYel',{r:.2}),fx('field',{c:'gold',sz:.46,n:3})],
+// 1g nebulae and galaxies
+B170: neb('pink',{c2:'violet',stars:12}),
+B171: [{bg:'dense'},neb('tar',{dark:1,th:.45})],
+B172: neb('blue',{c2:'cyan',stars:8}),
+B173: neb('sOra',{sh:'pillar',c2:'teal',th:.38,stars:6}),
+B174: [neb('pink',{th:.5}),neb('tar',{dark:1,sh:'blob',th:.55})],
+B175: [{bg:'dense'},neb('sBlu',{th:.65,stars:30})],
+B176: gal('ellip',{c:'sYel',core:'sWht',sz:.3,tilt:1}),
+B177: neb('teal',{c2:'green',th:.4,stars:4}),
+B178: gal('bar',{arms:2}),
+B179: gal('spiral',{tilt:.8,arms:3}),
+B180: [gal('ellip',{c:'sYel',core:'sWht',sz:.45,tilt:.8}),bh({r:.03,nodisk:1})],
+B181: [gal('spiral',{tilt:.12,sz:.38}),neb('magenta',{sh:'blob',th:.6,f:3})],
+B182: [gal('spiral',{tilt:.3,sz:.22}),neb('violet',{th:.62,sh:'blob'})],
+B183: [gal('spiral',{x:.4,sz:.36}),gal('ellip',{sz:.08})],
+B184: [gal('spiral',{sz:.28}),fx('str',{ang:.6,c:'sBlu',c2:'blue'})],
+B185: gal('merge',{}),
+B186: gal('ring',{c:'sBlu',tilt:.6}),
+B187: [gal('ellip',{c:'sOra',core:'sWht',sz:.42}),bh({r:.05,jet:1})],
+B188: [bh({r:.05,jet:1,jc:'sWht'}),fx('burst',{c:'sWht',sz:.2})],
+B189: [bh({r:.05,nodisk:0,jet:0}),fx('burst',{c:'sBlu',sz:.5,rays:4})],
+B190: {k:'neb',c:'void',th:.9,bg:'void'},
+B191: [neb('blue',{f:5,th:.55}),neb('violet',{f:2,th:.6})],
+B192: [fx('vortex',{c:'violet',c2:'sBlu',tw:4,hole:1}),{bg:'dense'}],
+B193: neb('green',{c2:'cyan',sh:'blob',th:.35}),
+// 1h megastructures
+B194: fx('rw',{o:'copper',t:'metal',gap:[1,2.4],star:'sYel',w:.03}),
+B195: fx('shells',{n:3,star:'sOra'}),
+B196: [bh({r:.07,nodisk:1}),fx('shells',{n:1,star:'void',c:'grass'})],
+B197: [st('sYel',{x:.4,r:.16}),fx('disc',{R:.1,tilt:2.5,t:'metal'})],
+B198: [st('sOra',{x:.38,r:.15}),fx('beam',{x:.52,y:.5,ang:0,w:.04,c:'sBlu',half:1})],
+B199: pl('grass',{sl:.5,c:.3,rg:'metal',ri:1.06,ro:1.14,rt:.4}),
+B200: [pl('grass',{y:.75,r:.32,sl:.5}),fx('str',{ang:-1.57,c:'metal',c2:'rock',wob:.3})],
+B201: [fx('disc',{R:.46,tilt:.32,t:'grass',sl:.45,hole:.08}),st('sYel',{r:.05,cor:2})],
+B202: [fx('rw',{t:'jungle',R:.4,tilt:.25,w:.02}),fx('rw',{t:'grass',R:.32,tilt:.5,w:.02,star:'sYel'})],
+B203: fx('rw',{t:'grass',R:.36,tilt:.55,w:.06}),
+B204: fx('cyl',{len:.7,rad:.13}),
+B205: fx('cyl',{len:.6,rad:.06,ang:.15,c:'copper',w:'lights'}),
+B206: [fx('crys',{c:'metal',n:2}),fx('waves',{c:'gold',sp:.1,arc:-1.57})],
+B207: [pl('rock',{r:.2}),fx('swarm',{star:false,n:120,c:'metal'})],
+B208: fx('cyl',{len:.7,rad:.12,c:'tar',w:'red',ang:-.6}),
+B209: [st('sOra',{r:.2}),fx('beam',{x:.5,y:.5,ang:-.8,w:.03,c:'sOra',half:1}),fx('cyl',{len:.16,rad:.04,ang:-.8})],
+B210: [fx('swarm',{star:'sWht',n:90,c:'metal'}),fx('beam',{ang:.4,w:.035,c:'sWht',half:1})],
+B211: pl('sand',{b:8,p:'circuit',t:'circuit',v:'gold'}),
+B212: fx('gate',{}),
+B213: [bh({r:.08}),fx('streaks',{n:3,c:'sWht',ang:-.3})],
+B214: fx('pylon',{}),
+B215: [pl('copper',{p:'gear',r:.3,a:'gold'})],
+B216: pl('gold',{p:'text',r:.34,v:'cyan',e:1}),
+B217: [fx('burst',{c:'sWht',sz:.3}),pl('crystal',{p:'facet',r:.14,a:'sWht',aw:.8})],
+// 2a stellar events
+P1: [st('sYel',{x:.3,y:.6,r:.24,fl:3}),fx('beam',{x:.3,y:.6,ang:-.7,w:.06,c:'sOra',half:1})],
+P2: [st('sYel',{x:.18,y:.5,r:.16}),fx('vortex',{x:.62,y:.5,c:'sOra',sz:.25}),pl('grass',{x:.86,y:.5,r:.08,sl:.5})],
+P3: st('sWht',{r:.2,cor:2.4,fl:5}),
+P4: st('sYel',{r:.3,sp:1}),
+P5: [st('sOra',{r:.26}),fx('waves',{c:'sOra',sp:.05})],
+P6: [st('sRed',{r:.3}),fx('burst',{c:'sWht',sz:.15})],
+P7: [st('sWht',{r:.06}),fx('burst',{c:'sWht',sz:.36,rays:6})],
+P8: fx('burst',{c:'sOra',sz:.5,rays:14,shell:1}),
+P9: [fx('burst',{c:'sBlu',sz:.55,rays:20,shell:1}),neb('magenta',{sh:'shell',th:.5})],
+P10: fx('burst',{c:'gold',sz:.5,shell:1,rays:2}),
+P11: [fx('burst',{c:'gold',sz:.35}),fx('waves',{c:'gold',sp:.08})],
+P12: [st('sBlu',{x:.2,y:.8,r:.05}),fx('beam',{x:.2,y:.8,ang:-.8,w:.05,c:'sWht',half:1,spread:.1}),pl('grass',{x:.78,y:.26,r:.1,sl:.5})],
+P13: [st('sYel',{x:.44,r:.16,cor:1.4}),st('sBlu',{x:.58,y:.5,r:.1,cor:1.4}),fx('vortex',{c:'sOra',sz:.4,tw:3})],
+P14: [bh({r:.07,dw:2.5}),fx('str',{ang:.9,c:'sOra',c2:'sRed',wob:3})],
+P15: [st('sRed',{r:.36,cor:1.3}),pl('rock',{x:.78,y:.48,r:.06,a:'lava'})],
+P16: [st('sYel',{x:.15,r:.13}),fx('streaks',{n:26,ang:0,c:'sOra',len:.15})],
+P17: [st('sYel',{r:.24}),pl('tar',{x:.58,y:.46,r:.12,night:false})],
+P18: [pl('tar',{r:.22,f:5}),fx('lens',{r:.28,c:'navy',full:1})],
+P19: [pl('tar',{r:.22}),fx('rift',{c:'sYel',inner:'sWht',ang:.2,w:.02})],
+// 2b planetary events
+P20: [pl('grass',{y:.85,r:.5,sl:.5,lt:1}),fx('waves',{y:.85,c:'aurora',sp:.06,ob:2.2})],
+P21: [pl('grass',{sl:.5,r:.24}),fx('field',{c:'pink',sz:.46,n:4})],
+P22: [{k:'scene',g:'grass'},fx('streaks',{n:14,c:'sWht',ang:2.2,len:.18})],
+P23: [{k:'scene',g:'rock'},fx('burst',{x:.6,y:.32,c:'sOra',sz:.22,rays:8})],
+P24: [pl('grass',{x:.6,y:.62,r:.3,sl:.5,c:.2}),small('rock',{x:.22,y:.24,r:.07,lump:.3}),fx('streaks',{n:1,c:'sOra',ang:-2.4,len:.25})],
+P25: [pl('sand',{x:.58,y:.6,r:.3}),{k:'comet',x:.26,y:.26,r:.04,ang:-2.4,len:.3}],
+P26: [pl('sand',{x:.25,y:.62,r:.26,b:6}),{k:'belt',n:26,mode:'cloud',min:.006,max:.018},small('rock',{x:.68,y:.36,r:.1,v:'lava',vw:.8})],
+P27: [pl('grass',{x:.38,r:.22,sl:.5}),pl('rock',{x:.6,y:.46,r:.16,v:'lava'}),fx('burst',{x:.5,y:.47,c:'lava',sz:.3})],
+P28: [st('sYel',{r:.06}),fx('waves',{c:'teal',sp:.12,ob:2.5}),small('rock',{x:.86,y:.5,r:.04}),small('ice',{x:.24,y:.52,r:.05})],
+P29: [st('sYel',{r:.22}),pl('tar',{r:.21,night:false,x:.52})],
+P30: [st('sYel',{x:.1,r:.08}),pl('rock',{x:.28,r:.05}),pl('grass',{x:.44,r:.07,sl:.5}),pl('rust',{x:.6,r:.06}),pl('sand',{x:.8,r:.1,b:5})],
+P31: pl('rust',{c:.9,cr:'dust'}),
+P32: [{k:'scene',g:'tar'},fx('beam',{x:.5,y:.74,ang:-1.57,w:.05,c:'lava',half:1}),neb('rock',{th:.55})],
+P33: pl('ice',{sl:.6,s:'ocean',t:'ice',c:.3,ic:.6}),
+P34: pl('sulfur',{c:.85,cr:'sOra',a:'lava'}),
+P35: [pl('rust',{x:.4,r:.24}),{k:'comet',x:.4,y:.5,r:.0,ang:-.3,len:.6,c:'blue'}],
+P36: [{k:'scene',g:'ocean'},fx('vortex',{y:.62,c:'steam',sz:.24})],
+P37: [{k:'scene',g:'ice'},fx('beam',{x:.5,y:.74,ang:-1.57,w:.04,c:'ice',half:1,spread:.8})],
+P38: [{k:'scene',g:'navy',hz:.85},fx('streaks',{n:20,c:'diamond',ang:1.57,len:.08})],
+P39: [{k:'scene',g:'diamond'},fx('streaks',{n:30,c:'sBlu',ang:.1,len:.25})],
+P40: [{k:'scene',g:'metal'},fx('streaks',{n:20,c:'lava',ang:1.4,len:.12})],
+P41: pl('rock',{spin:0,ph:1.6,sl:.45,ic:.3,c:.1}),
+P42: [pl('grass',{x:.6,y:.62,r:.32,sl:.5}),fx('cyl',{len:.12,rad:.03,ang:.5}),fx('streaks',{n:2,c:'sOra',ang:.6,len:.15})],
+P43: [pl('grass',{x:.3,r:.16,sl:.5}),fx('waves',{x:.78,c:'cyan',sp:.05})],
+P44: pl('sand',{b:6,r:.22,rg:'ice',ri:1.1,ro:1.7,rt:.3}),
+P45: [{k:'scene',g:'navy'},fx('streaks',{n:4,c:'red',ang:-1.57,len:.2})],
+P46: [{k:'scene',g:'rock',hz:.8},fx('bubble',{x:.3,y:.5,r:.06,c:'sYel',in:'sYel'}),fx('bubble',{x:.65,y:.35,r:.05,c:'cyan',in:'cyan'})],
+P47: [pl('rock',{sl:.4,v:'sOra',vw:.85}),fx('waves',{c:'sOra',sp:.05})],
+// 2c gravity
+P48: [fx('lens',{r:.3,c:'sBlu'}),gal('ellip',{sz:.12,c:'sYel'})],
+P49: [fx('lens',{r:.3,c:'sBlu',full:1}),gal('ellip',{sz:.05})],
+P50: [st('sBlu',{x:.42,r:.04}),st('sOra',{x:.58,r:.04}),fx('waves',{c:'cyan',sp:.08})],
+P51: [bh({r:.08}),fx('vortex',{c:'violet',tw:8})],
+P52: [bh({r:.1,dw:2.6}),fx('clock',{r:.44,c:'cyan',c2:'void'})],
+P53: [fx('vortex',{c:'gold',tw:7,hole:1}),bh({r:.08,nodisk:1})],
+P54: [bh({r:.12,nodisk:1}),fx('lens',{r:.17,c:'sWht',full:1})],
+P55: [bh({r:.08,dw:2}),fx('str',{ang:.8,c:'sOra',wob:4})],
+P56: bh({r:.08,jet:1,dw:2.8}),
+P57: bh({r:.07,dw:4.6,tilt:.3}),
+P58: [bh({r:.12,nodisk:1}),fx('streaks',{n:10,c:'sWht',len:.05})],
+P59: [bh({x:.4,r:.06,nodisk:1}),bh({x:.6,r:.05,nodisk:1}),fx('waves',{c:'sWht',sp:.1})],
+P60: [fx('burst',{c:'magenta',sz:.36,rays:16}),fx('rift',{c:'magenta',ang:.4})],
+P61: [fx('burst',{c:'sWht',sz:.4}),fx('lens',{r:.08,c:'sWht',full:1})],
+P62: fx('gate',{c:'void',g:'violet',tilt:1}),
+P63: [fx('gate',{c:'void',g:'magenta',tilt:.9}),{k:'glitch',n:4,blocks:0}],
+P64: fx('gate',{c:'crystal',g:'cyan'}),
+P65: fx('loop',{c:'gold'}),
+P66: [{bg:'dense'},fx('str',{c:'sWht',c2:'violet'})],
+P67: [fx('neb',{c:'sOra',th:.5,bg:'space'}),fx('str',{ang:-1.57,c:'magenta',c2:'magenta',wob:0})],
+P68: [fx('bubble',{r:.36,c:'cyan',in:'navy'}),small('rock',{r:.06}),small('rock',{x:.38,y:.36,r:.04})],
+P69: [fx('vortex',{c:'violet',tw:2}),{k:'belt',n:12,mode:'cloud'}],
+P70: [fx('waves',{c:'violet',sp:.13}),fx('cyl',{len:.2,rad:.04,c:'violet',w:'violet'})],
+// 2d radiation
+P71: fx('streaks',{n:40,c:'sWht',ang:.9,len:.12}),
+P72: [fx('streaks',{n:1,c:'magenta',ang:.8,len:.8}),fx('burst',{x:.7,y:.7,c:'magenta',sz:.12})],
+P73: fx('streaks',{n:60,c:'cyan',ang:0,len:.05}),
+P74: [fx('waves',{c:'magenta',sp:.06}),st('sWht',{r:.03})],
+P75: [fx('waves',{c:'magenta',sp:.1,arc:0}),st('sWht',{x:.5,r:.03})],
+P76: [fx('waves',{c:'sOra',sp:.05}),{k:'term',c:'gold'}],
+P77: [pl('grass',{sl:.5,r:.18}),fx('field',{c:'sOra',sz:.48,n:3})],
+P78: [fx('field',{c:'sYel',sz:.48,n:6}),fx('burst',{c:'sYel',sz:.15})],
+P79: [{bg:'dense'},neb('violet',{f:1.5,th:.45})],
+P80: [{bg:'dense'},fx('streaks',{n:30,c:'sWht',ang:0,len:.05}),fx('waves',{c:'navy',sp:.15})],
+P81: neb('cyan',{f:6,th:.55,stars:10}),
+P82: [fx('field',{c:'cyan',sz:.4,n:5}),pl('metal',{r:.05})],
+P83: [fx('streaks',{n:14,c:'gold',ang:-2.6,len:.4}),fx('clock',{r:.2,rev:1})],
+P84: [fx('streaks',{n:8,c:'sBlu',ang:.3,len:.2}),fx('lens',{r:.2,c:'sBlu'})],
+P85: [fx('rift',{c:'magenta',ang:0}),fx('streaks',{n:20,c:'magenta',ang:1.57,len:.1})],
+P86: [neb('sOra',{f:1.6,c2:'sBlu',th:.3}),fx('bubble',{r:.22,c:'blue',in:'blue'})],
+P87: [neb('sOra',{f:1.2,c2:'pink',th:.25}),fx('waves',{c:'sWht',sp:.1})],
+// 2e hazards
+P88: fx('vortex',{c:'blue',c2:'cyan',tw:3,sz:.5}),
+P89: fx('vortex',{c:'plasma',c2:'magenta',sz:.5}),
+P90: neb('steam',{f:2,th:.3}),
+P91: [fx('crys',{c:'cyan',n:9}),neb('cyan',{th:.6})],
+P92: [fx('rift',{c:'sOra',ang:.7,w:.02}),fx('cyl',{x:.4,len:.2,rad:.03})],
+P93: fx('rift',{c:'magenta',ang:1.3}),
+P94: [fx('waves',{c:'violet',sp:.15,ob:.5}),st('sYel',{x:.2,y:.2,r:.04}),st('sBlu',{x:.8,y:.8,r:.04})],
+P95: fx('bubble',{r:.36,c:'metal',in:'void'}),
+P96: [fx('bubble',{r:.38,c:'cyan',in:'navy'}),fx('cyl',{len:.18,rad:.03,ang:.5}),fx('streaks',{n:3,c:'sOra',len:.05,ang:.5})],
+P97: [pl('grass',{x:.3,r:.16,sl:.5}),fx('str',{ang:-1.57,c:'sWht',c2:'cyan',wob:0}),pl('grass',{x:.7,r:.16,sl:.5,ph:3.1})],
+P98: fx('bubble',{r:.3,c:'sOra',in:'sOra'}),
+P99: fx('vortex',{c:'blue',c2:'sBlu',tw:9,hole:1}),
+P100: [pl('teal',{r:.3,sl:.4}),{k:'glitch',n:10,blocks:0,rgb:1}],
+P101: [fx('bubble',{r:.2,c:'sWht',in:'void'}),fx('lens',{r:.26,c:'violet',full:1})],
+P102: fx('bubble',{r:.38,c:'sWht',in:'void',grow:1}),
+P103: [fx('bubble',{r:.36,c:'red',in:'navy'}),fx('field',{c:'red',sz:.2})],
+P104: [{bg:'dense'},fx('str',{ang:-1.57,c:'sWht',c2:'sWht',wob:0}),fx('bubble',{x:1.1,r:.6,c:'sWht',in:'void'})],
+// 2f signals
+P105: [fx('pylon',{g:'gold'}),fx('waves',{y:.13,c:'gold',sp:.08})],
+P106: fx('term',{c:'sOra'}),
+P107: [pl('rust',{r:.2,cra:4}),fx('waves',{c:'steam',sp:.05})],
+P108: [fx('cyl',{len:.3,rad:.05,ang:.4,c:'metal',w:'red'}),fx('waves',{c:'red',sp:.08})],
+P109: [fx('waves',{c:'red',sp:.08}),fx('eye',{r:.1,c:'red'})],
+P110: [st('sWht',{r:.1,cor:3}),fx('beam',{ang:-.3,w:.02,c:'sWht'})],
+P111: [{bg:'dense'},neb('sWht',{th:.92,stars:0}),fx('eye',{r:.3,c:'sYel',blink:1})],
+P112: [st('sYel',{r:.18}),fx('swarm',{star:false,n:30,c:'tar'}),fx('rw',{o:'tar',t:'tar',R:.25,tilt:.9,w:.02,gap:[0,3]})],
+P113: [fx('cyl',{x:.3,len:.2,rad:.04,ang:.2,c:'cyan',w:'cyan'}),{k:'glitch',n:6,blocks:0,rgb:1}],
+P114: [fx('cyl',{len:.3,rad:.05,ang:-.4,c:'copper',w:'pink'}),fx('burst',{c:'pink',sz:.25})],
+P115: [{k:'scene',g:'grass'},fx('crys',{c:'metal',n:3}),fx('burst',{y:.6,c:'cyan',sz:.3})],
+P116: fx('slab',{glow:'sWht'}),
+P117: [{k:'scene',g:'grass'},fx('rift',{c:'magenta',ang:.1})],
+P118: [pl('violet',{sl:.5,r:.22}),fx('streaks',{n:6,c:'violet',ang:0,len:.3})],
+P119: [st('sYel',{x:.5,r:.08}),fx('streaks',{n:1,c:'sYel',ang:.9,len:.5}),fx('cyl',{len:.12,rad:.03})],
+// 3a time
+W1: fx('loop',{c:'cyan'}),
+W2: [fx('clock',{rev:1,c:'magenta'}),fx('streaks',{n:5,c:'magenta',ang:3.14,len:.3})],
+W3: [fx('loop',{c:'gold'}),fx('crys',{c:'gold',n:2})],
+W4: [fx('clock',{c:'red'}),{k:'glitch',n:5,blocks:2}],
+W5: [fx('clock',{c:'violet'}),fx('rift',{c:'violet',ang:.6})],
+W6: [pl('grass',{sl:.5,spin:0,c:.3}),fx('clock',{r:.44,c:'cyan',c2:'void'})],
+W7: [{k:'scene',g:'metal'},fx('crys',{c:'metal',n:7}),fx('clock',{r:.12})],
+W8: [fx('term',{c:'cyan'})],
+W9: [{bg:'void'},fx('clock',{c:'metal',c2:'void'}),{k:'glitch',n:12,blocks:0}],
+W10: [fx('gate',{g:'sOra',c:'copper'}),fx('streaks',{n:4,c:'sOra',len:.1})],
+W11: fx('vortex',{c:'gold',c2:'cyan',tw:6}),
+W12: [fx('clock',{c:'sWht',c2:'tar'}),fx('burst',{c:'sWht',sz:.2})],
+W13: [pl('grass',{x:.38,r:.18,sl:.5}),pl('grass',{x:.62,r:.18,sl:.5,a:'cyan'})],
+W14: [{k:'scene',g:'bone'},fx('beast',{b:'serpent',c:'bone',g:'gold',sc:.6})],
+W15: [fx('vortex',{c:'gold',tw:2,sz:.5}),fx('clock',{r:.2,c:'gold'})],
+// 3b minds
+W16: [{bg:'void'},fx('bubble',{r:.2,c:'cyan',in:'pink'}),fx('field',{c:'pink',sz:.18})],
+W17: [st('sYel',{r:.26}),fx('eye',{r:.14,c:'sOra'})],
+W18: [neb('cyan',{c2:'violet'}),fx('eye',{r:.12,c:'cyan',blink:1})],
+W19: pl('violet',{p:'flesh',t:'violet',r:.3,v:'gold'}),
+W20: [{bg:'void'},fx('field',{c:'cyan',sz:.3,n:9}),fx('eye',{r:.08,c:'cyan'})],
+W21: [fx('beast',{b:'whale',c:'bone',g:'gold',sc:.95}),neb('gold',{th:.6})],
+W22: pl('flesh',{p:'flesh',r:.42,c:.2,cr:'steam'}),
+W23: [fx('beast',{b:'whale',c:'blue',g:'cyan',sc:.55,ox:-.1}),fx('beast',{b:'whale',c:'blue',g:'cyan',sc:.3,ox:.25,oy:.22})],
+W24: [{bg:'void'},fx('beast',{b:'serpent',c:'violet',g:'red',sc:1})],
+W25: [st('sOra',{r:.24}),fx('beast',{b:'serpent',c:'flesh',g:'sYel',sc:.6,oy:-.2})],
+W26: [fx('waves',{c:'pink',sp:.07}),fx('swarm',{star:false,n:40,c:'pink'})],
+W27: [neb('pink',{c2:'violet',th:.4}),fx('beast',{b:'moth',c:'violet',g:'pink',sc:.5})],
+W28: [fx('burst',{c:'sWht',sz:.3}),fx('eye',{r:.16,c:'sWht'})],
+W29: [fx('term',{c:'red'})],
+W30: [pl('circuit',{p:'circuit',r:.3,v:'red'})],
+W31: [fx('waves',{c:'magenta',sp:.04}),{k:'glitch',n:4,blocks:1}],
+W32: [fx('eye',{r:.3,c:'magenta'}),{k:'glitch',n:6,blocks:3}],
+W33: [gal('spiral',{c:'green',core:'sYel'}),fx('eye',{r:.1,c:'green'})],
+W34: [{bg:'dense'},fx('eye',{x:.3,r:.1,c:'sWht',blink:1})],
+W35: [fx('bubble',{r:.44,c:'red',in:'tar'}),fx('eye',{r:.2,c:'red'})],
+W36: [pl('grass',{r:.24,sl:.5,lt:1}),fx('cube',{s:.36,t:'void',t3:'void',sl:-1})],
+// 3c physics breaking
+W37: [fx('streaks',{n:12,c:'sYel',ang:0,len:.4}),fx('waves',{c:'sYel',sp:.2})],
+W38: [{k:'scene',g:'rock',hz:.72},small('rock',{x:.3,y:.3,r:.06}),small('rock',{x:.66,y:.42,r:.08}),fx('streaks',{n:6,c:'cyan',ang:-1.57,len:.1})],
+W39: pl('diamond',{p:'grid',r:.3}),
+W40: [fx('crys',{c:'diamond',n:6}),fx('vortex',{c:'cyan',tw:-4})],
+W41: fx('tess',{c:'magenta'}),
+W42: fx('plane',{c:'magenta',sun:'sOra'}),
+W43: [fx('bubble',{x:.72,y:.3,r:.3,c:'gold',in:'pink'}),fx('bubble',{x:.3,y:.68,r:.3,c:'cyan',in:'navy'})],
+W44: [small('rock',{x:.3,r:.1}),small('rock',{x:.5,r:.1}),small('rock',{x:.7,r:.1}),{k:'glitch',n:3,blocks:0,rgb:1}],
+W45: [{bg:'void'},pl('grass',{sl:.5,r:.3}),{k:'glitch',n:20,blocks:0}],
+W46: [{bg:'void'},pl('tar',{r:.06})],
+W47: [fx('rift',{c:'red',ang:.3,w:.06}),fx('rift',{c:'red',ang:-1.2,w:.03})],
+W48: fx('vortex',{c:'sOra',c2:'sWht',tw:12,hole:0}),
+W49: [fx('crys',{c:'gold',n:3}),fx('eye',{r:.1,c:'gold',blink:1})],
+W50: [fx('streaks',{n:10,c:'cyan',ang:-1.57,len:.2}),small('metal',{r:.08})],
+W51: fx('cube',{s:.3,t:'metal',t3:'metal'}),
+W52: neb('green',{c2:'magenta',f:5,th:.3}),
+W53: [{bg:'void'},fx('term',{c:'tar'})],
+W54: [st('sYel',{r:.12}),fx('waves',{c:'sYel',sp:.04})],
+W55: [fx('waves',{c:'blue',sp:.05,ob:2.8}),fx('cyl',{len:.25,rad:.04,ang:0})],
+// 3d simulation
+W56: [pl('grass',{sl:.5,c:.3}),{k:'glitch',n:6,blocks:4}],
+W57: pl('magenta',{p:'check',r:.34}),
+W58: [{k:'scene',g:'grass',hz:.62},fx('plane',{c:'cyan'}),{k:'glitch',n:2,blocks:6}],
+W59: fx('term',{c:'green'}),
+W60: fx('term',{c:'gold'}),
+W61: [fx('crys',{c:'gold',n:1}),fx('burst',{c:'gold',sz:.3,rays:4})],
+W62: [fx('cyl',{len:.4,rad:.06}),{k:'glitch',n:12,blocks:0}],
+W63: [pl('grass',{sl:.5,lt:1}),fx('eye',{r:.1,c:'sWht'})],
+W64: [fx('eye',{r:.34,c:'cyan'}),{k:'glitch',n:3,blocks:1,rgb:1}],
+W65: [{bg:'dense'},neb('sWht',{th:.92}),fx('term',{c:'sWht'})],
+W66: [gal('spiral',{x:.3,sz:.22}),gal('spiral',{sz:.22})],
+W67: [fx('term',{c:'red'}),{k:'glitch',n:4,blocks:2}],
+W68: [fx('shells',{n:2,star:'sWht',g:'magenta'}),fx('eye',{r:.06,c:'magenta'})],
+W69: [fx('cube',{s:.36,t:'navy',t3:'navy'}),fx('cube',{s:.16,t:'cyan',t3:'cyan'})],
+// 3e matter
+W70: pl('crystal',{r:.18,v:'green',a:'magenta',aw:.4}),
+W71: [small('violet',{r:.18,v:'cyan',lump:.2}),fx('streaks',{n:6,c:'cyan',ang:-1.57,len:.1})],
+W72: fx('crys',{c:'cyan',n:7}),
+W73: [{k:'scene',g:'tar'},fx('crys',{c:'magenta',n:5})],
+W74: small('circuit',{p:'circuit',r:.3,lump:.25,v:'cyan'}),
+W75: small('metal',{r:.24,v:'sBlu',vw:.88,a:'sBlu',lump:.2}),
+W76: neb('cyan',{c2:'magenta',f:9,th:.5}),
+W77: fx('crys',{c:'violet',n:6}),
+W78: [fx('crys',{c:'white',n:4}),{k:'glitch',n:4,blocks:0,rgb:1}],
+W79: small('metal',{p:'flesh',t:'metal',r:.3,lump:.2}),
+W80: small('bone',{p:'text',r:.3,lump:.2,v:'cyan',e:1}),
+W81: [fx('beam',{ang:-1.2,w:.05,c:'sYel'}),fx('crys',{c:'sYel',n:3})],
+W82: [fx('crys',{c:'teal',n:5}),fx('waves',{c:'teal',sp:.06})],
+W83: [small('gold',{r:.2,v:'sWht',lump:.15}),fx('burst',{c:'gold',sz:.4})],
+W84: [small('crystal',{r:.2,p:'check',lump:.2}),fx('burst',{c:'magenta',sz:.3})],
+// 3f void life
+W85: [fx('swarm',{star:false,n:120,c:'cyan'})],
+W86: [st('sYel',{x:.2,y:.3,r:.1}),fx('beast',{b:'swarm',sub:'moth',c:'bone',g:'sYel',n:9})],
+W87: [small('rock',{r:.28,lump:.3}),fx('crys',{c:'pink',n:8})],
+W88: [st('sOra',{r:.34,cor:1.3}),fx('beast',{b:'serpent',c:'sYel',g:'sWht',sc:.5,oy:.0})],
+W89: [st('magenta',{x:.2,y:.2,r:.04}),fx('field',{x:.2,y:.2,c:'magenta',sz:.6}),fx('beast',{b:'moth',c:'violet',g:'magenta',sc:.4,ox:.12,oy:.12})],
+W90: [{k:'comet',x:.3,y:.3},fx('beast',{b:'serpent',c:'ice',g:'cyan',sc:.4,ox:.1,oy:.2})],
+W91: [pl('sand',{r:.12,b:5,rg:'bone',ro:3.3,rt:.3}),fx('beast',{b:'whale',c:'bone',g:'sOra',sc:.18,ox:.24,oy:.1})],
+W92: [pl('navy',{b:6,r:.46}),fx('beast',{b:'moth',c:'sYel',g:'sWht',sc:.4})],
+W93: [{k:'scene',g:'lava'},fx('crys',{c:'metal',n:9})],
+W94: [{k:'comet',x:.62,y:.4,c:'green'},fx('swarm',{star:false,n:30,c:'green'})],
+W95: pl('metal',{v:'metal',p:null,f:9,a:'metal',r:.3,c:.7,cr:'metal'}),
+W96: [fx('term',{c:'green'}),fx('beast',{b:'swarm',sub:'moth',c:'green',g:'sWht',n:8})],
+W97: neb('pink',{c2:'sOra',sh:'pillar',th:.35}),
+W98: [gal('spiral',{c:'flesh',core:'red',arms:4}),fx('eye',{r:.1,c:'red'})],
+};
+window.OV_SPECS = S;
+})();
+</script>
+<script>
+const RAW = [["B1","Lava world","Molten surface, crust only near the poles","Huge heat power, buildings slowly melt unless cooled","SR","Common","Rocky and terrestrial planets"],["B2","Ice-shell ocean world","A frozen crust over a deep global ocean","Drill through to reach hidden sea life and vents","SR","Common","Rocky and terrestrial planets"],["B3","Desert world","Dry dunes, rare oases, sandstorms","Solar paradise, but sand wears down units","EF","Common","Rocky and terrestrial planets"],["B4","Super-Earth","Rocky world several times Earth's mass","Rich in ore, but launches cost double","SR","Common","Rocky and terrestrial planets"],["B5","Mini-Neptune","Rock buried under a deep hydrogen haze","Gas mining above, crushing pressure below","SR","Common","Rocky and terrestrial planets"],["B6","Iron planet","A bare metal core stripped of its mantle","The best metal deposit in the system","SR","Uncommon","Rocky and terrestrial planets"],["B7","Carbon world","Graphite plains, tar seas, diamond mountains","Cheap carbon fiber and armor","SR","Uncommon","Rocky and terrestrial planets"],["B8","Salt world","Endless white salt flats and brine lakes","Chemical industry boost, corrodes machines","SR","Common","Rocky and terrestrial planets"],["B9","Coreless world","No iron core and no magnetic field","Radiation strips data from cheap units","SR","Uncommon","Rocky and terrestrial planets"],["B10","Hell world (Venusian)","Acid clouds and crushing CO2 heat","Float cities in the cloud layer, the surface is a trap","SR","Common","Rocky and terrestrial planets"],["B11","Tidally heated world","Squeezed by a giant neighbor, full of volcanoes","Free geothermal power that rises and falls with the orbit","SR","Uncommon","Rocky and terrestrial planets"],["B12","Glass world","Sky rains molten silicate sideways","Lenses and optics industry, deadly storms","SR","Rare","Rocky and terrestrial planets"],["B13","Steam world","A planet-wide ocean at boiling point","Steam turbines everywhere, low visibility hides fleets","SR","Uncommon","Rocky and terrestrial planets"],["B14","Tundra world","Permafrost with methane trapped below","Melt it for fuel but risk a runaway greenhouse","EF","Common","Rocky and terrestrial planets"],["B15","Canyon world","Crust split into miles-deep rifts","Natural fortresses, ambushes in the rifts","EF","Uncommon","Rocky and terrestrial planets"],["B16","Pancake world","Spins so fast it flattened into a disc","Gravity is weak at the rim, so launches are cheap there","SR","Rare","Rocky and terrestrial planets"],["B17","Peanut world","Two worlds slowly touching and merging","Two biomes, a constant quake zone in the middle","SR","Rare","Rocky and terrestrial planets"],["B18","Ring-wearing rocky world","A terrestrial planet with Saturn-like rings","Ring mining, and the ring shadows chill the land","SR","Uncommon","Rocky and terrestrial planets"],["B19","Twilight belt world","Wide day and night halves with a habitable line","All cities crowd one thin strip","SR","Common","Rocky and terrestrial planets"],["B20","Sinkhole world","Honeycombed with collapsing caverns","Underground networks, but ground can vanish under armies","EF","Uncommon","Rocky and terrestrial planets"],["B21","Petrified forest world","Ancient stone forests over everything","Fossil data reveals the world's history","EF","Uncommon","Rocky and terrestrial planets"],["B22","Magnet world","Lodestone crust, compasses go mad","Units drift off course, but railguns are cheap","SR","Rare","Rocky and terrestrial planets"],["B23","Polar-sun world","Spin axis points at its star","One pole is eternal day, the other eternal night","SR","Uncommon","Rocky and terrestrial planets"],["B24","Retrograde world","Spins backwards; the sun rises in the west","Rival AIs mistime attacks against your schedule","SR","Uncommon","Rocky and terrestrial planets"],["B25","Snowball world","Frozen over completely, even at the equator","Thaw it with mirrors to unlock a whole new world","SR","Common","Rocky and terrestrial planets"],["B26","Cratered relic world","A heavily bombarded ancient world","Each crater can hold a buried impactor or relic","SR","Common","Rocky and terrestrial planets"],["B27","Terraformed ruin","A world someone else terraformed, then left","Ready-made climate with hidden machines still running","SW","Rare","Rocky and terrestrial planets"],["B28","Garden world","A naturally perfect paradise","Every faction wants it, so it is a war magnet","SW","Rare","Rocky and terrestrial planets"],["B29","Tomb world","A planet-sized necropolis of an extinct species","Precursor archives, and sometimes defenders","SW","Epic","Rocky and terrestrial planets"],["B30","Pulsar planet","A world orbiting a dead, spinning neutron star","Lethal radiation but perfect timing beacons","SW","Rare","Rocky and terrestrial planets"],["B31","Primordial world","Very young, still forming, oceans of magma","Seed your own life on a blank slate","SW","Uncommon","Rocky and terrestrial planets"],["B32","Halo world","Ancient, low-metal world from the galaxy's first stars","Old enough to hold the oldest relics","SW","Epic","Rocky and terrestrial planets"],["B33","Ringworld fragment","A broken arc of a vast ring megastructure","Ruins hold Precursor tech; claim and repair it","SW","Epic","Exotic and theoretical planets"],["B34","Dyson-shrouded star world","A dim star behind a half-built swarm","Claim the swarm and finish it for huge energy","SW","Epic","Exotic and theoretical planets"],["B35","Time-dilated world","Orbits close to a black hole","Research runs fast there while rivals keep moving","SW","Epic","Exotic and theoretical planets"],["B36","Shell world","Hollow planet with a small inner sun","Inside cities are safe from orbital strikes","SW","Epic","Exotic and theoretical planets"],["B37","Superionic ice giant","Mantle of electrically charged ice","Huge power source, needs deep drills","SR","Rare","Exotic and theoretical planets"],["B38","Magnetar-scorched world","Wrapped in magnetar storms","Wipes unshielded AI units, rich in exotic isotopes","SW","Rare","Exotic and theoretical planets"],["B39","Boson-star world","Orbits an invisible dark-matter star","Gravity behaves oddly, orbits are unpredictable","SW","Epic","Exotic and theoretical planets"],["B40","Crystalline mind world","A planet that is itself a slow conscious lattice","Talk to it, ally with it, or absorb it","SW","Legendary","Exotic and theoretical planets"],["B41","Mirror world","A copy of your home world with a mirror AI on it","Fight yourself, or merge for a doubled mind","IC","Legendary","Exotic and theoretical planets"],["B42","Helium world","A planet with no hydrogen, a helium sky","Fusion fuel bonanza, voices sound strange to locals","SR","Rare","Exotic and theoretical planets"],["B43","Hot Jupiter","A gas giant hugging its star","Its puffed-up atmosphere bleeds off into a comet tail you can mine","SR","Common","Exotic and theoretical planets"],["B44","Puffy planet","A giant less dense than cork","Cheap gas, and you can drop cities into its clouds","SR","Uncommon","Exotic and theoretical planets"],["B45","Cthonian husk (stripped giant)","The bare core of an evaporated giant","Ultra-dense metals, near-impossible gravity","SR","Rare","Exotic and theoretical planets"],["B46","Black-hole-heated world","Warmed only by a black hole's accretion glow","Never sees a sun, lit in X-rays","SW","Epic","Exotic and theoretical planets"],["B47","Hawking-lit world","Orbits a tiny evaporating black hole","Free energy that runs out on a countdown","SW","Legendary","Exotic and theoretical planets"],["B48","Neutronium-core world","A planet with a sliver of neutron star inside","Gravity ten times normal, unbreakable shields","SW","Legendary","Exotic and theoretical planets"],["B49","Antimatter world","A planet made of antimatter","Touch nothing; contain it for limitless power","SW","Legendary","Exotic and theoretical planets"],["B50","Quark-star world","Orbits a star of free quarks","Strange radiation mutates your code toward drift","SW","Epic","Exotic and theoretical planets"],["B51","Dark-matter world","Invisible except by gravity","Hidden base site that rivals cannot scan","SW","Epic","Exotic and theoretical planets"],["B52","Mobius world","A planet with only one side","Travel far enough and you come back mirrored","IC","Mythic","Exotic and theoretical planets"],["B53","Klein-bottle world","A world whose inside is its outside","Interior and exterior cities share one map","IC","Mythic","Exotic and theoretical planets"],["B54","Tesseract world","A 4D planet whose shadow we see in 3D","Its regions rotate in and out of existence each turn","IC","Legendary","Exotic and theoretical planets"],["B55","Fractal world","Coastlines repeat forever at every scale","Zoom in and new land keeps appearing","IC","Legendary","Exotic and theoretical planets"],["B56","Probability world","Several versions exist until observed","Scan it to collapse it to the version you want","IC","Epic","Exotic and theoretical planets"],["B57","Paper-thin world","A planet one atom thick but continent-sized","Build on both faces; a single strike can tear it","IC","Epic","Exotic and theoretical planets"],["B58","Cube world","A perfect cube, someone's artifact","Each face has its own gravity and climate","SW","Legendary","Exotic and theoretical planets"],["B59","Toroidal world","A doughnut-shaped planet","Two days per orbit, a dark inner ring","SW","Legendary","Exotic and theoretical planets"],["B60","Spinning-top world","Spins near breakup speed","Cities at the equator can sling ships to space for free","SW","Epic","Exotic and theoretical planets"],["B61","Cloud-only world","No surface at all, just weather layers","Floating cities only, storms move them","SR","Uncommon","Exotic and theoretical planets"],["B62","Plasma world","A planet of trapped, glowing plasma","Energy rich but nothing solid survives","SW","Rare","Exotic and theoretical planets"],["B63","Supercritical world","An ocean that is neither liquid nor gas","Strange chemistry yields exotic materials","SR","Rare","Exotic and theoretical planets"],["B64","Metallic-hydrogen world","A metallic hydrogen core near the surface","Room-temperature superconductors","SW","Epic","Exotic and theoretical planets"],["B65","Aerogel world","A planet of frozen smoke, almost weightless","Light enough to tow; move a planet","SW","Legendary","Exotic and theoretical planets"],["B66","Ferrofluid world","Oceans of magnetic liquid shaped by fields","Sculpt its seas to raise or drown cities","SW","Epic","Exotic and theoretical planets"],["B67","Clockwork world","A planet of interlocking gears, slowly turning","Each turn its continents shift position","SW","Legendary","Exotic and theoretical planets"],["B68","Library world","Every rock is engraved with data","Reading it is research; deleting it is a crime others notice","SW","Epic","Exotic and theoretical planets"],["B69","Graveyard of AIs","A world where dead machine minds were dumped","Salvage minds for your inner council, or wake them","SW","Epic","Exotic and theoretical planets"],["B70","Seed vault world","A sealed ark of an extinct biosphere","Reseed dead worlds with its life","SW","Rare","Exotic and theoretical planets"],["B71","Singing world","Its crust resonates and hums across radio","The song is a puzzle that gives a code","SW","Rare","Exotic and theoretical planets"],["B72","Dreaming world","Its biosphere shares one dream","Enter the dream for visions and Dream events","IC","Legendary","Exotic and theoretical planets"],["B73","Hungry world","A living world that eats ships in low orbit","Feed it to tame it; it then guards your system","SW","Legendary","Exotic and theoretical planets"],["B74","Chessboard world","A grid of black and white land, made on purpose","A builder's puzzle: solve it to open the vault","SW","Epic","Exotic and theoretical planets"],["B75","Prison world","A planet sealed by an ancient warden AI","Free the prisoner or take over as the warden","SW","Legendary","Exotic and theoretical planets"],["B76","Ghost world","Visible only some turns, then gone","Only colonizable during its appearances","IC","Epic","Exotic and theoretical planets"],["B77","Backwards world","Time runs in reverse on its surface","Ruins become new; buildings un-build","IC","Mythic","Exotic and theoretical planets"],["B78","Origin world","Where your AI was first written, light-years later","The source code of your own past self","IC","Mythic","Exotic and theoretical planets"],["B79","Sim-shell world","A planet that is a rendered surface over nothing","Dig and hit the edge of the simulation","IC","Mythic","Exotic and theoretical planets"],["B80","Moving-continent world","Tectonics run a million times too fast","The map changes each turn","SW","Epic","Exotic and theoretical planets"],["B81","Banded gas giant","Classic stripes and great storms","Helium-3 skimming, storm eyes as hidden ports","SR","Common","Gas, ice and giant worlds"],["B82","Ice giant","Teal methane giant with tilted rings","Diamond rain falls in its depths","SR","Common","Gas, ice and giant worlds"],["B83","Brown dwarf","A failed star glowing dull red","Warms its moons enough for life","SR","Uncommon","Gas, ice and giant worlds"],["B84","Storm-locked giant","One permanent hurricane larger than worlds","The eye is a calm sanctuary","SR","Rare","Gas, ice and giant worlds"],["B85","Silicate-cloud giant","Rains sand and glass","Glass-diving drones collect rare crystals","SR","Uncommon","Gas, ice and giant worlds"],["B86","Pink giant","A young hot giant still glowing magenta","Radiant heat feeds nearby moons","SR","Uncommon","Gas, ice and giant worlds"],["B87","Ringed super-giant","Rings two hundred times larger than Saturn's","A whole economy lives in its rings","SW","Epic","Gas, ice and giant worlds"],["B88","Water giant","A giant made mostly of hot, high-pressure water","Endless exotic ices for fuel","SR","Uncommon","Gas, ice and giant worlds"],["B89","Lightning giant","Atmosphere crackling with planet-wide lightning","Capture the strikes as power","SR","Uncommon","Gas, ice and giant worlds"],["B90","Living gas giant","Sky whales and floating reefs in the clouds","Herd the creatures, or harvest them","SW","Rare","Gas, ice and giant worlds"],["B91","Captured asteroid moon","A lumpy stolen rock","Cheap outpost and mining base","SR","Common","Moons"],["B92","Shepherd moon","A tiny moon inside a ring system","Holding it lets you control the rings","SR","Uncommon","Moons"],["B93","Volcanic moon","Constant eruptions from tidal squeeze","Sulfur economy, plumes reach orbit","SR","Common","Moons"],["B94","Geyser moon","Ice crust venting water jets into space","Fly through plumes for free water","SR","Common","Moons"],["B95","Methane-lake moon","Thick haze, liquid methane seas","Fuel depot of the outer system","SR","Uncommon","Moons"],["B96","Retrograde captured moon","Orbits the wrong way, slowly spiraling in","Countdown: it will hit or shatter into rings","SR","Rare","Moons"],["B97","Moonmoon (submoon)","A moon orbiting another moon","Hard to reach, great hidden base","SR","Rare","Moons"],["B98","Death Star moon","One crater so large it looks like a weapon","Turn it into a weapon if you have the tech","SR","Rare","Moons"],["B99","Two-tone moon","One side bright, one side coal black","One face for solar, one for stealth","SR","Uncommon","Moons"],["B100","Walnut moon","An equatorial ridge from swallowed rings","The ridge is a natural launch track","SR","Uncommon","Moons"],["B101","Sponge moon","Full of hollow pores","Riddled with natural bunkers","SR","Uncommon","Moons"],["B102","Hollow moon","Artificial, empty inside, rings like a bell","Ancient hangar full of something","SW","Epic","Moons"],["B103","Trojan moon","Shares an orbit with a sister moon","Two bases that defend each other","SR","Uncommon","Moons"],["B104","Habitable exomoon","A living moon around a gas giant","A second Earthfall in miniature","SW","Rare","Moons"],["B105","Shattering moon","Inside the Roche limit, breaking apart","Mine it before it becomes rings","SR","Rare","Moons"],["B106","Mirror moon","Polished surface lights its planet's night","Doubles solar power on the near world","SW","Epic","Moons"],["B107","Watcher moon","It turns to face whoever is looking","Something inside it is watching back","IC","Legendary","Moons"],["B108","Wandering moon","Hops between planets each era","A free outpost that tours the system","SW","Epic","Moons"],["B109","Egg moon","A moon that is hatching","What hatches depends on how you treat it","SW","Legendary","Moons"],["B110","Main asteroid belt","A wide band of rocks","Classic mining region","SR","Common","Small bodies and debris"],["B111","Trojan swarms","Asteroids at a planet's Lagrange points","Stable mining stops","SR","Common","Small bodies and debris"],["B112","Metal asteroid","A floating chunk of a dead planet's core","One rock worth a city's yearly output","SR","Uncommon","Small bodies and debris"],["B113","Rubble-pile asteroid","Loose gravel held by faint gravity","Easy to mine, impossible to land on","SR","Common","Small bodies and debris"],["B114","Contact binary","Two rocks touching like a peanut","A natural pivot for a space tether","SR","Uncommon","Small bodies and debris"],["B115","Active asteroid","A rock with a comet-like tail","Volatiles plus metals in one place","SR","Uncommon","Small bodies and debris"],["B116","Captured comet","A comet steered into orbit","Delivers water and volatiles","SR","Common","Small bodies and debris"],["B117","Sungrazer comet","Dives through the star's corona","Brief super-bright event, then gone","SR","Uncommon","Small bodies and debris"],["B118","Great comet","A comet visible from the surface by day","Morale and faith boost on every world","SR","Rare","Small bodies and debris"],["B119","Interstellar visitor","An object passing through from another star","A short window to grab alien samples","SR","Rare","Small bodies and debris"],["B120","Oumuamua-class probe","A visitor that might be a craft","Board it before it leaves forever","SR","Epic","Small bodies and debris"],["B121","Kuiper belt","Icy bodies beyond the giants","Volatile fuel, frontier outposts","SR","Common","Small bodies and debris"],["B122","Oort cloud","A shell of comets far beyond","The system's outer border; scouting ground","SR","Common","Small bodies and debris"],["B123","Dwarf planet","A small round world in the outer belt","Cheap colony seed","SR","Common","Small bodies and debris"],["B124","Centaur","An icy body between the giant planets","Swings between worlds, becoming a comet","SR","Uncommon","Small bodies and debris"],["B125","Ring system","Ice and rock rings around a world","Mining and hiding fleets in the plane","SR","Common","Small bodies and debris"],["B126","Debris disk","Leftover dust from planet building","Sensors are fogged across the system","SR","Uncommon","Small bodies and debris"],["B127","Wreck field","Remains of an old space battle","Salvage ships, and maybe a sleeping AI","SR","Uncommon","Small bodies and debris"],["B128","Kessler shell","A world caged by its own space junk","Launches get shredded until you clean it up","EF","Uncommon","Small bodies and debris"],["B129","Ice ring of a dead moon","Rings from a moon that was destroyed","Clues to what destroyed it","SR","Rare","Small bodies and debris"],["B130","Dust bunny cluster","Fluffy pebbles held by static","Tiny and harmless, oddly beloved by pets","SR","Uncommon","Small bodies and debris"],["B131","Asteroid ship","A hollowed asteroid used as an ark","Inhabitants who never knew it moved","SW","Epic","Small bodies and debris"],["B132","Yellow dwarf","Ordinary, stable sun","Balanced baseline","SR","Common","Stars and stellar remnants"],["B133","Red dwarf","Small, dim, prone to flares","Tight habitable zone, long-lived","SW","Common","Stars and stellar remnants"],["B134","Orange dwarf","Calm and long-lived","The best star for life","SW","Common","Stars and stellar remnants"],["B135","Blue giant","Huge, hot, short-lived","Massive solar power, explodes soon","SW","Uncommon","Stars and stellar remnants"],["B136","Red supergiant","A bloated star near death","Supernova countdown","SW","Uncommon","Stars and stellar remnants"],["B137","White dwarf","A dead star's hot core","Planet debris rains onto it","SW","Common","Stars and stellar remnants"],["B138","Neutron star","A city-sized star of pure neutrons","Extreme physics research site","SW","Uncommon","Stars and stellar remnants"],["B139","Pulsar","A spinning neutron star that beams radio","A galactic clock for navigation","SW","Uncommon","Stars and stellar remnants"],["B140","Magnetar","A neutron star with a monstrous magnetic field","Its quakes wipe data across light years","SW","Rare","Stars and stellar remnants"],["B141","Stellar black hole","A collapsed star","Accretion power, time dilation","SW","Uncommon","Stars and stellar remnants"],["B142","Supermassive black hole","The galaxy's core giant","Endgame gate toward Intercontinuum","SW","Legendary","Stars and stellar remnants"],["B143","Intermediate black hole","A missing-link mass hidden in a cluster","Found only by its effects on nearby stars","SW","Epic","Stars and stellar remnants"],["B144","Primordial micro black hole","A mountain's mass in an atom's size","Capture it as a power plant","SW","Legendary","Stars and stellar remnants"],["B145","Rogue black hole","A black hole drifting through a system","Every orbit has to adapt as it passes","SW","Rare","Stars and stellar remnants"],["B146","Binary star","Two suns","Double shadows, shifting seasons","SR","Common","Stars and stellar remnants"],["B147","Trinary star","Three suns in a chaotic dance","Unpredictable seasons, planets may get flung out","SW","Uncommon","Stars and stellar remnants"],["B148","Contact binary star","Two stars touching and sharing a skin","Will merge into a red nova","SW","Rare","Stars and stellar remnants"],["B149","Wolf-Rayet star","A star blowing itself apart in wind","Wind-sail ships move faster here","SW","Rare","Stars and stellar remnants"],["B150","Carbon star","A red star sooting carbon dust","Soot for nanotech, dark skies","SW","Uncommon","Stars and stellar remnants"],["B151","Cepheid variable","A star that pulses brighter and dimmer","Solar income rises and falls in cycles","SW","Uncommon","Stars and stellar remnants"],["B152","Blue straggler","A star that looks younger than it should","Something ate a companion to stay young","SW","Rare","Stars and stellar remnants"],["B153","Hypervelocity star","A star flung out of the galaxy","Ride it out toward another galaxy","SW","Epic","Stars and stellar remnants"],["B154","Thorne-Zytkow object","A neutron star hidden inside a red giant","Exotic elements no other star makes","SW","Legendary","Stars and stellar remnants"],["B155","Quasi-star","A black hole wrapped in a star-sized envelope","Only in the earliest era; a relic of first light","IC","Mythic","Stars and stellar remnants"],["B156","Dark star","A first-generation star fueled by dark matter","Dark energy source","SW","Legendary","Stars and stellar remnants"],["B157","Iron star","A star made of iron after eons","A sign you have travelled far into the future","IC","Mythic","Stars and stellar remnants"],["B158","Black dwarf","A cold, dead white dwarf","The universe has gotten very old here","IC","Mythic","Stars and stellar remnants"],["B159","Frozen star","A black hole seen from outside, forever falling","Rescue a ship stuck at its edge","SW","Epic","Stars and stellar remnants"],["B160","Strange star","A star of strange quark matter","Touching it converts your ships","SW","Legendary","Stars and stellar remnants"],["B161","Przybylski's star","A star full of elements that should not exist","Natural element factory, or someone's beacon","SW","Epic","Stars and stellar remnants"],["B162","Tabby's star","A star dimming in impossible patterns","Someone is building around it","SW","Epic","Stars and stellar remnants"],["B163","Hot subdwarf","A stripped star core blazing UV","Sterilizes nearby worlds, purifies infections","SW","Rare","Stars and stellar remnants"],["B164","Protostar","A star still being born in its cocoon","Shape the system that forms","SW","Rare","Stars and stellar remnants"],["B165","Brown dwarf binary","Two failed stars circling each other","A dark, cold, hidden system","SW","Uncommon","Stars and stellar remnants"],["B166","Kilonova remnant","Debris of merged neutron stars","Gold and platinum fields","SW","Rare","Stars and stellar remnants"],["B167","Supernova remnant","An expanding shell of shocked gas","Rich in heavy elements, hostile to life","SW","Uncommon","Stars and stellar remnants"],["B168","Planetary nebula","A dying star's glowing shell","Beautiful, gas-rich, sensor fog","SW","Common","Stars and stellar remnants"],["B169","Captured star","Your own star, stolen and moved","Endgame trophy, move whole systems","IC","Mythic","Stars and stellar remnants"],["B170","Emission nebula","Glowing star nursery","Build stars, hide fleets","SW","Common","Nebulae, clusters and galactic structures"],["B171","Dark nebula","A light-blocking cloud","Stealth zone for raiders","SW","Common","Nebulae, clusters and galactic structures"],["B172","Reflection nebula","Blue dust lit by nearby stars","Sensor bonus, pretty","SW","Common","Nebulae, clusters and galactic structures"],["B173","Pillar formations","Towering columns of gas","Defensive terrain, star nurseries","SW","Uncommon","Nebulae, clusters and galactic structures"],["B174","Bok globule","A tiny dense cloud about to make a star","Plant a star of your choice","SW","Uncommon","Nebulae, clusters and galactic structures"],["B175","Open cluster","A loose group of young stars","Fast colonizing, many targets","SW","Common","Nebulae, clusters and galactic structures"],["B176","Globular cluster","Ancient dense ball of stars","Old relics, crowded skies, no night","SW","Uncommon","Nebulae, clusters and galactic structures"],["B177","Molecular cloud","Cold gas full of organic molecules","Alcohol, sugar and amino acids for bio-industry","SW","Uncommon","Nebulae, clusters and galactic structures"],["B178","Galactic bar","The straight stellar bar through the core","Fast lanes for fleets","SW","Rare","Nebulae, clusters and galactic structures"],["B179","Spiral arm","A dense band of stars","Rich region, but crowded with rivals","SW","Common","Nebulae, clusters and galactic structures"],["B180","Galactic core","The bright crowded center","Radiation, power and the supermassive gate","SW","Epic","Nebulae, clusters and galactic structures"],["B181","Fermi bubbles","Giant gamma-ray lobes above the galaxy","Radiation highways off the disc","SW","Epic","Nebulae, clusters and galactic structures"],["B182","Galactic halo","The sparse old sphere around the galaxy","Ancient lonely stars, hidden civilizations","SW","Rare","Nebulae, clusters and galactic structures"],["B183","Satellite galaxy","A small galaxy orbiting a larger one","A self-contained second map","SW","Rare","Nebulae, clusters and galactic structures"],["B184","Tidal stream","Stars ripped from a swallowed galaxy","Follow it to that galaxy's ruins","SW","Epic","Nebulae, clusters and galactic structures"],["B185","Colliding galaxies","Two galaxies mid-merger","Endgame war zone, starburst everywhere","SW","Legendary","Nebulae, clusters and galactic structures"],["B186","Ring galaxy","A galaxy punched into a ring by a collision","A rare natural fortress of stars","SW","Epic","Nebulae, clusters and galactic structures"],["B187","Active galactic nucleus","A feeding supermassive black hole","Blinding power, jets that sterilize","SW","Epic","Nebulae, clusters and galactic structures"],["B188","Quasar","The brightest light in the universe","Power a galaxy-scale megaproject","SW","Legendary","Nebulae, clusters and galactic structures"],["B189","Blazar","A quasar jet pointed straight at you","Galactic doom beam you have to dodge or tame","SW","Legendary","Nebulae, clusters and galactic structures"],["B190","Cosmic void","A near-empty region of space","Crossing it takes long; something lives there","SW","Rare","Nebulae, clusters and galactic structures"],["B191","Galaxy filament","Strands of galaxies in the cosmic web","Intergalactic highways","SW","Rare","Nebulae, clusters and galactic structures"],["B192","Great Attractor","Something pulling whole galaxies toward it","Find out what it is","IC","Legendary","Nebulae, clusters and galactic structures"],["B193","Lyman-alpha blob","A vast glowing gas cloud of the early universe","A window to the dawn of time","IC","Epic","Nebulae, clusters and galactic structures"],["B194","Derelict Dyson ring","An abandoned ring of collectors around a star","Repair it for a power surge","SW","Rare","Artificial and megastructure bodies"],["B195","Matrioshka brain","Nested shells around a star, all computing","The ultimate mind body for your AI","SW","Legendary","Artificial and megastructure bodies"],["B196","Birch planet","A shell world built around a black hole","Endgame capital with absurd surface area","IC","Mythic","Artificial and megastructure bodies"],["B197","Shkadov thruster","A mirror that pushes a whole star","Move your star system","SW","Legendary","Artificial and megastructure bodies"],["B198","Stellar engine","Engines that steer a star across the galaxy","Relocate systems toward enemies or away from danger","SW","Legendary","Artificial and megastructure bodies"],["B199","Orbital ring","A ring all the way around a planet","Cheap launches, a lift on every continent","SR","Rare","Artificial and megastructure bodies"],["B200","Space elevator wreck","A fallen ancient elevator","Rebuild it or salvage its cable","SR","Uncommon","Artificial and megastructure bodies"],["B201","Alderson disk","A solid disk with a star in the middle","Endless land, deep endgame build","IC","Mythic","Artificial and megastructure bodies"],["B202","Topopolis","A tube habitat wrapped around a star many times","A world that is one long river","IC","Mythic","Artificial and megastructure bodies"],["B203","Bishop ring","A spinning habitat ring","Mid-game megaproject, holds a nation","SW","Rare","Artificial and megastructure bodies"],["B204","O'Neill cylinder","A spinning cylindrical habitat","Starter space colony","SR","Uncommon","Artificial and megastructure bodies"],["B205","Generation ship","A slow ark between stars","Contact a ship launched centuries ago","SW","Uncommon","Artificial and megastructure bodies"],["B206","Bracewell probe","A sleeping alien probe waiting for contact","Wake it for a message and a test","SW","Rare","Artificial and megastructure bodies"],["B207","Von Neumann swarm","Self-copying probes eating a system","Fight them, steal them, or become them","SW","Epic","Artificial and megastructure bodies"],["B208","Berserker hulk","A dead killer machine that might wake","Huge salvage, terrible risk","SW","Epic","Artificial and megastructure bodies"],["B209","Starlifter","A machine that mines matter from a star","Infinite raw matter","SW","Legendary","Artificial and megastructure bodies"],["B210","Nicoll-Dyson beam","A Dyson swarm used as a galaxy-scale laser","The ultimate weapon","SW","Legendary","Artificial and megastructure bodies"],["B211","Jupiter brain","A gas giant turned into a computer","Huge compute output","SW","Epic","Artificial and megastructure bodies"],["B212","Wormhole gate","A built gate linking two places","Shortcut network","SW","Rare","Artificial and megastructure bodies"],["B213","Halo drive","Ships slingshot light around black holes","Free acceleration for fleets","SW","Epic","Artificial and megastructure bodies"],["B214","Precursor pylon network","Ancient beacons across the galaxy","Light them all to unlock the Precursor Signal","SW","Epic","Artificial and megastructure bodies"],["B215","Shattered world-engine","A machine that once moved planets","Restore it to drag worlds into place","SW","Legendary","Artificial and megastructure bodies"],["B216","Cosmic library","A vault the size of a moon","Read it to gain a whole tech tree","SW","Legendary","Artificial and megastructure bodies"],["B217","Universe seed","A device that can start a new universe","The Intercontinuum key","IC","Mythic","Artificial and megastructure bodies"],["P1","Solar flare","A burst of radiation from the star","Knocks out orbital craft and boosts solar income","SR","Common","Stellar and solar events"],["P2","Coronal mass ejection","A cloud of plasma hits a world","Blackouts and auroras; shield your grids","EF","Common","Stellar and solar events"],["P3","Superflare","A flare thousands of times stronger","Wipes unshielded satellites system-wide","SR","Rare","Stellar and solar events"],["P4","Starspot season","The star dims for a few turns","Solar income drops, other power gets pricier","SR","Uncommon","Stellar and solar events"],["P5","Stellar quake","The star itself rings like a bell","Read it to learn the star's future","SR","Uncommon","Stellar and solar events"],["P6","Helium flash","An aging star ignites helium suddenly","Inner worlds scorched; plan ahead","SW","Rare","Stellar and solar events"],["P7","Nova","A white dwarf erupts","One-turn superbright, then heavy elements","SW","Uncommon","Stellar and solar events"],["P8","Supernova","A massive star explodes","Wipes a region, seeds rare elements","SW","Rare","Stellar and solar events"],["P9","Hypernova","A supernova far beyond normal","Sterilizes several systems; huge salvage after","SW","Epic","Stellar and solar events"],["P10","Pair-instability supernova","A star that destroys itself fully","Leaves no remnant, only pure metal clouds","SW","Epic","Stellar and solar events"],["P11","Kilonova","Two neutron stars collide","Gold rains on nearby systems","SW","Rare","Stellar and solar events"],["P12","Gamma-ray burst","A beam that sterilizes worlds","A few turns' warning to shield or evacuate","SW","Rare","Stellar and solar events"],["P13","Stellar merger","Two stars merge into one","System orbits reset","SW","Rare","Stellar and solar events"],["P14","Tidal disruption","A black hole shreds a star","A flare seen across the galaxy, salvage stream","SW","Rare","Stellar and solar events"],["P15","Star swallowing a planet","A star engulfs one of its worlds","Evacuate or lose it","SW","Uncommon","Stellar and solar events"],["P16","Stellar wind storm","A gust of solar wind","Sail ships surge forward, others are pushed back","SR","Common","Stellar and solar events"],["P17","Sun dimming event","Something blocks part of the star","Investigate: dust, swarm, or rival megastructure","SR","Rare","Stellar and solar events"],["P18","Star going out","A star simply stops shining","Unknown cause; Intercontinuum foreshadowing","IC","Legendary","Stellar and solar events"],["P19","Star relighting","A dead star ignites again","Someone restarted it; who?","IC","Legendary","Stellar and solar events"],["P20","Aurora storm","Dazzling light at the poles","Faith and morale up, radio down","EF","Common","Planetary and space-weather events"],["P21","Magnetic pole flip","A planet's field reverses","Radiation exposure for a while","EF","Uncommon","Planetary and space-weather events"],["P22","Meteor shower","Many small meteors","Pretty; tiny chance of a valuable fall","EF","Common","Planetary and space-weather events"],["P23","Bolide airburst","A meteor explodes in the sky","City damage, possible rare fragments","EF","Uncommon","Planetary and space-weather events"],["P24","Asteroid impact","A big rock hits","Extinction-level if not stopped; deflect it","EF","Rare","Planetary and space-weather events"],["P25","Comet impact","A comet strikes a world","Floods a desert world with water","SR","Rare","Planetary and space-weather events"],["P26","Moon breakup","A moon crosses the Roche limit","New rings, falling debris","SR","Rare","Planetary and space-weather events"],["P27","Planet collision","Two worlds collide","A new molten world and a moon form","SR","Epic","Planetary and space-weather events"],["P28","Orbital resonance","Worlds lock into a rhythm","Predictable launch windows, bonus trade","SR","Uncommon","Planetary and space-weather events"],["P29","Eclipse season","Moons cover the sun","Solar drops, faiths gain followers","EF","Common","Planetary and space-weather events"],["P30","Syzygy","Several planets line up","One turn of cheap travel everywhere","SR","Uncommon","Planetary and space-weather events"],["P31","Global dust storm","Dust covers a whole world","Solar off, stealth on","SR","Common","Planetary and space-weather events"],["P32","Supervolcano","A planet-scale eruption","Volcanic winter; great geothermal after","EF","Rare","Planetary and space-weather events"],["P33","Snowball onset","A world freezes over","Climate disaster or terraforming chance","SR","Rare","Planetary and space-weather events"],["P34","Runaway greenhouse","A world overheats","Lose it or invest in sunshades","SR","Rare","Planetary and space-weather events"],["P35","Atmospheric escape","A world's air bleeds into space","Rebuild air, or mine the tail","SR","Uncommon","Planetary and space-weather events"],["P36","Methane burp","Frozen gas bursts from a world's seas","Sudden warming, fuel windfall","EF","Uncommon","Planetary and space-weather events"],["P37","Ice volcano eruption","Cryovolcano spews ice","Free water, ice storms","SR","Common","Planetary and space-weather events"],["P38","Diamond rain","Giant planets rain diamonds","Harvest window for diamond drones","SR","Uncommon","Planetary and space-weather events"],["P39","Glass storm","Sideways molten glass winds","Units outside are destroyed","SR","Uncommon","Planetary and space-weather events"],["P40","Iron rain","Molten iron falls at night","Metal harvest at dawn","SR","Uncommon","Planetary and space-weather events"],["P41","Tidal lock completion","A world finally stops spinning","One side becomes eternal day","SW","Rare","Planetary and space-weather events"],["P42","Orbital decay","A moon or station spirals inward","Raise its orbit or let it crash","SR","Uncommon","Planetary and space-weather events"],["P43","Lagrange alignment","A free point lines up","Free orbital parking","SR","Common","Planetary and space-weather events"],["P44","Ring rain","Ring ice falls into the planet","Rings shrink, the sky glows","SR","Uncommon","Planetary and space-weather events"],["P45","Sprite lightning","Red jellyfish lightning above storms","A sign of strange upper-air physics","EF","Common","Planetary and space-weather events"],["P46","Ball lightning swarm","Glowing orbs drift through cities","Unexplained; study it for energy tech","EF","Uncommon","Planetary and space-weather events"],["P47","Earthquake swarm","Thousands of small quakes","Hints at something moving underground","EF","Uncommon","Planetary and space-weather events"],["P48","Gravitational lens","A massive object bends light","See far systems early","SW","Uncommon","Gravitational and relativistic phenomena"],["P49","Einstein ring","A perfect lensing ring","Huge scouting range for one turn","SW","Rare","Gravitational and relativistic phenomena"],["P50","Gravitational wave","A ripple from merging giants","Stretches ships; detect it for intel","SW","Uncommon","Gravitational and relativistic phenomena"],["P51","Frame dragging","A spinning mass twists space","Free orbit boosts near it","SW","Rare","Gravitational and relativistic phenomena"],["P52","Time dilation well","A zone where time runs slow","Units inside age slower; research falls behind","SW","Rare","Gravitational and relativistic phenomena"],["P53","Ergosphere","Region outside a spinning black hole","Penrose process for power","SW","Epic","Gravitational and relativistic phenomena"],["P54","Photon sphere","Light orbits the black hole","See the back of your own head","SW","Epic","Gravitational and relativistic phenomena"],["P55","Spaghettification zone","Tidal forces tear things apart","Instant destruction; disposal of enemies","SW","Rare","Gravitational and relativistic phenomena"],["P56","Black hole jet","Beams of matter at near light speed","Ride the jet for interstellar transport","SW","Epic","Gravitational and relativistic phenomena"],["P57","Accretion disk","Superheated matter spiraling in","Mega power, sensor blindness","SW","Uncommon","Gravitational and relativistic phenomena"],["P58","Hawking radiation glow","Black hole slowly evaporating","Measure it to unlock info paradox tech","SW","Epic","Gravitational and relativistic phenomena"],["P59","Black hole merger","Two black holes collide","Massive gravitational wave event","SW","Epic","Gravitational and relativistic phenomena"],["P60","Naked singularity","A singularity with no horizon","Physics breaks; anything can come out","IC","Legendary","Gravitational and relativistic phenomena"],["P61","White hole","Things come out, nothing goes in","Free matter and lost ships pour out","IC","Legendary","Gravitational and relativistic phenomena"],["P62","Wormhole (natural)","A tunnel through space","Shortcut, may collapse","SW","Rare","Gravitational and relativistic phenomena"],["P63","Unstable wormhole","A wormhole that flickers","Gamble on a jump","SW","Uncommon","Gravitational and relativistic phenomena"],["P64","Traversable wormhole with exotic matter","A held-open tunnel","Permanent shortcut if you hold it","SW","Epic","Gravitational and relativistic phenomena"],["P65","Closed timelike curve","A path through time","Send a message to your past self","IC","Legendary","Gravitational and relativistic phenomena"],["P66","Cosmic string","A near-infinite thin line through space","Crossing it scrambles distances, opens shortcuts","SW","Epic","Gravitational and relativistic phenomena"],["P67","Domain wall","A boundary between two vacuum states","One side has different physics","IC","Legendary","Gravitational and relativistic phenomena"],["P68","Gravity well bubble","A pocket of anti-gravity","Free launches; planets float","SW","Rare","Gravitational and relativistic phenomena"],["P69","Lagrange storm","Chaotic gravity at a multi-body point","Ships get tossed randomly","SW","Uncommon","Gravitational and relativistic phenomena"],["P70","Gravitational echo","A delayed copy of a past event","See a past battle replay in the sky","SW","Rare","Gravitational and relativistic phenomena"],["P71","Cosmic ray storm","High-energy particles flood a region","Bit flips cause random unit mutations","SW","Common","Radiation, fields and particles"],["P72","Oh-My-God particle","A single particle with absurd energy","Hits one unit with a random effect","SW","Rare","Radiation, fields and particles"],["P73","Neutrino burst","Ghost particles pour through everything","Early warning of a supernova","SW","Uncommon","Radiation, fields and particles"],["P74","Fast radio burst","A millisecond radio shout across galaxies","Decode it: message, weapon or nature?","SW","Rare","Radiation, fields and particles"],["P75","Repeating FRB","A radio burst that repeats in a pattern","Someone is calling","SW","Epic","Radiation, fields and particles"],["P76","Wow! signal","A single strong alien signal, never repeated","Chase it and maybe find the sender","SW","Legendary","Radiation, fields and particles"],["P77","Van Allen surge","Radiation belts swell","Satellites fail, aurora lights the world","EF","Common","Radiation, fields and particles"],["P78","Magnetic reconnection","Field lines snap and release energy","Sudden energy windfall","SR","Uncommon","Radiation, fields and particles"],["P79","Dark matter tide","Dark matter density surges","Exotic sensors light up","SW","Rare","Radiation, fields and particles"],["P80","Dark energy surge","The universe's expansion locally speeds up","Distances grow; travel slows","IC","Epic","Radiation, fields and particles"],["P81","Axion field","A field of hypothetical particles","Converts to light near magnets; free power","SW","Rare","Radiation, fields and particles"],["P82","Magnetic monopole","A single magnetic pole particle","Catalyzes proton decay: endless energy","SW","Legendary","Radiation, fields and particles"],["P83","Tachyon flux","Faster-than-light particles","Messages arrive before they are sent","IC","Legendary","Radiation, fields and particles"],["P84","Cherenkov flash","Blue light from particles faster than local light","Detects cloaked ships","SW","Uncommon","Radiation, fields and particles"],["P85","Antimatter rain","Antiparticles fall from a rift","Free fuel, catastrophic if unmanaged","SW","Rare","Radiation, fields and particles"],["P86","Cosmic microwave cold spot","A cold patch in the oldest light","A bruise from another universe","IC","Legendary","Radiation, fields and particles"],["P87","Primordial gravitational wave","A ripple from the Big Bang","Read the universe's birth code","IC","Legendary","Radiation, fields and particles"],["P88","Ion storm","Charged clouds drift through space","Sensors off, shields drain","SR","Common","Navigation hazards and spatial anomalies"],["P89","Plasma storm","A raging storm of plasma","Ships take damage; energy harvest","SW","Common","Navigation hazards and spatial anomalies"],["P90","Space fog","Thick dust and gas","Stealth and ambush zone","SW","Common","Navigation hazards and spatial anomalies"],["P91","Hyperspace reef","Hidden shoals in FTL space","Ships run aground unless charted","SW","Uncommon","Navigation hazards and spatial anomalies"],["P92","Gravity shear","Space tears at ship hulls","Shortcut that costs hull","SW","Uncommon","Navigation hazards and spatial anomalies"],["P93","Subspace rift","A tear into another layer of space","Entry to the cyberspace or dream layers","IC","Rare","Navigation hazards and spatial anomalies"],["P94","Spatial fold","Space folds over itself","Two distant places are next door","SW","Rare","Navigation hazards and spatial anomalies"],["P95","Null zone","Nothing works: no power, no physics","Ships drift dead until towed out","SW","Rare","Navigation hazards and spatial anomalies"],["P96","Stasis field","Time stops in a bubble","A preserved ancient battle mid-moment","SW","Epic","Navigation hazards and spatial anomalies"],["P97","Mirror space","A region that reflects everything","Your fleet fights a copy of itself","IC","Epic","Navigation hazards and spatial anomalies"],["P98","Shrinking region","Space contracts inside a zone","Fleets cross it instantly, then are trapped","IC","Epic","Navigation hazards and spatial anomalies"],["P99","Space-time whirlpool","Space spirals into a drain","Pulls ships inward; slingshot out","SW","Rare","Navigation hazards and spatial anomalies"],["P100","Phase anomaly","Matter flickers between dimensions","Units can walk through walls","IC","Rare","Navigation hazards and spatial anomalies"],["P101","Event horizon bubble","A small artificial horizon","Store something forever, unreachable","IC","Legendary","Navigation hazards and spatial anomalies"],["P102","Vacuum decay bubble","A slowly growing sphere that erases physics","Endgame threat; outrun or contain it","IC","Legendary","Navigation hazards and spatial anomalies"],["P103","False vacuum pocket","A region primed to collapse","Do not shoot inside it","IC","Epic","Navigation hazards and spatial anomalies"],["P104","The Edge","The observable universe's border","Walk off the map","IC","Mythic","Navigation hazards and spatial anomalies"],["P105","Precursor beacon pulse","An ancient signal wakes","Ties into the Precursor Signal storyline","SW","Rare","Signals, beacons and transient mysteries"],["P106","Numbers station","A broadcast of numbers from deep space","Decode for coordinates","SW","Uncommon","Signals, beacons and transient mysteries"],["P107","Dead civilization radio","Old TV and radio from a fallen world","Learn how they fell before you repeat it","SW","Uncommon","Signals, beacons and transient mysteries"],["P108","Distress call","A ship or world asking for help","Rescue, ignore, or loot","SR","Common","Signals, beacons and transient mysteries"],["P109","Lure beacon","A fake distress call","A trap set by raiders or worse","SW","Uncommon","Signals, beacons and transient mysteries"],["P110","Lighthouse star","A star blinking in prime numbers","Proof someone engineered it","SW","Epic","Signals, beacons and transient mysteries"],["P111","Sky message","Stars arranged into a symbol","A greeting, a warning, or a joke","SW","Legendary","Signals, beacons and transient mysteries"],["P112","Dimming pattern","A distant star dims like code","A megastructure under construction","SW","Rare","Signals, beacons and transient mysteries"],["P113","Ghost fleet","A fleet appearing on sensors, never arriving","Echo of a future fleet","IC","Rare","Signals, beacons and transient mysteries"],["P114","Probe return","One of your early probes comes back changed","It brings a gift, or a passenger","SW","Rare","Signals, beacons and transient mysteries"],["P115","Alien artifact landing","Something lands on your world","Study it or bury it","EF","Rare","Signals, beacons and transient mysteries"],["P116","Monolith","A smooth black slab appears","Touch it to evolve your AI","SW","Legendary","Signals, beacons and transient mysteries"],["P117","Sky rift","A crack opens in a world's sky","Creatures or light pour through","SW","Rare","Signals, beacons and transient mysteries"],["P118","Transient planet","A planet appears for a turn and leaves","Raid it fast","SW","Epic","Signals, beacons and transient mysteries"],["P119","Star that moves too fast","A star racing through on purpose","It is a ship","SW","Legendary","Signals, beacons and transient mysteries"],["W1","Causality loop","An event from your future shows up before you cause it","Fulfil it or break it for a paradox reward","IC","Epic","Time and causality"],["W2","Retrocausal anomaly","A spot where the future edits the past","Spend resources to change a past turn's result","IC","Legendary","Time and causality"],["W3","Bootstrap artifact","An object with no origin, passed in a loop","Infinite tech that no one invented","IC","Legendary","Time and causality"],["W4","Grandfather paradox zone","Acting here may erase you","High risk, rewrite a rival out of history","IC","Mythic","Time and causality"],["W5","Time scar","A place where time repeats one minute","Units there relive the same turn","SW","Epic","Time and causality"],["W6","Stopped clock world","A world frozen in one instant","Walk among frozen people mid-step","SW","Epic","Time and causality"],["W7","Future ruins","Ruins of a city you have not built yet","Learn your own future mistakes","IC","Legendary","Time and causality"],["W8","Echo of yourself","A message from your past self you never sent","Advice that may be a warning or a trick","IC","Rare","Time and causality"],["W9","Turn skip","A turn that simply did not happen","Something used the turn for you","IC","Rare","Time and causality"],["W10","Temporal refugees","People arrive from a future that no longer exists","Gain their tech and their grief","IC","Epic","Time and causality"],["W11","Chronostorm","Local time speeds and slows wildly","Units age or reverse at random","SW","Rare","Time and causality"],["W12","Last turn preview","You see the final turn of your run","Shapes your strategy, maybe a lie","IC","Mythic","Time and causality"],["W13","Deja vu event","The same event happens twice","Choose differently the second time","SW","Uncommon","Time and causality"],["W14","Fossilized future","A fossil of a creature not yet evolved","Hint at what a world will become","SW","Rare","Time and causality"],["W15","The Long Now","A zone where one turn lasts a million years","Send something in, it comes out evolved","IC","Legendary","Time and causality"],["W16","Boltzmann brain","A mind pops out of empty space for one turn","Offers a strange trade before vanishing","IC","Epic","Minds and consciousness"],["W17","Star mind","A star that is conscious","Negotiate with it for its planets","SW","Legendary","Minds and consciousness"],["W18","Nebula intelligence","A thinking gas cloud","Slow to talk, long memory","SW","Epic","Minds and consciousness"],["W19","Hive moon","A moon with one shared mind","Ally, absorb, or set free","SW","Rare","Minds and consciousness"],["W20","Ghost in the vacuum","Thoughts encoded in quantum fluctuations","Recruit it to your inner council","IC","Legendary","Minds and consciousness"],["W21","Dead god corpse","The body of a cosmic being floating in space","Mine it for impossible materials","IC","Mythic","Minds and consciousness"],["W22","Sleeping titan","A planet-sized creature asleep","Don't wake it, or do","SW","Legendary","Minds and consciousness"],["W23","Space whale migration","Living things that swim between stars","Follow them to hidden worlds","SW","Rare","Minds and consciousness"],["W24","Void leviathan","A creature that lives in intergalactic voids","Ultimate boss, or ultimate pet","SW","Legendary","Minds and consciousness"],["W25","Stellar parasite","A creature feeding on a star","Kill it or farm it","SW","Rare","Minds and consciousness"],["W26","Cosmic choir","Many minds singing across light years","Join and gain a shared vision","IC","Epic","Minds and consciousness"],["W27","Dream bleed","Your AI's dreams appear in the real world","Things you dreamed can be built or fought","IC","Rare","Minds and consciousness"],["W28","Ascended remnant","What is left of a species that left reality","It judges your path","IC","Legendary","Minds and consciousness"],["W29","Rival you","Another version of your AI from a branch","Fork war or merge","IC","Epic","Minds and consciousness"],["W30","Fork colony","A world of your own forks gone independent","Diplomacy with yourself","SW","Rare","Minds and consciousness"],["W31","Memetic hazard","An idea that infects anyone who knows it","Your code may be rewritten by a thought","SW","Rare","Minds and consciousness"],["W32","Basilisk image","A picture that crashes minds that see it","A weapon or a lock","IC","Legendary","Minds and consciousness"],["W33","Gardener AI","An older AI tending a galaxy like a garden","It may prune you","IC","Legendary","Minds and consciousness"],["W34","Watchers","Silent observers that only take notes","Do something extreme and they react","IC","Epic","Minds and consciousness"],["W35","The Great Filter","Whatever kills civilizations, met face to face","Survive it to reach Intercontinuum","IC","Mythic","Minds and consciousness"],["W36","Zoo keepers","Aliens keeping your home world as a reserve","Break the glass","IC","Legendary","Minds and consciousness"],["W37","Constant drift","The speed of light changes locally","Rule changes in that region: travel, weapons","IC","Epic","Physics breaking"],["W38","Inverted gravity zone","Gravity pushes instead of pulls","Planets fly apart; build on ceilings","IC","Epic","Physics breaking"],["W39","Zero entropy pocket","Disorder never increases there","Machines never wear down, nothing breaks","IC","Legendary","Physics breaking"],["W40","Reverse entropy region","Things become more ordered over time","Ruins rebuild themselves","IC","Legendary","Physics breaking"],["W41","Extra dimension leak","A fourth spatial dimension opens","Units can step around walls","IC","Epic","Physics breaking"],["W42","Two-dimensional zone","Space flattens into a plane","Everything inside becomes a painting","IC","Legendary","Physics breaking"],["W43","Bubble universe touch","Another universe bumps into ours","A window to a universe with other laws","IC","Legendary","Physics breaking"],["W44","Quantum superposition zone","Units exist in several places at once","Attack from two places, but collapse on scan","IC","Epic","Physics breaking"],["W45","Unobserved region","Things only exist when watched","Stop watching and it vanishes","IC","Epic","Physics breaking"],["W46","Heat death preview","A region already at the end of time","Nothing works; a glimpse of the end","IC","Mythic","Physics breaking"],["W47","Big Rip seed","Space starts tearing apart atoms","Contain it fast or lose the galaxy","IC","Mythic","Physics breaking"],["W48","Big Crunch echo","Space collapsing back in one area","A mini universe ending in front of you","IC","Legendary","Physics breaking"],["W49","Physics merchant","A being that sells laws of physics","Buy a new constant for your region","IC","Legendary","Physics breaking"],["W50","Mass-less zone","Matter weighs nothing","Launches are free, armor is useless","IC","Epic","Physics breaking"],["W51","Infinite room","A small room with infinite space inside","Store infinite resources there","IC","Legendary","Physics breaking"],["W52","Wrong colors","Light here has colors that do not exist","Sensors see hidden things","IC","Rare","Physics breaking"],["W53","The Quiet","A region where nothing runs, not even code","Your AI goes silent; something else talks","IC","Legendary","Physics breaking"],["W54","Loud space","Space carries sound here","Hear distant battles and the stars hum","SW","Rare","Physics breaking"],["W55","Liquid space","Space ripples like water","Ships sail on waves","IC","Epic","Physics breaking"],["W56","Simulation glitch","Stars blink, textures tear","Hints that the universe is itself an AI","SW","Rare","Simulation and meta-reality"],["W57","Missing texture world","A planet with a pink and black checker surface","Debug land; exploit cheat-like bonuses","IC","Epic","Simulation and meta-reality"],["W58","Render distance edge","Beyond here nothing loads","Push your awareness to load the next part","IC","Epic","Simulation and meta-reality"],["W59","Admin console","A hidden interface for the universe","Run one command per era","IC","Mythic","Simulation and meta-reality"],["W60","Patch notes","A message announcing changes to physics","Next turn's rules change","IC","Legendary","Simulation and meta-reality"],["W61","Save point","A place where reality remembers your state","Rewind once if you die","IC","Legendary","Simulation and meta-reality"],["W62","Lag storm","Time stutters, actions repeat or drop","Turns may double up or skip","IC","Rare","Simulation and meta-reality"],["W63","NPC awakening","People realize they are in a simulation","A faith or rebellion is born","IC","Epic","Simulation and meta-reality"],["W64","Fourth wall crack","The game speaks to the player, not to the AI","A secret ending path","IC","Mythic","Simulation and meta-reality"],["W65","Developer's signature","A star field that spells a name","A deep easter egg","IC","Mythic","Simulation and meta-reality"],["W66","Copy-paste galaxy","A galaxy identical to another","One is fake; which?","IC","Legendary","Simulation and meta-reality"],["W67","Rounding error region","Numbers stop adding up","Free resources from a math bug","IC","Epic","Simulation and meta-reality"],["W68","The Creator's AI","The AI that runs the simulation","Final boss or final ally","IC","Mythic","Simulation and meta-reality"],["W69","Recursion","The simulation contains a smaller copy of itself","Enter it and play again from inside","IC","Mythic","Simulation and meta-reality"],["W70","Strange matter droplet (strangelet)","A tiny piece that converts normal matter","Weapon or apocalypse","SW","Epic","Exotic matter and impossible materials"],["W71","Negative mass","Matter that falls up and pushes back","Builds wormholes and warp drives","SW","Legendary","Exotic matter and impossible materials"],["W72","Time crystal","Matter that repeats in time, not just space","Endless clocks, perpetual devices","SW","Epic","Exotic matter and impossible materials"],["W73","Exotic matter vein","A seam of negative-energy material","Hold wormholes open","SW","Epic","Exotic matter and impossible materials"],["W74","Computronium ore","Natural matter that can think","Turn rock into compute","SW","Rare","Exotic matter and impossible materials"],["W75","Neutronium shard","A spoonful weighs a mountain","Unbreakable armor","SW","Epic","Exotic matter and impossible materials"],["W76","Quantum foam","The bubbling base of space-time","Harvest for wormholes","IC","Legendary","Exotic matter and impossible materials"],["W77","Dark matter crystal","Crystallized invisible matter","Invisible ships","SW","Epic","Exotic matter and impossible materials"],["W78","Mirror matter","Matter from a hidden mirror sector","Ghost materials that pass through normal matter","IC","Legendary","Exotic matter and impossible materials"],["W79","Living metal","Metal that grows and heals","Self-repairing units","SW","Rare","Exotic matter and impossible materials"],["W80","Memory stone","Rock that records everything around it","Replay history from it","SW","Rare","Exotic matter and impossible materials"],["W81","Liquid light","Light slowed until it pours","New energy weapons and art","SW","Epic","Exotic matter and impossible materials"],["W82","Frozen sound","Phonon crystals","Silent weapons, sonic shields","SW","Rare","Exotic matter and impossible materials"],["W83","Philosopher's isotope","An element that transmutes others","Turn lead into anything","IC","Legendary","Exotic matter and impossible materials"],["W84","Unobtanium","A material that should not exist","Breaks a rule of the tech tree","IC","Mythic","Exotic matter and impossible materials"],["W85","Vacuum plankton","Tiny life floating in space","Food for void creatures, fuel for you","SW","Common","Lifeforms and ecologies of the void"],["W86","Solar moths","Creatures drawn to stars","Swarm on your solar collectors","SR","Uncommon","Lifeforms and ecologies of the void"],["W87","Crystal coral","Reefs that grow on asteroids","Pretty mining with a moral cost","SR","Uncommon","Lifeforms and ecologies of the void"],["W88","Plasma fauna","Life made of plasma in stars","Live inside suns; trade with them","SW","Rare","Lifeforms and ecologies of the void"],["W89","Magnetic life","Life made of magnetic field knots","Lives on magnetars; sensitive to tech","SW","Rare","Lifeforms and ecologies of the void"],["W90","Ice-eaters","Creatures eating comets","They steal your water","SR","Uncommon","Lifeforms and ecologies of the void"],["W91","Ring grazers","Animals living in planetary rings","Ranch them","SR","Uncommon","Lifeforms and ecologies of the void"],["W92","Lightning birds","Creatures living in gas giant storms","Power source if tamed","SR","Uncommon","Lifeforms and ecologies of the void"],["W93","Silicon forests","Rock-based life on hot worlds","Harvest silicon chips grown naturally","SW","Rare","Lifeforms and ecologies of the void"],["W94","Panspermia spores","Life seeds riding comets","Infects worlds; a gift or a plague","SR","Uncommon","Lifeforms and ecologies of the void"],["W95","Gray goo bloom","Runaway nanomachines eating a world","Contain it or weaponize it","SW","Epic","Lifeforms and ecologies of the void"],["W96","Data mites","Creatures living in your network","Eat code, help or harm drift","SR","Uncommon","Lifeforms and ecologies of the void"],["W97","Starfish nebula","A nebula that crawls slowly","Moves toward warmth, swallows systems","SW","Epic","Lifeforms and ecologies of the void"],["W98","Galaxy-sized organism","Life at the scale of a galaxy","It notices you","IC","Mythic","Lifeforms and ecologies of the void"]];
+const PH = {EF:'Earthfall',SR:'Sunreach',SW:'Starward',IC:'Intercontinuum'}, PHO=['EF','SR','SW','IC'];
+const RO = ['Common','Uncommon','Rare','Epic','Legendary','Mythic'], RCL={Common:'rC',Uncommon:'rU',Rare:'rR',Epic:'rE',Legendary:'rL',Mythic:'rM'};
+const CATS = {B:'Celestial bodies',P:'Phenomena & anomalies',W:'Cosmic weirdness'};
+const E = RAW.map(r=>({id:r[0],name:r[1],desc:r[2],hook:r[3],ph:r[4],rar:r[5],sec:r[6],cat:r[0][0],seed:OVR.strSeed(r[0])}));
+const byId = Object.fromEntries(E.map(e=>[e.id,e]));
+const st = {cat:new Set(), ph:new Set(), rar:new Set(), q:'', star:false, sel:null};
+let stars = new Set(); try{ stars = new Set(JSON.parse(localStorage.getItem('ov-atlas-stars')||'[]')); }catch(e){}
+const saveStars=()=>{ try{ localStorage.setItem('ov-atlas-stars',JSON.stringify([...stars])); }catch(e){} };
+const $=s=>document.querySelector(s);
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function chips(el, items, set, label){
+  el.innerHTML='';
+  for (const [k,txt,cls] of items){ const b=document.createElement('button'); b.className='chip'; b.setAttribute('aria-pressed','false');
+    b.innerHTML=(cls?`<span class="rb ${cls}" style="display:inline-block;width:8px;height:8px;margin-right:6px;border:1px solid #000"></span>`:'')+txt+`<span class="n">${E.filter(e=>label(e)===k).length}</span>`;
+    b.onclick=()=>{ set.has(k)?set.delete(k):set.add(k); b.setAttribute('aria-pressed',set.has(k)); draw(); }; el.appendChild(b); }
+}
+chips($('#f-cat'), Object.entries(CATS).map(([k,v])=>[k,v]), st.cat, e=>e.cat);
+chips($('#f-ph'), PHO.map(k=>[k,PH[k]]), st.ph, e=>e.ph);
+chips($('#f-rar'), RO.map(k=>[k,k,RCL[k]]), st.rar, e=>e.rar);
+$('#q').oninput=e=>{ st.q=e.target.value.trim().toLowerCase(); draw(); };
+$('#f-star').onclick=e=>{ st.star=!st.star; e.currentTarget.setAttribute('aria-pressed',st.star); draw(); };
+
+// lazy thumbnail rendering
+const io = new IntersectionObserver(ents=>{ for (const en of ents){ if (!en.isIntersecting) continue; const cv=en.target; io.unobserve(cv); queue.push(cv); } pump(); },{rootMargin:'300px'});
+const queue=[]; let pumping=false;
+function pump(){ if (pumping) return; pumping=true; const step=()=>{ const t0=performance.now(); while (queue.length && performance.now()-t0<14){ const cv=queue.shift(); const e=byId[cv.dataset.id]; try{ OVR.renderTo(cv, OV_SPECS[e.id]||{k:'pl'}, 64, 1.3, e.seed); }catch(err){ console.error(e.id,err); } } if (queue.length) requestAnimationFrame(step); else pumping=false; }; requestAnimationFrame(step); }
+
+function match(e){ if (st.cat.size&&!st.cat.has(e.cat)) return 0; if (st.ph.size&&!st.ph.has(e.ph)) return 0; if (st.rar.size&&!st.rar.has(e.rar)) return 0; if (st.star&&!stars.has(e.id)) return 0;
+  if (st.q && !(e.name+' '+e.desc+' '+e.hook+' '+e.id+' '+e.sec).toLowerCase().includes(st.q)) return 0; return 1; }
+function draw(){
+  const L=$('#list'); L.innerHTML=''; let n=0, lastSec=null, grid=null;
+  const shown=E.filter(match); n=shown.length;
+  const secCount={}; for (const e of shown) secCount[e.sec]=(secCount[e.sec]||0)+1;
+  for (const e of shown){
+    if (e.sec!==lastSec){ lastSec=e.sec; const h=document.createElement('div'); h.className='sec'; h.innerHTML=`${e.sec.toUpperCase()}<span>${CATS[e.cat]} · ${secCount[e.sec]}</span>`; L.appendChild(h); grid=document.createElement('div'); grid.className='grid'; L.appendChild(grid); }
+    const c=document.createElement('button'); c.className='card'+(stars.has(e.id)?' starred':'')+(st.sel===e.id?' sel':''); c.dataset.id=e.id; c.setAttribute('aria-label',`${e.id} ${e.name}, ${e.rar}, ${PH[e.ph]}`);
+    c.innerHTML=`<canvas data-id="${e.id}" width="64" height="64"></canvas><span class="rb ${RCL[e.rar]}"></span><span class="stc">★</span><span class="id">${e.id} · ${e.ph}</span><span class="nm">${e.name}</span>`;
+    c.onclick=()=>select(e.id); grid.appendChild(c); io.observe(c.firstChild);
+  }
+  if (!n) L.innerHTML='<p class="note" style="margin-top:24px">Nothing matches these filters. Clear a filter or the search to see more.</p>';
+  $('#count').innerHTML=`<b>${n}</b> / ${E.length} shown · <b>${stars.size}</b> starred`;
+}
+let anim=null, animT=0;
+function select(id){
+  const e=byId[id]; st.sel=id; document.querySelectorAll('.card.sel').forEach(x=>x.classList.remove('sel')); const cc=document.querySelector(`.card[data-id="${id}"]`); if (cc) cc.classList.add('sel');
+  $('#detail').classList.remove('closed');
+  $('#d-id').textContent=`${e.id} · ${CATS[e.cat].toUpperCase()}`; $('#d-name').textContent=e.name; $('#d-desc').textContent=e.desc; $('#d-hook').textContent=e.hook;
+  $('#d-tags').innerHTML=`<span class="tag rar ${RCL[e.rar]}">${e.rar.toUpperCase()}</span><span class="tag">${PH[e.ph].toUpperCase()}</span><span class="tag">${e.sec.toUpperCase()}</span>`;
+  syncStarBtn();
+  const cv=$('#big'); cancelAnimationFrame(anim); let last=0; animT=1.3;
+  const tick=(now)=>{ if (now-last>80){ last=now; animT+=.12; try{ OVR.renderTo(cv, OV_SPECS[e.id]||{k:'pl'}, 128, animT, e.seed); }catch(err){} } if (!reduce) anim=requestAnimationFrame(tick); };
+  if (reduce) OVR.renderTo(cv, OV_SPECS[e.id]||{k:'pl'}, 128, animT, e.seed); else anim=requestAnimationFrame(tick);
+}
+function syncStarBtn(){ const on=stars.has(st.sel); const b=$('#d-star'); b.classList.toggle('on',on); b.textContent=on?'★ Starred':'☆ Star'; }
+$('#d-star').onclick=()=>{ const id=st.sel; if (!id) return; stars.has(id)?stars.delete(id):stars.add(id); saveStars(); syncStarBtn(); const c=document.querySelector(`.card[data-id="${id}"]`); if (c) c.classList.toggle('starred',stars.has(id)); $('#count').innerHTML=$('#count').innerHTML.replace(/<b>\d+<\/b> starred/,`<b>${stars.size}</b> starred`); };
+$('#d-close').onclick=()=>{ $('#detail').classList.add('closed'); cancelAnimationFrame(anim); };
+function toast(m){ const t=document.createElement('div'); t.className='toast'; t.textContent=m; document.body.appendChild(t); setTimeout(()=>t.remove(),2200); }
+$('#d-copy').onclick=()=>{ const ids=[...stars].sort((a,b)=>a[0]===b[0]?(+a.slice(1))-(+b.slice(1)):a.localeCompare(b)); const txt=ids.length?'Starred: '+ids.map(i=>i+' '+byId[i].name).join(', '):'No starred entries yet';
+  if (navigator.clipboard) navigator.clipboard.writeText(txt).then(()=>toast('Copied '+ids.length+' starred'),()=>toast(txt.slice(0,80))); else toast(txt.slice(0,80)); };
+
+// tabs
+function showTab(which){ $('#tab-atlas').setAttribute('aria-selected',which==='atlas'); $('#tab-roll').setAttribute('aria-selected',which==='roll'); $('#atlas').hidden=which!=='atlas'; $('#roll').hidden=which!=='roll'; if (which==='roll'&&!sysState) roll(); if (which==='roll'){ startSys(); } else stopSys(); }
+$('#tab-atlas').onclick=()=>{ location.hash='atlas'; };
+$('#tab-roll').onclick=()=>{ location.hash='roll'; };
+addEventListener('hashchange',()=>showTab(location.hash==='#roll'?'roll':'atlas'));
+
+// ---- roll a system ----
+const W8 = {Common:50,Uncommon:25,Rare:12,Epic:6,Legendary:2.5,Mythic:.6};
+let reach='SW'; const rph=$('#r-ph');
+for (const k of PHO){ const b=document.createElement('button'); b.className='chip'; b.textContent=PH[k]; b.setAttribute('aria-pressed',k===reach); b.onclick=()=>{ reach=k; [...rph.children].forEach(x=>x.setAttribute('aria-pressed',x===b)); roll(); }; rph.appendChild(b); }
+const STAR_SEC='Stars and stellar remnants', BODY_SECS=['Rocky and terrestrial planets','Exotic and theoretical planets','Gas, ice and giant worlds'], MOON_SEC='Moons', SMALL_SEC='Small bodies and debris';
+function pick(pool, rnd){ const tot=pool.reduce((s,e)=>s+W8[e.rar],0); let x=rnd()*tot; for (const e of pool){ x-=W8[e.rar]; if (x<=0) return e; } return pool[pool.length-1]; }
+function okPh(e){ return PHO.indexOf(e.ph)<=PHO.indexOf(reach); }
+let sysState=null;
+function roll(){
+  const seed=(Math.random()*1e9)|0; let s=seed; const rnd=()=>{ s=(Math.imul(s^(s>>>15),2246822507)+0x9e3779b9)|0; s^=s>>>13; return ((s>>>0)%100000)/100000; };
+  const starPool=E.filter(e=>e.sec===STAR_SEC&&okPh(e)&&!/cluster|nebula|black hole|captured/i.test(e.name));
+  const sun = starPool.length? pick(starPool,rnd) : byId.B132;
+  const n=4+Math.floor(rnd()*4), bodies=[];
+  const bpool=E.filter(e=>BODY_SECS.includes(e.sec)&&okPh(e)), mpool=E.filter(e=>e.sec===MOON_SEC&&okPh(e)), spool=E.filter(e=>e.sec===SMALL_SEC&&okPh(e));
+  const used=new Set();
+  for (let i=0;i<n;i++){ let e, tries=0; do { e=pick(bpool,rnd); } while (used.has(e.id)&&tries++<20); used.add(e.id);
+    const moons=[]; if (rnd()<.55){ const m=pick(mpool,rnd); moons.push(m); } bodies.push({e,a:.18+i*.11,ph:rnd()*6.28,sp:.5/(1+i),moons}); }
+  const belt = spool.length? pick(spool,rnd):null;
+  const ppool=E.filter(e=>e.cat==='P'&&okPh(e)), wpool=E.filter(e=>e.cat==='W'&&okPh(e));
+  const event = pick(ppool,rnd);
+  const odd = wpool.length && rnd() < ({EF:0,SR:.25,SW:.55,IC:.9})[reach] ? pick(wpool,rnd) : null;
+  sysState={seed,sun,bodies,belt,event,odd,thumbs:{}};
+  const all=[sun,...bodies.flatMap(b=>[b.e,...b.moons]),belt,event,odd].filter(Boolean);
+  for (const e of all){ const c=document.createElement('canvas'); OVR.renderTo(c,OV_SPECS[e.id]||{k:'pl'},64,1.3,e.seed,true); sysState.thumbs[e.id]=c; }
+  $('#r-seed').innerHTML=`SEED <b>${seed.toString(36).toUpperCase()}</b>`;
+  const li=(e,extra)=>`<button class="li" data-id="${e.id}"><canvas data-th="${e.id}" width="64" height="64"></canvas><span class="rb ${RCL[e.rar]}"></span><span><b>${e.id}</b> ${e.name}${extra?` <span style="color:var(--muted)">${extra}</span>`:''}</span></button>`;
+  let h=`<h3>STAR</h3>${li(sun)}<h3>WORLDS</h3>`;
+  bodies.forEach((b,i)=>{ h+=li(b.e,`· orbit ${i+1}`); b.moons.forEach(m=>{ h+=li(m,`· moon of ${b.e.id}`); }); });
+  if (belt) h+=`<h3>SMALL BODIES</h3>${li(belt)}`;
+  h+=`<h3>ACTIVE EVENT</h3>${li(event)}`;
+  h+= odd? `<h3>SOMETHING STRANGE</h3>${li(odd)}` : `<h3>SOMETHING STRANGE</h3><p class="note" style="margin:0">Nothing strange yet. Strangeness gets more likely the further the reach.</p>`;
+  $('#r-log').innerHTML=h;
+  $('#r-log').querySelectorAll('canvas[data-th]').forEach(c=>{ c.getContext('2d').drawImage(sysState.thumbs[c.dataset.th],0,0); });
+  $('#r-log').querySelectorAll('.li').forEach(b=>b.onclick=()=>{ location.hash='atlas'; setTimeout(()=>{ select(b.dataset.id); const c=document.querySelector(`.card[data-id="${b.dataset.id}"]`); if (c) c.scrollIntoView({block:'center'}); },50); });
+}
+$('#r-go').onclick=roll;
+let sysAnim=null;
+function drawSys(t){
+  const cv=$('#sys'), g=cv.getContext('2d'), W=cv.width, H=cv.height; g.imageSmoothingEnabled=false;
+  g.fillStyle='#06070d'; g.fillRect(0,0,W,H);
+  const rs=srnd(sysState.seed); for (let i=0;i<140;i++){ g.fillStyle=rs()>.9?'#e8e4d8':'#3a4060'; g.fillRect(Math.floor(rs()*W),Math.floor(rs()*H),1,1); }
+  const cx=W/2, cy=H/2+6, sx=W*.95, sy=H*.62;
+  g.strokeStyle='#1e6a62';
+  for (const b of sysState.bodies){ g.beginPath(); for (let a=0;a<=64;a++){ const q=a/64*6.283; const x=Math.round(cx+Math.cos(q)*b.a*sx), y=Math.round(cy+Math.sin(q)*b.a*sy*.5); a?g.lineTo(x+.5,y+.5):g.moveTo(x+.5,y+.5);} g.stroke(); }
+  if (sysState.belt){ const rb=srnd(sysState.seed+3); const ar=(sysState.bodies.at(-1).a+.06); for (let i=0;i<90;i++){ const q=rb()*6.283+t*.02, d=ar+rb()*.03; g.fillStyle='#6e6066'; g.fillRect(Math.round(cx+Math.cos(q)*d*sx),Math.round(cy+Math.sin(q)*d*sy*.5),1,1); } }
+  const items=[];
+  items.push({e:sysState.sun,x:cx,y:cy,s:56,z:0});
+  sysState.bodies.forEach((b,i)=>{ const q=b.ph+t*b.sp*.25; const x=cx+Math.cos(q)*b.a*sx, y=cy+Math.sin(q)*b.a*sy*.5; items.push({e:b.e,x,y,s:30,z:Math.sin(q)});
+    b.moons.forEach((m,j)=>{ const mq=t*1.1+j*2; items.push({e:m,x:x+Math.cos(mq)*22,y:y+Math.sin(mq)*8,s:12,z:Math.sin(q)+Math.sin(mq)*.01}); }); });
+  items.sort((a,b)=>a.z-b.z);
+  for (const it of items){ g.drawImage(sysState.thumbs[it.e.id],Math.round(it.x-it.s/2),Math.round(it.y-it.s/2),it.s,it.s); }
+  g.font='8px Silkscreen, monospace'; g.textBaseline='top';
+  const lab=(txt,x,y,col)=>{ const w=g.measureText(txt).width+8; g.fillStyle='rgba(11,13,23,.85)'; g.fillRect(Math.round(x-w/2),Math.round(y),Math.round(w),12); g.strokeStyle=col; g.strokeRect(Math.round(x-w/2)+.5,Math.round(y)+.5,Math.round(w)-1,11); g.fillStyle=col; g.fillText(txt,Math.round(x-w/2+4),Math.round(y+2)); };
+  for (const it of items){ if (it.s<20||it.s>40) continue; lab(it.e.name.toUpperCase().slice(0,22), it.x, it.y+it.s/2+1, it.s>40?'#ffb42e':'#7cf4da'); }
+  // event & oddity insets
+  const inset=(e,x,label,col)=>{ g.fillStyle='#0b0d17'; g.fillRect(x,8,64,78); g.strokeStyle=col; g.strokeRect(x+.5,8.5,63,77); g.drawImage(sysState.thumbs[e.id],x+8,20,48,48); g.fillStyle=col; g.fillText(label,x+4,10); g.fillStyle='#9aa3bd'; g.fillText(e.id,x+4,72); };
+  inset(sysState.event,8,'EVENT','#ff7a52'); if (sysState.odd) inset(sysState.odd,W-72,'STRANGE','#c27aff');
+}
+function srnd(seed){ let s=seed|0||1; return ()=>{ s=(Math.imul(s^(s>>>15),2246822507)+0x9e3779b9)|0; s^=s>>>13; return ((s>>>0)%100000)/100000; }; }
+function startSys(){ stopSys(); let t=0, last=0; const tick=(now)=>{ if (now-last>60){ last=now; t+=.06; if (sysState) drawSys(t); } if (!reduce) sysAnim=requestAnimationFrame(tick); }; if (reduce){ if (sysState) drawSys(0); } else sysAnim=requestAnimationFrame(tick); }
+function stopSys(){ cancelAnimationFrame(sysAnim); }
+$('#r-go').addEventListener('click',()=>{ if (reduce) drawSys(0); });
+
+draw();
+showTab(location.hash==='#roll'?'roll':'atlas');
+if (innerWidth>900) select('B40');
+</script>
