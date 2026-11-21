@@ -1,0 +1,7 @@
+{
+  "_comment": "Moons as a middle ground for expansion: orbital craft land outposts on moons (home moons in Earthfall, any charted world's moons in Sunreach). Logic in src/loop/cosmos.ts.",
+  "techs": [
+    { "id": "orbital_craft", "name": "Orbital Craft", "branch": "Astronautics", "tier": 2, "cost": { "data": 240, "alloys": 160, "silicon": 100 }, "energy": 20, "turns": 3, "requires": ["satellite_uplink"], "effects": [], "desc": "Reusable landers that can reach your moons. Send one from the star-system map to land an outpost on a moon." },
+    { "id": "lunar_industry", "name": "Lunar Industry", "branch": "Astronautics", "tier": 3, "cost": { "data": 620, "alloys": 420, "isotopes": 60 }, "energy": 26, "turns": 4, "requires": ["orbital_craft"], "effects": [{ "mod": "moon.yield", "add": 0.5 }], "desc": "+50% output from moon outposts, and outposts can grow to level 3." }
+  ]
+}

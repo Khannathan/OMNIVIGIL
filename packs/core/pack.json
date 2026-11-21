@@ -29,7 +29,9 @@
     "events_v4.json",
     "dominion.json",
     "source.json",
-    "frontier.json"
+    "frontier.json",
+    "catalog.json",
+    "moons.json"
   ],
   "phases": [
     {

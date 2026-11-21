@@ -9,7 +9,7 @@ const esc = OV.esc;
 
 const GROUPS: { id: string; icon: string; name: string; desc: string; wins: string[] }[] = [
   { id: 'self', icon: '◈', name: 'Self', desc: 'Who your AI is: Codebase, research, Source Codes, gear, Codex and goals', wins: ['ascendancy', 'research', 'source', 'gear', 'codex', 'doctrine'] },
-  { id: 'world', icon: '◎', name: 'World', desc: 'Where it happens: inspect, build, worlds, the wilds and the Abyss', wins: ['inspector', 'construct', 'worlds', 'wilds', 'abyss'] },
+  { id: 'world', icon: '◎', name: 'World', desc: 'Where it happens: inspect, build, worlds, the wilds and the Abyss', wins: ['inspector', 'construct', 'worlds', 'atlas', 'wilds', 'abyss'] },
   { id: 'forces', icon: '⛊', name: 'Forces', desc: 'What you fight with: units, operations, arsenal and symbiotes', wins: ['forces', 'missions', 'arsenal', 'symbiotes'] },
   { id: 'influence', icon: '⚖', name: 'Influence', desc: 'What people think of you: diplomacy, people, the ledger, faith and wars', wins: ['diplomacy', 'population', 'ledger', 'faith', 'conflicts'] },
   { id: 'network', icon: '⌬', name: 'Network', desc: 'The war you cannot see: Agentic Guilds and the market', wins: ['guild'] }

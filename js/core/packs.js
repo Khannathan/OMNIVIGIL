@@ -13,7 +13,7 @@
     'terrains', 'structureCategories', 'loci', 'synergies', 'lootTables', 'creatorOptions', 'creatorGroups', 'creatorPresets',
     'starTypes', 'planetTypes', 'planetFeatures', 'systemPhenomena', 'bodyPlans', 'speciesTraits', 'satellites', 'calamities',
     'munitions', 'protocols', 'tenets', 'treaties', 'guildPacts', 'leaderTraits',
-    'agentClasses', 'agentRarities', 'agentSkills', 'dispatches', 'guildUpgrades', 'cyberOps', 'gearSlots', 'gearRarities', 'gearBases', 'gearAffixes', 'gearSets', 'campaigns', 'petTraits', 'sourceCodes', 'creatures', 'anomalies'
+    'agentClasses', 'agentRarities', 'agentSkills', 'dispatches', 'guildUpgrades', 'cyberOps', 'gearSlots', 'gearRarities', 'gearBases', 'gearAffixes', 'gearSets', 'campaigns', 'petTraits', 'sourceCodes', 'creatures', 'anomalies', 'cosmicCatalog'
   ];
   OV.REGISTRIES = REGISTRIES;
 

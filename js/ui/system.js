@@ -383,12 +383,15 @@
   // ---------- input ----------
   let drag = null;
   const cvAt = (e) => { const cv = document.getElementById('systemCanvas'); const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) / r.width * cv.width, (e.clientY - r.top) / r.height * cv.height, cv]; };
+  const live = () => OV.sysGL && OV.sysGL.ok; // the WebGL system view (src/gl/system.ts) owns input when it runs
   document.addEventListener('pointerdown', (e) => {
+    if (live()) return;
     if (!e.target.closest || !e.target.closest('#systemCanvas')) return;
     drag = { x: e.clientX, y: e.clientY, lx: e.clientX, ly: e.clientY, moved: false, btn: e.button };
     if (e.button === 1) e.preventDefault();
   });
   document.addEventListener('pointermove', (e) => {
+    if (live()) return;
     if (drag) {
       if (Math.abs(e.clientX - drag.x) + Math.abs(e.clientY - drag.y) > 4) drag.moved = true;
       if (drag.moved && SV.frame) { const [, , cv] = cvAt(e); const k = cv.width / cv.getBoundingClientRect().width / SV.frame.px; SV.panX += (e.clientX - drag.lx) * k; SV.panY += (e.clientY - drag.ly) * k; }
@@ -408,6 +411,7 @@
     }
   });
   document.addEventListener('pointerup', (e) => {
+    if (live()) { drag = null; return; }
     if (!drag) return; const d = drag; drag = null;
     if (d.moved || d.btn !== 0 || !e.target.closest || !e.target.closest('#systemCanvas')) return;
     const [sx, sy] = cvAt(e); const h = SV.pick(sx, sy);
@@ -417,6 +421,7 @@
     UI.sel = h; UI.renderSidebar();
   });
   document.addEventListener('wheel', (e) => {
+    if (live()) return;
     if (!e.target.closest || !e.target.closest('#systemCanvas')) return;
     e.preventDefault(); SV.zoom = OV.clamp(SV.zoom * (e.deltaY < 0 ? 1.12 : 1 / 1.12), 0.5, 6);
   }, { passive: false });
