@@ -85,7 +85,7 @@ void main(){
   float foot = tB*pixAng / max(abs(dot(p, rd)), 0.22);
   float Lf = clamp(log2(1.5708/foot) + uLodBias, 5.0, 19.0);
   float L0 = floor(Lf); float L = L0 + (dith < Lf-L0 ? 1.0 : 0.0); L = min(L, 19.0);
-  int oct = clamp(int(L)-1, 4, 15);
+  int oct = clamp(int(L)-1, 4, 12);
   vec3 cst = cubeST(p); float N = exp2(L);
   float fx = floor(cst.x*N), fy = floor(cst.y*N);
   ivec2 it = ivec2(int(fx), int(fy));
@@ -98,7 +98,7 @@ void main(){
   float hj = h + jit*clamp(0.02*exp2(-(L-7.0)*0.8), 0.00005, 0.02)*(1.0+abs(h));
   float lat = abs(d.y);
   int tile; bool water = false;
-  float m = fbm(d*2.2+vec3(7.7), min(oct,8), gSeed^0xA3u) + jit*0.05;
+  float m = fbm(d*2.2+vec3(7.7), min(oct,7), gSeed^0xA3u) + jit*0.05;
   if (moon) {
     float ej = fbm(d*7.0+vec3(2.2), min(oct,7), gSeed^0x5Eu);
     if (m < -0.1) tile = (m < -0.22 ? 1 : (jit > 0.2 ? 6 : 2)); else tile = (h > 0.05 ? 5 : 4);
@@ -125,7 +125,7 @@ void main(){
       tile = hl < -0.16 ? 0 : (hl < -0.05 ? 1 : 2);
       if (polar) { tile = 11; water = false; }
     } else {
-      float rv = abs(fbm(d*3.3+vec3(1.3), min(oct,9), gSeed^0xC5u));
+      float rv = abs(fbm(d*3.3+vec3(1.3), min(oct,8), gSeed^0xC5u));
       float rw = gRiver*(1.0-h*1.5);
       if (hl < 0.0018) tile = m > 0.12 ? 6 : 3;
       else if (hj > 0.68 || temp < 0.0) tile = 11;
@@ -152,8 +152,9 @@ void main(){
   // hillshade from the height gradient, lit from the upper left of the screen
   int shade = 1;
   if (gBiome == 13) { float sv = fbm(d*9.0, min(oct,8), gSeed^0x6Du); shade = sv > 0.18 ? 2 : (sv < -0.18 ? 0 : 1); }
-  else if (!water) {
-    float hu = H(dU, oct), hv = H(dV, oct);
+  else if (!water && tile < 12) {
+    int os = min(oct, 10); float hs = os < oct ? H(d, os) : h;
+    float hu = H(dU, os), hv = H(dV, os); h = hs;
     float e = length(dU-d);
     vec3 tu = normalize(dU-d), tv = normalize(dV-d);
     vec3 Lw = normalize(-uRight*0.75 + uUp*0.9);
@@ -249,3 +250,9 @@ void main(){
   col = mix(col, uHaze*mix(1.0,0.35,uNight), clamp(fog,0.0,1.0)*0.85);
   o = vec4(col, 1.0);
 }`;
+
+// Composite the cached ground (premultiplied) into the frame.
+export const COPY_FS = `#version 300 es
+precision highp float; precision highp sampler2D;
+in vec2 vP; out vec4 o; uniform sampler2D uG; uniform float uS;
+void main(){ o = texelFetch(uG, ivec2(floor(gl_FragCoord.xy / uS)), 0); }`;

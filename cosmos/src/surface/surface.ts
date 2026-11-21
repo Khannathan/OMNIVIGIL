@@ -6,7 +6,7 @@ import type { Renderer } from '../gl/renderer';
 import { bodyPos, StarSystem } from '../gen/system';
 import { Prog } from '../gl/gl';
 import { QUAD_VS } from '../gl/glsl';
-import { GROUND_FS, SPR3_VS, SPR3_FS } from './shaders';
+import { GROUND_FS, SPR3_VS, SPR3_FS, COPY_FS } from './shaders';
 import { V, V3, World, worldOf, toDir, fromDir, h01, B, TEXL, CELLS, PROP_N, Cell, cellOf, cellDir, LAND_NAME, MOVE_COST } from './terrain';
 import atlasUrl from '../art/surface-atlas.png';
 import spritesUrl from '../art/surface-sprites.png';
@@ -29,9 +29,12 @@ export class Surface {
   grid = true; units: Unit[] = []; private squads = new Map<number, Unit[]>(); sel: Unit | null = null; hov: Cell | null = null; hovKind = ''; turn = 1;
   private progG: Prog | null = null; private progS: Prog | null = null; private atlas: WebGLTexture | null = null; private sprTex: WebGLTexture | null = null;
   private vao: WebGLVertexArrayObject | null = null; private instBuf: WebGLBuffer | null = null; private inst = new Float32Array(4096 * 11);
-  private propKey = ''; private props: { p: V3; frame: number[]; w: number; h: number; lift: number }[] = []; private origin: V3 = [0, 0, 1];
+  private propKey = ''; private propsPending = false; private propsDirty = true; private chunks = new Map<string, { d: V3; col: number; sc: number }[]>();
+  private gtex: WebGLTexture | null = null; private gfbo: WebGLFramebuffer | null = null; private gw = 0; private gh = 0; private gKey = ''; private progC: Prog | null = null; private sprKey = ''; private sprN = 0;
+  private props: { p: V3; frame: number[]; w: number; h: number; lift: number }[] = []; private origin: V3 = [0, 0, 1];
   private last: FrameB | null = null; private bw = 2; private bh = 2;
   onChange: () => void = () => {};
+  stats = { ground: 0 }; private camKey = ''; private slow = 0; private gs = 1;
 
   // ---------------------------------------------------------------- hand-off with the system frame
   surfacable(cam: Camera): boolean { if (!cam.sys || cam.follow < 1) return false; const b = cam.sys.bodies[cam.follow]; return (b.kind === 'planet' || b.kind === 'moon') && b.R > 0; }
@@ -192,7 +195,7 @@ export class Surface {
 
   // ---------------------------------------------------------------- drawing
   private init(gl: WebGL2RenderingContext) {
-    this.progG = new Prog(gl, QUAD_VS, GROUND_FS); this.progS = new Prog(gl, SPR3_VS, SPR3_FS);
+    this.progG = new Prog(gl, QUAD_VS, GROUND_FS); this.progS = new Prog(gl, SPR3_VS, SPR3_FS); this.progC = new Prog(gl, QUAD_VS, COPY_FS);
     const load = (src: string) => { const t = gl.createTexture()!; gl.bindTexture(gl.TEXTURE_2D, t);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE, new Uint8Array([0, 0, 0, 0]));
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
@@ -206,15 +209,14 @@ export class Surface {
     gl.bindVertexArray(null);
   }
   private fadeProps(): number { const F = this.last; if (!F) return 0; const pxAt = this.D * 2 * TANH / this.bh; return clamp01((40 * TEXL / pxAt - 7) / 9); }
-  private buildProps() {
-    const w = this.w!; const tgt = fromDir(this.T[0], this.T[1], this.T[2]);
-    const N = PROP_N; const ci = Math.floor(tgt.s * N), cj = Math.floor(tgt.t * N);
-    const key = [w.seed, tgt.face, ci >> 4, cj >> 4].join(',');
-    if (key === this.propKey) return; this.propKey = key; this.origin = this.T.slice() as V3; this.props = [];
-    const RAD = 56, oct = 12, S = w.seed, BI = w.biome;
-    for (let j = cj - RAD; j <= cj + RAD; j++) for (let i = ci - RAD; i <= ci + RAD; i++) {
+  /** Trees, rocks and buildings, generated in 16x16-cell chunks that are cached and built a few per frame. */
+  private chunk(face: number, cx: number, cy: number): { d: V3; col: number; sc: number }[] {
+    const w = this.w!; const key = `${w.seed},${face},${cx},${cy}`; let c = this.chunks.get(key); if (c) return c;
+    c = []; const N = PROP_N, oct = 12, S = w.seed, BI = w.biome;
+    for (let j = cy * 16; j < cy * 16 + 16; j++) for (let i = cx * 16; i < cx * 16 + 16; i++) {
+      if (i < 0 || j < 0 || i >= N || j >= N) continue;
       const r1 = h01(i, j, 1, S), r2 = h01(i, j, 2, S), r3 = h01(i, j, 3, S);
-      const d = toDir(tgt.face, (i + 0.2 + r1 * 0.6) / N, (j + 0.2 + r2 * 0.6) / N);
+      const d = toDir(face, (i + 0.2 + r1 * 0.6) / N, (j + 0.2 + r2 * 0.6) / N);
       const ct = w.cities.length ? w.cityAt(d) : 9; let col = -1;
       if (BI === B.LUNAR) {
         if (ct < 1) { if ((i & 1) || (j & 1)) continue; col = ct < 0.42 ? (r3 < 0.25 ? 3 : r3 < 0.32 ? 4 : r3 < 0.36 ? 5 : -1) : (r3 < 0.15 ? 3 : -1); }
@@ -224,24 +226,45 @@ export class Surface {
         else if (r3 < 0.004) col = 0; else if (r3 < 0.02) col = 1; else if (r3 < 0.035) col = 2;
       } else if (ct < 1) {
         if ((i & 1) || (j & 1)) continue;
+        const pick = ct < 0.42 ? (r3 < 0.55 ? 4 : (r3 < 0.72 ? 5 : (r3 < 0.8 ? 1 : -1))) : (r3 < 0.42 ? 3 : (r3 < 0.5 ? 5 : (r3 < 0.68 ? 1 : (r3 < 0.74 ? 0 : -1))));
+        if (pick < 0) continue;
         const lc = w.landClass(d[0], d[1], d[2], oct); if (lc === 'water' || lc === 'sand' || lc === 'snow' || lc === 'rockhi') continue;
-        col = ct < 0.42 ? (r3 < 0.55 ? 4 : (r3 < 0.72 ? 5 : (r3 < 0.8 ? 1 : -1))) : (r3 < 0.42 ? 3 : (r3 < 0.5 ? 5 : (r3 < 0.68 ? 1 : (r3 < 0.74 ? 0 : -1))));
+        col = pick;
       } else {
-        if (r3 > 0.72) continue; // most cells stay open ground: skip the costly classification
-        const c = w.landClass(d[0], d[1], d[2], oct);
-        if (c === 'forestB') { if (r3 < 0.62) col = r3 < 0.12 ? 0 : 1; }
-        else if (c === 'forestP') { if (r3 < 0.7) col = r3 < 0.08 ? 1 : 0; }
-        else if (c === 'grass') { if (r3 < 0.12) col = r3 < 0.06 ? 1 : 0; }
-        else if (c === 'meadow') { if (r3 < 0.025) col = 1; }
-        else if (c === 'rock') { if (r3 < 0.14) col = 2; else if (r3 < 0.2) col = 0; }
-        else if (c === 'rockhi') { if (r3 < 0.08) col = 2; }
-        else if (c === 'marsh') { if (r3 < 0.05) col = 1; }
+        if (r3 > 0.7) continue; // most cells stay open ground: skip the costly classification
+        const lc = w.landClass(d[0], d[1], d[2], oct);
+        if (lc === 'forestB') { if (r3 < 0.62) col = r3 < 0.12 ? 0 : 1; }
+        else if (lc === 'forestP') { if (r3 < 0.7) col = r3 < 0.08 ? 1 : 0; }
+        else if (lc === 'grass') { if (r3 < 0.12) col = r3 < 0.06 ? 1 : 0; }
+        else if (lc === 'meadow') { if (r3 < 0.025) col = 1; }
+        else if (lc === 'rock') { if (r3 < 0.14) col = 2; else if (r3 < 0.2) col = 0; }
+        else if (lc === 'rockhi') { if (r3 < 0.08) col = 2; }
+        else if (lc === 'marsh') { if (r3 < 0.05) col = 1; }
       }
       if (col < 0) continue;
-      const sc = col >= 3 ? 1.0 : (0.8 + r1 * 0.4);
-      this.props.push({ p: V.sub(d, this.origin), frame: PF(col, BI), w: 32 * TEXL * sc, h: 40 * TEXL * sc, lift: 0 });
+      c.push({ d, col, sc: col >= 3 ? 1.0 : (0.8 + r1 * 0.4) });
+    }
+    this.chunks.set(key, c); if (this.chunks.size > 600) { let k = 0; for (const x of this.chunks.keys()) { this.chunks.delete(x); if (++k > 150) break; } }
+    return c;
+  }
+  private buildProps() {
+    const w = this.w!; const tgt = fromDir(this.T[0], this.T[1], this.T[2]);
+    const N = PROP_N; const ci = Math.floor(tgt.s * N) >> 4, cj = Math.floor(tgt.t * N) >> 4;
+    const key = [w.seed, tgt.face, ci, cj].join(',');
+    if (key === this.propKey && !this.propsPending) return;
+    this.propKey = key; this.origin = this.T.slice() as V3; this.props = []; this.propsPending = false; this.propsDirty = true;
+    const RAD = 4; let budget = 6; const BI = w.biome;
+    // nearest chunks first, so the ground under the camera fills in before the edges
+    const order: [number, number][] = []; for (let j = -RAD; j <= RAD; j++) for (let i = -RAD; i <= RAD; i++) order.push([i, j]);
+    order.sort((a, b) => (a[0] * a[0] + a[1] * a[1]) - (b[0] * b[0] + b[1] * b[1]));
+    for (const [i, j] of order) {
+      const cx = ci + i, cy = cj + j; const ck = `${w.seed},${tgt.face},${cx},${cy}`;
+      if (!this.chunks.has(ck)) { if (budget <= 0) { this.propsPending = true; continue; } budget--; }
+      for (const q of this.chunk(tgt.face, cx, cy)) this.props.push({ p: V.sub(q.d, this.origin), frame: PF(q.col, BI), w: 32 * TEXL * q.sc, h: 40 * TEXL * q.sc, lift: 0 });
     }
   }
+  /** Is the ground covering the whole screen (so nothing behind it needs drawing)? */
+  opaque(): boolean { return this.active && this.fade >= 1 && this.D < 0.6; }
   render(rend: Renderer, time: number) {
     if (!this.active || !this.w) return;
     const gl = rend.gl; if (!this.progG) this.init(gl);
@@ -249,40 +272,79 @@ export class Surface {
     for (const u of this.units) if (u.t < 1) u.t = Math.min(1, u.t + 1 / 30);
     const F = this.frame(); this.last = F; const w = this.w, P = w.P;
     const asp = rend.bw / rend.bh;
+    // the ground is drawn into its own target and redrawn only when something it shows has changed
+    if (!this.gtex || this.gw !== rend.bw || this.gh !== rend.bh) {
+      if (!this.gtex) { this.gtex = gl.createTexture()!; this.gfbo = gl.createFramebuffer()!; }
+      gl.bindTexture(gl.TEXTURE_2D, this.gtex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, rend.bw, rend.bh, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+      gl.bindFramebuffer(gl.FRAMEBUFFER, this.gfbo); gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, this.gtex, 0);
+      this.gw = rend.bw; this.gh = rend.bh; this.gKey = '';
+    }
+    const cloud = clamp01((Math.log10(this.D) + 0.62) / 0.55);
+    const animated = (cloud > 0.01 && w.biome !== B.LUNAR && P.cloud[0] + P.cloud[1] + P.cloud[2] > 0.02) || w.biome === B.GAS || w.biome === B.STRANGE || w.biome === B.LIVING;
+    const go = this.gridOn(); const s = this.sel; const q4 = (x: number) => Math.round(x * 120);
+    // while the view moves on a slow machine, draw the ground at half resolution; it sharpens the moment the view stops
+    const camKey = F.pos.join() + F.fwd.join() + F.up.join(); const moving = camKey !== this.camKey; this.camKey = camKey;
+    const fpsNow = (window as any).OVC?.app?.fps ?? 60; this.slow = fpsNow < 40 ? Math.min(this.slow + 1, 30) : Math.max(this.slow - 1, 0);
+    const gs = moving && this.slow > 8 && this.D < 2 ? 2 : 1;
+    const gKey = [gs, F.pos.join(), F.fwd.join(), F.up.join(), w.sunL.map(q4).join(), this.fade.toFixed(3), go.toFixed(2), rend.ps,
+      this.hov ? `${this.hov.face},${this.hov.i},${this.hov.j},${this.hovKind}` : '', s ? `${s.cell.face},${s.cell.i},${s.cell.j},${s.moves}` : '', animated ? Math.floor(time * 12) : 0, w.seed].join('|');
+    if (gKey !== this.gKey) {
+      this.gKey = gKey; this.stats.ground++;
+      gl.bindFramebuffer(gl.FRAMEBUFFER, this.gfbo); gl.viewport(0, 0, rend.bw, rend.bh); gl.clearColor(0, 0, 0, 0); gl.clear(gl.COLOR_BUFFER_BIT);
+      const gw = Math.ceil(rend.bw / gs), gh = Math.ceil(rend.bh / gs); gl.viewport(0, 0, gw, gh); this.gs = gs;
+      const g = this.progG!; gl.useProgram(g.p); gl.bindBuffer(gl.ARRAY_BUFFER, rend.quad); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+      g.f('uRes', gw, gh); g.f('uCam', ...F.pos); g.f('uCamC', V.dot(F.pos, F.pos) - 1);
+      g.f('uFwd', ...F.fwd); g.f('uRight', ...F.right); g.f('uUp', ...F.up); g.f('uTanH', TANH); g.f('uAspect', asp);
+      g.f('uTime', time); g.f('uCloud', cloud); g.f('uLodBias', rend.ps <= 1 ? -0.4 : 0);
+      g.f('uHazeAmt', this.D * 4.5); g.f('uFade', this.fade); g.f('uSky', clamp01((1.3 - this.D) / 0.7));
+      g.f('uSeedF', w.seed); g.f('uSea', w.sea); g.f('uRiver', w.river); g.i('uBiome', w.biome);
+      g.f('uHaze', ...P.haze); g.f('uSpace', ...P.space); g.f('uAtmo', ...P.atmo); g.f('uCloudC', ...P.cloud); g.f('uLs', ...w.sunL); g.f('uTint', 1, 1, 1);
+      const cu = new Float32Array(64); w.cities.slice(0, 16).forEach((c, i) => cu.set([c.d[0], c.d[1], c.d[2], c.r], i * 4)); g.v4('uCities', cu); g.i('uNCity', Math.min(16, w.cities.length));
+      g.f('uGrid', go);
+      g.f('uHov', this.hov ? this.hov.face : 0, this.hov ? this.hov.i : 0, this.hov ? this.hov.j : 0, this.hov ? (this.hovKind === 'bad' ? 2 : 1) : 0);
+      g.f('uSel', s ? s.cell.face : 0, s ? s.cell.i : 0, s ? s.cell.j : 0, s ? s.moves : 0);
+      gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, this.atlas); g.i('uAtlas', 2);
+      gl.enable(gl.BLEND); gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
+    // composite the cached ground over the space behind it (premultiplied)
     gl.bindFramebuffer(gl.FRAMEBUFFER, rend.fbo); gl.viewport(0, 0, rend.bw, rend.bh);
-    const g = this.progG!; gl.useProgram(g.p); gl.bindBuffer(gl.ARRAY_BUFFER, rend.quad); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
-    g.f('uRes', rend.bw, rend.bh); g.f('uCam', ...F.pos); g.f('uCamC', V.dot(F.pos, F.pos) - 1);
-    g.f('uFwd', ...F.fwd); g.f('uRight', ...F.right); g.f('uUp', ...F.up); g.f('uTanH', TANH); g.f('uAspect', asp);
-    g.f('uTime', time); g.f('uCloud', clamp01((Math.log10(this.D) + 0.62) / 0.55)); g.f('uLodBias', rend.ps <= 1 ? -0.4 : 0);
-    g.f('uHazeAmt', this.D * 4.5); g.f('uFade', this.fade); g.f('uSky', clamp01((1.3 - this.D) / 0.7));
-    g.f('uSeedF', w.seed); g.f('uSea', w.sea); g.f('uRiver', w.river); g.i('uBiome', w.biome);
-    g.f('uHaze', ...P.haze); g.f('uSpace', ...P.space); g.f('uAtmo', ...P.atmo); g.f('uCloudC', ...P.cloud); g.f('uLs', ...w.sunL); g.f('uTint', 1, 1, 1);
-    const cu = new Float32Array(64); w.cities.slice(0, 16).forEach((c, i) => cu.set([c.d[0], c.d[1], c.d[2], c.r], i * 4)); g.v4('uCities', cu); g.i('uNCity', Math.min(16, w.cities.length));
-    const go = this.gridOn(); g.f('uGrid', go);
-    g.f('uHov', this.hov ? this.hov.face : 0, this.hov ? this.hov.i : 0, this.hov ? this.hov.j : 0, this.hov ? (this.hovKind === 'bad' ? 2 : 1) : 0);
-    const s = this.sel; g.f('uSel', s ? s.cell.face : 0, s ? s.cell.i : 0, s ? s.cell.j : 0, s ? s.moves : 0);
-    gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, this.atlas); g.i('uAtlas', 2);
-    gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    const pc = this.progC!; gl.useProgram(pc.p); gl.bindBuffer(gl.ARRAY_BUFFER, rend.quad); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
+    gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, this.gtex); pc.i('uG', 2); pc.f('uS', this.gs);
+    gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
     // props and units
     const fade = this.fadeProps();
     if (fade > 0 && this.fade >= 1) {
       this.buildProps();
-      const list = this.props.slice();
       const fr = Math.floor(time * 1000 / 180) % 4;
-      for (const u of this.units) { const d = this.unitDir(u); const sc = u.kind === 'tbu' ? 0.9 : 0.8;
-        list.push({ p: V.sub(d, this.origin), frame: [fr * 64, u.kind === 'tbu' ? 640 : 704, 64, 64], w: 64 * TEXL * sc, h: 64 * TEXL * sc, lift: u.kind === 'obs' ? (22 + Math.sin(time * 2.5) * 3) * TEXL : 0 }); }
+      const moving = this.units.some(u => u.t < 1);
+      const sKey = [F.pos.join(), F.fwd.join(), fr, this.propKey, this.props.length, moving ? time : 0, this.units.map(u => `${u.cell.i},${u.cell.j}`).join(';'), this.units.some(u => u.kind === 'obs') ? Math.floor(time * 8) : 0].join('|');
       const rel = V.sub(this.origin, F.pos);
-      const zs = list.map(q => V.dot(V.add(rel, q.p), F.fwd)); const ord = list.map((_, i) => i).sort((a, b) => zs[b] - zs[a]);
-      if (this.inst.length < list.length * 11) this.inst = new Float32Array(list.length * 11 + 1024);
-      let k = 0; for (const i of ord) { const q = list[i]; this.inst.set([q.p[0], q.p[1], q.p[2], q.frame[0], q.frame[1], q.frame[2], q.frame[3], q.w, q.h, q.lift, 0], k); k += 11; }
+      if (sKey !== this.sprKey || this.propsDirty) {
+        this.sprKey = sKey; this.propsDirty = false;
+        const list = this.props.slice();
+        for (const u of this.units) { const d = this.unitDir(u); const sc = u.kind === 'tbu' ? 0.9 : 0.8;
+          list.push({ p: V.sub(d, this.origin), frame: [fr * 64, u.kind === 'tbu' ? 640 : 704, 64, 64], w: 64 * TEXL * sc, h: 64 * TEXL * sc, lift: u.kind === 'obs' ? (22 + Math.sin(time * 2.5) * 3) * TEXL : 0 }); }
+        // keep only what is in front of the camera and roughly on screen
+        const asp2 = asp * 1.15, lim = TANH * 1.25; const vis: number[] = []; const zs = new Float32Array(list.length);
+        for (let i = 0; i < list.length; i++) { const q = list[i]; const vx = rel[0] + q.p[0], vy = rel[1] + q.p[1], vz = rel[2] + q.p[2];
+          const z = vx * F.fwd[0] + vy * F.fwd[1] + vz * F.fwd[2]; if (z <= 0) continue;
+          const x = (vx * F.right[0] + vy * F.right[1] + vz * F.right[2]) / z, y = (vx * F.up[0] + vy * F.up[1] + vz * F.up[2]) / z;
+          if (Math.abs(x) > lim * asp2 || y > lim || y < -lim * 1.6) continue; zs[i] = z; vis.push(i); }
+        vis.sort((a, b) => zs[b] - zs[a]);
+        if (this.inst.length < vis.length * 11) this.inst = new Float32Array(vis.length * 11 + 1024);
+        let k = 0; for (const i of vis) { const q = list[i]; this.inst.set([q.p[0], q.p[1], q.p[2], q.frame[0], q.frame[1], q.frame[2], q.frame[3], q.w, q.h, q.lift, 0], k); k += 11; }
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.instBuf); gl.bufferData(gl.ARRAY_BUFFER, this.inst.subarray(0, k), gl.DYNAMIC_DRAW); this.sprN = vis.length;
+      }
       const sp = this.progS!; gl.useProgram(sp.p); gl.bindVertexArray(this.vao);
-      gl.bindBuffer(gl.ARRAY_BUFFER, this.instBuf); gl.bufferData(gl.ARRAY_BUFFER, this.inst.subarray(0, k), gl.DYNAMIC_DRAW);
       sp.f('uFwd', ...F.fwd); sp.f('uRight', ...F.right); sp.f('uUp', ...F.up); sp.f('uTanH', TANH); sp.f('uAspect', asp);
       sp.f('uNight', clamp01(-V.dot(this.T, w.sunL) * 4 + 0.3) * 0.9); sp.f('uHaze', ...P.haze); sp.f('uHazeAmt', this.D * 4.5); sp.f('uFade', fade);
       sp.f('uOrig', ...rel); gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, this.sprTex); sp.i('uTex', 2);
-      sp.f('uShadow', 1); gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, list.length);
-      sp.f('uShadow', 0); gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, list.length);
+      sp.f('uShadow', 1); gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, this.sprN);
+      sp.f('uShadow', 0); gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, this.sprN);
       gl.bindVertexArray(null);
     }
     gl.disable(gl.BLEND); gl.activeTexture(gl.TEXTURE0);
