@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OMNIVIGIL Cosmos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen&family=Chakra+Petch:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<canvas id="gl"></canvas>
+<canvas id="ov"></canvas>
+<div id="ui">
+  <header id="top">
+    <div class="brand"><b>OMNIVIGIL</b><span>Cosmos</span></div>
+    <div id="crumbs"></div>
+    <div class="seedbox"><label for="seed">Seed</label><input id="seed" spellcheck="false" autocomplete="off"><button id="roll" title="Roll a new universe">Roll</button><button id="share" title="Copy a link to this exact spot">Share</button></div>
+  </header>
+  <nav id="tools">
+    <button data-act="search" title="Search the Atlas (/)"><i>/</i>Search</button>
+    <button data-act="atlas" title="Cosmic Atlas (A)"><i>A</i>Atlas</button>
+    <button data-act="marks" title="Bookmarks (B)"><i>B</i>Marks</button>
+    <button data-act="tour" title="Guided tour (T)"><i>T</i>Tour</button>
+    <button data-act="home" title="Fly home (H)"><i>H</i>Home</button>
+    <button data-act="fleet" title="Fleets: lanes, rings, ships (F)"><i>F</i>Fleets</button>
+    <button data-act="chart" title="Charting fog demo (C)"><i>C</i>Chart</button>
+    <button data-act="photo" title="Photo mode (P)"><i>P</i>Photo</button>
+    <button data-act="sound" title="Ambient sound (M)"><i>M</i>Sound</button>
+    <button data-act="help" title="Controls (?)"><i>?</i>Help</button>
+  </nav>
+  <div id="scale"><div id="scaleText"></div><div id="scaleBar"><i></i><span></span></div></div>
+  <div id="timebox"><button id="tslow" title="Slower">&laquo;</button><span id="trate"></span><button id="tfast" title="Faster">&raquo;</button></div>
+  <pre id="debug" class="hidden"></pre>
+  <aside id="info" class="panel hidden"></aside>
+  <section id="panel" class="panel hidden"></section>
+  <div id="ticker"></div>
+  <div id="tip" class="hidden"></div>
+  <div id="toast"></div>
+  <div id="caption" class="hidden"></div>
+  <div id="help" class="panel hidden"></div>
+</div>
+<div id="photo" class="hidden">
+  <label>Tilt <input id="tilt" type="range" min="0" max="60" value="35"></label>
+  <label><input id="plabels" type="checkbox"> Labels</label>
+  <button id="psave">Save PNG</button><button id="pexit">Exit photo mode</button>
+</div>
+<div id="boot"><div><b>OMNIVIGIL</b><span>growing a universe from one seed</span></div></div>
+<script type="module" src="./src/main.ts"></script>
+</body>
+</html>
