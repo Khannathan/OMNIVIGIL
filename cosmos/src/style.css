@@ -102,3 +102,35 @@ body.photo #ui{display:none}
 #fleet .pb{overflow:auto;padding:8px 10px}
 #fleet .row.on{background:rgba(124,244,218,.14)}
 @media (max-width:760px){#fleet{left:8px;right:8px;width:auto;bottom:150px;max-height:35%}}
+/* ---- the game layer (2026-11-21): HUD, Command panel, start card, banners, battle bubble ---- */
+#hud{position:absolute;left:124px;top:58px;width:min(720px,calc(100% - 490px));padding:6px 10px;display:flex;flex-direction:column;gap:4px;border-color:rgba(63,176,160,.35)}
+#hud .hres{display:flex;align-items:center;gap:12px;font:11px 'Silkscreen',monospace;color:#d6e2e4}
+#hud .tn{color:#8ff4dc} #hud .ph{color:#ffb84a;flex:1}
+#hud .r{display:flex;align-items:center;gap:5px} #hud .r small{color:#8a9aa4;font-size:9px}
+#hud .r i{display:block;width:8px;height:8px;border:1px solid #0a0f16;box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+#hud .al i{background:#b8bba8} #hud .en i{background:#ffb84a} #hud .cp i{background:#3fb0a0}
+#hud #hend{font:11px 'Silkscreen',monospace;padding:4px 10px;border-color:#ffb84a;color:#ffe6a8;background:rgba(106,42,18,.35)}
+#hud #hend:hover{background:rgba(194,96,42,.45)}
+#hud .hobj{font-size:12.5px;line-height:1.35;color:#c9d4d2;border-top:1px solid rgba(63,176,160,.18);padding-top:4px}
+#hud .hobj b{font:400 10px 'Silkscreen',monospace;color:#8ff4dc;margin-right:8px} #hud .hobj em{font-style:normal;color:#ffb84a;margin-right:8px;font-size:12px}
+#fleet{width:330px;max-height:calc(100% - 120px);top:64px;bottom:auto}
+#fleet h4{margin:10px 0 4px;font:400 10px 'Silkscreen',monospace;color:#ffb84a;letter-spacing:1px} #fleet h4 small{color:#8a9aa4}
+#fleet .btns button{display:flex;align-items:center;gap:6px;font-size:12.5px;padding:4px 8px} #fleet .btns small{color:#8a9aa4;font-size:10.5px}
+#fleet .btns img,#fleet .row img{width:32px;height:32px;image-rendering:pixelated;margin:-6px -4px}
+#fleet .btns button:disabled{opacity:.6;cursor:default}
+#fleet .sel{display:flex;gap:10px;align-items:center;padding:6px;border:1px solid rgba(63,176,160,.25);border-radius:5px;background:rgba(14,58,70,.18)}
+#fleet .sel img{width:64px;height:64px;image-rendering:pixelated;flex:none} #fleet .sel b{display:block} #fleet .sel span{display:block;font-size:12px;color:#8ff4dc} #fleet .sel small{display:block;color:#8a9aa4;font-size:11.5px}
+#fleet .desc{font-size:12.5px;color:#c9d4d2;margin-top:6px}
+#fleet details{margin-top:10px;font-size:12px;color:#8a9aa4} #fleet .log div{padding:1px 0}
+#gcard{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(520px,calc(100% - 32px));padding:20px 22px;z-index:6;border-color:rgba(63,176,160,.5)}
+#gcard h2{margin:0 0 6px;font:400 22px 'Silkscreen',monospace;letter-spacing:3px;color:#8ff4dc} #gcard p{margin:0 0 12px;color:#c9d4d2}
+#gcard .opts{display:flex;flex-direction:column;gap:8px} #gcard .opts button{text-align:left;padding:10px 12px} #gcard .opts b{display:block;color:#ffe6a8} #gcard .opts span{font-size:12.5px;color:#a9b6b4}
+#gcard .warn{color:#ffb84a;font-size:12.5px;margin-top:10px} #gcard .x{position:absolute;right:10px;top:10px}
+.gbanner{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);padding:16px 26px;text-align:center;background:rgba(4,7,13,.88);border:1px solid #ffb84a;border-radius:6px;z-index:7;max-width:min(560px,calc(100% - 32px));transition:opacity .8s;cursor:pointer}
+.gbanner small{display:block;font:10px 'Silkscreen',monospace;color:#8a9aa4;letter-spacing:2px} .gbanner b{display:block;font:400 26px 'Silkscreen',monospace;color:#ffb84a;letter-spacing:3px;margin:4px 0} .gbanner span{color:#d6e2e4}
+.gbanner.out{opacity:0}
+#bubble{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:8;padding:0;overflow:hidden;border-color:rgba(255,58,74,.45)}
+#bubble .ph{display:flex;align-items:center;padding:8px 10px;border-bottom:1px solid var(--line)} #bubble .ph h3{margin:0;flex:1;font:400 11px 'Silkscreen',monospace;color:#ffb84a}
+#bubble canvas{display:block;width:min(512px,calc(100vw - 40px));aspect-ratio:256/150;image-rendering:pixelated}
+#bubble .bres{display:flex;align-items:center;gap:10px;padding:8px 10px} #bubble .bres span{flex:1;color:#d6e2e4}
+@media (max-width:760px){#hud{min-width:0;left:8px;right:8px;transform:none;max-width:none;top:92px} #hud .hobj span{display:none} #fleet{top:auto;bottom:150px;max-height:38%}}

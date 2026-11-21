@@ -19,14 +19,15 @@ export function homePlanetIdx(sys: StarSystem): number {
   const pi = Math.max(1, sys.bodies.findIndex(b => b.kind === 'planet' && b.temp === 'mid'));
   return sys.bodies[pi]?.kind === 'planet' ? pi : sys.bodies.findIndex(b => b.kind === 'planet');
 }
-export interface Unit { name: string; kind: 'tbu' | 'obs'; cell: Cell; from: V3 | null; t: number; moves: number; max: number }
+export interface Unit { name: string; kind: 'tbu' | 'obs' | 'foe'; cell: Cell; from: V3 | null; t: number; moves: number; max: number; hp: number; hpMax: number; fired?: boolean }
+interface Shot { a: V3; b: V3; t0: number; hit: boolean; foe: boolean }
 interface FrameB { pos: V3; fwd: V3; right: V3; up: V3; fh: V3; pitch: number; kb: number }
 const PF = (col: number, row: number) => [col * 32, row * 40, 32, 40];
 
 export class Surface {
   active = false; idx = -1; sysKey = ''; w: World | null = null; R = 1;
   D = 14; T: V3 = [0, 0, 1]; hd = 0; Q: [number, number] = [0, 0]; kb = 0; fade = 0; home = false;
-  grid = true; units: Unit[] = []; private squads = new Map<number, Unit[]>(); sel: Unit | null = null; hov: Cell | null = null; hovKind = ''; turn = 1;
+  grid = true; units: Unit[] = []; shots: Shot[] = []; private clock = 0; private squads = new Map<number, Unit[]>(); sel: Unit | null = null; hov: Cell | null = null; hovKind = ''; turn = 1;
   private progG: Prog | null = null; private progS: Prog | null = null; private atlas: WebGLTexture | null = null; private sprTex: WebGLTexture | null = null;
   private vao: WebGLVertexArrayObject | null = null; private instBuf: WebGLBuffer | null = null; private inst = new Float32Array(4096 * 11);
   private propKey = ''; private propsPending = false; private propsDirty = true; private chunks = new Map<string, { d: V3; col: number; sc: number }[]>();
@@ -53,7 +54,8 @@ export class Surface {
     this.Q = [cam.fx / b.R, cam.fy / b.R]; this.hd = 0; this.syncT();
     this.active = true; this.propKey = ''; this.sel = null; this.hov = null;
     const keep = this.squads.get(this.w.seed);
-    if (keep) this.units = keep; else { this.units = []; if (this.home) this.spawnSquad(); this.squads.set(this.w.seed, this.units); }
+    if (keep) this.units = keep; else { this.units = []; if (this.home) { this.spawnSquad(); if (this.earthfall()) this.spawnFoes(); } this.squads.set(this.w.seed, this.units); }
+    if (this.home && this.earthfall() && !this.units.some(u => u.kind === 'foe') && !this.units.some(u => u.kind !== 'foe')) { this.spawnSquad(); this.spawnFoes(); this.squads.set(this.w.seed, this.units); }
     this.onChange();
     const tm = (window as any).OVC?.toast; if (tm && this.w) tm(`${b.name}: a ${this.w.P.label.toLowerCase()} world${this.w.cities.length ? `, ${this.w.cities.length} cities, capital ${this.w.cities[0].name}` : ''}. ${this.w.biome === B.GAS ? 'Keep zooming to skim the cloud tops.' : 'Keep zooming to reach the ground.'}${this.units.length ? ' Your squad waits by the capital.' : ''}`);
   }
@@ -140,10 +142,46 @@ export class Surface {
     names.forEach(([name, kind], k) => {
       let cell: Cell = { face: base.face, i: base.i + spots[k][0], j: base.j + spots[k][1] };
       for (let r = 0; r < 12 && kind === 'tbu' && w.terrainAt(cellDir(cell)) === 'water'; r++) cell = { face: base.face, i: base.i + spots[k][0] + (r % 4) - 1, j: base.j + spots[k][1] + (r >> 2) + 1 };
-      this.units.push({ name, kind, cell, from: null, t: 1, moves: kind === 'obs' ? 6 : 4, max: kind === 'obs' ? 6 : 4 });
+      this.units.push({ name, kind, cell, from: null, t: 1, moves: kind === 'obs' ? 6 : 4, max: kind === 'obs' ? 6 : 4, hp: kind === 'obs' ? 3 : 5, hpMax: kind === 'obs' ? 3 : 5 });
     });
   }
-  endTurn() { for (const u of this.units) u.moves = u.max; this.turn++; this.onChange(); }
+  endTurn() { for (const u of this.units) { u.moves = u.max; u.fired = false; } this.turn++; this.onChange(); }
+  // ---------------------------------------------------------------- Earthfall: the capital's garrison
+  earthfall(): boolean { const g = (window as any).__game; const G = g?.G; return !!G && G.mode === 'game' && !G.earth.done; }
+  capitalName() { const app = (window as any).OVC?.app; if (!app?.home) return ''; return this.w && this.home ? this.w.cities[0]?.name || '' : ''; }
+  foesLeft() { const k = this.squads.size ? [...this.squads.values()].flat().filter(u => u.kind === 'foe').length : 5; return k; }
+  private passable(c: Cell) { return (MOVE_COST[this.w!.terrainAt(cellDir(c))] ?? 1) > 0; }
+  private occupied(c: Cell, not?: Unit) { return this.units.some(x => x !== not && x.cell.face === c.face && x.cell.i === c.i && x.cell.j === c.j); }
+  private spawnFoes() {
+    const w = this.w!; const c0 = w.cities[0]; if (!c0) return; const base = cellOf(c0.edge || c0.d);
+    const spots: [number, number][] = [[6, 0], [7, -3], [8, 3], [10, 0], [9, -1]]; const names = ['Coalition Lancer', 'Coalition Bulwark', 'Coalition Lancer', 'Coalition Siege', 'Coalition Picket'];
+    spots.forEach(([di, dj], k) => { let cell: Cell = { face: base.face, i: base.i + di, j: base.j + dj };
+      for (let r = 0; r < 16 && (!this.passable(cell) || this.occupied(cell)); r++) cell = { face: base.face, i: base.i + di + (r % 4) - 1, j: base.j + dj + (r >> 2) - 1 };
+      this.units.push({ name: names[k], kind: 'foe', cell, from: null, t: 1, moves: 2, max: 2, hp: 4, hpMax: 4 }); });
+  }
+  /** Fly the close camera down to the squad. */
+  focusSquad() { const u = this.units.find(q => q.kind !== 'foe') || this.units[0]; if (!u) return; this.T = cellDir(u.cell); this.Q = [this.T[0], this.T[1]]; this.D = 0.0045; this.hd = 0; this.sel = u.kind !== 'foe' ? u : null; this.onChange(); }
+  private fire(a: Unit, b: Unit) {
+    const dmg = a.kind === 'foe' ? 1 : 2; const hit = Math.random() < (a.kind === 'foe' ? 0.7 : 0.85);
+    this.shots.push({ a: this.unitDir(a), b: this.unitDir(b), t0: this.clock, hit, foe: a.kind === 'foe' }); a.fired = true;
+    if (hit) { b.hp -= dmg; if (b.hp <= 0) { this.units = this.units.filter(x => x !== b); if (this.sel === b) this.sel = null; const tm = (window as any).OVC?.toast; tm?.(`${b.name} destroyed.`); } }
+    if (this.w) this.squads.set(this.w.seed, this.units);
+    if (b.kind === 'foe' && !this.units.some(x => x.kind === 'foe')) { const g = (window as any).__game; setTimeout(() => g?.finishEarthfall(), 900); }
+  }
+  /** The garrison's turn: each defender fires at a squad unit in range or closes in. */
+  enemyTurn() {
+    const mine = () => this.units.filter(u => u.kind !== 'foe');
+    for (const f of this.units.filter(u => u.kind === 'foe')) {
+      const L = mine(); if (!L.length) break; L.sort((a, b) => this.dist(f.cell, a.cell) - this.dist(f.cell, b.cell)); const t = L[0];
+      if (this.dist(f.cell, t.cell) <= 3) { this.fire(f, t); continue; }
+      let c = f.cell; for (let k = 0; k < f.max; k++) { const di = Math.sign(t.cell.i - c.i), dj = Math.sign(t.cell.j - c.j);
+        const opts: Cell[] = Math.abs(t.cell.i - c.i) >= Math.abs(t.cell.j - c.j) ? [{ ...c, i: c.i + di }, { ...c, j: c.j + dj }] : [{ ...c, j: c.j + dj }, { ...c, i: c.i + di }];
+        const nx = opts.find(o => (o.i !== c.i || o.j !== c.j) && this.passable(o) && !this.occupied(o, f)); if (!nx) break; c = nx; }
+      if (c !== f.cell) { f.from = this.unitDir(f); f.t = 0; f.cell = c; }
+    }
+    if (!mine().length && this.w) { const tm = (window as any).OVC?.toast; tm?.('The squad is lost. A new one prints at the edge of the capital.'); this.spawnSquad(); this.units.push(...[...this.squads.get(this.w.seed) || []].filter(u => u.kind === 'foe' && !this.units.includes(u))); this.squads.set(this.w.seed, this.units); }
+    this.onChange();
+  }
   private unitDir(u: Unit): V3 { const d = cellDir(u.cell); if (u.from && u.t < 1) { const e = u.t * u.t * (3 - 2 * u.t); return V.norm(V.lerp(u.from, d, e)); } return d; }
   private cellPx(): number { const F = this.last; if (!F) return 0; const Dc = this.kb >= 0.5 ? this.D : Math.hypot(...F.pos); const pxAt = Dc * 2 * TANH / innerHeight; return 64 * TEXL / pxAt; }
   gridOn(): number { if (!this.grid || !this.w || this.w.biome === B.GAS) return 0; return clamp01((this.cellPx() - 12) / 10); }
@@ -164,7 +202,8 @@ export class Surface {
   hover(cx: number, cy: number): string {
     this.hov = null; this.hovKind = '';
     const u = this.unitAt(cx, cy);
-    if (u) return `<b>${u.name}</b><span>${u.kind === 'tbu' ? 'Tactical battle unit' : 'Observer drone'} · ${u.moves}/${u.max} moves this turn</span><i>${this.sel === u ? 'Selected. Click a lit cell to move.' : 'Click to select it.'}</i>`;
+    if (u && u.kind === 'foe') { const s = this.sel; const d = s ? this.dist(s.cell, u.cell) : 99; return `<b>${u.name}</b><span>Coalition defender · hull ${u.hp}/${u.hpMax}</span><i>${s && s.kind === 'tbu' ? (s.fired ? 'This unit already fired this turn.' : d <= 3 ? 'In range: click to fire (2 damage).' : `Out of range (${d} cells, range 3).`) : 'Select a TBU, then click this to fire.'}</i>`; }
+    if (u) return `<b>${u.name}</b><span>${u.kind === 'tbu' ? 'Tactical battle unit' : 'Observer drone'} · hull ${u.hp}/${u.hpMax} · ${u.moves}/${u.max} moves</span><i>${this.sel === u ? 'Selected. Click a lit cell to move' + (u.kind === 'tbu' ? ', or a red tank in range to fire.' : '. Observers spot; they do not fire.') : 'Click to select it.'}</i>`;
     if (this.gridOn() > 0.3) {
       const c = this.cellAt(cx, cy); if (!c) return '';
       const terr = this.w!.terrainAt(cellDir(c)); this.hov = c;
@@ -181,11 +220,14 @@ export class Surface {
   /** Returns true when the click was used. */
   click(cx: number, cy: number): boolean {
     const u = this.unitAt(cx, cy);
+    if (u && u.kind === 'foe') { const s = this.sel; const tm = (window as any).OVC?.toast;
+      if (!s || s.kind !== 'tbu') tm?.('Select a TBU first.'); else if (s.fired) tm?.(`${s.name} already fired this turn.`); else if (this.dist(s.cell, u.cell) > 3) tm?.('Out of range: get within 3 cells.'); else this.fire(s, u);
+      return true; }
     if (u) { this.sel = this.sel === u ? null : u; return true; }
     if (this.sel && this.gridOn() > 0.3) {
       const c = this.cellAt(cx, cy); if (!c) return true;
       const terr = this.w!.terrainAt(cellDir(c)); const d = this.dist(this.sel.cell, c);
-      const occupied = this.units.some(x => x !== this.sel && x.cell.face === c.face && x.cell.i === c.i && x.cell.j === c.j);
+      const occupied = this.occupied(c, this.sel);
       if ((MOVE_COST[terr] ?? 1) > 0 && d > 0 && d <= this.sel.moves && !occupied) { this.sel.from = this.unitDir(this.sel); this.sel.t = 0; this.sel.cell = c; this.sel.moves -= d; }
       else if (d === 0) this.sel = null;
       return true;
@@ -270,6 +312,7 @@ export class Surface {
     const gl = rend.gl; if (!this.progG) this.init(gl);
     this.bw = rend.bw; this.bh = rend.bh;
     for (const u of this.units) if (u.t < 1) u.t = Math.min(1, u.t + 1 / 30);
+    this.clock = time;
     const F = this.frame(); this.last = F; const w = this.w, P = w.P;
     const asp = rend.bw / rend.bh;
     // the ground is drawn into its own target and redrawn only when something it shows has changed
@@ -321,13 +364,13 @@ export class Surface {
       this.buildProps();
       const fr = Math.floor(time * 1000 / 180) % 4;
       const moving = this.units.some(u => u.t < 1);
-      const sKey = [F.pos.join(), F.fwd.join(), fr, this.propKey, this.props.length, moving ? time : 0, this.units.map(u => `${u.cell.i},${u.cell.j}`).join(';'), this.units.some(u => u.kind === 'obs') ? Math.floor(time * 8) : 0].join('|');
+      const sKey = [F.pos.join(), F.fwd.join(), fr, this.propKey, this.props.length, moving ? time : 0, this.units.map(u => `${u.cell.i},${u.cell.j},${u.hp}`).join(';'), this.units.some(u => u.kind === 'obs') ? Math.floor(time * 8) : 0].join('|');
       const rel = V.sub(this.origin, F.pos);
       if (sKey !== this.sprKey || this.propsDirty) {
         this.sprKey = sKey; this.propsDirty = false;
         const list = this.props.slice();
-        for (const u of this.units) { const d = this.unitDir(u); const sc = u.kind === 'tbu' ? 0.9 : 0.8;
-          list.push({ p: V.sub(d, this.origin), frame: [fr * 64, u.kind === 'tbu' ? 640 : 704, 64, 64], w: 64 * TEXL * sc, h: 64 * TEXL * sc, lift: u.kind === 'obs' ? (22 + Math.sin(time * 2.5) * 3) * TEXL : 0 }); }
+        for (const u of this.units) { const d = this.unitDir(u); const sc = u.kind === 'tbu' ? 0.9 : u.kind === 'foe' ? 0.85 : 0.8;
+          list.push({ p: V.sub(d, this.origin), frame: [fr * 64, u.kind === 'tbu' ? 640 : u.kind === 'foe' ? 816 : 704, 64, 64], w: 64 * TEXL * sc, h: 64 * TEXL * sc, lift: u.kind === 'obs' ? (22 + Math.sin(time * 2.5) * 3) * TEXL : 0 }); }
         // keep only what is in front of the camera and roughly on screen
         const asp2 = asp * 1.15, lim = TANH * 1.25; const vis: number[] = []; const zs = new Float32Array(list.length);
         for (let i = 0; i < list.length; i++) { const q = list[i]; const vx = rel[0] + q.p[0], vy = rel[1] + q.p[1], vz = rel[2] + q.p[2];
@@ -357,8 +400,14 @@ export class Surface {
     if (labels && this.D < 1.6 && this.D > 0.004) this.w.cities.forEach((c, i) => { if (!this.facing(c.d)) return; const p = this.project(c.d); if (!p) return;
       tag(c.name.toUpperCase(), p[0], p[1] - 6, i === 0 ? '#ffd27a' : '#e8eef8', i === 0 ? '600 13px "Chakra Petch",sans-serif' : '500 11px "Chakra Petch",sans-serif'); });
     if (this.fadeProps() > 0.5) for (const u of this.units) { const d = this.unitDir(u); if (!this.facing(d)) continue; const p = this.project(V.mul(d, 1 + (u.kind === 'obs' ? 92 : 62) * TEXL)); if (!p) continue;
-      tag(u.name, p[0], p[1], this.sel === u ? '#7cf4da' : '#cfe6ff', '10px Silkscreen,monospace');
-      if (this.sel === u) { ctx.font = '9px Silkscreen,monospace'; ctx.fillStyle = '#ffb42e'; ctx.fillText(`${u.moves} MOVES`, p[0], p[1] + 11); } }
+      tag(u.name, p[0], p[1], u.kind === 'foe' ? '#ff6a6a' : this.sel === u ? '#8ff4dc' : '#d6e2e4', '10px Silkscreen,monospace');
+      const w = 30, x0 = Math.round(p[0] - w / 2), y0 = Math.round(p[1] + 3); ctx.fillStyle = '#0a0f16'; ctx.fillRect(x0 - 1, y0 - 1, w + 2, 5); ctx.fillStyle = u.kind === 'foe' ? '#ff3a4a' : '#5fe0ff'; ctx.fillRect(x0, y0, Math.round(w * Math.max(0, u.hp) / u.hpMax), 3);
+      if (this.sel === u) { ctx.font = '9px Silkscreen,monospace'; ctx.fillStyle = '#ffb84a'; ctx.fillText(`${u.moves} MOVES${u.kind === 'tbu' ? (u.fired ? ' · FIRED' : ' · READY') : ''}`, p[0], p[1] + 19); } }
+    // tracers
+    this.shots = this.shots.filter(s => this.clock - s.t0 < 0.7);
+    for (const s of this.shots) { const a = this.project(V.mul(s.a, 1 + 30 * TEXL)), b = this.project(V.mul(s.b, 1 + 26 * TEXL)); if (!a || !b) continue; const k = Math.min(1, (this.clock - s.t0) / 0.25);
+      ctx.fillStyle = s.foe ? '#ff3a4a' : '#8ff4dc'; for (let i = 0; i < 10; i++) { const q = k - i * 0.03; if (q < 0) continue; ctx.fillRect(Math.round((a[0] + (b[0] - a[0]) * q) / 2) * 2, Math.round((a[1] + (b[1] - a[1]) * q) / 2) * 2, 3, 3); }
+      if (k >= 1) { ctx.fillStyle = s.hit ? '#ffb84a' : '#b8bba8'; ctx.font = '10px Silkscreen,monospace'; ctx.fillText(s.hit ? (s.foe ? '-1' : '-2') : 'MISS', b[0], b[1] - 8 - (this.clock - s.t0) * 20); } }
   }
 }
 export const surface = new Surface();

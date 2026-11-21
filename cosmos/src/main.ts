@@ -16,7 +16,9 @@ import { ENTRIES, BY_ID, Entry, RARITY, RAR_COL, PHASES, portrait, BY_SLOT, OVR,
 import { findNearest, nearestGalaxies, locForBody, Found } from './gen/search';
 import { fmtCount, nameWord } from './core/names';
 import * as UI from './ui/panels';
-import { fleet, renderPanel } from './ui/fleet';
+import { fleet } from './ui/fleet';
+import { game } from './game/game';
+import { renderAll, startCard } from './game/hud';
 import { surface } from './surface/surface';
 
 export interface Sel { kind: 'galaxy' | 'ufeat' | 'gfeat' | 'star' | 'body' | 'entry'; ref: any; sys?: StarSystem; gal?: Galaxy }
@@ -79,6 +81,8 @@ export async function boot(seedStr: string, loc?: Loc, intro = true) {
     if (intro) { setTimeout(() => flyTo({ x: hg.x, y: hg.y, H: hg.Rm * 1.5 }, 0.55, () => toast(`Home galaxy: ${hg.name}. Double-click anything to dive in.`)), 600); }
   }
   UI.refreshMarks(); UI.updateAtlasCounts();
+  fleet.selShip = null; fleet.build = null; renderAll();
+  if (!game.G) setTimeout(() => startCard(), intro ? 2600 : 300);
 }
 
 // ------------------------------------------------------------------ flying, selection
@@ -169,7 +173,7 @@ function pickAt(cx: number, cy: number): Pick | null {
 function hoverAt(cx: number, cy: number) { if (app.photo) return;
   if (surface.active && surface.kb > 0.05) { const h = surface.hover(cx, cy); app.hover = null; UI.tipHTML(h, cx, cy); return; }
   const p = pickAt(cx, cy); app.hover = p; UI.tip(p ? { p, x: cx, y: cy } : null); }
-function clickAt(cx: number, cy: number) { if (surface.active && surface.kb > 0.05) { surface.click(cx, cy); UI.tipHTML(surface.hover(cx, cy), cx, cy); return; }
+function clickAt(cx: number, cy: number) { if (surface.active && surface.kb > 0.05) { surface.click(cx, cy); UI.tipHTML(surface.hover(cx, cy), cx, cy); renderAll(); return; }
   const p = pickAt(cx, cy); if (fleet.click(p)) return; if (p && ['ship', 'station', 'slot', 'cell'].includes(p.kind as string)) return; if (p) select(selFromPick(p)); else select(null); }
 function autoFollow() {
   const cam = app.cam; if (!cam.sys || cam.follow >= 0) return;
@@ -192,6 +196,7 @@ addEventListener('keydown', e => {
   else if (k === 'l') { S.labels = !S.labels; save(); }
   else if (k === 'g') { surface.grid = !surface.grid; toast(surface.grid ? 'Combat grid on: one cell per terrain tile.' : 'Combat grid off.'); }
   else if (k === ',' || k === '<') surface.turnBy(0.25); else if (k === '.' || k === '>') surface.turnBy(-0.25);
+  else if (k === 'n' && game.on) game.endTurn();
   else if (k === 'n' && surface.active && surface.units.length) { surface.endTurn(); toast(`Turn ${surface.turn}: the squad has its moves back.`); }
 });
 addEventListener('keyup', e => keys.delete(e.key.toLowerCase()));
@@ -216,7 +221,7 @@ export function probeHere() {
   else app.chart.addU(v.U.x, v.U.y, v.U.H * 0.2, Math.max(4, v.U.H * 1.2), 0.2);
   if (!S.fog) toggleChart(); else toast('Probe launched: charted space is spreading from here.');
 }
-export function toggleFleet() { fleet.on = !fleet.on; if (fleet.on) { fleet.ensureStart(); toast('Fleets: jump lanes between stars, routes between galaxies, ring grids inside systems.'); } fleet.selShip = null; fleet.selStation = null; fleet.build = false; renderPanel(fleet); UI.toolState(); }
+export function toggleFleet() { fleet.on = !fleet.on; fleet.selShip = null; fleet.selStation = null; fleet.build = null; renderAll(); UI.toolState(); }
 export function toggleSound() { S.sound = !S.sound; save(); if (S.sound) app.audio.start(); else app.audio.stop(); UI.toolState(); }
 export function setPhoto(on: boolean) {
   app.photo = on; document.body.classList.toggle('photo', on); document.getElementById('photo')!.classList.toggle('hidden', !on);
@@ -345,12 +350,12 @@ function loop(now: number) {
   app.nextEv -= dt; if (app.nextEv <= 0) { app.nextEv = 3 + Math.random() * 6; if (!app.photo) spawnEvent(); }
   if (cam.sys) for (const id of cam.sys.entries) { if (!seenQuick.has(id)) { seenQuick.add(id); markSeen(BY_ID[id]); } }
   if (cam.gal && lastGal !== cam.gal.key) { lastGal = cam.gal.key; cam.gal.attrs.forEach(a => markSeen(BY_ID[a])); markSeen(BY_ID['B142']); }
-  uiT += dt; if (uiT > 0.15) { uiT = 0; UI.frameUI(views); }
+  uiT += dt; if (uiT > 0.15) { uiT = 0; UI.frameUI(views); const vk = (cam.sys?.ref.key || '') + (surface.active ? 's' : ''); if (vk !== lastView) { lastView = vk; renderAll(); } }
   // ambient sound follows scale
   if (S.sound) { const wLy = UI.viewWidthLy(views); const s = Math.max(0, Math.min(1, (Math.log10(Math.max(wLy, 1e-9)) + 3) / 13)); let star = 0;
     if (cam.sys) { star = Math.max(0, Math.min(1, 1 - Math.log10(Math.max(Math.hypot(cam.x, cam.y), 0.01) / 0.05) / 4)); } app.audio.update(s, star, !!cam.gal); }
 }
-const seenQuick = new Set<string>(); let lastGal = '';
+const seenQuick = new Set<string>(); let lastGal = ''; let lastView = '';
 function resize() { rend.resize(innerWidth, innerHeight, S.pixel); }
 addEventListener('resize', resize);
 export function setRate(d: number) { rateIdx = Math.max(0, Math.min(RATES.length - 1, rateIdx + d)); UI.timeLabel(); }
@@ -366,7 +371,7 @@ export function rateText() { const r = RATES[rateIdx]; if (app.paused || r === 0
   document.getElementById('boot')!.style.opacity = '0'; setTimeout(() => document.getElementById('boot')!.remove(), 900);
   requestAnimationFrame(loop);
   if (!S.tourSeen) { S.tourSeen = true; save(); setTimeout(() => toast('New here? Press T for a guided tour of this seed’s strangest finds.'), 7000); }
-  (window as any).OVC = { app, find, flyTo, boot, surface, systemOf, toast };
+  (window as any).OVC = { app, find, flyTo, boot, surface, systemOf, toast, game, fleet };
 })();
 export function randomSeed(): string { const r = Math.floor(Math.random() * 1e9); return nameWord(r, 2, 2).toLowerCase() + '-' + (r % 10000); }
 export { fmtCount, ENTRIES, RARITY, RAR_COL, PHASES, portrait, BY_SLOT, OVR, SPECS, KLY_PER_MPC, AU_PER_KLY, KM_PER_AU, LY_PER_MPC, hu };
