@@ -7,7 +7,9 @@ export class Chart {
   get s() { return seedSave(this.seed); }
   u(): ChartCircle[] { return this.s.chartU; }
   g(galKey: string): ChartCircle[] { return this.s.chartG[galKey] || []; }
-  addG(galKey: string, x: number, y: number, r0: number, max: number, rate: number) { (this.s.chartG[galKey] ||= []).push({ x, y, r: r0, max, rate }); if (this.s.chartG[galKey].length > 24) this.s.chartG[galKey].shift(); save(); }
+  addG(galKey: string, x: number, y: number, r0: number, max: number, rate: number) { const L = (this.s.chartG[galKey] ||= []);
+    const inside = L.find(c => Math.hypot(x - c.x, y - c.y) + max <= c.max * 1.02); if (inside) return; // already charted by a bigger bubble
+    L.push({ x, y, r: r0, max, rate }); if (L.length > 160) L.shift(); save(); }
   addU(x: number, y: number, r0: number, max: number, rate: number) { this.s.chartU.push({ x, y, r: r0, max, rate }); if (this.s.chartU.length > 16) this.s.chartU.shift(); save(); }
   tick(dt: number) {
     if (!this.demo) return; let ch = false;

@@ -110,9 +110,9 @@ export class Universe {
       key: `${cx},${cy},${k}`, cx, cy, k, x, y, seed, type, R, Rm: R / KLY_PER_MPC,
       inc, pa: r(10) * Math.PI, arms: type === 1 ? 2 : 2 + Math.floor(r(11) * 3), pitch: 0.2 + 0.3 * r(12), rot: r(13) * 6.283, age,
       attrs, flags, name: galaxyName(seed, R > 12), major: R > 12, stars: Math.round(R * R * R * (type === 2 ? 3e5 : 1.2e5) * (0.6 + r(14))), node,
-      coreRamp: age > 0.6 ? 'sOra' : 'sYel', armRamp: type === 4 ? (r(15) < 0.5 ? 'blue' : 'sBlu') : type === 2 ? 'sOra' : 'sBlu', companion: !!host,
+      coreRamp: age > 0.6 ? 'gCore' : 'sYel', armRamp: type === 4 ? (r(15) < 0.5 ? 'gArm2' : 'gArm') : type === 2 ? 'gCore' : 'gArm', companion: !!host,
     };
-    if (type === 2) { g.coreRamp = 'sYel'; g.armRamp = 'sOra'; }
+    if (type === 2) { g.coreRamp = 'sYel'; g.armRamp = 'gCore'; }
     return g;
   }
   galaxyByKey(key: string): Galaxy | null {

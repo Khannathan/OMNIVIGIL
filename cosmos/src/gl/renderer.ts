@@ -64,7 +64,7 @@ export class Renderer {
   }
   private full(p: Prog) { const gl = this.gl; gl.useProgram(p.p); gl.bindBuffer(gl.ARRAY_BUFFER, this.quad); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0); }
   private common(p: Prog, time: number) { const gl = this.gl; gl.useProgram(p.p); gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, this.ramps); p.i('uRamps', 0); p.f('uRes', this.bw, this.bh); p.f('uTime', time); }
-  sprite(id: string, px: number, py: number, half: number, fog: number, fade = 1) { const uv = this.atlas.uv(id, () => portrait(id, 64, 0, true)); this.sprB.push([px, py, half, 0, uv[0], uv[1], uv[2], uv[3], fog, fade, 0, 0]); }
+  sprite(id: string, px: number, py: number, half: number, fog: number, fade = 1) { const uv = this.atlas.uv(id, () => harmonize(portrait(id, 64, 0, true))); this.sprB.push([px, py, half, 0, uv[0], uv[1], uv[2], uv[3], fog, fade, 0, 0]); }
 
   frame(F: FrameIn) {
     const gl = this.gl, { cam, views: V, chart, fog, time } = F;
@@ -106,7 +106,7 @@ export class Renderer {
             S.gal++;
             const hl = F.hover === g || F.sel === g;
             this.picks.push({ x: px, y: py, r: Math.max(Rpx * 0.9, 3), kind: 'galaxy', ref: g, pri: Rpx });
-            if (F.labels && ((Rpx > 5 && g.major) || Rpx > 16 || hl)) this.labels.push({ text: gf ? 'Uncharted galaxy' : g.name, x: px, y: py - Math.max(Rpx * Math.cos(inc), 2) - 3, pri: Rpx + (hl ? 1000 : 0), col: hl ? '#9ff' : '#cfd8ff' });
+            if (F.labels && ((Rpx > 5 && g.major) || Rpx > 16 || hl)) this.labels.push({ text: gf ? 'Uncharted galaxy' : g.name, x: px, y: py - Math.max(Rpx * Math.cos(inc), 2) - 3, pri: Rpx + (hl ? 1000 : 0), col: hl ? '#8ff4dc' : '#d6e2e4' });
           }
         }
       }
@@ -134,7 +134,7 @@ export class Renderer {
       p.i('uI', I[0], I[1]); p.f('uF', G.x - I[0] * 64, G.y - I[1] * 64); p.f('uH', G.H); p.f('uAspect', aspect);
       p.f('uR', g.R); p.f('uC', G.c); p.f('uPa', g.pa); p.i('uType', g.type); p.i('uFlags', g.flags); p.i('uCr', rampI(g.coreRamp)); p.i('uAr', rampI(g.armRamp));
       p.f('uArms', g.arms); p.f('uPitch', g.pitch); p.f('uRot', g.rot); p.ui('uSeed', gg.seed); p.ui('uGSeed', g.seed);
-      const ch = new Float32Array(96); let n = 0; for (const c of chart.g(g.key)) { if (n >= 24) break; ch.set([c.x - G.x, c.y - G.y, c.r, 0], n * 4); n++; }
+      const ch = new Float32Array(256); let n = 0; const cg = chart.g(g.key).slice().sort((a, b) => (Math.hypot(a.x - G.x, a.y - G.y) - a.r) - (Math.hypot(b.x - G.x, b.y - G.y) - b.r)); for (const c of cg) { if (n >= 64) break; ch.set([c.x - G.x, c.y - G.y, c.r, 0], n * 4); n++; }
       p.v4('uChart', ch); p.i('uNChart', n); p.f('uFogOn', fog ? 1 : 0);
       gl.enable(gl.BLEND); gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4); gl.disable(gl.BLEND);
@@ -154,7 +154,7 @@ export class Renderer {
           const iconish = f.kind === 3 || !/nebula|cluster|globule|cloud|pillar/i.test(f.e.name);
           if (iconish && sz > 5 && sz < bh * 3) this.sprite(f.e.id, px, py, Math.min(24, 8 + sz * 0.12), ff, fade);
           if (sz < bh * 2.5 || !cam.sys) this.picks.push({ x: px, y: py, r: Math.max(Math.min(sz * 0.6, bh), 4), kind: 'gfeat', ref: f, pri: 20 + sz * 0.01 });
-          if (F.labels && sz > 14 && sz < bh * 4) this.labels.push({ text: ff ? 'Uncharted ' + (f.kind === 1 ? 'cluster' : 'region') : f.name, x: px, y: py + Math.min(sz * 0.5, bh * 0.3) + 8, pri: 30 + sz * 0.01 + (F.hover === f ? 1000 : 0), col: '#e8b6ff', sub: ff ? '' : f.e.name });
+          if (F.labels && sz > 14 && sz < bh * 4) this.labels.push({ text: ff ? 'Uncharted ' + (f.kind === 1 ? 'cluster' : 'region') : f.name, x: px, y: py + Math.min(sz * 0.5, bh * 0.3) + 8, pri: 30 + sz * 0.01 + (F.hover === f ? 1000 : 0), col: '#9ab8a8', sub: ff ? '' : f.e.name });
         }
       }
       if (this.featB.count) { const pf = this.P.feat; this.common(pf, time); this.featB.draw(); }
@@ -293,3 +293,17 @@ const rampIdxName: Record<number, string> = {};
 import { RAMP_IDX } from '../atlas/catalog';
 for (const k in RAMP_IDX) rampIdxName[RAMP_IDX[k]] = k;
 export type { GFeature, Galaxy };
+
+// Art pass: Atlas portraits drawn in the world are pulled toward the locked planet palette (muted
+// teal, navy, bone, warm lantern light), so a violet nebula sits in the same painting as the globes.
+const HARM = ['#04070d', '#0a1824', '#16384a', '#24506a', '#0e3a46', '#1e6a62', '#3fb0a0', '#8ff4dc', '#20453d', '#498767', '#8cb09c',
+  '#5a5e56', '#8a8f82', '#b8bba8', '#e4e6d6', '#6a2a12', '#c2602a', '#ffb84a', '#ffe6a8', '#3a0d1a', '#8a1a24', '#3e1450', '#7a2a8a', '#c890c8', '#bfe4ff', '#f2e6c8']
+  .map(h => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]);
+export function harmonize(src: HTMLCanvasElement, k = 0.6): HTMLCanvasElement {
+  const c = document.createElement('canvas'); c.width = src.width; c.height = src.height; c.getContext('2d')!.drawImage(src, 0, 0);
+  const g = c.getContext('2d'); if (!g || !c.width) return c; const d = g.getImageData(0, 0, c.width, c.height); const p = d.data; const cache = new Map<number, number>();
+  for (let i = 0; i < p.length; i += 4) { if (p[i + 3] === 0) continue; const key = (p[i] << 16) | (p[i + 1] << 8) | p[i + 2]; let j = cache.get(key);
+    if (j === undefined) { let bd = 1e9; j = 0; for (let q = 0; q < HARM.length; q++) { const h = HARM[q]; const dr = p[i] - h[0], dg = p[i + 1] - h[1], db = p[i + 2] - h[2]; const dd = dr * dr * 0.3 + dg * dg * 0.59 + db * db * 0.11; if (dd < bd) { bd = dd; j = q; } } cache.set(key, j); }
+    const h = HARM[j]; p[i] = p[i] + (h[0] - p[i]) * k; p[i + 1] = p[i + 1] + (h[1] - p[i + 1]) * k; p[i + 2] = p[i + 2] + (h[2] - p[i + 2]) * k; }
+  g.putImageData(d, 0, 0); return c;
+}

@@ -89,6 +89,16 @@ export function pickW(list: Entry[], c: Ctx, u: number): Entry {
 }
 
 // ---- looks: translate a portrait spec into parameters the map shaders understand ----
+// Cosmos art pass (2026-11-21): space ramps in the planets' locked palette (muted teal and navy, bone, warm lantern light).
+Object.assign(OVR.RAMPS, {
+  cWeb0: ['#04070d', '#060f18', '#0a1824', '#0e2633', '#16384a', '#24506a'],
+  cWeb1: ['#05101a', '#0c2230', '#123a46', '#1e5a5e', '#3a8078', '#6fb3ad'],
+  cWeb2: ['#140c08', '#3a2014', '#6a3c22', '#a8743e', '#e0b070', '#f8e6c0'],
+  gArm: ['#06101a', '#0e2a36', '#1e4a54', '#4a7a78', '#9ab8a8', '#e4ece8'],
+  gArm2: ['#080c18', '#121e32', '#24384e', '#4a6478', '#8aa2ae', '#d6e2e4'],
+  gHii: ['#2a0e08', '#6a2a12', '#b0582a', '#e09048', '#ffc65a', '#fff0c8'],
+  gCore: ['#3a1a08', '#7a3e12', '#c2702a', '#f0a848', '#ffd88a', '#fff4dc'],
+});
 const RAMP_NAMES: string[] = Object.keys(OVR.RAMPS);
 export const RAMP_IDX: Record<string, number> = {}; RAMP_NAMES.forEach((n, i) => RAMP_IDX[n] = i);
 export const rampI = (n: string | undefined, d = 'rock') => RAMP_IDX[n || d] ?? RAMP_IDX[d];

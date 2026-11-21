@@ -63,7 +63,7 @@ void main(){
     else if (size >= 3 && ax*ax+ay*ay < 7.0 && d < 0.35) { col = rampC(ramp, 0.3, d); hit = true; }
     if (kind == 2 && !hit) { float a = uTime*4.0; vec2 dir = vec2(cos(a), sin(a)); float along = dot(p, dir), across = abs(p.x*dir.y - p.y*dir.x);
       if (across < 0.6 && abs(along) < 3.5 && abs(along) > 0.6 && d < 0.7) { col = rampC(R_sBlu, 0.6, d); hit = true; } }
-    if (kind == 3 && !hit) { float rr = length(p); if (abs(rr - 3.0) < 0.6 && d < 0.75) { col = rampC(int(fB.x+0.5) == R_sBlu ? R_cyan : R_pink, 0.6, d); hit = true; } }
+    if (kind == 3 && !hit) { float rr = length(p); if (abs(rr - 3.0) < 0.6 && d < 0.75) { col = rampC(int(fB.x+0.5) == R_sBlu ? R_cyan : R_gHii, 0.6, d); hit = true; } }
   }
   if (hl > 0.5 && !hit) { float rr = max(ax, ay); if (rr > 3.5 && rr < 4.5 && (ax < 1.5 || ay < 1.5)) { col = vec3(0.55,1.0,0.9); hit = true; } }
   if (!hit || fade < d) discard;

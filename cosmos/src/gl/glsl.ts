@@ -31,7 +31,7 @@ vec3 rampC(int r, float v, float d){ float f=clamp(v,0.0,1.0)*5.0; int i=int(flo
 vec3 rampAt(int r, int i){ return texelFetch(uRamps, ivec2(clamp(i,0,5), r), 0).rgb; }
 float luma(vec3 c){ return dot(c, vec3(0.3,0.55,0.15)); }
 vec3 fogTint(vec3 c, float fog, float d){ // uncharted: a cold monochrome guess
-  if (fog <= 0.0) return c; float l = floor(luma(c)*4.0 + d)/4.0; return mix(c, vec3(0.08,0.2,0.24)*0.4 + vec3(0.25,0.75,0.8)*l*0.55, fog); }
+  if (fog <= 0.0) return c; float l = floor(luma(c)*4.0 + d)/4.0; return mix(c, vec3(0.02,0.045,0.06) + vec3(0.14,0.36,0.38)*l*0.42, fog); }
 `;
 export const QUAD_VS = `${HEAD}
 in vec2 aP; out vec2 vP; void main(){ vP=aP; gl_Position=vec4(aP,0.0,1.0); }`;
@@ -64,7 +64,7 @@ void main(){
   float g = D*(0.55+0.7*gas);
   vec3 col = vec3(0.016,0.018,0.035);
   if (g > 0.03) {
-    int r = g > 1.5 ? R_pink : g > 0.45 ? R_violet : R_navy;
+    int r = g > 1.5 ? R_cWeb2 : g > 0.45 ? R_cWeb1 : R_cWeb0;
     float v = clamp(g*0.3, 0.0, 1.0);
     vec3 c = rampC(r, v*1.2+0.08, d);
     float al = smoothstep(0.03, 0.5, g)*vis;
@@ -88,7 +88,7 @@ void main(){
     float ch = 0.0, edge = 0.0;
     for (int i=0;i<16;i++){ if(i>=uNChart) break; float dd = length(off - uChart[i].xy) - uChart[i].z; ch = max(ch, smoothstep(pix*2.0, -pix*2.0, dd)); edge = max(edge, 1.0 - smoothstep(0.0, pix*1.2, abs(dd))); }
     col = fogTint(col, (1.0-ch)*0.85, d);
-    if (edge > 0.5 && fract(atan(off.y, off.x)*12.0 + uTime*0.1) > 0.5) col = mix(col, vec3(0.45,0.95,0.9), 0.7);
+    if (edge > 0.5 && fract(atan(off.y, off.x)*12.0 + uTime*0.1) > 0.6) col = mix(col, vec3(0.25,0.69,0.63), 0.6);
   }
   o = vec4(col, 1.0);
 }`;
@@ -139,7 +139,7 @@ vec4 galCol(vec2 q, int type, float arms, float pitch, float rot, int flags, uin
   float wc = clamp(core*2.4/(D+0.02), 0.0, 1.0);
   int rr = wc > d ? cr : ar;
   vec3 c = rampC(rr, br*1.05, d);
-  if (hii > 0.25 && fog < 0.5) c = rampC(R_pink, 0.45+hii*0.4, d);
+  if (hii > 0.38 && fog < 0.5) c = rampC(R_gHii, 0.28+hii*0.4, d);
   if (dust > 0.45 && L < 0.6) c = mix(c, rampAt(R_dust,1), 0.6);
   if (fog > 0.0) c = fogTint(c, fog, d);
   return vec4(c, 1.0);
@@ -181,16 +181,16 @@ void main(){
     float L = 3.2*(0.25+sinI); float w = 0.05 + abs(along)*0.05;
     if (abs(along) < L && abs(along) > 0.05 && abs(across) < w) {
       float k = 1.0 - abs(along)/L; float knot = 0.6+0.4*sin(abs(along)*18.0 - uTime*3.0);
-      if (k*knot > d*0.8) g = vec4(rampC((flags&64)!=0 ? R_sWht : R_sBlu, 0.5+0.5*k, d), 1.0); }
+      if (k*knot > d*0.8) g = vec4(rampC((flags&64)!=0 ? R_sWht : R_gArm, 0.5+0.5*k, d), 1.0); }
     if ((flags&128)!=0 || (flags&64)!=0) { float rr = length(s); float gl = exp(-rr*rr*((flags&128)!=0?18.0:40.0)); if (gl > d) g = vec4(rampC(R_sWht, 0.6+0.4*gl, d), 1.0);
-      if ((flags&128)!=0 && (abs(s.x)<0.03 || abs(s.y)<0.03) && rr < 0.9 && (1.0-rr) > d) g = vec4(rampC(R_sBlu, 0.9-rr*0.5, d), 1.0); }
+      if ((flags&128)!=0 && (abs(s.x)<0.03 || abs(s.y)<0.03) && rr < 0.9 && (1.0-rr) > d) g = vec4(rampC(R_gArm, 0.9-rr*0.5, d), 1.0); }
   }
   if ((flags&2)!=0) { // Fermi bubbles: two lobes along the axis
     for (int sgn=-1; sgn<=1; sgn+=2) { vec2 cc = n*float(sgn)*0.33*(0.4+sinI*0.6); float e = abs(length((s-cc)*vec2(1.0,1.0)) - 0.3);
-      if (e < 0.025 + 0.6/fRpx && g.a < 0.5) g = vec4(rampC(R_magenta, 0.6, d), 1.0); } }
+      if (e < 0.025 + 0.6/fRpx && g.a < 0.5) g = vec4(rampC(R_gHii, 0.6, d), 1.0); } }
   if ((flags&8)!=0) { // tidal stream: a faint arc torn off the disk
     float rr = length(q), an = atan(q.y,q.x); float e = abs(rr - 1.35 - 0.15*sin(an*1.5));
-    if (e < 0.03 && an > 0.2 && an < 2.4 && g.a < 0.5 && d < 0.6) g = vec4(rampC(R_blue, 0.35, d), 1.0); }
+    if (e < 0.03 && an > 0.2 && an < 2.4 && g.a < 0.5 && d < 0.6) g = vec4(rampC(R_teal, 0.35, d), 1.0); }
   if (g.a < 0.5) discard;
   o = g;
 }`;
@@ -201,7 +201,7 @@ in vec2 vP; out vec4 o;
 uniform vec2 uRes; uniform float uAspect, uH, uTime;
 uniform ivec2 uI; uniform vec2 uF;          // camera in kly (split by 64)
 uniform float uR, uC, uPa; uniform int uType, uFlags, uCr, uAr; uniform float uArms, uPitch, uRot; uniform uint uSeed, uGSeed;
-uniform vec4 uChart[24]; uniform int uNChart; uniform float uFogOn;
+uniform vec4 uChart[64]; uniform int uNChart; uniform float uFogOn;
 float star(ivec2 cell, vec2 fl, float S, float pix, float D, float k, uint s, out float h2){
   float h = h01(ivec3(cell, 3), s); h2 = h01(ivec3(cell, 4), s);
   if (h > 1.0 - exp(-D*k)) return 0.0;
@@ -218,7 +218,7 @@ void main(){
   // chart fog
   float fog = 0.0, edge = 0.0;
   if (uFogOn > 0.5) { float ch = 0.0;
-    for (int i=0;i<24;i++){ if(i>=uNChart) break; float dd = length(offU - uChart[i].xy) - uChart[i].z; ch = max(ch, smoothstep(pix*2.0, -pix*2.0, dd)); edge = max(edge, 1.0 - smoothstep(0.0, pix*1.2, abs(dd))); }
+    for (int i=0;i<64;i++){ if(i>=uNChart) break; float dd = length(offU - uChart[i].xy) - uChart[i].z; ch = max(ch, smoothstep(pix*2.0, -pix*2.0, dd)); edge = max(edge, 1.0 - smoothstep(0.0, pix*1.2, abs(dd))); }
     fog = (1.0-ch)*0.9; }
   vec4 g = galCol(q, uType, uArms, uPitch, uRot, uFlags, uGSeed, uCr, uAr, pix/uR, d, fog);
   float arm, core, dust, hii; float D = galD(q, uType, uArms, uPitch, uRot, uFlags, uGSeed, 3, arm, core, dust, hii);
@@ -243,7 +243,7 @@ void main(){
       col = rampC(rr, L2==3 ? 0.25+0.15*h2 : 0.6+0.4*k, d); al = 1.0; }
   }
   if (fog > 0.0) col = fogTint(col, fog, d);
-  if (edge > 0.5 && fract(atan(offU.y,offU.x)*10.0 + uTime*0.15) > 0.5) { col = vec3(0.45,0.95,0.9); al = 1.0; }
+  if (edge > 0.5 && fract(atan(offU.y,offU.x)*10.0 + uTime*0.15) > 0.6) { col = mix(col, vec3(0.25,0.69,0.63), 0.75); al = 1.0; }
   if (al < 0.01) { o = vec4(0.0); return; }
   o = vec4(col*al, al);
 }`;
