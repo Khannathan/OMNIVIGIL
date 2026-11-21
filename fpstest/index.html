@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FPS TEST</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Silkscreen&family=Chakra+Petch:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<canvas id="px"></canvas>
+<canvas id="ov"></canvas>
+<div id="ui">
+  <header id="top">
+    <div class="brand"><b>OMNIVIGIL</b><span>FPS TEST</span></div>
+    <div class="grp">
+      <select id="preset" title="Which system to load">
+        <option value="seed">Seeded system</option>
+        <option value="sol">Sol (calibration)</option>
+        <option value="dying">Dying Sun</option>
+        <option value="massive">Massive star</option>
+        <option value="reddwarf">Red dwarf</option>
+      </select>
+      <input id="seed" spellcheck="false" autocomplete="off" title="Seed"><button id="roll" title="New random seed">Roll</button>
+    </div>
+    <button id="helpBtn" title="What is simulated (?)">?</button>
+  </header>
+  <div id="right"><div id="fps">
+    <div class="big"><b id="fpsN">--</b><span>FPS</span></div>
+    <canvas id="fpsG" width="132" height="30"></canvas>
+    <div id="fpsT"></div>
+  </div>
+  <aside id="side"></aside></div>
+  <nav id="tools">
+    <div class="lbl">Show</div>
+    <button data-t="orbits" title="Orbits (O)"><i>O</i>Orbits</button>
+    <button data-t="hz" title="Habitable zone and snow line (H)"><i>H</i>Habitable zone</button>
+    <button data-t="wells" title="Gravity wells (G)"><i>G</i>Gravity wells</button>
+    <button data-t="hill" title="Hill spheres (I)"><i>I</i>Hill spheres</button>
+    <button data-t="modes" title="Colour bodies by physics mode (M)"><i>M</i>Physics modes</button>
+    <button data-t="trails" title="Trails (T)"><i>T</i>Trails</button>
+    <button data-t="labels" title="Labels (L)"><i>L</i>Labels</button>
+    <div class="lbl">Do</div>
+    <button data-a="probe" title="Launch a probe from the selected planet (P)"><i>P</i>Launch probe</button>
+    <button data-a="rogue" title="Send a rogue star through (R)"><i>R</i>Rogue star</button>
+    <button data-a="comets" title="Add 300 comets on crossing orbits (C)"><i>C</i>Comet swarm</button>
+    <button data-a="bench" title="Ramp up bodies until the frame rate drops (B)"><i>B</i>Run FPS test</button>
+    <div class="lbl">Asteroids <em id="swN">0</em></div>
+    <input type="range" id="sw" min="0" max="100" value="30" title="Asteroid count (stress test)">
+    <div class="lbl">Pixel size</div>
+    <div class="seg" id="pxs"><button data-px="2">2</button><button data-px="3">3</button><button data-px="4">4</button></div>
+  </nav>
+  
+  <footer id="bottom">
+    <div class="row">
+      <button id="pause" title="Pause (Space)">❚❚</button>
+      <label>Orbit time</label><input type="range" id="speed" min="0" max="11" value="4"><span id="speedT"></span>
+      <span id="limited" class="warn hidden" title="Close encounters need small time steps, so the clock is slowed to keep the physics right">gravity-limited</span>
+    </div>
+    <div class="row">
+      <button id="evolve" title="Run the star's life forward (E)">Evolve ▶</button>
+      <label>Star age</label><input type="range" id="age" min="0" max="1000" value="400"><span id="ageT"></span>
+    </div>
+  </footer>
+  <div id="toast"></div>
+  <div id="hint" class="hidden"></div>
+  <div id="help" class="panel hidden"></div>
+</div>
+<script type="module" src="./src/main.ts"></script>
+</body>
+</html>
