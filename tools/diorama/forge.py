@@ -73,6 +73,26 @@ class Prim:
                 n = np.array(k['cut'][:3], float); n = n / np.linalg.norm(n)
                 out = np.maximum(out, q @ n - k['cut'][3])
             return out
+        if self.kind == 'tor':  # torus: axis, R (ring radius), r (tube radius)
+            ax = 'xyz'.index(k.get('axis', 'z'))
+            o = [i for i in range(3) if i != ax]
+            a = np.linalg.norm(q[:, o], axis=1) - k['R']
+            return np.sqrt(a * a + q[:, ax] ** 2) - k['r']
+        if self.kind == 'cone':  # capped cone along z: r0 bottom, r1 top, hz half height
+            r0, r1, hz = k['r0'], k['r1'], k['hz']
+            qx = np.linalg.norm(q[:, :2], axis=1); qy = q[:, 2]
+            k1 = np.array([r1, hz]); k2 = np.array([r1 - r0, 2 * hz])
+            cax = qx - np.minimum(qx, np.where(qy < 0, r0, r1)); cay = np.abs(qy) - hz
+            Q = np.stack([qx, qy], 1)
+            tt = np.clip(((k1[None] - Q) @ k2) / (k2 @ k2), 0, 1)
+            cb = Q - k1[None] + k2[None] * tt[:, None]
+            sgn = np.where((cb[:, 0] < 0) & (cay < 0), -1.0, 1.0)
+            return sgn * np.sqrt(np.minimum(cax ** 2 + cay ** 2, (cb ** 2).sum(1)))
+        if self.kind == 'pyr':  # box whose x/y half sizes shrink to taper*h at the top
+            hx, hy, hz = k['h']; tp = k.get('taper', 0.5)
+            f = 1 - (1 - tp) * np.clip((q[:, 2] + hz) / (2 * hz), 0, 1)
+            d = np.stack([np.abs(q[:, 0]) - hx * f, np.abs(q[:, 1]) - hy * f, np.abs(q[:, 2]) - hz], 1)
+            return (np.linalg.norm(np.maximum(d, 0), axis=1) + np.minimum(d.max(axis=1), 0)) * 0.8
         if self.kind == 'oct':
             s = np.array(k.get('s', (1, 1, 1)), float)
             return (np.abs(q / s).sum(axis=1) - k['r']) * 0.57735 * s.min()
@@ -140,11 +160,11 @@ def scene_sdf(prims, p):
     return best, mat
 
 
-def render(parts, pose, w, h, origin, decals=(), shade_bias=0.0, dim=0):
+def render(parts, pose, w, h, origin, decals=(), shade_bias=0.0, dim=0, scale=1.0):
     """origin: screen pixel of world (0,0,0). Returns (h,w) array of tokens (None = clear)."""
     prims = build_world(parts, pose)
     ys, xs = np.mgrid[0:h, 0:w]
-    sx = (xs + 0.5 - origin[0]).ravel(); sy = (ys + 0.5 - origin[1]).ravel()
+    sx = (xs + 0.5 - origin[0]).ravel() / scale; sy = (ys + 0.5 - origin[1]).ravel() / scale
     y0 = -40.0
     p = np.stack([sx - 0.5 * y0, np.full_like(sx, y0), -sy - 0.5 * y0], 1)
     t = np.zeros(len(p)); hit = np.zeros(len(p), bool); alive = np.ones(len(p), bool)
@@ -211,11 +231,11 @@ def render(parts, pose, w, h, origin, decals=(), shade_bias=0.0, dim=0):
             Rw, Tw = _part_xf(parts, pose, part)
             wp = Rw @ np.array(wp, float) + Tw
         wp = np.array(wp, float)
-        px = wp[0] + 0.5 * wp[1] + origin[0]; py = -wp[2] - 0.5 * wp[1] + origin[1]
+        px = (wp[0] + 0.5 * wp[1]) * scale + origin[0]; py = (-wp[2] - 0.5 * wp[1]) * scale + origin[1]
         ix, iy = int(math.floor(px)), int(math.floor(py))
         if 0 <= ix < w and 0 <= iy < h and grid[iy, ix] is not None:
             # depth of the decal along the view vs the surface there
-            sx_, sy_ = ix + 0.5 - origin[0], iy + 0.5 - origin[1]
+            sx_, sy_ = (ix + 0.5 - origin[0]) / scale, (iy + 0.5 - origin[1]) / scale
             tt = (wp - np.array([sx_ + 20, -40, -sy_ + 20])) @ VIEW
             if tt <= depth[iy, ix] + 1.5:
                 grid[iy, ix] = tok
