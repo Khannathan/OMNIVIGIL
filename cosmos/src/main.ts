@@ -17,13 +17,14 @@ import { findNearest, nearestGalaxies, locForBody, Found } from './gen/search';
 import { fmtCount, nameWord } from './core/names';
 import * as UI from './ui/panels';
 import { fleet, renderPanel } from './ui/fleet';
+import { surface } from './surface/surface';
 
 export interface Sel { kind: 'galaxy' | 'ufeat' | 'gfeat' | 'star' | 'body' | 'entry'; ref: any; sys?: StarSystem; gal?: Galaxy }
 export const app = {
   seed: '', uni: null as unknown as Universe, cam: null as unknown as Camera, rend: null as unknown as Renderer, chart: null as unknown as Chart,
   fly: null as Fly | null, hover: null as Pick | null, sel: null as Sel | null, time: 0, photo: false, tilt: 35, photoLabels: false, home: null as null | { gal: string; sys: string },
   tour: null as null | { stop: boolean }, audio: new Ambient(), events: [] as Ev[], nextEv: 3, saveShot: false, fps: 60, searchCancel: 0,
-  timeRate: 1, paused: false,
+  timeRate: 1, paused: false, surf: surface,
 };
 interface Ev { ref: any; e: Entry; t0: number; col: string; where: string; kind: string }
 
@@ -34,6 +35,7 @@ let rend: Renderer;
 try { rend = new Renderer(glc); app.rend = rend; } catch (err) {
   document.getElementById('boot')!.innerHTML = `<div><b>OMNIVIGIL</b><span>${(err as Error).message} Try a recent Chrome, Edge, Firefox or Safari.</span></div>`; throw err;
 }
+surface.onChange = () => { UI.tip(null); };
 const RATES = [0, 0.05, 0.25, 1, 4, 16, 64, 365];
 let rateIdx = 3;
 
@@ -63,6 +65,7 @@ async function findHome(): Promise<{ gal: string; sys: string }> {
 }
 export async function boot(seedStr: string, loc?: Loc, intro = true) {
   app.seed = seedStr; setLastSeed(seedStr); (document.getElementById('seed') as HTMLInputElement).value = seedStr;
+  if (surface.active) surface.exit(app.cam as Camera);
   app.uni = new Universe(strSeed(seedStr)); app.cam = new Camera(app.uni); app.chart = new Chart(seedStr); app.fly = null; app.sel = null; app.hover = null; app.events = [];
   UI.closeInfo();
   const ss = seedSave(seedStr);
@@ -79,7 +82,7 @@ export async function boot(seedStr: string, loc?: Loc, intro = true) {
 }
 
 // ------------------------------------------------------------------ flying, selection
-export function flyTo(l: Loc, speed = 1, done?: () => void) { app.fly = new Fly(app.cam, l, speed); app.fly.onDone = done; }
+export function flyTo(l: Loc, speed = 1, done?: () => void) { if (surface.active) surface.exit(app.cam); app.fly = new Fly(app.cam, l, speed); app.fly.onDone = done; }
 export function stopAuto() { app.fly = null; if (app.tour) { app.tour.stop = true; app.tour = null; UI.caption(null); } }
 export function locOfSel(s: Sel): Loc | null {
   const r = s.ref;
@@ -126,35 +129,48 @@ export async function find(id: string, onProg: (s: string) => void): Promise<Fou
 }
 
 // ------------------------------------------------------------------ input
-let drag: { x: number; y: number; moved: number; id: number } | null = null; const pointers = new Map<number, { x: number; y: number }>(); let pinch0 = 0;
+let drag: { x: number; y: number; moved: number; id: number; btn: number } | null = null; const pointers = new Map<number, { x: number; y: number }>(); let pinch0 = 0;
 const toOff = (cx: number, cy: number): [number, number] => { const H = app.cam.H, h = innerHeight; return [(cx - innerWidth / 2) * 2 * H / h, -(cy - h / 2) * 2 * H / h]; };
-glc.addEventListener('wheel', e => { e.preventDefault(); stopAuto(); const [ox, oy] = toOff(e.clientX, e.clientY); const d = e.deltaMode === 1 ? e.deltaY * 30 : e.deltaY; app.cam.zoomAt(ox, oy, Math.exp(Math.max(-300, Math.min(300, d)) * 0.0016)); autoFollow(); }, { passive: false });
-glc.addEventListener('pointerdown', e => { glc.setPointerCapture(e.pointerId); pointers.set(e.pointerId, { x: e.clientX, y: e.clientY }); if (pointers.size === 1) drag = { x: e.clientX, y: e.clientY, moved: 0, id: e.pointerId }; else { drag = null; const [a, b] = [...pointers.values()]; pinch0 = Math.hypot(a.x - b.x, a.y - b.y); } });
+glc.addEventListener('wheel', e => { e.preventDefault(); stopAuto(); const d = e.deltaMode === 1 ? e.deltaY * 30 : e.deltaY; zoomAtScreen(e.clientX, e.clientY, Math.exp(Math.max(-300, Math.min(300, d)) * 0.0016)); }, { passive: false });
+/** One zoom step at a screen point, across every frame: universe, galaxy, system and the planet surface. */
+function zoomAtScreen(cx: number, cy: number, f: number) {
+  const cam = app.cam;
+  if (surface.active) { surface.zoom(f, cam, cx, cy); if (!surface.active) autoFollow(); return; }
+  const [ox, oy] = toOff(cx, cy); cam.zoomAt(ox, oy, f); autoFollow();
+  if (f < 1 && surface.tryEnter(cam)) surface.sync(cam);
+}
+glc.addEventListener('pointerdown', e => { glc.setPointerCapture(e.pointerId); pointers.set(e.pointerId, { x: e.clientX, y: e.clientY }); if (pointers.size === 1) drag = { x: e.clientX, y: e.clientY, moved: 0, id: e.pointerId, btn: e.button }; else { drag = null; const [a, b] = [...pointers.values()]; pinch0 = Math.hypot(a.x - b.x, a.y - b.y); } });
 glc.addEventListener('pointermove', e => {
   const pp = pointers.get(e.pointerId);
-  if (pp && pointers.size === 2) { pp.x = e.clientX; pp.y = e.clientY; const [a, b] = [...pointers.values()]; const d = Math.hypot(a.x - b.x, a.y - b.y); if (pinch0 > 0) { const [ox, oy] = toOff((a.x + b.x) / 2, (a.y + b.y) / 2); stopAuto(); app.cam.zoomAt(ox, oy, pinch0 / d); } pinch0 = d; return; }
+  if (pp && pointers.size === 2) { pp.x = e.clientX; pp.y = e.clientY; const [a, b] = [...pointers.values()]; const d = Math.hypot(a.x - b.x, a.y - b.y); if (pinch0 > 0) { stopAuto(); zoomAtScreen((a.x + b.x) / 2, (a.y + b.y) / 2, pinch0 / d); } pinch0 = d; return; }
   if (drag && drag.id === e.pointerId) { const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.moved += Math.abs(dx) + Math.abs(dy);
-    if (drag.moved > 3) { stopAuto(); const k = 2 * app.cam.H / innerHeight; app.cam.pan(dx * k, -dy * k); } drag.x = e.clientX; drag.y = e.clientY; }
+    if (drag.moved > 3) { stopAuto(); if (surface.active) { if (drag.btn === 2 || e.shiftKey) surface.turnBy(-dx * 0.006); else surface.pan(dx, dy, app.cam); } else { const k = 2 * app.cam.H / innerHeight; app.cam.pan(dx * k, -dy * k); } } drag.x = e.clientX; drag.y = e.clientY; }
   hoverAt(e.clientX, e.clientY);
 });
 const up = (e: PointerEvent) => { pointers.delete(e.pointerId); if (drag && drag.id === e.pointerId) { if (drag.moved <= 3) clickAt(e.clientX, e.clientY); drag = null; } if (pointers.size < 2) pinch0 = 0; };
 glc.addEventListener('pointerup', up); glc.addEventListener('pointercancel', up);
 glc.addEventListener('pointerleave', () => { app.hover = null; UI.tip(null); });
+glc.addEventListener('contextmenu', e => e.preventDefault());
 glc.addEventListener('dblclick', e => {
+  if (surface.active) { stopAuto(); surfZoom = { cx: e.clientX, cy: e.clientY, left: 0.45 }; return; }
   const p = pickAt(e.clientX, e.clientY);
   if (p && ['ship', 'station', 'slot', 'cell'].includes(p.kind as string)) return;
   if (p) { const s = selFromPick(p); const l = locOfSel(s); if (l) { stopAuto(); select(s); flyTo(l, 1.2, () => { if (s.kind === 'body' && app.cam.sys) select({ ...s, sys: app.cam.sys }); }); } }
   else { const [ox, oy] = toOff(e.clientX, e.clientY); stopAuto(); smoothZoom(ox, oy, 0.25); }
 });
 let zoomAnim: { ox: number; oy: number; f: number; left: number } | null = null;
+let surfZoom: { cx: number; cy: number; left: number } | null = null;
 function smoothZoom(ox: number, oy: number, f: number) { zoomAnim = { ox, oy, f, left: 0.45 }; }
 function pickAt(cx: number, cy: number): Pick | null {
   const ps = rend.ps, bx = cx / ps, by = rend.bh - cy / ps; let best: Pick | null = null, bs = 1e9;
   for (const p of rend.picks) { if (p.r <= 0) continue; const d = Math.hypot(p.x - bx, p.y - by); if (d > p.r + 5) continue; const sc = d / (p.r + 5) - p.pri * 0.001; if (sc < bs) { bs = sc; best = p; } }
   return best;
 }
-function hoverAt(cx: number, cy: number) { if (app.photo) return; const p = pickAt(cx, cy); app.hover = p; UI.tip(p ? { p, x: cx, y: cy } : null); }
-function clickAt(cx: number, cy: number) { const p = pickAt(cx, cy); if (fleet.click(p)) return; if (p && ['ship', 'station', 'slot', 'cell'].includes(p.kind as string)) return; if (p) select(selFromPick(p)); else select(null); }
+function hoverAt(cx: number, cy: number) { if (app.photo) return;
+  if (surface.active && surface.kb > 0.05) { const h = surface.hover(cx, cy); app.hover = null; UI.tipHTML(h, cx, cy); return; }
+  const p = pickAt(cx, cy); app.hover = p; UI.tip(p ? { p, x: cx, y: cy } : null); }
+function clickAt(cx: number, cy: number) { if (surface.active && surface.kb > 0.05) { surface.click(cx, cy); UI.tipHTML(surface.hover(cx, cy), cx, cy); return; }
+  const p = pickAt(cx, cy); if (fleet.click(p)) return; if (p && ['ship', 'station', 'slot', 'cell'].includes(p.kind as string)) return; if (p) select(selFromPick(p)); else select(null); }
 function autoFollow() {
   const cam = app.cam; if (!cam.sys || cam.follow >= 0) return;
   const pos = new Float64Array(2); const { bodyPos } = sysMod;
@@ -174,6 +190,9 @@ addEventListener('keydown', e => {
   else if (k === 'Enter' && app.sel) { const l = locOfSel(app.sel); if (l) { stopAuto(); flyTo(l); } }
   else if (k === ' ') { e.preventDefault(); app.paused = !app.paused; UI.timeLabel(); }
   else if (k === 'l') { S.labels = !S.labels; save(); }
+  else if (k === 'g') { surface.grid = !surface.grid; toast(surface.grid ? 'Combat grid on: one cell per terrain tile.' : 'Combat grid off.'); }
+  else if (k === ',' || k === '<') surface.turnBy(0.25); else if (k === '.' || k === '>') surface.turnBy(-0.25);
+  else if (k === 'n' && surface.active && surface.units.length) { surface.endTurn(); toast(`Turn ${surface.turn}: the squad has its moves back.`); }
 });
 addEventListener('keyup', e => keys.delete(e.key.toLowerCase()));
 function keyMove(dt: number) {
@@ -182,8 +201,9 @@ function keyMove(dt: number) {
   if (keys.has('a') && false) dx -= 1; if (keys.has('arrowleft')) dx -= 1; if (keys.has('d') || keys.has('arrowright')) dx += 1;
   if (keys.has('e') || keys.has('=') || keys.has('+')) dz -= 1; if (keys.has('q') || keys.has('-')) dz += 1;
   if (!dx && !dy && !dz) return; stopAuto();
+  if (surface.active) { if (dx || dy) surface.pan(-dx * innerHeight * 0.6 * dt, dy * innerHeight * 0.6 * dt, app.cam); if (dz) zoomAtScreen(innerWidth / 2, innerHeight / 2, Math.exp(dz * 1.6 * dt)); return; }
   const H = app.cam.H; if (dx || dy) app.cam.pan(-dx * H * 1.2 * dt, -dy * H * 1.2 * dt);
-  if (dz) { app.cam.zoomAt(0, 0, Math.exp(dz * 1.6 * dt)); autoFollow(); }
+  if (dz) zoomAtScreen(innerWidth / 2, innerHeight / 2, Math.exp(dz * 1.6 * dt));
 }
 
 // ------------------------------------------------------------------ actions
@@ -275,7 +295,7 @@ function drawOverlay() {
   // selection reticle
   const sel = app.sel; if (sel) { const p = rend.picks.find(q => q.ref === sel.ref); if (p) { const x = sx(p.x), y = sy(p.y), r = Math.max(p.r * ps, 10) + 6; const t = app.time * 2;
     octx.strokeStyle = '#7cf4da'; octx.lineWidth = 1.5; for (let i = 0; i < 4; i++) { const a0 = t + i * Math.PI / 2; octx.beginPath(); octx.arc(x, y, r, a0, a0 + 0.7); octx.stroke(); } } }
-  fleet.overlay(octx, rend);
+  if (surface.active) surface.overlay(octx, S.labels || app.photo && app.photoLabels); else fleet.overlay(octx, rend);
   // labels
   if (!S.labels && !app.photo) return;
   const L = rend.labels.sort((a, b) => b.pri - a.pri); const boxes: number[][] = [];
@@ -304,14 +324,17 @@ function loop(now: number) {
   const cam = app.cam;
   if (app.fly) { app.fly.step(dt); if (app.fly && app.fly.done) app.fly = null; }
   if (zoomAnim) { const k = Math.min(dt, zoomAnim.left); cam.zoomAt(zoomAnim.ox * (1 - Math.pow(zoomAnim.f, k / 0.45)), zoomAnim.oy * (1 - Math.pow(zoomAnim.f, k / 0.45)), Math.pow(zoomAnim.f, k / 0.45)); zoomAnim.ox *= Math.pow(zoomAnim.f, k / 0.45); zoomAnim.oy *= Math.pow(zoomAnim.f, k / 0.45); zoomAnim.left -= k; if (zoomAnim.left <= 0) zoomAnim = null; autoFollow(); }
+  if (surfZoom) { const k = Math.min(dt, surfZoom.left); zoomAtScreen(surfZoom.cx, surfZoom.cy, Math.pow(0.25, k / 0.45)); surfZoom.left -= k; if (surfZoom.left <= 0 || !surface.active) surfZoom = null; }
   keyMove(dt);
   if (!app.paused) cam.t += dt * RATES[rateIdx] * app.timeRate;
-  cam.updateFollow();
+  cam.updateFollow(); surface.sync(cam);
   app.chart.tick(dt);
   rend.tilt = app.photo ? app.tilt * Math.PI / 180 : 0; rend.renderK = app.photo && app.tilt > 0 ? 1 + app.tilt / 60 * 1.6 : 1;
   const views = cam.views(rend.renderK);
-  rend.frame({ cam, views, chart: app.chart, fog: S.fog, time: app.time, hover: app.hover?.ref, sel: app.sel?.ref, photo: app.photo, labels: app.photo ? app.photoLabels : S.labels });
-  fleet.draw(rend); rend.blit({ photo: app.photo });
+  rend.frame({ cam, views, chart: app.chart, fog: S.fog, time: app.time, hover: app.hover?.ref, sel: app.sel?.ref, photo: app.photo, labels: app.photo ? app.photoLabels : S.labels, hideBody: surface.active && surface.fade >= 1 ? surface.idx : -1 });
+  if (surface.active) { surface.render(rend, app.time); if (surface.kb > 0.05) { rend.picks = []; rend.labels = []; } }
+  else fleet.draw(rend);
+  rend.blit({ photo: app.photo });
   if (app.saveShot) { app.saveShot = false; const name = `omnivigil-${app.seed}-${Date.now() % 100000}.png`;
     glc.toBlob(async blob => { if (!blob) { toast2('Could not capture the view.'); return; }
       const cl: any = (window as any).claude; let dl: any = null; try { dl = cl?.use ? await cl.use('downloads') : null; } catch { dl = null; }
@@ -343,7 +366,7 @@ export function rateText() { const r = RATES[rateIdx]; if (app.paused || r === 0
   document.getElementById('boot')!.style.opacity = '0'; setTimeout(() => document.getElementById('boot')!.remove(), 900);
   requestAnimationFrame(loop);
   if (!S.tourSeen) { S.tourSeen = true; save(); setTimeout(() => toast('New here? Press T for a guided tour of this seed’s strangest finds.'), 7000); }
-  (window as any).OVC = { app, find, flyTo, boot };
+  (window as any).OVC = { app, find, flyTo, boot, surface, systemOf, toast };
 })();
 export function randomSeed(): string { const r = Math.floor(Math.random() * 1e9); return nameWord(r, 2, 2).toLowerCase() + '-' + (r % 10000); }
 export { fmtCount, ENTRIES, RARITY, RAR_COL, PHASES, portrait, BY_SLOT, OVR, SPECS, KLY_PER_MPC, AU_PER_KLY, KM_PER_AU, LY_PER_MPC, hu };

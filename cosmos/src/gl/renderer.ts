@@ -16,7 +16,7 @@ import { smooth, hu } from '../core/hash';
 
 export interface Pick { x: number; y: number; r: number; kind: 'galaxy' | 'ufeat' | 'gfeat' | 'star' | 'body'; ref: any; pri: number; label?: string; col?: string }
 export interface Label { text: string; x: number; y: number; pri: number; col: string; sub?: string; big?: boolean }
-export interface FrameIn { cam: Camera; views: Views; chart: Chart; fog: boolean; time: number; hover: any; sel: any; photo: boolean; labels: boolean }
+export interface FrameIn { cam: Camera; views: Views; chart: Chart; fog: boolean; time: number; hover: any; sel: any; photo: boolean; labels: boolean; hideBody?: number }
 
 const SL = new Map<string, StarLook>();
 const slook = (id: string) => { let s = SL.get(id); if (!s) { s = starLook(id); SL.set(id, s); } return s; };
@@ -259,7 +259,7 @@ export class Renderer {
       }
       disp = Math.max(b.R * ppu, b.kind === 'moon' ? 2 : b.giant ? 4.5 : 3);
       dispOf[i] = disp;
-      if (px < -disp * 4 - 4 || py < -disp * 4 - 4 || px > bw + disp * 4 + 4 || py > bh + disp * 4 + 4) {
+      if (i === F.hideBody || px < -disp * 4 - 4 || py < -disp * 4 - 4 || px > bw + disp * 4 + 4 || py > bh + disp * 4 + 4) {
         put(n, 0, -1e5, -1e5, 0, 1); put(n, 1, parentPx[0], parentPx[1], orbitPx, b.kind === 'moon' ? 2 : 1); put(n, 2, 0, -1, 0, 0); put(n, 3, -1, -1, -1, 0); put(n, 6, 0, 0, 0, hl); n++; continue;
       }
       const spin = (cam.t / (0.4 + (b.seed % 1000) / 400)) * 6.283 % 6.283;

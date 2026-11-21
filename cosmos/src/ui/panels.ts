@@ -60,16 +60,24 @@ function fmtDist(ly: number): [string, string] {
 let crumbKey = '';
 export function frameUI(v: Views) {
   const cam = app.cam; const wly = viewWidthLy(v); const [n, u] = fmtDist(wly);
+  const sf = (app as any).surf;
+  if (sf && sf.active && sf.w) {
+    const km = sf.kmAcross(); const fk = (x: number) => x >= 1000 ? `${Math.round(x).toLocaleString('en-US')} km` : x >= 10 ? `${Math.round(x)} km` : x >= 1 ? `${x.toFixed(1)} km` : `${Math.round(x * 1000)} m`;
+    $('scaleText').innerHTML = `Looking across <b>${fk(km)}</b><small>${esc(sf.w.body.name)} · ${esc(sf.level())}</small>`;
+    $('scaleBar').querySelector('span')!.textContent = fk(km * 120 / innerWidth);
+  } else {
   const what = cam.sys ? (cam.follow >= 0 ? cam.sys.bodies[cam.follow].name : cam.sys.ref.name + ' system') : cam.gal ? cam.gal.name : regionWord(v.U.x, v.U.y);
   $('scaleText').innerHTML = `Looking across <b>${n} ${u}</b><small>${esc(what)}</small>`;
   const bar = 120; const unitLy = wly * bar / innerWidth; const [bn, bu] = fmtDist(unitLy); $('scaleBar').querySelector('span')!.textContent = `${bn} ${bu}`;
+  }
   // crumbs
   const parts: { t: string; act: () => void }[] = [{ t: 'Universe ' + app.seed, act: () => flyTo({ x: v.U.x, y: v.U.y, H: 300 }) }];
   parts.push({ t: regionWord(v.U.x, v.U.y), act: () => flyTo({ x: v.U.x, y: v.U.y, H: 40 }) });
   if (cam.gal) { const g = cam.gal; parts.push({ t: g.name, act: () => flyTo({ x: g.x, y: g.y, H: g.Rm * 1.5 }) });
     if (v.G && v.G.H < g.R * 0.5) parts.push({ t: cam.gg!.regionLabel(v.G.x, v.G.y), act: () => flyTo({ gal: g.key, x: v.G!.x, y: v.G!.y, H: 4 }) }); }
   if (cam.sys) { const s = cam.sys; parts.push({ t: s.ref.name, act: () => flyTo({ gal: cam.gal!.key, sys: s.ref.key, x: 0, y: 0, H: s.pext * 1.15 }) });
-    if (cam.follow >= 0) { const b = s.bodies[cam.follow]; parts.push({ t: b.name, act: () => {} }); } }
+    if (cam.follow >= 0) { const b = s.bodies[cam.follow]; parts.push({ t: b.name, act: () => {} });
+      if (sf && sf.active) parts.push({ t: 'Surface · ' + sf.level(), act: () => {} }); } }
   const key = parts.map(p => p.t).join('|');
   if (key !== crumbKey) { crumbKey = key; const c = $('crumbs'); c.innerHTML = ''; parts.forEach((p, i) => { if (i) { const e = document.createElement('em'); e.textContent = '›'; c.appendChild(e); } const a = document.createElement('a'); a.textContent = p.t; a.onclick = () => { stopAuto(); p.act(); }; c.appendChild(a); }); }
   if (S.debug) {
@@ -85,6 +93,10 @@ function regionWord(x: number, y: number): string {
 }
 
 // ---------------------------------------------------------------- tooltip
+export function tipHTML(html: string, x: number, y: number) {
+  const el = $('tip'); if (!html) { el.classList.add('hidden'); return; }
+  el.innerHTML = html; el.classList.remove('hidden'); el.style.left = Math.min(x + 16, innerWidth - 310) + 'px'; el.style.top = Math.min(y + 14, innerHeight - 90) + 'px';
+}
 export function tip(t: { p: Pick; x: number; y: number } | null) {
   const el = $('tip'); if (!t) { el.classList.add('hidden'); return; }
   const { p } = t; const r = p.ref; let title = '', sub = '', line = '';
@@ -246,12 +258,13 @@ export function help(force?: boolean) {
   const h = $('help'); const show = force ?? h.classList.contains('hidden'); h.classList.toggle('hidden', !show); if (!show) return;
   h.innerHTML = `<h3>Controls</h3><table>
   <tr><td>Scroll / pinch</td><td>Zoom, seamlessly, from the cosmic web to a planet's surface</td></tr>
-  <tr><td>Drag</td><td>Pan</td></tr><tr><td>Click</td><td>Inspect anything; double-click to fly to it</td></tr>
+  <tr><td>Drag</td><td>Pan (on a planet's surface, right-drag or Shift-drag turns the view)</td></tr><tr><td>Click</td><td>Inspect anything; double-click to fly to it</td></tr>
   <tr><td>W S ← →, Q E</td><td>Pan and zoom with the keyboard</td></tr>
   <tr><td>/ &nbsp; A &nbsp; B &nbsp; K</td><td>Search, Cosmic Atlas, bookmarks, bookmark this view</td></tr>
   <tr><td>T &nbsp; H &nbsp; C</td><td>Guided tour, fly home, charting fog demo</td></tr>
   <tr><td>P &nbsp; M &nbsp; L</td><td>Photo mode, ambient sound, labels</td></tr>
   <tr><td>F</td><td>Fleets: jump lanes, intergalactic routes, orbital ring grid, ships and stations (End turn moves them)</td></tr>
+  <tr><td>On a planet</td><td>Keep zooming past the globe to reach continents, regions and streets. G shows the combat grid, &lt; &gt; turn the view. On your home world, click a squad unit, then a lit cell to move it; N ends the turn.</td></tr>
   <tr><td>Space</td><td>Pause orbits (the « » buttons change time speed)</td></tr>
   <tr><td>\` or F3</td><td>Frame rate and seed overlay</td></tr><tr><td>Esc</td><td>Close, stop a flight or the tour</td></tr></table>
   <p class="sub" style="margin-top:10px">Every seed is a whole, infinite universe. Nothing is stored until you change it: galaxies, stars and worlds are regrown from the seed wherever you look, so the same seed always gives the same cosmos. All 434 Cosmic Atlas entries live somewhere in it, rarer ones further out and where physics would put them.</p>
