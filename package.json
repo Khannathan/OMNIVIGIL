@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "typecheck": "tsc --noEmit",
-    "build": "node tools/bundle-packs.js && tsc --noEmit && vite build && node tools/make-artifact.js && python3 tools/make-itch.py"
+    "build": "node tools/bundle-packs.js && tsc --noEmit && vite build && node tools/make-artifact.js && python3 tools/make-itch.py",
+    "build:zero": "cd zero && vite build && node tools/inline.mjs"
   },
   "devDependencies": {
     "@types/three": "^0.170.0",

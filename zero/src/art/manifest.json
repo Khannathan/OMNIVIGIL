@@ -1,0 +1,679 @@
+{
+ "anims": {
+  "idle": [
+   0,
+   4,
+   220,
+   1
+  ],
+  "move": [
+   4,
+   4,
+   140,
+   1
+  ],
+  "attack": [
+   8,
+   3,
+   110,
+   0
+  ],
+  "death": [
+   11,
+   4,
+   160,
+   0
+  ]
+ },
+ "units": {
+  "trooper": {
+   "w": 44,
+   "h": 24,
+   "frames": 15,
+   "bodyH": 16,
+   "fly": false,
+   "asset": "spr_0446f65a",
+   "bodyW": 24
+  },
+  "mech": {
+   "w": 46,
+   "h": 42,
+   "frames": 15,
+   "bodyH": 36,
+   "fly": false,
+   "asset": "spr_d3145407",
+   "bodyW": 20
+  },
+  "tank": {
+   "w": 52,
+   "h": 32,
+   "frames": 15,
+   "bodyH": 23,
+   "fly": false,
+   "asset": "spr_7d784430",
+   "bodyW": 35
+  },
+  "drone": {
+   "w": 40,
+   "h": 24,
+   "frames": 15,
+   "bodyH": 13,
+   "fly": true,
+   "asset": "spr_08708966",
+   "bodyW": 24
+  },
+  "jet": {
+   "w": 50,
+   "h": 30,
+   "frames": 15,
+   "bodyH": 15,
+   "fly": true,
+   "asset": "spr_45a9e9ac",
+   "bodyW": 34
+  },
+  "bomber": {
+   "w": 48,
+   "h": 28,
+   "frames": 15,
+   "bodyH": 16,
+   "fly": true,
+   "asset": "spr_f369b0d2",
+   "bodyW": 28
+  },
+  "ship": {
+   "w": 52,
+   "h": 30,
+   "frames": 15,
+   "bodyH": 24,
+   "fly": false,
+   "asset": "spr_f96c7b3a",
+   "bodyW": 38
+  },
+  "sub": {
+   "w": 50,
+   "h": 22,
+   "frames": 15,
+   "bodyH": 17,
+   "fly": false,
+   "asset": "spr_8b09b8cc",
+   "bodyW": 36
+  },
+  "titan": {
+   "w": 62,
+   "h": 60,
+   "frames": 15,
+   "bodyH": 53,
+   "fly": false,
+   "asset": "spr_913a3541",
+   "bodyW": 32
+  },
+  "cyber": {
+   "w": 40,
+   "h": 29,
+   "frames": 15,
+   "bodyH": 16,
+   "fly": false,
+   "asset": "spr_dbbd8169",
+   "bodyW": 24
+  },
+  "beast": {
+   "w": 46,
+   "h": 26,
+   "frames": 15,
+   "bodyH": 21,
+   "fly": false,
+   "asset": "spr_81f42baf",
+   "bodyW": 34
+  },
+  "creatures/crawler": {
+   "w": 52,
+   "h": 26,
+   "frames": 15,
+   "bodyH": 17,
+   "bodyW": 32,
+   "fly": false,
+   "asset": "spr_2b1c931a"
+  },
+  "creatures/floater": {
+   "w": 34,
+   "h": 35,
+   "frames": 15,
+   "bodyH": 27,
+   "bodyW": 16,
+   "fly": true,
+   "asset": "spr_2b1c931a"
+  },
+  "creatures/strider": {
+   "w": 42,
+   "h": 40,
+   "frames": 15,
+   "bodyH": 35,
+   "bodyW": 19,
+   "fly": false,
+   "asset": "spr_2b1c931a"
+  },
+  "creatures/flyer": {
+   "w": 56,
+   "h": 37,
+   "frames": 15,
+   "bodyH": 23,
+   "bodyW": 30,
+   "fly": true,
+   "asset": "spr_2b1c931a"
+  },
+  "creatures/serpent": {
+   "w": 52,
+   "h": 27,
+   "frames": 15,
+   "bodyH": 10,
+   "bodyW": 33,
+   "fly": false,
+   "asset": "spr_2b1c931a"
+  },
+  "creatures/husk": {
+   "w": 40,
+   "h": 33,
+   "frames": 15,
+   "bodyH": 26,
+   "bodyW": 13,
+   "fly": false,
+   "asset": "spr_2b1c931a"
+  },
+  "creatures/kaiju": {
+   "w": 58,
+   "h": 41,
+   "frames": 15,
+   "bodyH": 34,
+   "bodyW": 41,
+   "fly": false,
+   "asset": "spr_2b1c931a"
+  },
+  "creatures/ab_skitterling": {
+   "w": 40,
+   "h": 20,
+   "frames": 15,
+   "bodyH": 12,
+   "bodyW": 17,
+   "fly": false,
+   "asset": "spr_2b1c931a"
+  },
+  "creatures/ab_tidecrawler": {
+   "w": 48,
+   "h": 28,
+   "frames": 15,
+   "bodyH": 17,
+   "bodyW": 24,
+   "fly": false,
+   "asset": "spr_2b1c931a"
+  },
+  "creatures/ab_maw": {
+   "w": 52,
+   "h": 32,
+   "frames": 15,
+   "bodyH": 23,
+   "bodyW": 26,
+   "fly": false,
+   "asset": "spr_2b1c931a"
+  },
+  "creatures/ab_riftback": {
+   "w": 56,
+   "h": 34,
+   "frames": 15,
+   "bodyH": 27,
+   "bodyW": 28,
+   "fly": false,
+   "asset": "spr_2b1c931a"
+  },
+  "creatures/ab_choir": {
+   "w": 34,
+   "h": 33,
+   "frames": 15,
+   "bodyH": 26,
+   "bodyW": 18,
+   "fly": true,
+   "asset": "spr_2b1c931a"
+  },
+  "creatures/ab_deepking": {
+   "w": 52,
+   "h": 58,
+   "frames": 15,
+   "bodyH": 57,
+   "bodyW": 20,
+   "fly": false,
+   "asset": "spr_2b1c931a"
+  },
+  "creatures/ab_sovereign": {
+   "w": 54,
+   "h": 55,
+   "frames": 15,
+   "bodyH": 55,
+   "bodyW": 20,
+   "fly": false,
+   "asset": "spr_2b1c931a"
+  },
+  "creatures/ab_mother": {
+   "w": 50,
+   "h": 27,
+   "frames": 15,
+   "bodyH": 18,
+   "bodyW": 29,
+   "fly": false,
+   "asset": "spr_2b1c931a"
+  },
+  "creatures/ab_lantern": {
+   "w": 18,
+   "h": 33,
+   "frames": 15,
+   "bodyH": 31,
+   "bodyW": 13,
+   "fly": false,
+   "asset": "spr_2b1c931a"
+  },
+  "corvette": {
+   "w": 46,
+   "h": 29,
+   "frames": 15,
+   "bodyH": 11,
+   "bodyW": 33,
+   "fly": true,
+   "asset": "spr_9cb68db2"
+  },
+  "frigate": {
+   "w": 56,
+   "h": 34,
+   "frames": 15,
+   "bodyH": 16,
+   "bodyW": 38,
+   "fly": true,
+   "asset": "spr_9cb68db2"
+  },
+  "dreadnought": {
+   "w": 62,
+   "h": 42,
+   "frames": 15,
+   "bodyH": 23,
+   "bodyW": 45,
+   "fly": true,
+   "asset": "spr_9cb68db2"
+  },
+  "station": {
+   "w": 52,
+   "h": 36,
+   "frames": 15,
+   "bodyH": 20,
+   "bodyW": 32,
+   "fly": true,
+   "asset": "spr_9cb68db2"
+  }
+ },
+ "studio": "https://studio.pixelwright.app/?cloud=prj_424e153f0fbc00b2",
+ "team": [
+  "#800080",
+  "#c000c0",
+  "#ff00ff"
+ ],
+ "statics": {
+  "structures/block": {
+   "w": 34,
+   "h": 27
+  },
+  "structures/tower": {
+   "w": 24,
+   "h": 37
+  },
+  "structures/spire": {
+   "w": 20,
+   "h": 26
+  },
+  "structures/dome": {
+   "w": 34,
+   "h": 20
+  },
+  "structures/reactor": {
+   "w": 34,
+   "h": 20
+  },
+  "structures/factory": {
+   "w": 36,
+   "h": 25
+  },
+  "structures/bunker": {
+   "w": 36,
+   "h": 16
+  },
+  "structures/citadel": {
+   "w": 34,
+   "h": 26
+  },
+  "structures/launch": {
+   "w": 34,
+   "h": 29
+  },
+  "structures/pylon": {
+   "w": 20,
+   "h": 30
+  },
+  "structures/silo": {
+   "w": 32,
+   "h": 19
+  },
+  "structures/lab": {
+   "w": 34,
+   "h": 23
+  },
+  "structures/monolith": {
+   "w": 20,
+   "h": 29
+  },
+  "structures/obelisk": {
+   "w": 20,
+   "h": 29
+  },
+  "structures/vat": {
+   "w": 34,
+   "h": 20
+  },
+  "structures/dish": {
+   "w": 26,
+   "h": 26
+  },
+  "structures/ring": {
+   "w": 32,
+   "h": 28
+  },
+  "structures/hive": {
+   "w": 34,
+   "h": 25
+  },
+  "structures/crystal": {
+   "w": 26,
+   "h": 25
+  },
+  "structures/pyramid": {
+   "w": 36,
+   "h": 27
+  },
+  "structures/spaceport": {
+   "w": 40,
+   "h": 23
+  },
+  "structures/habitat": {
+   "w": 32,
+   "h": 20
+  },
+  "structures/array": {
+   "w": 34,
+   "h": 14
+  },
+  "structures/elevator": {
+   "w": 28,
+   "h": 39
+  },
+  "sites/pt_data_hub": {
+   "w": 34,
+   "h": 18
+  },
+  "sites/pt_power_grid": {
+   "w": 34,
+   "h": 22
+  },
+  "sites/pt_industrial": {
+   "w": 34,
+   "h": 24
+  },
+  "sites/pt_foundry": {
+   "w": 34,
+   "h": 25
+  },
+  "sites/pt_financial": {
+   "w": 34,
+   "h": 30
+  },
+  "sites/pt_port": {
+   "w": 35,
+   "h": 21
+  },
+  "sites/pt_mine": {
+   "w": 36,
+   "h": 20
+  },
+  "sites/pt_base": {
+   "w": 34,
+   "h": 18
+  },
+  "sites/pt_campus": {
+   "w": 34,
+   "h": 18
+  },
+  "sites/pt_relay": {
+   "w": 30,
+   "h": 26
+  },
+  "sites/pt_unclaimed": {
+   "w": 32,
+   "h": 15
+  },
+  "sites/core": {
+   "w": 24,
+   "h": 29
+  },
+  "sites/rift": {
+   "w": 22,
+   "h": 26,
+   "boost": 1.7
+  }
+ },
+ "statics_note": "static map sprites, anchored bottom-centre; team parts magenta",
+ "fx": {
+  "muzzle": {
+   "w": 16,
+   "h": 16,
+   "frames": 3,
+   "asset": "spr_bccbbfae"
+  },
+  "impact": {
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "asset": "spr_bccbbfae"
+  },
+  "slash": {
+   "w": 16,
+   "h": 16,
+   "frames": 4,
+   "asset": "spr_bccbbfae"
+  },
+  "burst": {
+   "w": 48,
+   "h": 48,
+   "frames": 6,
+   "asset": "spr_478ba2f3"
+  }
+ },
+ "skins": {
+  "hardlight": {
+   "name": "Ascendant Hardlight",
+   "blurb": "Ink armour, bone plating, teal hardlight. The house style.",
+   "ink": [
+    "#0e111c",
+    "#182033",
+    "#25304d",
+    "#364670",
+    "#52679a"
+   ],
+   "bone": [
+    "#8b8d9e",
+    "#c3c4cb",
+    "#efede4"
+   ],
+   "core": [
+    "#0d6670",
+    "#1fb5ad",
+    "#7cf4da",
+    "#e9fff8"
+   ],
+   "ember": [
+    "#8a2c1e",
+    "#e2622c",
+    "#ffb35c"
+   ]
+  },
+  "goth": {
+   "name": "Industrial Gothic",
+   "blurb": "Soot-black iron, brass filigree, furnace light.",
+   "ink": [
+    "#14110f",
+    "#221c18",
+    "#33302f",
+    "#4d4946",
+    "#716b64"
+   ],
+   "bone": [
+    "#7a5e2e",
+    "#c9a86a",
+    "#efe0b0"
+   ],
+   "core": [
+    "#8a4a10",
+    "#e08a1e",
+    "#ffc552",
+    "#fff2c8"
+   ],
+   "ember": [
+    "#6a1810",
+    "#c43a1e",
+    "#ff7a3a"
+   ]
+  },
+  "noir": {
+   "name": "Neon Noir",
+   "blurb": "Wet black chrome under magenta and cyan signage.",
+   "ink": [
+    "#0a0710",
+    "#151022",
+    "#221a38",
+    "#3a2d5c",
+    "#5a4d82"
+   ],
+   "bone": [
+    "#4a4660",
+    "#8f8aa0",
+    "#cfc8c0"
+   ],
+   "core": [
+    "#7a0f5c",
+    "#ff2fb0",
+    "#ff8ae0",
+    "#ffe0f6"
+   ],
+   "ember": [
+    "#0d5a70",
+    "#20d0ff",
+    "#a0f4ff"
+   ]
+  },
+  "bio": {
+   "name": "Abyssal Biomech",
+   "blurb": "Deep-sea carapace, ivory bone, bioluminescent veins.",
+   "ink": [
+    "#071512",
+    "#0e2420",
+    "#173a33",
+    "#24564a",
+    "#3a7a66"
+   ],
+   "bone": [
+    "#8a7e6a",
+    "#c8b99a",
+    "#efe4cc"
+   ],
+   "core": [
+    "#2a5a14",
+    "#6ccf3a",
+    "#b8ff7a",
+    "#efffd8"
+   ],
+   "ember": [
+    "#5a0f1e",
+    "#c42848",
+    "#ff6a80"
+   ]
+  },
+  "glitch": {
+   "name": "Signal Corruption",
+   "blurb": "Void-black frames with red error light and green static.",
+   "ink": [
+    "#05060a",
+    "#0c0f18",
+    "#161b2a",
+    "#22293e",
+    "#343e5a"
+   ],
+   "bone": [
+    "#6a6f80",
+    "#b0b4c4",
+    "#f4f6ff"
+   ],
+   "core": [
+    "#6a0010",
+    "#ff1a3c",
+    "#ff7a8a",
+    "#ffe0e4"
+   ],
+   "ember": [
+    "#0a5a20",
+    "#2aff6a",
+    "#b0ffc8"
+   ]
+  },
+  "mono": {
+   "name": "Desert Monolith",
+   "blurb": "Sandstone hulls, limestone faces, sun-gold glyphs.",
+   "ink": [
+    "#2a1e14",
+    "#46331f",
+    "#6a4f30",
+    "#8f6e44",
+    "#b8925c"
+   ],
+   "bone": [
+    "#a89a80",
+    "#d8ccb0",
+    "#f6f0e0"
+   ],
+   "core": [
+    "#8a5a10",
+    "#e0a020",
+    "#ffd166",
+    "#fff4cc"
+   ],
+   "ember": [
+    "#6a2a14",
+    "#b8502a",
+    "#e88a50"
+   ]
+  }
+ },
+ "tbu": {
+  "cell": 48,
+  "asset": "spr_d9f8f80e",
+  "parts": [
+   "base/frame",
+   "head/sensor",
+   "head/crest",
+   "head/dome",
+   "arm/rifle",
+   "arm/blade",
+   "arm/cannon",
+   "back/missiles",
+   "back/radar",
+   "back/shield"
+  ],
+  "order": [
+   "back",
+   "base",
+   "head",
+   "arm"
+  ]
+ }
+}
