@@ -1,0 +1,546 @@
+// ------------------------------------------------------------------ the star system
+// World units: a planet of radius 1 is about one Terran world. Distances are compressed for play.
+// Everything the GPU sees is relative to the focus body, in units of its radius (so street level keeps precision).
+const SUN_R = 4.0, SUN_NAME = 'ORRIN';
+const LUNAR = { key:'lunar', label:'Moon', sea:-9, river:0, cloud:[0,0,0], atmo:[0,0,0], haze:[0.30,0.30,0.32], space:[0.02,0.02,0.04], r:1700 };
+BIOMES[6] = LUNAR;
+// exotic worlds, from the far end of theoretical planetology
+BIOMES.push(
+  { key:'hycean',     label:'Hycean',        name:'THALASSE',   sea:-0.15,river:0.000, cloud:[0.92,0.96,1.0], atmo:[0.30,0.72,0.95], haze:[0.45,0.65,0.75], space:[0.02,0.03,0.06], r:9800 },
+  { key:'eyeball',    label:'Eyeball',       name:'OCULUS',     sea:0.00, river:0.010, cloud:[0.92,0.86,0.80], atmo:[0.85,0.52,0.36], haze:[0.50,0.36,0.30], space:[0.04,0.02,0.03], r:5400 },
+  { key:'diamond',    label:'Diamond',       name:'ADAMANT',    sea:0.05, river:0.008, cloud:[0,0,0], atmo:[0.55,0.62,0.75], haze:[0.30,0.32,0.38], space:[0.02,0.02,0.04], r:7400 },
+  { key:'chthonian',  label:'Chthonian',     name:'KHTHON',     sea:0.07, river:0.022, cloud:[0,0,0],         atmo:[0,0,0],          haze:[0.35,0.18,0.10], space:[0.03,0.015,0.01], r:4200 },
+  { key:'computronium',label:'Computronium', name:'AXIOM',      sea:0.10, river:0.000, cloud:[0,0,0],         atmo:[0.25,0.90,0.70], haze:[0.12,0.32,0.28], space:[0.01,0.03,0.03], r:5000 },
+  { key:'rogue',      label:'Rogue',         name:'NOX',        sea:0.07, river:0.016, cloud:[0,0,0],         atmo:[0.40,0.22,0.65], haze:[0.08,0.06,0.14], space:[0.01,0.005,0.02], r:6200 },
+  { key:'gasgiant',   label:'Gas giant',     name:'TEMPEST',    sea:9.0,  river:0.000, cloud:[0,0,0],         atmo:[0.95,0.75,0.50], haze:[0.60,0.45,0.30], space:[0.03,0.02,0.02], r:19500 },
+  { key:'strange',    label:'Strange matter',name:'STRANGELET', sea:-0.03,river:0.012, cloud:[0,0,0],         atmo:[0.75,0.45,1.00], haze:[0.40,0.25,0.50], space:[0.03,0.01,0.05], r:3800 },
+  { key:'living',     label:'Living world',  name:'CORPUS',     sea:0.00, river:0.020, cloud:[0.95,0.78,0.78], atmo:[0.95,0.42,0.50], haze:[0.50,0.25,0.30], space:[0.04,0.01,0.02], r:6400 },
+);
+const SYS = [
+  { kind:'planet', b:10, R:0.7,  a:10,  ang:1.1 },
+  { kind:'planet', b:3,  R:0.85, a:15,  ang:2.3 },
+  { kind:'planet', b:9,  R:1.05, a:20,  ang:5.0 },
+  { kind:'planet', b:1,  R:0.9,  a:25,  ang:4.0 },
+  { kind:'planet', b:8,  R:0.95, a:29,  ang:2.9 },
+  { kind:'planet', b:0,  R:1.0,  a:34,  ang:0.0, home:true },
+  { kind:'planet', b:2,  R:0.75, a:40,  ang:1.0 },
+  { kind:'planet', b:7,  R:1.5,  a:46,  ang:3.7 },
+  { kind:'planet', b:5,  R:1.05, a:52,  ang:3.2 },
+  { kind:'planet', b:14, R:0.62, a:57,  ang:0.5 },
+  { kind:'planet', b:11, R:0.85, a:62,  ang:4.6 },
+  { kind:'planet', b:13, R:3.2,  a:78,  ang:2.0 },
+  { kind:'planet', b:4,  R:1.2,  a:96,  ang:5.4 },
+  { kind:'planet', b:15, R:1.1,  a:108, ang:0.9 },
+  { kind:'planet', b:12, R:1.0,  a:130, ang:3.9 },
+  { kind:'moon', p:5,  name:'ESK',   R:0.27, a:4.4, ph:0.6, per:240, tint:[1,1,1], outposts:[['ESK OUTPOST',0.009],['REGOLITH WORKS',0.006]] },
+  { kind:'moon', p:5,  name:'THRAE', R:0.15, a:5.6, ph:2.6, per:420, tint:[1.08,0.96,0.86] },
+  { kind:'moon', p:3,  name:'SPORA', R:0.2,  a:3.2, ph:1.4, per:200, tint:[1.04,0.9,1.12] },
+  { kind:'moon', p:6,  name:'SHARD', R:0.19, a:3.0, ph:4.0, per:180, tint:[0.88,0.98,1.14] },
+  { kind:'moon', p:1,  name:'CALX',  R:0.24, a:3.4, ph:5.0, per:260, tint:[1.14,0.95,0.78] },
+  { kind:'moon', p:12, name:'HOAR',  R:0.3,  a:4.6, ph:0.2, per:300, tint:[0.9,1.0,1.14] },
+  { kind:'moon', p:12, name:'GLINT', R:0.17, a:6.5, ph:3.3, per:500, tint:[1,1,1] },
+  { kind:'moon', p:11, name:'VESK',  R:0.45, a:6.5, ph:0.9, per:150, b:10, tint:[1.05,1.0,0.9] },
+  { kind:'moon', p:11, name:'ORRA',  R:0.3,  a:9.0, ph:3.0, per:260, tint:[1.1,1.02,0.92] },
+  { kind:'moon', p:11, name:'TALUS', R:0.55, a:12.5,ph:5.2, per:420, b:7,  tint:[0.95,1.0,1.05] },
+  { kind:'moon', p:14, name:'UMBRA', R:0.22, a:3.4, ph:1.9, per:230, tint:[0.7,0.72,0.9] },
+];
+let HOME = SYS.findIndex(s => s.home);
+const bodies = SYS.map((s, i) => {
+  const isM = s.kind === 'moon', bi = s.b != null ? s.b : 6, P = BIOMES[bi];
+  return { ...s, i, biome: bi, P, name: isM ? s.name : P.name, sea: P.sea, river: P.river, km: isM ? 6100*s.R : P.r,
+    tint: s.tint || [1,1,1], C: [0,0,0], cities: [], seed: 0 };
+});
+let SEED0 = 1337, SEA = 0, RIVER = 0.02, FOCUS = HOME;
+function useBody(i) { const b = bodies[i]; SEED = b.seed; BIOME = b.biome; SEA = b.sea; RIVER = b.river; SUNL = V.norm(V.mul(b.C, -1)); }
+let simT = 0;
+function placeBodies() {
+  for (const b of bodies) if (b.kind === 'planet') b.C = [b.a*Math.cos(b.ang), 0, b.a*Math.sin(b.ang)];
+  for (const b of bodies) if (b.kind === 'moon') { const P = bodies[b.p].C, th = b.ph + 2*Math.PI*simT/b.per; b.C = [P[0] + b.a*Math.cos(th), 0, P[2] + b.a*Math.sin(th)]; }
+}
+function seedAll() {
+  placeBodies();
+  bodies.forEach((b, i) => { b.seed = (i === HOME ? SEED0 : hsh(i, 99, 7, SEED0 >>> 0)) & 0xffffff; });   // 24 bits: the GPU gets it as a float
+  for (const b of bodies) {
+    useBody(b.i);
+    if (b.kind === 'planet' || b.biome !== 6) b.cities = placeCities(b.i === HOME ? 9 : b.kind === 'moon' ? 2 : 6, b.i === HOME);
+    else b.cities = (b.outposts || []).map(([name, r], k) => ({ d: V.norm(k ? [-0.45, 0.42, 0.79] : [0.28, 0.5, 0.82]), r, name }));
+  }
+  // the home world turns its main city to the star
+  const H0 = bodies[HOME], c0 = H0.cities[0];
+  if (c0) { const g = V.norm([c0.d[0], 0, c0.d[2]]); H0.ang = Math.atan2(-g[2], -g[0]); }
+  placeBodies();
+  bodies.forEach(b => { useBody(b.i); });
+  useBody(FOCUS);
+}
+
+// ------------------------------------------------------------------ cities
+function placeCities(want, main) {
+  const out = []; let tries = 0;
+  const rnd = (i) => h01(i, 77, SEED & 0xffff, SEED);
+  while (out.length < want && tries < 4000) {
+    tries++;
+    const u = rnd(tries*2)*2-1, ph = rnd(tries*2+1)*Math.PI*2, r = Math.sqrt(1-u*u);
+    const dn = V.norm([r*Math.cos(ph), u*0.85, r*Math.sin(ph)]);
+    if (BIOME === 13) { if (Math.abs(dn[1]) > 0.6 || out.some(c => V.dot(c.d, dn) > 0.985)) continue;
+      out.push({ d: dn, r: out.length ? 0.0012 + rnd(tries*3)*0.0012 : 0.0026, name: CITY_NAMES[(out.length + (SEED % 7)) % CITY_NAMES.length] }); continue; }
+    const h = H(dn[0], dn[1], dn[2], 9);
+    if (BIOME === 8) { const lc = landClass(dn[0], dn[1], dn[2], 9); if (lc === 'water' || lc === 'snow') continue; }
+    if (h < (out.length ? 0.03 : 0.006) || h > 0.3 || Math.abs(dn[1]) > 0.75) continue;
+    if (out.some(c => V.dot(c.d, dn) > 0.985)) continue;
+    const reach = out.length === 0 ? 0.008 : 0.03;
+    let coast = false; for (let a = 0; a < 12 && !coast; a++) { const e = V.norm(V.add(dn, [Math.cos(a)*reach, Math.sin(a*1.7)*reach, Math.sin(a)*reach])); if (H(e[0], e[1], e[2], 9) < 0) coast = true; }
+    if (!coast && out.length < 6 && tries < 3000) continue;
+    const big = out.length === 0;
+    out.push({ d: dn, r: big ? (main ? 0.0042 : 0.0034) : 0.0016 + rnd(tries*3)*0.0018, name: CITY_NAMES[(out.length + (SEED % 7)) % CITY_NAMES.length] });
+  }
+  const c0 = out[0];
+  if (c0 && BIOME !== 13) {
+    let best = null;
+    for (let a = 0; a < 24 && !best; a++) for (let k = 4; k <= 30; k++) {
+      const ang = a/24*Math.PI*2; const north = V.norm(V.sub([0,1,0], V.mul(c0.d, c0.d[1]))); const east = V.norm(V.cross(north, c0.d));
+      const p = V.norm(V.add(c0.d, V.add(V.mul(east, Math.cos(ang)*c0.r*k*0.1), V.mul(north, Math.sin(ang)*c0.r*k*0.1))));
+      if (H(p[0], p[1], p[2], 12) < 0) { if (!best || k < best.k) best = { k, ang }; break; }
+    }
+    const ang = best ? best.ang : 0; let north = V.norm(V.sub([0,1,0], V.mul(c0.d, c0.d[1]))); let east = V.norm(V.cross(north, c0.d));
+    if (best) {
+      const dirw = V.add(V.mul(east, Math.cos(ang)), V.mul(north, Math.sin(ang)));
+      const dw = best.k*0.1*c0.r; c0.d = V.norm(V.add(c0.d, V.mul(dirw, Math.max(0, dw - c0.r*0.95))));
+      north = V.norm(V.sub([0,1,0], V.mul(c0.d, c0.d[1]))); east = V.norm(V.cross(north, c0.d));
+    }
+    c0.edge = V.norm(V.add(c0.d, V.add(V.mul(east, Math.cos(ang)*c0.r*0.82), V.mul(north, Math.sin(ang)*c0.r*0.82))));
+    c0.hd = Math.PI/2 - ang;
+  }
+  return out;
+}
+const curCities = () => bodies[FOCUS].cities;
+function cityAt(d) { const cs = curCities(); for (let ci = 0; ci < cs.length; ci++) { const c = cs[ci]; const ang = Math.sqrt(Math.max(2*(1-V.dot(d, c.d)), 0)); const f = 1400/(c.r*250); const t = ang / c.r * (1 + 0.45*fbm(d[0]*f+ci, d[1]*f+ci, d[2]*f+ci, 5, (SEED ^ 0xE1) >>> 0)); if (t < 1) return t; } return 9; }
+
+// ------------------------------------------------------------------ camera
+// Body regime (D <= DB): orbit and ground views around a surface point T, as before.
+// System regime (D >= DS): look down on the ecliptic at a free point Q from a fixed tilt.
+// Between them the target, view direction and up vector blend, so the zoom never cuts.
+const DB = 3.4, DS = 14, TILT = 52*Math.PI/180, DMAXW = 520;
+const cam = { T: V.norm([0.35, 0.42, 0.84]), D: 3.2, hd: 0, Q: [0,0,0], sh: 0, fov: 30 };
+const clamp01 = x => Math.min(1, Math.max(0, x));
+function bodyK(D) { const x = clamp01((Math.log(D) - Math.log(DB)) / (Math.log(DS) - Math.log(DB))); return 1 - x*x*(3-2*x); }
+function sysDir(sh) { return [Math.sin(TILT)*Math.sin(sh), Math.cos(TILT), Math.sin(TILT)*Math.cos(sh)]; }
+const lerp3 = (a, b, t) => [a[0]+(b[0]-a[0])*t, a[1]+(b[1]-a[1])*t, a[2]+(b[2]-a[2])*t];
+let PX = 2;
+function frame() {
+  const T = cam.T, D = cam.D, kb = bodyK(D);
+  const lg = Math.log10(D);
+  const k = clamp01((-0.35 - lg) / 1.75); const kk = k*k*(3-2*k);
+  const pitch = kk * 52 * Math.PI / 180;
+  let north = V.sub([0,1,0], V.mul(T, T[1])); if (Math.hypot(...north) < 1e-6) north = [0,0,1]; north = V.norm(north);
+  const east = V.norm(V.cross(north, T));
+  const fh = V.add(V.mul(north, Math.cos(cam.hd)), V.mul(east, Math.sin(cam.hd)));
+  const offB = V.add(V.mul(T, Math.cos(pitch)), V.mul(fh, -Math.sin(pitch)));
+  const fwdB = V.mul(offB, -1), rightB = V.norm(V.cross(fh, T)), upB = V.norm(V.cross(rightB, fwdB));
+  const S = sysDir(cam.sh), upS = V.norm(V.sub([0,1,0], V.mul(S, S[1])));
+  const off = kb >= 1 ? offB : V.norm(lerp3(S, offB, kb));
+  const upG = kb >= 1 ? upB : V.norm(lerp3(upS, upB, kb));
+  const target = kb >= 1 ? T : lerp3(cam.Q, T, kb);
+  const pos = V.add(target, V.mul(off, D));
+  const fwd = V.mul(off, -1);
+  const right = V.norm(V.cross(fwd, upG)); const up = V.norm(V.cross(right, fwd));
+  return { pos, fwd, right, up, fh, pitch, T, kb, target };
+}
+function rayDir(F, sx, sy) { const th = Math.tan(cam.fov*Math.PI/360), asp = cv.width / cv.height;
+  return V.norm(V.add(F.fwd, V.add(V.mul(F.right, sx*th*asp), V.mul(F.up, sy*th)))); }
+function hitSphere(o, d) { const b = V.dot(o, d), c = V.dot(o, o) - 1, disc = b*b - c; if (disc < 0) return null; const t = -b - Math.sqrt(disc); if (t < 0) return null; return V.norm(V.add(o, V.mul(d, t))); }
+const local = (w) => { const f = bodies[FOCUS]; return V.mul(V.sub(w, f.C), 1/f.R); };   // world -> focus units
+let lastKb = 1;
+function sync() {
+  const kb = bodyK(cam.D);
+  if (lastKb >= 1 && kb < 1 && !anim) cam.sh = Math.atan2(cam.T[0], cam.T[2]);
+  if (kb <= 0) { cam.T = sysDir(cam.sh); cam.hd = 0; }
+  if (kb >= 1) cam.Q = [0,0,0];
+  lastKb = kb;
+}
+function setFocus(i) {
+  if (i === FOCUS) return;
+  const a = bodies[FOCUS], b = bodies[i];
+  const Qw = V.add(a.C, V.mul(cam.Q, a.R));
+  cam.Q = V.mul(V.sub(Qw, b.C), 1/b.R); cam.D = cam.D*a.R/b.R;
+  FOCUS = i; useBody(i); propKey = ''; refresh();
+  if (bodyK(cam.D) <= 0) { cam.T = sysDir(cam.sh); cam.hd = 0; }
+}
+function refocus() {
+  if (bodyK(cam.D) > 0) return;
+  const f = bodies[FOCUS], Qw = V.add(f.C, V.mul(cam.Q, f.R)), Dw = cam.D*f.R;
+  let best = FOCUS, bs = Infinity;
+  for (const b of bodies) { if (Dw/b.R < DS) continue; const d = Math.hypot(...V.sub(Qw, b.C))/b.R; if (d < bs) { bs = d; best = b.i; } }
+  setFocus(best);
+}
+
+// ------------------------------------------------------------------ props, units and the orbital craft
+const PF = (col, row) => [col*32, row*40, 32, 40];
+let inst = new Float32Array(0), instN = 0, instOrigin = [0,0,1], propKey = '';
+let propList = [];
+const TEXL = 1.5708 / Math.pow(2, 19);
+let units = [];
+function buildProps(F) {
+  const tgt = fromDir(...cam.T);
+  const Lp = 15, N = Math.pow(2, Lp);
+  const ci = Math.floor(tgt.s*N), cj = Math.floor(tgt.t*N);
+  const key = [FOCUS, SEED, tgt.face, ci >> 4, cj >> 4].join(',');
+  if (key === propKey) return; propKey = key;
+  instOrigin = cam.T.slice();
+  propList = [];
+  const R = 70, oct = 12, moon = BIOME === 6;
+  for (let j = cj - R; j <= cj + R; j++) for (let i = ci - R; i <= ci + R; i++) {
+    const r1 = h01(i, j, 1, SEED), r2 = h01(i, j, 2, SEED), r3 = h01(i, j, 3, SEED);
+    const s = (i + 0.2 + r1*0.6) / N, t = (j + 0.2 + r2*0.6) / N;
+    const d = toDir(tgt.face, s, t);
+    const ct = cityAt(d);
+    let col = -1;
+    if (moon) {
+      if (ct < 1) { if ((i & 1) || (j & 1)) continue; col = ct < 0.42 ? (r3 < 0.25 ? 3 : r3 < 0.32 ? 4 : r3 < 0.36 ? 5 : -1) : (r3 < 0.15 ? 3 : -1); }
+      else if (r3 < 0.018) col = 0; else if (r3 < 0.04) col = 1; else if (r3 < 0.07) col = 2;
+    } else if (BIOME === 13) {
+      if (ct < 1) { if ((i & 3) || (j & 3)) continue; col = ct < 0.42 ? (r3 < 0.4 ? 4 : r3 < 0.6 ? 3 : r3 < 0.7 ? 5 : -1) : (r3 < 0.3 ? 3 : r3 < 0.38 ? 5 : -1); }
+      else if (r3 < 0.004) col = 0; else if (r3 < 0.02) col = 1; else if (r3 < 0.035) col = 2;
+    } else if (ct < 1) {
+      if ((i & 1) || (j & 1)) continue;
+      const lc = landClass(d[0], d[1], d[2], oct); if (lc === 'water' || lc === 'sand' || lc === 'snow' || lc === 'rockhi') continue;
+      col = ct < 0.42 ? (r3 < 0.55 ? 4 : (r3 < 0.72 ? 5 : (r3 < 0.8 ? 1 : -1))) : (r3 < 0.42 ? 3 : (r3 < 0.5 ? 5 : (r3 < 0.68 ? 1 : (r3 < 0.74 ? 0 : -1))));
+    } else {
+      const c = landClass(d[0], d[1], d[2], oct);
+      if (c === 'forestB') { if (r3 < 0.62) col = r3 < 0.12 ? 0 : 1; }
+      else if (c === 'forestP') { if (r3 < 0.7) col = r3 < 0.08 ? 1 : 0; }
+      else if (c === 'grass') { if (r3 < 0.12) col = r3 < 0.06 ? 1 : 0; else if (r3 > 0.985) col = 2; }
+      else if (c === 'meadow') { if (r3 < 0.025) col = 1; }
+      else if (c === 'rock') { if (r3 < 0.14) col = 2; else if (r3 < 0.2) col = 0; }
+      else if (c === 'rockhi') { if (r3 < 0.08) col = 2; }
+      else if (c === 'marsh') { if (r3 < 0.05) col = 1; }
+    }
+    if (col < 0) continue;
+    const scale = col >= 3 ? 1.0 : (0.8 + r1*0.4);
+    propList.push({ p: V.sub(d, instOrigin), frame: PF(col, BIOME), w: 32*TEXL*scale, h: 40*TEXL*scale, lift: 0 });
+  }
+  const c0 = curCities()[0];
+  units = [];
+  if (FOCUS === HOME && c0) {
+    const c = c0.d; const north = V.norm(V.sub([0,1,0], V.mul(c, c[1]))); const east = V.norm(V.cross(north, c));
+    const place = (dx, dy) => V.norm(V.add(c, V.add(V.mul(east, dx), V.mul(north, dy))));
+    units = [
+      { name: 'TBU-X1', d: place(c0.r*0.9, -c0.r*0.55), frame: [0,640,64,64], w: 64*TEXL*0.9, h: 64*TEXL*0.9, hover: 0 },
+      { name: 'OBSERVER', d: place(c0.r*1.25, -c0.r*0.2), frame: [0,704,64,64], w: 64*TEXL*0.8, h: 64*TEXL*0.8, hover: 22*TEXL },
+    ];
+  }
+}
+function packInstances(F, list) {
+  const n = list.length; if (inst.length < n*11) inst = new Float32Array(Math.max(n*11, 1024));
+  let k = 0;
+  for (const q of list) { inst[k++] = q.p[0]; inst[k++] = q.p[1]; inst[k++] = q.p[2];
+    inst[k++] = q.frame[0]; inst[k++] = q.frame[1]; inst[k++] = q.frame[2]; inst[k++] = q.frame[3];
+    inst[k++] = q.w; inst[k++] = q.h; inst[k++] = q.lift; inst[k++] = q.rot || 0; }
+  instN = n;
+  gl.bindBuffer(gl.ARRAY_BUFFER, instBuf); gl.bufferData(gl.ARRAY_BUFFER, inst.subarray(0, n*11), gl.DYNAMIC_DRAW);
+}
+function groundList(F) {
+  const all = propList.slice();
+  const tframe = Math.floor(performance.now() / 180) % 4;
+  for (const u of units) all.push({ p: V.sub(u.d, instOrigin), frame: [u.frame[0] + tframe*64, u.frame[1], u.frame[2], u.frame[3]], w: u.w, h: u.h, lift: u.hover ? u.hover + Math.sin(performance.now()/400)*3*TEXL : 0 });
+  const rel = V.sub(instOrigin, F.pos);
+  for (const q of all) q.z = V.dot(V.add(rel, q.p), F.fwd);
+  all.sort((a, b) => b.z - a.z);
+  return all;
+}
+// the orbital craft: lifts off from the capital, transfers to Esk, lands at the outpost and comes back
+const CRAFT = { from: HOME, to: SYS.findIndex(s => s.name === 'ESK'), per: 76 };
+function bez(a, b, c, d, t) { const u = 1-t; return V.add(V.add(V.mul(a, u*u*u), V.mul(b, 3*u*u*t)), V.add(V.mul(c, 3*u*t*t), V.mul(d, t*t*t))); }
+function craftPath(s) { // s 0..1: home pad -> moon pad, world space
+  const P = bodies[CRAFT.from], M = bodies[CRAFT.to];
+  const pd = P.cities[0] ? P.cities[0].d : [0,1,0], md = M.cities[0] ? M.cities[0].d : [0,1,0];
+  const p0 = V.add(P.C, V.mul(pd, P.R)), p1 = V.add(P.C, V.mul(pd, P.R*1.5));
+  const m0 = V.add(M.C, V.mul(md, M.R)), m1 = V.add(M.C, V.mul(md, M.R*2.2));
+  if (s < 0.12) { const e = s/0.12; return V.add(p0, V.mul(V.sub(p1, p0), e*e)); }
+  if (s > 0.88) { const e = (1-s)/0.12; return V.add(m0, V.mul(V.sub(m1, m0), e*e)); }
+  const e = (s-0.12)/0.76, ee = e*e*(3-2*e);
+  return bez(p1, V.add(P.C, V.mul(pd, P.R*3.2)), V.add(M.C, V.mul(md, M.R*6)), m1, ee);
+}
+function craftState() {
+  const u = simT % CRAFT.per, half = CRAFT.per/2, fly = half*0.82;
+  let s, parked = false;
+  if (u < fly) s = u/fly; else if (u < half) { s = 1; parked = true; }
+  else if (u < half + fly) s = 1 - (u-half)/fly; else { s = 0; parked = true; }
+  const ds = u < half ? 0.002 : -0.002;
+  return { w: craftPath(s), v: parked ? null : V.sub(craftPath(Math.min(1, Math.max(0, s+ds))), craftPath(s)), parked, s };
+}
+function occluded(F, p) { // is focus-local point p hidden behind a body?
+  const d = V.sub(p, F.pos), L = Math.hypot(...d), rd = V.mul(d, 1/L);
+  for (const b of bodies) { const c = V.sub(local(b.C), F.pos), R = b.R/bodies[FOCUS].R*0.998;
+    const bb = V.dot(c, rd); if (bb <= 0) continue; const cx = V.cross(c, rd); const d2 = V.dot(cx, cx); if (d2 >= R*R) continue;
+    if (bb - Math.sqrt(R*R - d2) < L*0.999) return true; }
+  const s = V.sub(local([0,0,0]), F.pos), Rs = SUN_R/bodies[FOCUS].R, bs = V.dot(s, rd);
+  if (bs > 0 && bs < L) { const cx = V.cross(s, rd); if (V.dot(cx, cx) < Rs*Rs) return true; }
+  return false;
+}
+
+// ------------------------------------------------------------------ UI
+const viewEl = document.getElementById('view'), sclT = document.getElementById('sclT'), sclL = document.getElementById('sclL'), sclBox = document.querySelector('.scale');
+const tagsEl = document.getElementById('tags');
+const ZOOMS = [['System', -1], ['Orbit', 3.2], ['Continent', 0.9], ['Regional', 0.14], ['Local', 0.0125], ['Street', 0.0032]];
+function mkBtns(el, items, onClick, isOn) { el.innerHTML = ''; items.forEach((it, i) => { const b = document.createElement('div'); b.className = 'btn' + (isOn(i) ? ' on' : ''); b.textContent = it; b.onclick = () => { onClick(i); refresh(); }; el.appendChild(b); }); }
+const planetIdx = bodies.filter(b => b.kind === 'planet').map(b => b.i), moonIdx = bodies.filter(b => b.kind === 'moon').map(b => b.i);
+const cap = s => s.charAt(0) + s.slice(1).toLowerCase();
+function refresh() {
+  mkBtns(document.getElementById('biomes'), planetIdx.map(i => cap(bodies[i].name)), k => travelTo(planetIdx[k]), k => planetIdx[k] === FOCUS);
+  mkBtns(document.getElementById('moons'), moonIdx.map(i => cap(bodies[i].name)), k => travelTo(moonIdx[k]), k => moonIdx[k] === FOCUS);
+  mkBtns(document.getElementById('zooms'), ZOOMS.map(z => z[0]), i => zoomPreset(i), () => false);
+  mkBtns(document.getElementById('pxs'), ['1x', '2x', '3x'], i => { PX = i + 1; resize(); }, i => i + 1 === PX);
+  document.getElementById('night').classList.toggle('on', NIGHT > 0.5);
+  const b = bodies[FOCUS];
+  document.getElementById('wname').textContent = 'o ' + b.name + (b.kind === 'moon' ? ' / MOON OF ' + bodies[b.p].name : '');
+}
+document.getElementById('seed').onclick = () => { SEED0 = (Math.random()*0xffffff) >>> 0; seedAll(); propKey = ''; refresh(); };
+document.getElementById('night').onclick = () => { NIGHT = NIGHT > 0.5 ? 0 : 1; refresh(); };
+document.getElementById('ptog').onclick = () => document.getElementById('panel').classList.toggle('min');
+tagsEl.addEventListener('click', e => { const t = e.target.closest('[data-b]'); if (t) travelTo(+t.dataset.b); });
+
+// animations: a list of phases, each with init() and step(eased, linear)
+let anim = null;
+const ease = x => x < 0.5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3)/2;
+function play(phases) { anim = { phases, i: 0, t0: performance.now() }; phases[0].init && phases[0].init(); }
+const logLerp = (a, b, t) => Math.exp(Math.log(a) + (Math.log(b) - Math.log(a))*t);
+function zoomPhase(D1, ms, Qto) { let D0, Q0; return { ms, init() { D0 = cam.D; Q0 = cam.Q.slice(); }, step(e) {
+  cam.D = logLerp(D0, D1, e);
+  if (Qto) cam.Q = lerp3(Q0, Qto(), e);
+  else if (D0 > DS) { const s = clamp01((cam.D - DS)/(D0 - DS)); if (cam.D < D0) cam.Q = V.mul(Q0, s); } } }; }
+function zoomPreset(i) {
+  const D1 = ZOOMS[i][1];
+  if (D1 < 0) { const f = bodies[FOCUS]; play([zoomPhase(380/f.R, 2000, () => V.mul(local([0,0,0]), 0.7))]); return; }
+  if (bodyK(cam.D) <= 0.5) play([zoomPhase(DS*0.999, 900), zoomPhase(D1, 1300)]);
+  else play([zoomPhase(D1, 1600)]);
+}
+function travelTo(i) {
+  if (i === FOCUS) { play([zoomPhase(3.2, 1400)]); return; }
+  const a = bodies[FOCUS], b = bodies[i];
+  const dist = Math.hypot(...V.sub(a.C, b.C));
+  const Dw = Math.min(DMAXW, Math.max(18*Math.max(a.R, b.R), dist*1.25));
+  let Qw0;
+  play([
+    zoomPhase(Math.max(cam.D, Dw/a.R), 1500),
+    { ms: 1700, init() { const f = bodies[FOCUS]; Qw0 = V.add(f.C, V.mul(cam.Q, f.R)); const Dw2 = cam.D*f.R;
+        FOCUS === i || (() => { const Q = V.mul(V.sub(Qw0, b.C), 1/b.R); FOCUS = i; useBody(i); propKey = ''; cam.Q = Q; cam.D = Dw2/b.R; cam.T = sysDir(cam.sh); cam.hd = 0; refresh(); })(); },
+      step(e) { const Qw = lerp3(Qw0, b.C, e); cam.Q = V.mul(V.sub(Qw, b.C), 1/b.R);
+        if (this.sh0 == null) { this.sh0 = cam.sh; let d = Math.atan2(-b.C[0], -b.C[2]) + 0.45 - cam.sh; d = Math.atan2(Math.sin(d), Math.cos(d)); this.dsh = d; }
+        cam.sh = this.sh0 + this.dsh*e; if (bodyK(cam.D) <= 0) cam.T = sysDir(cam.sh); } },
+    zoomPhase(3.2, 2200),
+  ]);
+}
+document.getElementById('tour').onclick = () => {
+  const H0 = bodies[HOME], c0 = H0.cities[0]; if (!c0) return;
+  if (FOCUS !== HOME) { FOCUS = HOME; useBody(HOME); propKey = ''; refresh(); }
+  const edge = c0.edge || c0.d;
+  let T0;
+  play([
+    { ms: 3600, init() { cam.sh = Math.atan2(edge[0], edge[2]) + 0.3; cam.D = 95; cam.Q = V.mul(local([0,0,0]), 0.5); cam.T = sysDir(cam.sh); cam.hd = 0; this.Q0 = cam.Q.slice(); },
+      step(e) { cam.D = logLerp(95, 16, e); cam.Q = V.mul(this.Q0, 1 - e); } },
+    { ms: 9500, init() { T0 = cam.T.slice(); }, step(e, x) {
+      cam.D = logLerp(16, 0.0034, x);
+      const te = Math.min(1, x*2.0), tt = te*te*(3-2*te);
+      cam.T = V.norm(lerp3(T0, edge, tt));
+      cam.hd = c0.hd - 0.35*(1 - x); } },
+  ]);
+};
+
+// ------------------------------------------------------------------ input
+let drag = null; const ptrs = new Map();
+cv.addEventListener('contextmenu', e => e.preventDefault());
+cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, [e.clientX, e.clientY]); drag = { b: e.button, x: e.clientX, y: e.clientY, pinch: ptrs.size === 2 ? pinchDist() : 0 }; cv.classList.add('drag'); anim = null; });
+cv.addEventListener('pointerup', e => { ptrs.delete(e.pointerId); if (!ptrs.size) { drag = null; cv.classList.remove('drag'); } });
+cv.addEventListener('pointercancel', e => { ptrs.delete(e.pointerId); drag = null; });
+function pinchDist() { const p = [...ptrs.values()]; return Math.hypot(p[0][0]-p[1][0], p[0][1]-p[1][1]); }
+cv.addEventListener('pointermove', e => {
+  if (!drag) return; ptrs.set(e.pointerId, [e.clientX, e.clientY]);
+  if (ptrs.size === 2) { const d = pinchDist(); if (drag.pinch) zoomBy(Math.log(drag.pinch / d) * 1.0, null); drag.pinch = d; return; }
+  const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY;
+  if (drag.b === 2 || e.shiftKey) { turn(-dx * 0.006); return; }
+  pan(dx, dy);
+});
+function turn(a) { if (bodyK(cam.D) > 0.5) cam.hd += a; else { cam.sh += a; if (bodyK(cam.D) <= 0) cam.T = sysDir(cam.sh); } }
+function pan(dx, dy) {
+  const F = frame(); const th = Math.tan(cam.fov*Math.PI/360);
+  if (F.kb > 0.5) {
+    const k = Math.min(cam.D, 1.2) * 2 * th / innerHeight;
+    const mv = V.add(V.mul(F.right, -dx*k), V.mul(F.fh, dy*k / Math.max(Math.cos(F.pitch), 0.55)));
+    cam.T = V.norm(V.add(cam.T, mv));
+  } else {
+    const k = cam.D * 2 * th / innerHeight, S = sysDir(cam.sh), g = V.norm([-S[0], 0, -S[2]]);
+    const r = V.norm([F.right[0], 0, F.right[2]]);
+    cam.Q = V.add(cam.Q, V.add(V.mul(r, -dx*k), V.mul(g, dy*k/Math.cos(TILT))));
+    refocus();
+  }
+}
+function zoomBy(z, at) {
+  const D0 = cam.D, kb0 = bodyK(D0);
+  cam.D = Math.min(DMAXW/bodies[FOCUS].R, Math.max(0.0026, cam.D * Math.exp(z)));
+  if (!at || cam.D >= D0) return;
+  const F = frame(); const r = cv.getBoundingClientRect();
+  const sx = (at[0]-r.left)/r.width*2-1, sy = -((at[1]-r.top)/r.height*2-1);
+  const Fo = (() => { const s = cam.D; cam.D = D0; const f = frame(); cam.D = s; return f; })();
+  const rd = rayDir(Fo, sx, sy);
+  if (kb0 > 0.5) { const hp = hitSphere(Fo.pos, rd); if (hp) cam.T = V.norm(V.add(cam.T, V.mul(V.sub(hp, cam.T), 1 - cam.D/D0))); }
+  else {
+    if (Math.abs(rd[1]) > 1e-6) { const t = -Fo.pos[1]/rd[1]; if (t > 0) { const hp = V.add(Fo.pos, V.mul(rd, t)); cam.Q = V.add(cam.Q, V.mul(V.sub(hp, cam.Q), 1 - cam.D/D0)); } }
+    refocus();
+    const D1 = cam.D, Dp = D0*bodies[FOCUS].R/bodies[FOCUS].R; // after refocus D is in the new focus units
+    if (D1 < 30) { const prev = D1*Math.exp(-z); if (prev > DS) cam.Q = V.mul(cam.Q, clamp01((D1 - DS)/(prev - DS))); }
+  }
+}
+cv.addEventListener('wheel', e => { e.preventDefault(); anim = null; zoomBy(e.deltaY * 0.0016, [e.clientX, e.clientY]); }, { passive: false });
+const keys = new Set();
+addEventListener('keydown', e => keys.add(e.key.toLowerCase())); addEventListener('keyup', e => keys.delete(e.key.toLowerCase()));
+
+// ------------------------------------------------------------------ frame loop
+function resize() { cv.width = Math.max(2, Math.round(innerWidth / PX)); cv.height = Math.max(2, Math.round(innerHeight / PX)); }
+addEventListener('resize', resize); resize();
+let atlasTex, sprTex, t0 = performance.now(), tPrev = performance.now(), tOff = 0;
+function viewName(D, kb) { const Dw = D*bodies[FOCUS].R; if (kb <= 0.02) return Dw > 60 ? 'STAR SYSTEM' : 'SYSTEM'; if (kb < 1) return 'HIGH ORBIT'; return D > 1.4 ? 'ORBIT' : D > 0.3 ? 'CONTINENTAL' : D > 0.035 ? 'REGIONAL' : D > 0.0065 ? 'LOCAL' : 'STREET'; }
+function niceScale(km) { const p = Math.pow(10, Math.floor(Math.log10(km))); for (const m of [1, 2, 2.5, 5, 10]) if (m*p >= km) return m*p; return 10*p; }
+function project(F, w) { const v = V.sub(w, F.pos); const z = V.dot(v, F.fwd); if (z <= 0) return null; const th = Math.tan(cam.fov*Math.PI/360), asp = cv.width/cv.height;
+  return [ (V.dot(v, F.right)/(z*th*asp)*0.5+0.5)*innerWidth, (0.5 - V.dot(v, F.up)/(z*th)*0.5)*innerHeight, z ]; }
+const U = (n) => G.u[n];
+const NBMAX = 32, fb = new Float32Array(NBMAX*4), fbp = new Float32Array(NBMAX*4), fbt = new Float32Array(NBMAX*4), fba = new Float32Array(NBMAX*4), fbc = new Float32Array(NBMAX*4), fcu = new Float32Array(48);
+
+function draw(now) {
+  const time = (now - t0) / 1000;
+  simT = time + tOff;
+  placeBodies();
+  if (anim) {
+    const ph = anim.phases[anim.i]; const x = Math.min(1, (now - anim.t0) / ph.ms);
+    ph.step(ease(x), x);
+    if (x >= 1) { anim.i++; anim.t0 = now; if (anim.i >= anim.phases.length) anim = null; else anim.phases[anim.i].init && anim.phases[anim.i].init(); }
+  }
+  if (keys.has('q')) turn(0.02); if (keys.has('e')) turn(-0.02);
+  if (keys.has('w')) pan(0, 8); if (keys.has('s')) pan(0, -8); if (keys.has('a')) pan(8, 0); if (keys.has('d')) pan(-8, 0);
+  if (keys.has('+') || keys.has('=')) zoomBy(-0.03, null); if (keys.has('-')) zoomBy(0.03, null);
+  sync();
+
+  const F = frame(); const Bf = bodies[FOCUS], P = Bf.P;
+  const th = Math.tan(cam.fov*Math.PI/360), asp = cv.width/cv.height;
+  const cloud = clamp01((Math.log10(cam.D) + 0.62) / 0.55);
+  const hazeAmt = cam.D * 4.5;
+  const Dw = cam.D * Bf.R;
+  gl.viewport(0, 0, cv.width, cv.height);
+  gl.disable(gl.BLEND);
+  gl.useProgram(G.p); gl.bindVertexArray(gVAO);
+  gl.uniform2f(U('uRes'), cv.width, cv.height);
+  gl.uniform3fv(U('uCam'), F.pos); gl.uniform1f(U('uCamC'), V.dot(F.pos, F.pos) - 1);
+  gl.uniform3fv(U('uFwd'), F.fwd); gl.uniform3fv(U('uRight'), F.right); gl.uniform3fv(U('uUp'), F.up);
+  gl.uniform1f(U('uTanH'), th); gl.uniform1f(U('uAspect'), asp);
+  gl.uniform1f(U('uTime'), time); gl.uniform1f(U('uNight'), NIGHT); gl.uniform1f(U('uCloud'), cloud);
+  gl.uniform1f(U('uLodBias'), PX === 1 ? -0.4 : 0.0); gl.uniform1f(U('uHazeAmt'), hazeAmt);
+  gl.uniform3fv(U('uHaze'), P.haze);
+  gl.uniform3fv(U('uSpace'), lerp3([0.015,0.02,0.04], P.space, bodyK(cam.D)));
+  // bodies, camera-relative in focus units
+  bodies.forEach((b, i) => {
+    const c = i === FOCUS ? V.mul(F.pos, -1) : V.sub(local(b.C), F.pos);
+    fb.set([c[0], c[1], c[2], b.R/Bf.R], i*4); fbp.set([b.biome, b.sea, b.river, b.biome === 6 ? 1 : 0], i*4);
+    fbt.set([...b.tint, b.seed], i*4); fba.set([...b.P.atmo, b.a/Bf.R], i*4); fbc.set([...b.P.cloud, b.kind === 'moon' ? b.p + 1 : 0], i*4);
+  });
+  gl.uniform4fv(U('uB'), fb); gl.uniform4fv(U('uBP'), fbp); gl.uniform4fv(U('uBT'), fbt); gl.uniform4fv(U('uBA'), fba); gl.uniform4fv(U('uBC'), fbc);
+  gl.uniform1i(U('uNB'), bodies.length); gl.uniform1i(U('uFocus'), FOCUS);
+  const sunRel = V.sub(local([0,0,0]), F.pos);
+  gl.uniform3fv(U('uSunRel'), sunRel); gl.uniform1f(U('uSunR'), SUN_R/Bf.R);
+  gl.uniform1f(U('uTerm'), clamp01((cam.D - 0.5)/1.6));
+  const rings = clamp01((Math.log(cam.D) - Math.log(4.5)) / (Math.log(12) - Math.log(4.5)));
+  gl.uniform1f(U('uRings'), rings); gl.uniform1f(U('uEclY'), -F.pos[1]);
+  const cs = curCities(); fcu.fill(0); cs.forEach((c, i) => { fcu[i*4] = c.d[0]; fcu[i*4+1] = c.d[1]; fcu[i*4+2] = c.d[2]; fcu[i*4+3] = c.r; });
+  gl.uniform4fv(U('uCities'), fcu); gl.uniform1i(U('uNCity'), cs.length);
+  gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, atlasTex); gl.uniform1i(U('uAtlas'), 0);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+  // sprites: ground props and units, then the craft
+  const pxAt = cam.D * 2 * th / cv.height;
+  const treePx = 40 * TEXL / pxAt;
+  const fade = clamp01((treePx - 7) / 9);
+  gl.useProgram(S.p); gl.bindVertexArray(sVAO);
+  const su = S.u;
+  gl.uniform3fv(su.uFwd, F.fwd); gl.uniform3fv(su.uRight, F.right); gl.uniform3fv(su.uUp, F.up);
+  gl.uniform1f(su.uTanH, th); gl.uniform1f(su.uAspect, asp); gl.uniform1f(su.uTime, time);
+  gl.uniform1f(su.uNight, NIGHT); gl.uniform3fv(su.uHaze, P.haze);
+  gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, sprTex); gl.uniform1i(su.uTex, 0);
+  gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+  if (fade > 0) {
+    buildProps(F);
+    packInstances(F, groundList(F));
+    gl.uniform3fv(su.uOrig, V.sub(instOrigin, F.pos)); gl.uniform1f(su.uFade, fade); gl.uniform1f(su.uHazeAmt, hazeAmt);
+    gl.uniform1f(su.uShadow, 1); gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, instN);
+    gl.uniform1f(su.uShadow, 0); gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, instN);
+  }
+  const cr = craftState(), cl = local(cr.w);
+  let craftScreen = null;
+  if (!occluded(F, cl)) {
+    const z = V.dot(V.sub(cl, F.pos), F.fwd);
+    if (z > 0) {
+      const pxw = z * 2 * th / cv.height;
+      const realH = 48 * TEXL * bodies[HOME].R / Bf.R;
+      const fr = Math.floor(now / 110) % 4;
+      let h = Math.max(realH, 20*pxw), w = h*32/48, rot = 0, frm = [fr*32, 768, 32, 48];
+      if (cr.parked) { frm = [0, 768, 32, 34]; h = h*34/48; }
+      else { const v = cr.v; const vx = V.dot(v, F.right), vy = V.dot(v, F.up); rot = 10 + Math.atan2(vy, vx) - Math.PI/2; }
+      const item = { p: [0,0,0], frame: frm, w, h, lift: 0, rot };
+      if (!cr.parked) item.rot = rot;
+      packInstances(F, [item]);
+      gl.uniform3fv(su.uOrig, V.sub(cl, F.pos)); gl.uniform1f(su.uFade, 1); gl.uniform1f(su.uHazeAmt, cr.parked ? hazeAmt : 1e9);
+      gl.uniform1f(su.uShadow, 0); gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, 1);
+      craftScreen = project(F, cl); if (craftScreen) craftScreen.push(h / pxw);
+    }
+  }
+
+  // HUD
+  const kb = F.kb;
+  viewEl.textContent = viewName(cam.D, kb);
+  sclBox.style.display = kb < 0.98 ? 'none' : '';
+  const kmPerPx = pxAt * Bf.km / PX;
+  const target = niceScale(kmPerPx * 120);
+  sclL.style.width = Math.round(target / kmPerPx) + 'px';
+  sclT.textContent = target >= 1 ? `${target} km` : `${Math.round(target*1000)} m`;
+  let html = '';
+  if (cam.D < 1.0 && cam.D > 0.006) cs.forEach(c => { const p = project(F, c.d); if (p && V.dot(c.d, F.pos) > 1) html += `<div class="tag city" style="left:${p[0]}px;top:${p[1]-6}px">${c.name}</div>`; });
+  if (fade > 0.5) units.forEach(un => { const top = V.add(un.d, V.mul(un.d, un.h + un.hover)); const p = project(F, top); if (p) html += `<div class="tag unit" style="left:${p[0]}px;top:${p[1]-4}px">${un.name}</div>`; });
+  // body names once they are small on screen
+  for (const b of bodies) {
+    const c = local(b.C), p = project(F, c); if (!p) continue;
+    if (b.i !== FOCUS && occluded(F, V.add(c, V.mul(V.norm(V.sub(F.pos, c)), b.R/Bf.R*1.01)))) continue;
+    const rpx = (b.R/Bf.R) / (p[2]*th) * innerHeight/2;
+    if (b.i === FOCUS && kb > 0.3) continue;
+    if (rpx > 90 || p[0] < -50 || p[0] > innerWidth + 50 || p[1] < 40 || p[1] > innerHeight + 30) continue;
+    if (b.kind === 'moon' && rpx < 1.2 && b.p !== FOCUS && bodies[FOCUS].p !== b.p) continue;
+    html += `<div class="tag body${b.kind === 'moon' ? ' moon' : ''}${b.i === FOCUS ? ' on' : ''}" data-b="${b.i}" style="left:${p[0]}px;top:${p[1] - rpx - 5}px">${b.name}</div>`;
+  }
+  { const p = project(F, local([0,0,0])); if (p && kb < 0.5) { const rpx = (SUN_R/Bf.R)/(p[2]*th)*innerHeight/2; html += `<div class="tag sun" style="left:${p[0]}px;top:${p[1] - rpx - 5}px">${SUN_NAME}</div>`; } }
+  if (craftScreen && (kb < 1 || craftScreen[3] > 6)) html += `<div class="tag unit craft" style="left:${craftScreen[0]}px;top:${craftScreen[1] - craftScreen[3]*0.6/PX - 6}px">ORBITAL CRAFT</div>`;
+  tagsEl.innerHTML = html;
+  requestAnimationFrame(draw);
+}
+
+Promise.all([loadTex(ATLAS_SRC), loadTex(SPRITES_SRC)]).then(([a, s]) => {
+  atlasTex = a; sprTex = s;
+  const q = new URLSearchParams(location.search);
+  if (q.has('seed')) SEED0 = (+q.get('seed')) >>> 0;
+  if (q.has('t')) tOff = +q.get('t');
+  simT = tOff;
+  seedAll();
+  const c0 = bodies[HOME].cities[0];
+  if (c0) { cam.T = c0.edge.slice(); cam.hd = c0.hd; }
+  if (q.has('body')) { const i = +q.get('body'); FOCUS = i; useBody(i); const c = bodies[i].cities[0]; if (c) { cam.T = (c.edge || c.d).slice(); cam.hd = c.hd || 0; } }
+  if (innerWidth < 720) document.getElementById('panel').classList.add('min');
+  if (q.has('d')) cam.D = +q.get('d');
+  if (q.has('sh')) cam.sh = +q.get('sh');
+  if (q.has('qx')) cam.Q = [+q.get('qx'), 0, +q.get('qz')];
+  if (q.has('night')) NIGHT = 1;
+  if (q.has('hd')) cam.hd += +q.get('hd');
+  if (q.has('day')) { useBody(FOCUS); cam.T = V.norm(V.add(SUNL, [0.3, 0.35, 0.2])); cam.hd = 0; }
+  if (q.has('px')) { PX = +q.get('px'); resize(); }
+  if (q.has('ui') && q.get('ui') === '0') document.querySelectorAll('.panel,.help').forEach(e => e.style.display = 'none');
+  lastKb = bodyK(cam.D); if (lastKb < 1 && !q.has('sh')) cam.sh = Math.atan2(cam.T[0], cam.T[2]);
+  refresh();
+  requestAnimationFrame(draw);
+}).catch(e => fail('Could not load the art: ' + e));
+</script>
+</body>
+</html>
