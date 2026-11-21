@@ -29,8 +29,20 @@ RAMPS = {  # material -> palette ramp tokens (dark to light); emissive ones igno
     'steel': ['steel.0', 'steel.1', 'steel.2', 'steel.3'],
     'joint': ['joint.0', 'joint.1', 'joint.2'],
     'glass': ['ink.1', 'core.0', 'core.1', 'core.2'],
+    'chitin': ['geode.0', 'geode.1', 'geode.2', 'geode.3'],
+    'flesh': ['cap.0', 'cap.1', 'cap.2', 'cap.3'],
+    'spore': ['spore.0', 'spore.1', 'spore.2', 'spore.3'],
+    'bile': ['bile.0', 'bile.1', 'bile.2', 'bile.3'],
+    'acid': ['acid.0', 'acid.1', 'acid.2', 'acid.3'],
+    'deep': ['abyss.0', 'abyss.2', 'frost.2', 'frost.3'],
+    'shoal': ['shoal.0', 'shoal.1', 'shoal.2', 'shoal.3'],
+    'rock': ['rock.0', 'rock.1', 'rock.2', 'rock.3', 'rock.4'],
+    'basalt': ['basalt.0', 'basalt.1', 'basalt.2', 'basalt.3'],
+    'magma': ['magma.0', 'magma.1', 'magma.2', 'magma.3'],
+    'facet': ['facet.0', 'facet.1', 'facet.2', 'facet.3'],
+    'moss': ['moss.0', 'moss.1', 'moss.2', 'moss.3'],
 }
-EMISSIVE = {'core', 'ember'}
+EMISSIVE = {'core', 'ember', 'acid', 'magma'}
 
 
 def rot(ax, a):

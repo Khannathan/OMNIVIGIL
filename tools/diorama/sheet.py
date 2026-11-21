@@ -1,6 +1,8 @@
 import sys, time
 from forge import to_png
 from units import ALL
+from batch2 import ALL2
+ALL={**ALL,**ALL2}
 from PIL import Image
 keys = sys.argv[1:] or list(ALL)
 rows=[]
