@@ -27,281 +27,281 @@
  },
  "units": {
   "trooper": {
+   "w": 44,
+   "h": 24,
+   "frames": 15,
+   "bodyH": 16,
+   "fly": false,
+   "asset": "spr_0446f65a",
+   "bodyW": 24
+  },
+  "mech": {
+   "w": 46,
+   "h": 42,
+   "frames": 15,
+   "bodyH": 36,
+   "fly": false,
+   "asset": "spr_d3145407",
+   "bodyW": 20
+  },
+  "tank": {
+   "w": 52,
+   "h": 32,
+   "frames": 15,
+   "bodyH": 23,
+   "fly": false,
+   "asset": "spr_7d784430",
+   "bodyW": 35
+  },
+  "drone": {
+   "w": 40,
+   "h": 24,
+   "frames": 15,
+   "bodyH": 13,
+   "fly": true,
+   "asset": "spr_08708966",
+   "bodyW": 24
+  },
+  "jet": {
+   "w": 50,
+   "h": 30,
+   "frames": 15,
+   "bodyH": 15,
+   "fly": true,
+   "asset": "spr_45a9e9ac",
+   "bodyW": 34
+  },
+  "bomber": {
    "w": 48,
-   "h": 25,
+   "h": 28,
+   "frames": 15,
+   "bodyH": 16,
+   "fly": true,
+   "asset": "spr_f369b0d2",
+   "bodyW": 28
+  },
+  "ship": {
+   "w": 52,
+   "h": 30,
    "frames": 15,
    "bodyH": 24,
    "fly": false,
-   "asset": "spr_0446f65a",
-   "bodyW": 44
-  },
-  "mech": {
-   "w": 50,
-   "h": 41,
-   "frames": 15,
-   "bodyH": 40,
-   "fly": false,
-   "asset": "spr_d3145407",
-   "bodyW": 45
-  },
-  "tank": {
-   "w": 58,
-   "h": 33,
-   "frames": 15,
-   "bodyH": 33,
-   "fly": false,
-   "asset": "spr_7d784430",
-   "bodyW": 52
-  },
-  "drone": {
-   "w": 64,
-   "h": 39,
-   "frames": 15,
-   "bodyH": 20,
-   "fly": true,
-   "asset": "spr_08708966",
+   "asset": "spr_f96c7b3a",
    "bodyW": 38
   },
-  "jet": {
-   "w": 68,
-   "h": 45,
-   "frames": 15,
-   "bodyH": 26,
-   "fly": true,
-   "asset": "spr_45a9e9ac",
-   "bodyW": 53
-  },
-  "bomber": {
-   "w": 50,
-   "h": 48,
-   "frames": 15,
-   "bodyH": 29,
-   "fly": true,
-   "asset": "spr_f369b0d2",
-   "bodyW": 40
-  },
-  "ship": {
-   "w": 67,
-   "h": 26,
-   "frames": 15,
-   "bodyH": 26,
-   "fly": false,
-   "asset": "spr_f96c7b3a",
-   "bodyW": 53
-  },
   "sub": {
-   "w": 64,
-   "h": 20,
+   "w": 50,
+   "h": 22,
    "frames": 15,
-   "bodyH": 20,
+   "bodyH": 17,
    "fly": false,
    "asset": "spr_8b09b8cc",
-   "bodyW": 50
+   "bodyW": 36
   },
   "titan": {
-   "w": 56,
-   "h": 45,
+   "w": 62,
+   "h": 60,
    "frames": 15,
-   "bodyH": 44,
+   "bodyH": 53,
    "fly": false,
    "asset": "spr_913a3541",
-   "bodyW": 51
+   "bodyW": 32
   },
   "cyber": {
-   "w": 58,
-   "h": 51,
+   "w": 40,
+   "h": 29,
    "frames": 15,
-   "bodyH": 50,
+   "bodyH": 16,
    "fly": false,
    "asset": "spr_dbbd8169",
-   "bodyW": 35
+   "bodyW": 24
   },
   "beast": {
-   "w": 62,
-   "h": 31,
+   "w": 46,
+   "h": 26,
    "frames": 15,
-   "bodyH": 30,
+   "bodyH": 21,
    "fly": false,
    "asset": "spr_81f42baf",
-   "bodyW": 52
+   "bodyW": 34
   },
   "creatures/crawler": {
    "w": 52,
    "h": 26,
    "frames": 15,
-   "bodyH": 25,
-   "bodyW": 47,
+   "bodyH": 17,
+   "bodyW": 32,
    "fly": false,
    "asset": "spr_2b1c931a"
   },
   "creatures/floater": {
-   "w": 32,
-   "h": 41,
+   "w": 34,
+   "h": 35,
    "frames": 15,
-   "bodyH": 31,
-   "bodyW": 28,
+   "bodyH": 27,
+   "bodyW": 16,
    "fly": true,
    "asset": "spr_2b1c931a"
   },
   "creatures/strider": {
    "w": 42,
-   "h": 41,
+   "h": 40,
    "frames": 15,
-   "bodyH": 40,
-   "bodyW": 37,
+   "bodyH": 35,
+   "bodyW": 19,
    "fly": false,
    "asset": "spr_2b1c931a"
   },
   "creatures/flyer": {
    "w": 56,
-   "h": 24,
+   "h": 37,
    "frames": 15,
-   "bodyH": 14,
-   "bodyW": 51,
+   "bodyH": 23,
+   "bodyW": 30,
    "fly": true,
    "asset": "spr_2b1c931a"
   },
   "creatures/serpent": {
    "w": 52,
-   "h": 29,
+   "h": 27,
    "frames": 15,
-   "bodyH": 28,
-   "bodyW": 48,
+   "bodyH": 10,
+   "bodyW": 33,
    "fly": false,
    "asset": "spr_2b1c931a"
   },
   "creatures/husk": {
-   "w": 44,
-   "h": 36,
+   "w": 40,
+   "h": 33,
    "frames": 15,
-   "bodyH": 35,
-   "bodyW": 39,
+   "bodyH": 26,
+   "bodyW": 13,
    "fly": false,
    "asset": "spr_2b1c931a"
   },
   "creatures/kaiju": {
-   "w": 56,
-   "h": 37,
+   "w": 58,
+   "h": 41,
    "frames": 15,
-   "bodyH": 36,
-   "bodyW": 52,
+   "bodyH": 34,
+   "bodyW": 41,
    "fly": false,
    "asset": "spr_2b1c931a"
   },
   "creatures/ab_skitterling": {
-   "w": 44,
-   "h": 21,
+   "w": 40,
+   "h": 20,
    "frames": 15,
-   "bodyH": 20,
-   "bodyW": 40,
+   "bodyH": 12,
+   "bodyW": 17,
    "fly": false,
    "asset": "spr_2b1c931a"
   },
   "creatures/ab_tidecrawler": {
-   "w": 50,
-   "h": 30,
+   "w": 48,
+   "h": 28,
    "frames": 15,
-   "bodyH": 29,
-   "bodyW": 46,
+   "bodyH": 17,
+   "bodyW": 24,
    "fly": false,
    "asset": "spr_2b1c931a"
   },
   "creatures/ab_maw": {
-   "w": 54,
-   "h": 34,
+   "w": 52,
+   "h": 32,
    "frames": 15,
-   "bodyH": 33,
-   "bodyW": 52,
+   "bodyH": 23,
+   "bodyW": 26,
    "fly": false,
    "asset": "spr_2b1c931a"
   },
   "creatures/ab_riftback": {
-   "w": 64,
+   "w": 56,
    "h": 34,
    "frames": 15,
-   "bodyH": 33,
-   "bodyW": 45,
+   "bodyH": 27,
+   "bodyW": 28,
    "fly": false,
    "asset": "spr_2b1c931a"
   },
   "creatures/ab_choir": {
    "w": 34,
-   "h": 45,
+   "h": 33,
    "frames": 15,
-   "bodyH": 35,
-   "bodyW": 30,
+   "bodyH": 26,
+   "bodyW": 18,
    "fly": true,
    "asset": "spr_2b1c931a"
   },
   "creatures/ab_deepking": {
    "w": 52,
-   "h": 53,
+   "h": 58,
    "frames": 15,
-   "bodyH": 53,
-   "bodyW": 47,
+   "bodyH": 57,
+   "bodyW": 20,
    "fly": false,
    "asset": "spr_2b1c931a"
   },
   "creatures/ab_sovereign": {
-   "w": 52,
-   "h": 50,
+   "w": 54,
+   "h": 55,
    "frames": 15,
-   "bodyH": 49,
-   "bodyW": 48,
+   "bodyH": 55,
+   "bodyW": 20,
    "fly": false,
    "asset": "spr_2b1c931a"
   },
   "creatures/ab_mother": {
    "w": 50,
-   "h": 32,
+   "h": 27,
    "frames": 15,
-   "bodyH": 31,
-   "bodyW": 46,
+   "bodyH": 18,
+   "bodyW": 29,
    "fly": false,
    "asset": "spr_2b1c931a"
   },
   "creatures/ab_lantern": {
    "w": 18,
-   "h": 36,
+   "h": 33,
    "frames": 15,
-   "bodyH": 35,
-   "bodyW": 14,
+   "bodyH": 31,
+   "bodyW": 13,
    "fly": false,
    "asset": "spr_2b1c931a"
   },
   "corvette": {
    "w": 46,
-   "h": 25,
+   "h": 29,
    "frames": 15,
-   "bodyH": 14,
-   "bodyW": 42,
+   "bodyH": 11,
+   "bodyW": 33,
    "fly": true,
    "asset": "spr_9cb68db2"
   },
   "frigate": {
    "w": 56,
-   "h": 30,
+   "h": 34,
    "frames": 15,
-   "bodyH": 19,
-   "bodyW": 53,
+   "bodyH": 16,
+   "bodyW": 38,
    "fly": true,
    "asset": "spr_9cb68db2"
   },
   "dreadnought": {
-   "w": 61,
-   "h": 37,
+   "w": 62,
+   "h": 42,
    "frames": 15,
-   "bodyH": 26,
-   "bodyW": 59,
+   "bodyH": 23,
+   "bodyW": 45,
    "fly": true,
    "asset": "spr_9cb68db2"
   },
   "station": {
    "w": 52,
-   "h": 37,
+   "h": 36,
    "frames": 15,
-   "bodyH": 26,
-   "bodyW": 48,
+   "bodyH": 20,
+   "bodyW": 32,
    "fly": true,
    "asset": "spr_9cb68db2"
   }
@@ -314,152 +314,152 @@
  ],
  "statics": {
   "structures/block": {
-   "w": 32,
+   "w": 34,
    "h": 27
   },
   "structures/tower": {
-   "w": 26,
-   "h": 40
-  },
-  "structures/spire": {
-   "w": 22,
+   "w": 24,
    "h": 37
   },
+  "structures/spire": {
+   "w": 20,
+   "h": 26
+  },
   "structures/dome": {
-   "w": 30,
-   "h": 18
+   "w": 34,
+   "h": 20
   },
   "structures/reactor": {
-   "w": 32,
-   "h": 25
+   "w": 34,
+   "h": 20
   },
   "structures/factory": {
-   "w": 34,
-   "h": 31
+   "w": 36,
+   "h": 25
   },
   "structures/bunker": {
-   "w": 32,
-   "h": 19
+   "w": 36,
+   "h": 16
   },
   "structures/citadel": {
-   "w": 32,
-   "h": 36
+   "w": 34,
+   "h": 26
   },
   "structures/launch": {
    "w": 34,
-   "h": 37
+   "h": 29
   },
   "structures/pylon": {
-   "w": 18,
-   "h": 34
+   "w": 20,
+   "h": 30
   },
   "structures/silo": {
    "w": 32,
-   "h": 29
+   "h": 19
   },
   "structures/lab": {
-   "w": 32,
-   "h": 29
+   "w": 34,
+   "h": 23
   },
   "structures/monolith": {
-   "w": 22,
-   "h": 37
+   "w": 20,
+   "h": 29
   },
   "structures/obelisk": {
-   "w": 22,
-   "h": 39
+   "w": 20,
+   "h": 29
   },
   "structures/vat": {
-   "w": 32,
-   "h": 27
+   "w": 34,
+   "h": 20
   },
   "structures/dish": {
    "w": 26,
-   "h": 29
+   "h": 26
   },
   "structures/ring": {
    "w": 32,
-   "h": 33
+   "h": 28
   },
   "structures/hive": {
-   "w": 32,
-   "h": 32
-  },
-  "structures/crystal": {
-   "w": 26,
-   "h": 34
-  },
-  "structures/pyramid": {
-   "w": 34,
-   "h": 36
-  },
-  "structures/spaceport": {
-   "w": 38,
-   "h": 33
-  },
-  "structures/habitat": {
-   "w": 30,
-   "h": 28
-  },
-  "structures/array": {
-   "w": 34,
-   "h": 19
-  },
-  "structures/elevator": {
-   "w": 26,
-   "h": 40
-  },
-  "sites/pt_data_hub": {
-   "w": 34,
-   "h": 22
-  },
-  "sites/pt_power_grid": {
-   "w": 34,
-   "h": 26
-  },
-  "sites/pt_industrial": {
-   "w": 34,
-   "h": 28
-  },
-  "sites/pt_foundry": {
-   "w": 34,
-   "h": 30
-  },
-  "sites/pt_financial": {
-   "w": 34,
-   "h": 34
-  },
-  "sites/pt_port": {
    "w": 34,
    "h": 25
   },
+  "structures/crystal": {
+   "w": 26,
+   "h": 25
+  },
+  "structures/pyramid": {
+   "w": 36,
+   "h": 27
+  },
+  "structures/spaceport": {
+   "w": 40,
+   "h": 23
+  },
+  "structures/habitat": {
+   "w": 32,
+   "h": 20
+  },
+  "structures/array": {
+   "w": 34,
+   "h": 14
+  },
+  "structures/elevator": {
+   "w": 28,
+   "h": 39
+  },
+  "sites/pt_data_hub": {
+   "w": 34,
+   "h": 18
+  },
+  "sites/pt_power_grid": {
+   "w": 34,
+   "h": 22
+  },
+  "sites/pt_industrial": {
+   "w": 34,
+   "h": 24
+  },
+  "sites/pt_foundry": {
+   "w": 34,
+   "h": 25
+  },
+  "sites/pt_financial": {
+   "w": 34,
+   "h": 30
+  },
+  "sites/pt_port": {
+   "w": 35,
+   "h": 21
+  },
   "sites/pt_mine": {
    "w": 36,
-   "h": 26
+   "h": 20
   },
   "sites/pt_base": {
    "w": 34,
-   "h": 22
+   "h": 18
   },
   "sites/pt_campus": {
    "w": 34,
-   "h": 21
+   "h": 18
   },
   "sites/pt_relay": {
    "w": 30,
-   "h": 30
+   "h": 26
   },
   "sites/pt_unclaimed": {
-   "w": 30,
-   "h": 22
+   "w": 32,
+   "h": 15
   },
   "sites/core": {
-   "w": 30,
-   "h": 35
+   "w": 24,
+   "h": 29
   },
   "sites/rift": {
-   "w": 28,
-   "h": 33,
+   "w": 22,
+   "h": 26,
    "boost": 1.7
   }
  },
