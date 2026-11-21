@@ -331,7 +331,7 @@ function loop(now: number) {
   app.chart.tick(dt);
   rend.tilt = app.photo ? app.tilt * Math.PI / 180 : 0; rend.renderK = app.photo && app.tilt > 0 ? 1 + app.tilt / 60 * 1.6 : 1;
   const views = cam.views(rend.renderK);
-  rend.frame({ cam, views, chart: app.chart, fog: S.fog, time: app.time, hover: app.hover?.ref, sel: app.sel?.ref, photo: app.photo, labels: app.photo ? app.photoLabels : S.labels, hideBody: surface.active && surface.fade >= 1 ? surface.idx : -1 });
+  rend.frame({ cam, views, chart: app.chart, fog: S.fog, time: app.time, hover: app.hover?.ref, sel: app.sel?.ref, photo: app.photo, labels: app.photo ? app.photoLabels : S.labels, hideBody: surface.active && surface.fade >= 1 ? surface.idx : -1, skipScene: surface.opaque() });
   if (surface.active) { surface.render(rend, app.time); if (surface.kb > 0.05) { rend.picks = []; rend.labels = []; } }
   else fleet.draw(rend);
   rend.blit({ photo: app.photo });

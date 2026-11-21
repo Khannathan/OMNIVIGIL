@@ -16,7 +16,7 @@ import { smooth, hu } from '../core/hash';
 
 export interface Pick { x: number; y: number; r: number; kind: 'galaxy' | 'ufeat' | 'gfeat' | 'star' | 'body'; ref: any; pri: number; label?: string; col?: string }
 export interface Label { text: string; x: number; y: number; pri: number; col: string; sub?: string; big?: boolean }
-export interface FrameIn { cam: Camera; views: Views; chart: Chart; fog: boolean; time: number; hover: any; sel: any; photo: boolean; labels: boolean; hideBody?: number }
+export interface FrameIn { cam: Camera; views: Views; chart: Chart; fog: boolean; time: number; hover: any; sel: any; photo: boolean; labels: boolean; hideBody?: number; skipScene?: boolean }
 
 const SL = new Map<string, StarLook>();
 const slook = (id: string) => { let s = SL.get(id); if (!s) { s = starLook(id); SL.set(id, s); } return s; };
@@ -72,6 +72,7 @@ export class Renderer {
     this.picks = []; this.labels = []; this.visStars = []; this.xf = {}; const S = this.stats; S.gal = S.stars = S.feats = S.bodies = S.cells = 0;
     gl.bindFramebuffer(gl.FRAMEBUFFER, this.fbo); gl.viewport(0, 0, bw, bh); gl.disable(gl.BLEND);
     gl.clearColor(0.016, 0.018, 0.035, 1); gl.clear(gl.COLOR_BUFFER_BIT);
+    if (F.skipScene) return; // the planet's ground covers the whole screen
     const uni = cam.uni;
     // ---------------- universe frame
     const U = V.U, uppu = bh / (2 * U.H);
